@@ -1,3 +1,4 @@
+import 'package:expense_app_beginner/AddExpense.dart';
 import 'package:expense_app_beginner/MyDrawer.dart';
 import 'package:expense_app_beginner/Resources/Strings.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +11,14 @@ class TodayPage extends StatefulWidget {
 }
 
 class _TodayPageState extends State<TodayPage> {
+  void _openAddExpense() {
+    showDialog(
+      context: context,
+      builder: (_) => AddExpense(),
+      barrierDismissible: false,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<TodayModel>(builder: (context, todayModel, child) {
@@ -35,7 +44,7 @@ class _TodayPageState extends State<TodayPage> {
         ),
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.add),
-          onPressed: todayModel.addExpense,
+          onPressed: _openAddExpense,
         ),
       );
     });

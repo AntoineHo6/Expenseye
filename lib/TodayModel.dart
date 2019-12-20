@@ -17,8 +17,8 @@ class TodayModel extends ChangeNotifier {
     }
   }
 
-  void addExpense() {
-    expenses.add(Expense('expense $expenseCounter', 21));
+  void addExpense(String name, double price) {
+    expenses.add(Expense(name, price));
     notifyListeners();
 
     expenseCounter++;

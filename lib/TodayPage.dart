@@ -11,14 +11,6 @@ class TodayPage extends StatefulWidget {
 }
 
 class _TodayPageState extends State<TodayPage> {
-  void _openAddExpense() {
-    showDialog(
-      context: context,
-      builder: (_) => AddExpense(),
-      barrierDismissible: false,
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return Consumer<TodayModel>(builder: (context, todayModel, child) {
@@ -35,6 +27,7 @@ class _TodayPageState extends State<TodayPage> {
                     child: ListTile(
                       leading: Text(expense.price.toString()),
                       title: Text(expense.title),
+                      subtitle: Text(expense.note),
                       trailing: Text(expense.time.toString()),
                     ),
                   ),
@@ -44,9 +37,17 @@ class _TodayPageState extends State<TodayPage> {
         ),
         floatingActionButton: FloatingActionButton(
           child: Icon(Icons.add),
-          onPressed: _openAddExpense,
+          onPressed: () => openAddExpense(context),
         ),
       );
     });
   }
 }
+
+void openAddExpense(context) async {
+    showDialog(
+      context: context,
+      builder: (_) => AddExpense(),
+      barrierDismissible: false,
+    );
+  }

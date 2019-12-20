@@ -6,6 +6,6 @@ class Expense {
 
   Expense(this.title, this.price) {
     time = DateTime.now();
-    note = null;
+    note = 'Add a note!';
   }
 }

@@ -1,12 +1,12 @@
 import 'package:expense_app_beginner/Expense.dart';
 import 'package:flutter/material.dart';
 
-class TodayBloc extends ChangeNotifier {
+class ExpenseBloc extends ChangeNotifier {
   List<Expense> expenses;
   int expenseCounter = 4;
 
 
-  TodayBloc() {
+  ExpenseBloc() {
     expenses = new List();
     addDefaultExpenses();
   }

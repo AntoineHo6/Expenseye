@@ -1,5 +1,5 @@
 import 'package:expense_app_beginner/Resources/Strings.dart';
-import 'package:expense_app_beginner/Blocs/TodayBloc.dart';
+import 'package:expense_app_beginner/Blocs/ExpenseBloc.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -72,7 +72,7 @@ class _AddExpense extends State<AddExpense> {
     });
 
     if (!_isNameInvalid && !_isPriceInvalid) {
-      Provider.of<TodayBloc>(context, listen: false).addExpense(
+      Provider.of<ExpenseBloc>(context, listen: false).addExpense(
           _nameController.text, double.parse(_priceController.text));
 
       Navigator.of(context).pop();

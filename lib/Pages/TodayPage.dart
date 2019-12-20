@@ -1,9 +1,10 @@
-import 'package:expense_app_beginner/AddExpense/AddExpense.dart';
+import 'package:expense_app_beginner/Components/AddExpense.dart';
+import 'package:expense_app_beginner/Components/ExpandExpense.dart';
 import 'package:expense_app_beginner/Components/MyDrawer.dart';
 import 'package:expense_app_beginner/Resources/Strings.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:expense_app_beginner/Blocs/TodayBloc.dart';
+import 'package:expense_app_beginner/Blocs/ExpenseBloc.dart';
 
 class TodayPage extends StatefulWidget {
   @override
@@ -13,7 +14,7 @@ class TodayPage extends StatefulWidget {
 class _TodayPageState extends State<TodayPage> {
   @override
   Widget build(BuildContext context) {
-    final todayBloc = Provider.of<TodayBloc>(context);
+    final _expenseBloc = Provider.of<ExpenseBloc>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -22,14 +23,15 @@ class _TodayPageState extends State<TodayPage> {
       drawer: MyDrawer(),
       body: Center(
         child: ListView(
-          children: todayBloc.expenses
+          children: _expenseBloc.expenses
               .map(
                 (expense) => Card(
                   child: ListTile(
-                    leading: Text(expense.price.toString()),
+                    leading: Icon(Icons.fastfood),
                     title: Text(expense.title),
-                    subtitle: Text(expense.note),
-                    trailing: Text(expense.time.toString()),
+                    subtitle: Text(expense.price.toString()),
+                    trailing: Text(expense.note),
+                    onTap: _openExpandExpense,
                   ),
                 ),
               )
@@ -38,16 +40,25 @@ class _TodayPageState extends State<TodayPage> {
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
-        onPressed: () => openAddExpense(context),
+        onPressed: () => _openAddExpense(),
       ),
+    );
+  }
+
+  void _openAddExpense() {
+    showDialog(
+      context: context,
+      builder: (_) => AddExpense(),
+      barrierDismissible: false,
+    );
+  }
+
+  void _openExpandExpense() {
+    showDialog(
+      context: context,
+      builder: (_) => ExpandExpense(),
+      barrierDismissible: false,
     );
   }
 }
 
-void openAddExpense(context) async {
-  showDialog(
-    context: context,
-    builder: (_) => AddExpense(),
-    barrierDismissible: false,
-  );
-}

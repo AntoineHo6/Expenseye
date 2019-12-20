@@ -21,9 +21,9 @@ class _TodayPageState extends State<TodayPage> {
                 .map(
                   (expense) => Card(
                     child: ListTile(
-                      leading: Text('24\$'),
-                      title: Text(expense),
-                      trailing: Icon(Icons.fastfood),
+                      leading: Text(expense.price.toString()),
+                      title: Text(expense.title),
+                      trailing: Text(expense.time.toString()),
                     ),
                   ),
                 )

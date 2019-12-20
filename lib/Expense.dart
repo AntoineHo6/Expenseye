@@ -4,7 +4,8 @@ class Expense {
   String note;
   double price;
 
-  Expense(this.title, this.price, this.time) {
+  Expense(this.title, this.price) {
+    time = DateTime.now();
     note = null;
   }
 }

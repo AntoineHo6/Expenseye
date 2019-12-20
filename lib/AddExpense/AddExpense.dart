@@ -1,5 +1,5 @@
 import 'package:expense_app_beginner/Resources/Strings.dart';
-import 'package:expense_app_beginner/TodayModel.dart';
+import 'package:expense_app_beginner/Blocs/TodayBloc.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -24,16 +24,16 @@ class _AddExpense extends State<AddExpense> {
           controller: _nameController,
           decoration: InputDecoration(
             border: InputBorder.none,
-            hintText: 'Name',
-            errorText: _isNameInvalid ? 'Name can\'t be empty' : null,
+            hintText: Strings.name,
+            errorText: _isNameInvalid ? Strings.name + ' ' + Strings.cantBeEmpty : null,
           ),
         ),
         TextField(
           controller: _priceController,
           decoration: InputDecoration(
             border: InputBorder.none,
-            hintText: 'Price',
-            errorText: _isPriceInvalid ? 'Price can\'t be empty' : null,
+            hintText: Strings.price,
+            errorText: _isPriceInvalid ? Strings.price + ' ' + Strings.cantBeEmpty : null,
           ),
           keyboardType: TextInputType.number,
         ),
@@ -66,7 +66,7 @@ class _AddExpense extends State<AddExpense> {
     });
 
     if (!_isNameInvalid && !_isPriceInvalid) {
-      Provider.of<TodayModel>(context, listen: false)
+      Provider.of<TodayBloc>(context, listen: false)
           .addExpense(_nameController.text, 35);
       Navigator.of(context).pop();
     }

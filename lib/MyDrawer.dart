@@ -1,5 +1,5 @@
 import 'package:expense_app_beginner/Resources/Strings.dart';
-import 'package:expense_app_beginner/TodayModel.dart';
+import 'package:expense_app_beginner/Blocs/TodayBloc.dart';
 import 'package:flutter/material.dart';
 
 class MyDrawer extends StatelessWidget {

@@ -1,6 +1,6 @@
 # expense_app_beginner
 
-A new Flutter project.
+Learning how to create a flutter app
 
 ## Getting Started
 

@@ -1,0 +1,40 @@
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:expense_app_beginner/TodayModel.dart';
+
+class TodayPage extends StatefulWidget {
+  @override
+  _TodayPageState createState() => _TodayPageState();
+}
+
+class _TodayPageState extends State<TodayPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<TodayModel>(builder: (context, todayModel, child) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text(TodayModel.title),
+        ),
+        body: Center(
+          child: ListView(
+            children: todayModel.expenses
+                .map(
+                  (expense) => Card(
+                    child: ListTile(
+                      leading: Text('24\$'),
+                      title: Text(expense),
+                      trailing: Icon(Icons.fastfood),
+                    ),
+                  ),
+                )
+                .toList(),
+          ),
+        ),
+        floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.add),
+          onPressed: todayModel.addExpense,
+        ),
+      );
+    });
+  }
+}

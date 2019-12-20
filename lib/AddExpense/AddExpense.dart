@@ -9,23 +9,27 @@ class AddExpense extends StatefulWidget {
 }
 
 class _AddExpense extends State<AddExpense> {
+  // Name TextField
   final _nameController = TextEditingController();
   bool _isNameInvalid = false;
 
+  // Price TextField
   final _priceController = TextEditingController();
   bool _isPriceInvalid = false;
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text('New Expense'),
+      title: Text(Strings.newExpense),
       content: Column(mainAxisSize: MainAxisSize.min, children: [
         TextField(
           controller: _nameController,
           decoration: InputDecoration(
             border: InputBorder.none,
             hintText: Strings.name,
-            errorText: _isNameInvalid ? Strings.name + ' ' + Strings.cantBeEmpty : null,
+            errorText: _isNameInvalid
+                ? Strings.name + ' ' + Strings.cantBeEmpty
+                : null,
           ),
         ),
         TextField(
@@ -33,7 +37,9 @@ class _AddExpense extends State<AddExpense> {
           decoration: InputDecoration(
             border: InputBorder.none,
             hintText: Strings.price,
-            errorText: _isPriceInvalid ? Strings.price + ' ' + Strings.cantBeEmpty : null,
+            errorText: _isPriceInvalid
+                ? Strings.price + ' ' + Strings.cantBeEmpty
+                : null,
           ),
           keyboardType: TextInputType.number,
         ),
@@ -66,8 +72,9 @@ class _AddExpense extends State<AddExpense> {
     });
 
     if (!_isNameInvalid && !_isPriceInvalid) {
-      Provider.of<TodayBloc>(context, listen: false)
-          .addExpense(_nameController.text, 35);
+      Provider.of<TodayBloc>(context, listen: false).addExpense(
+          _nameController.text, double.parse(_priceController.text));
+
       Navigator.of(context).pop();
     }
   }

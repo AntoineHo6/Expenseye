@@ -14,16 +14,13 @@ class ExpandExpense extends StatefulWidget {
 }
 
 class _ExpandExpense extends State<ExpandExpense> {
-  // Price TextField
+  final _titleController = TextEditingController();
   final _priceController = TextEditingController();
-
-  // Comment TextField
   final _noteController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    final _expenseBloc = Provider.of<ExpenseBloc>(context);
-
+    _titleController.text = widget.expense.title;
     _priceController.text = widget.expense.price.toString();
     _noteController.text = widget.expense.note;
 
@@ -32,45 +29,47 @@ class _ExpandExpense extends State<ExpandExpense> {
         title: Text(widget.expense.title),
       ),
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Container(
-            width: double.infinity,
-            //height: 30,
-            child: TextField(
-              controller: _priceController,
-              maxLength: 10,
-              decoration: InputDecoration(
-                hintText: "Price",
-                border: InputBorder.none,
-              ),
-              keyboardType: TextInputType.number,
+          TextField(
+            controller: _titleController,
+            decoration: InputDecoration(
+              hintText: "Title",
+              border: InputBorder.none,
             ),
           ),
           TextField(
-            maxLines: 10,
-            maxLength: 500,
-            controller: _noteController,
+            controller: _priceController,
+            maxLength: 10,
             decoration: InputDecoration(
-              hintText: "Add a note",
-              border: OutlineInputBorder(),
+              hintText: "Price",
+              border: InputBorder.none,
+            ),
+            keyboardType: TextInputType.number,
+          ),
+          Container(
+            padding: EdgeInsets.all(15),
+            child: TextField(
+              maxLines: 5,
+              maxLength: 200,
+              controller: _noteController,
+              decoration: InputDecoration(
+                hintText: "Add a note",
+                border: OutlineInputBorder(),
+              ),
             ),
           ),
-        Container(
-          child: Row(
-            children: <Widget>[
-              
-            ],
-          ),
-        ),
         ],
       ),
     );
   }
 
   @override
-    void dispose() {
-      _priceController.dispose();
-      _noteController.dispose();
-      super.dispose();
-    }
+  void dispose() {
+    //final _expenseBloc = Provider.of<ExpenseBloc>(context); MAKE A FUNC to refer to this
+    _priceController.dispose();
+    _noteController.dispose();
+    print('Going back to todayPage');
+    super.dispose();
+  }
 }

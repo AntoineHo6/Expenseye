@@ -1,6 +1,7 @@
 import 'package:expense_app_beginner/Components/AddExpense.dart';
 import 'package:expense_app_beginner/Components/ExpandExpense.dart';
 import 'package:expense_app_beginner/Components/MyDrawer.dart';
+import 'package:expense_app_beginner/Expense.dart';
 import 'package:expense_app_beginner/Resources/Strings.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -30,8 +31,11 @@ class _TodayPageState extends State<TodayPage> {
                     leading: Icon(Icons.fastfood),
                     title: Text(expense.title),
                     subtitle: Text(expense.price.toString()),
-                    trailing: Text(expense.note),
-                    onTap: _openExpandExpense,
+                    trailing: Text(
+                      expense.note,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    onTap: () => _openExpandExpense(expense),
                   ),
                 ),
               )
@@ -53,12 +57,10 @@ class _TodayPageState extends State<TodayPage> {
     );
   }
 
-  void _openExpandExpense() {
-    showDialog(
-      context: context,
-      builder: (_) => ExpandExpense(),
-      barrierDismissible: false,
+  void _openExpandExpense(Expense expense) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => ExpandExpense(expense)),
     );
   }
 }
-

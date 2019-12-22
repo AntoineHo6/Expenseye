@@ -9,4 +9,6 @@ class Strings {
   static const String name = 'Name';
   static const String price = 'Price';
   static const String cantBeEmpty = 'can\'t be empty';
+
+  static const String saveCaps = 'SAVE';
 }

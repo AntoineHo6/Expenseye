@@ -34,6 +34,7 @@ class _AddExpense extends State<AddExpense> {
         ),
         TextField(
           controller: _priceController,
+          maxLength: 10,
           decoration: InputDecoration(
             border: InputBorder.none,
             hintText: Strings.price,
@@ -72,7 +73,7 @@ class _AddExpense extends State<AddExpense> {
     });
 
     if (!_isNameInvalid && !_isPriceInvalid) {
-      Provider.of<ExpenseBloc>(context, listen: false).addExpense(
+      Provider.of<ExpenseBloc>(context).addExpense(
           _nameController.text, double.parse(_priceController.text));
 
       Navigator.of(context).pop();

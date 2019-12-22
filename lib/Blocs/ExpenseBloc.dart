@@ -23,4 +23,12 @@ class ExpenseBloc extends ChangeNotifier {
 
     expenseCounter++;
   }
+
+  void editExpense(Expense expense, {String title, double price, String note, Image image}) {
+    if (price != null) expense.price = price;
+
+    if (note != null) expense.note = note;
+    
+    notifyListeners();
+  }
 }

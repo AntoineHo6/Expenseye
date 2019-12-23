@@ -1,11 +1,11 @@
-import 'package:expense_app_beginner/Components/AddExpense.dart';
-import 'package:expense_app_beginner/Components/ExpandExpense.dart';
-import 'package:expense_app_beginner/Components/MyDrawer.dart';
+import 'package:expense_app_beginner/Components/add_expense.dart';
+import 'package:expense_app_beginner/Components/expand_expense.dart';
+import 'package:expense_app_beginner/Components/my_drawer.dart';
 import 'package:expense_app_beginner/Expense.dart';
 import 'package:expense_app_beginner/Resources/Strings.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:expense_app_beginner/Blocs/ExpenseBloc.dart';
+import 'package:expense_app_beginner/Blocs/expense_bloc.dart';
 
 class TodayPage extends StatefulWidget {
   @override

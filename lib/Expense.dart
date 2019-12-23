@@ -8,7 +8,7 @@ class Expense {
   Image image;
 
   Expense(this.title, this.price) {
-    time = DateTime.now();
-    note = 'Add a note!';
+    time = DateTime.now();  // later put it as an arg
+    note = '';
   }
 }

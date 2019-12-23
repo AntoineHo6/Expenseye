@@ -1,8 +1,5 @@
-import 'package:expense_app_beginner/Blocs/ExpenseBloc.dart';
 import 'package:expense_app_beginner/Expense.dart';
-import 'package:expense_app_beginner/Resources/Strings.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class ExpandExpense extends StatefulWidget {
   final Expense expense;
@@ -54,7 +51,7 @@ class _ExpandExpense extends State<ExpandExpense> {
               maxLength: 200,
               controller: _noteController,
               decoration: InputDecoration(
-                hintText: "Add a note",
+                hintText: "Add a note!",
                 border: OutlineInputBorder(),
               ),
             ),
@@ -66,10 +63,15 @@ class _ExpandExpense extends State<ExpandExpense> {
 
   @override
   void dispose() {
-    //final _expenseBloc = Provider.of<ExpenseBloc>(context); MAKE A FUNC to refer to this
     _priceController.dispose();
     _noteController.dispose();
     print('Going back to todayPage');
     super.dispose();
   }
 }
+
+
+/**
+ * TODO: update expense information on dispose() with:
+ * TODO:    final _expenseBloc = Provider.of<ExpenseBloc>(context);
+ */

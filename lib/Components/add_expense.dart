@@ -1,5 +1,5 @@
 import 'package:expense_app_beginner/Resources/Strings.dart';
-import 'package:expense_app_beginner/Blocs/ExpenseBloc.dart';
+import 'package:expense_app_beginner/Blocs/expense_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -49,7 +49,7 @@ class _AddExpense extends State<AddExpense> {
         new FlatButton(
           child: new Text(Strings.cancelCaps),
           onPressed: () {
-            Navigator.of(context).pop();
+            quit();
           },
         ),
         new FlatButton(
@@ -76,8 +76,12 @@ class _AddExpense extends State<AddExpense> {
       Provider.of<ExpenseBloc>(context).addExpense(
           _nameController.text, double.parse(_priceController.text));
 
-      Navigator.of(context).pop();
+      quit();
     }
+  }
+
+  void quit() {
+    Navigator.of(context).pop();
   }
 
   @override
@@ -87,3 +91,8 @@ class _AddExpense extends State<AddExpense> {
     super.dispose();
   }
 }
+
+/**
+ * TODO: Make textFields custom widgets for reusability and reduce code lines
+ * TODO: add date and time for expense
+ */

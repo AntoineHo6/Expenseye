@@ -16,16 +16,15 @@ class ExpenseBloc extends ChangeNotifier {
       expenses.add(Expense('expense $i', 35));
     }
   }
-  
+
   void addExpense(String name, double price) {
     expenses.add(Expense(name, price));
     notifyListeners();
   }
 
-  void editExpense(Expense expense, {String title, double price, String note, Image image}) {
+  void editExpense(Expense expense, {String title, double price, Image image}) {
     if (title != null) expense.title = title;
     if (price != null) expense.price = price;
-    if (note != null) expense.note = note;
     // * add image
     
     notifyListeners();

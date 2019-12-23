@@ -1,5 +1,8 @@
+import 'package:expense_app_beginner/Blocs/expense_bloc.dart';
 import 'package:expense_app_beginner/Expense.dart';
+import 'package:expense_app_beginner/Resources/Strings.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ExpandExpense extends StatefulWidget {
   final Expense expense;
@@ -12,24 +15,23 @@ class ExpandExpense extends StatefulWidget {
 
 class _ExpandExpense extends State<ExpandExpense> {
   final _titleController = TextEditingController();
+
   final _priceController = TextEditingController();
-  final _noteController = TextEditingController();
+  bool _isPriceInvalid = false;
+
+  bool didInfoChange = false;
 
   @override
   Widget build(BuildContext context) {
-    _titleController.text = widget.expense.title;
-    _priceController.text = widget.expense.price.toString();
-    _noteController.text = widget.expense.note;
-
     return new Scaffold(
       appBar: AppBar(
         title: Text(widget.expense.title),
       ),
       body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           TextField(
             controller: _titleController,
+            onChanged: _infoChanged,
             decoration: InputDecoration(
               hintText: "Title",
               border: InputBorder.none,
@@ -38,40 +40,66 @@ class _ExpandExpense extends State<ExpandExpense> {
           TextField(
             controller: _priceController,
             maxLength: 10,
+            onChanged: _infoChanged,
             decoration: InputDecoration(
               hintText: "Price",
-              border: InputBorder.none,
+              //border: InputBorder.none,
+              errorText: _isPriceInvalid
+                ? Strings.price + ' ' + Strings.cantBeEmpty
+                : null,
             ),
             keyboardType: TextInputType.number,
           ),
-          Container(
-            padding: EdgeInsets.all(15),
-            child: TextField(
-              maxLines: 5,
-              maxLength: 200,
-              controller: _noteController,
-              decoration: InputDecoration(
-                hintText: "Add a note!",
-                border: OutlineInputBorder(),
-              ),
-            ),
-          ),
+          RaisedButton(
+            child: Text(Strings.saveCaps),
+            onPressed: didInfoChange ? _save : null,
+          )
         ],
       ),
     );
   }
 
+  void _infoChanged(String text){
+    setState(() {
+      didInfoChange = true;
+    });
+  }
+
+  void _save() {
+    String newTitle = _titleController.text;
+
+    double newPrice;
+    try {
+      _isPriceInvalid = false;
+      newPrice = double.parse(_priceController.text);
+    }
+    on FormatException {
+      setState(() {
+        _isPriceInvalid = true;
+      });
+    }
+
+    Provider.of<ExpenseBloc>(context)
+        .editExpense(widget.expense, title: newTitle, price: newPrice);
+  }
+
   @override
   void dispose() {
+    _titleController.dispose();
     _priceController.dispose();
-    _noteController.dispose();
-    print('Going back to todayPage');
     super.dispose();
   }
-}
 
+  @override
+  void initState() {
+    _titleController.text = widget.expense.title;
+    _priceController.text = widget.expense.price.toString();
+    super.initState();
+  }
+}
 
 /**
  * TODO: update expense information on dispose() with:
  * TODO:    final _expenseBloc = Provider.of<ExpenseBloc>(context);
+ * TODO: make a bloc for this class instead of redundant setState()
  */

@@ -31,11 +31,7 @@ class _TodayPageState extends State<TodayPage> {
                     leading: Icon(Icons.fastfood),
                     title: Text(expense.title),
                     subtitle: Text(expense.price.toString()),
-                    trailing: Text(
-                      expense.note,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    onTap: () => _openExpandExpense(expense),
+                    onLongPress: () => _openExpandExpense(expense),
                   ),
                 ),
               )

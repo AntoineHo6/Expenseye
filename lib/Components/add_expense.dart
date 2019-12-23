@@ -72,6 +72,7 @@ class _AddExpense extends State<AddExpense> {
           : _isPriceInvalid = false;
     });
 
+    // if both fields have valid values
     if (!_isNameInvalid && !_isPriceInvalid) {
       Provider.of<ExpenseBloc>(context).addExpense(
           _nameController.text, double.parse(_priceController.text));
@@ -95,4 +96,6 @@ class _AddExpense extends State<AddExpense> {
 /**
  * TODO: Make textFields custom widgets for reusability and reduce code lines
  * TODO: add date and time for expense
+ * TODO: Check if price is also invalid
+ * TODO: Change price error text to invalid instead
  */

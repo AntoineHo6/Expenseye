@@ -1,5 +1,6 @@
+import 'package:expense_app_beginner/Blocs/expand_expense_bloc.dart';
 import 'package:expense_app_beginner/Components/add_expense.dart';
-import 'package:expense_app_beginner/Components/expand_expense.dart';
+import 'package:expense_app_beginner/Pages/expand_expense.dart';
 import 'package:expense_app_beginner/Components/my_drawer.dart';
 import 'package:expense_app_beginner/Expense.dart';
 import 'package:expense_app_beginner/Resources/Strings.dart';

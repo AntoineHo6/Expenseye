@@ -1,3 +1,4 @@
+import 'package:expense_app_beginner/Blocs/expand_expense_bloc.dart';
 import 'package:expense_app_beginner/Blocs/expense_bloc.dart';
 import 'package:expense_app_beginner/Expense.dart';
 import 'package:expense_app_beginner/Resources/Strings.dart';
@@ -15,14 +16,15 @@ class ExpandExpense extends StatefulWidget {
 
 class _ExpandExpense extends State<ExpandExpense> {
   final _titleController = TextEditingController();
+  //bool _isTitleInvalid = false;
 
   final _priceController = TextEditingController();
-  bool _isPriceInvalid = false;
-
-  bool didInfoChange = false;
+  //bool _isPriceInvalid = false;
 
   @override
   Widget build(BuildContext context) {
+    final bloc = Provider.of<ExpandExpenseBloc>(context);
+
     return new Scaffold(
       appBar: AppBar(
         title: Text(widget.expense.title),
@@ -31,7 +33,7 @@ class _ExpandExpense extends State<ExpandExpense> {
         children: <Widget>[
           TextField(
             controller: _titleController,
-            onChanged: _infoChanged,
+            onChanged: bloc.infoChanged,
             decoration: InputDecoration(
               hintText: "Title",
               border: InputBorder.none,
@@ -40,47 +42,36 @@ class _ExpandExpense extends State<ExpandExpense> {
           TextField(
             controller: _priceController,
             maxLength: 10,
-            onChanged: _infoChanged,
+            onChanged: bloc.infoChanged,
             decoration: InputDecoration(
               hintText: "Price",
               //border: InputBorder.none,
-              errorText: _isPriceInvalid
-                ? Strings.price + ' ' + Strings.cantBeEmpty
-                : null,
+              errorText: bloc.isPriceInvalid
+                  ? Strings.price + ' ' + Strings.cantBeEmpty
+                  : null,
             ),
             keyboardType: TextInputType.number,
           ),
           RaisedButton(
             child: Text(Strings.saveCaps),
-            onPressed: didInfoChange ? _save : null,
-          )
+            onPressed: bloc.didInfoChange ? _save : null,
+          ),
         ],
       ),
     );
   }
 
-  void _infoChanged(String text){
-    setState(() {
-      didInfoChange = true;
-    });
-  }
-
   void _save() {
-    String newTitle = _titleController.text;
+    final expandExpenseBloc = Provider.of<ExpandExpenseBloc>(context);
+    
+    expandExpenseBloc.checkFieldsInvalid(_priceController.text);
 
-    double newPrice;
-    try {
-      _isPriceInvalid = false;
-      newPrice = double.parse(_priceController.text);
-    }
-    on FormatException {
-      setState(() {
-        _isPriceInvalid = true;
-      });
+    if (!expandExpenseBloc.areFieldsInvalid) {
+      Provider.of<ExpenseBloc>(context)
+        .editExpense(widget.expense, price: double.parse(_priceController.text));
     }
 
-    Provider.of<ExpenseBloc>(context)
-        .editExpense(widget.expense, title: newTitle, price: newPrice);
+    Navigator.pop(context); 
   }
 
   @override

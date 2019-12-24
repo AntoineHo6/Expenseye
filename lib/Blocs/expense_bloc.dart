@@ -10,7 +10,7 @@ class ExpenseBloc extends ChangeNotifier {
     addDefaultExpenses();
   }
 
-  // ! TEMP method. to remove later
+  // * TEMP method. to remove later
   void addDefaultExpenses() {
     for (var i = 1; i < 4; i++) {
       expenses.add(Expense('expense $i', 35));
@@ -25,7 +25,7 @@ class ExpenseBloc extends ChangeNotifier {
   void editExpense(Expense expense, {String title, double price, Image image}) {
     if (title != null) expense.title = title;
     if (price != null) expense.price = price;
-    // * add image
+    // add image
     
     notifyListeners();
   }

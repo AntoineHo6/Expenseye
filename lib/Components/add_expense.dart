@@ -1,4 +1,5 @@
 import 'package:expense_app_beginner/ChangeNotifiers/edit_add_expense_model.dart';
+import 'package:expense_app_beginner/Components/date_picker_btn.dart';
 import 'package:expense_app_beginner/Resources/Strings.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -19,31 +20,35 @@ class _AddExpense extends State<AddExpense> {
       child: Consumer<EditAddExpenseModel>(
         builder: (context, model, child) => AlertDialog(
           title: Text(Strings.newExpense),
-          content: Column(mainAxisSize: MainAxisSize.min, children: [
-            TextField(
-              maxLength: 50,
-              controller: _nameController,
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                hintText: Strings.name,
-                errorText: model.isNameInvalid
-                    ? Strings.name + ' ' + Strings.isInvalid
-                    : null,
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              TextField(
+                maxLength: 50,
+                controller: _nameController,
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  hintText: Strings.name,
+                  errorText: model.isNameInvalid
+                      ? Strings.name + ' ' + Strings.isInvalid
+                      : null,
+                ),
               ),
-            ),
-            TextField(
-              maxLength: 10,
-              controller: _priceController,
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                hintText: Strings.price,
-                errorText: model.isPriceInvalid
-                    ? Strings.price + ' ' + Strings.isInvalid
-                    : null,
+              TextField(
+                maxLength: 10,
+                controller: _priceController,
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  hintText: Strings.price,
+                  errorText: model.isPriceInvalid
+                      ? Strings.price + ' ' + Strings.isInvalid
+                      : null,
+                ),
+                keyboardType: TextInputType.number,
               ),
-              keyboardType: TextInputType.number,
-            ),
-          ]),
+              DatePickerBtn(model),
+            ],
+          ),
           actions: <Widget>[
             new FlatButton(
               child: new Text(Strings.cancelCaps),
@@ -66,7 +71,7 @@ class _AddExpense extends State<AddExpense> {
   void _save(EditAddExpenseModel localNotifier) {
     final String newName = _nameController.text;
     final String newPrice = _priceController.text;
-    
+
     localNotifier.saveAddedExpense(context, name: newName, price: newPrice);
   }
 
@@ -79,7 +84,5 @@ class _AddExpense extends State<AddExpense> {
 }
 
 /**
- * TODO: Make textFields custom widgets for reusability and reduce code lines
  * TODO: add date and time for expense
- * TODO: Check if price is also invalid
  */

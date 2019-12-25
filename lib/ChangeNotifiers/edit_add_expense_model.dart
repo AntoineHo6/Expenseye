@@ -10,6 +10,9 @@ class EditAddExpenseModel extends ChangeNotifier {
   bool isPriceInvalid = false;
   bool areFieldsInvalid = false;
 
+  // * Only used when adding an expense
+  DateTime date;
+
   void infoChanged(String text) {
     didInfoChange = true;
     notifyListeners();

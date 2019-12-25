@@ -1,11 +1,11 @@
 import 'package:expense_app_beginner/Expense.dart';
 import 'package:flutter/material.dart';
 
-class ExpenseBloc extends ChangeNotifier {
+class ExpenseModel extends ChangeNotifier {
   List<Expense> expenses;
 
 
-  ExpenseBloc() {
+  ExpenseModel() {
     expenses = new List();
     addDefaultExpenses();
   }

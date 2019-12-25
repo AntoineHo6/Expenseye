@@ -1,4 +1,3 @@
-import 'package:expense_app_beginner/Blocs/expand_expense_bloc.dart';
 import 'package:expense_app_beginner/Components/add_expense.dart';
 import 'package:expense_app_beginner/Pages/expand_expense.dart';
 import 'package:expense_app_beginner/Components/my_drawer.dart';
@@ -6,7 +5,7 @@ import 'package:expense_app_beginner/Expense.dart';
 import 'package:expense_app_beginner/Resources/Strings.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:expense_app_beginner/Blocs/expense_bloc.dart';
+import 'package:expense_app_beginner/ChangeNotifiers/Global/expense_model.dart';
 
 class TodayPage extends StatefulWidget {
   @override
@@ -16,7 +15,7 @@ class TodayPage extends StatefulWidget {
 class _TodayPageState extends State<TodayPage> {
   @override
   Widget build(BuildContext context) {
-    final _expenseBloc = Provider.of<ExpenseBloc>(context);
+    final _expenseBloc = Provider.of<ExpenseModel>(context);
 
     return Scaffold(
       appBar: AppBar(

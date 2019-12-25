@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class ExpandExpenseBloc extends ChangeNotifier {
+class ExpandExpenseModel extends ChangeNotifier {
   bool didInfoChange = false;
 
   bool isTitleInvalid = false;

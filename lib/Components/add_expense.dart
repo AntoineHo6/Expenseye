@@ -1,5 +1,5 @@
 import 'package:expense_app_beginner/Resources/Strings.dart';
-import 'package:expense_app_beginner/Blocs/expense_bloc.dart';
+import 'package:expense_app_beginner/ChangeNotifiers/Global/expense_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -72,9 +72,10 @@ class _AddExpense extends State<AddExpense> {
           : _isPriceInvalid = false;
     });
 
+    // ExpenseBlocds
     // if both fields have valid values
     if (!_isNameInvalid && !_isPriceInvalid) {
-      Provider.of<ExpenseBloc>(context).addExpense(
+      Provider.of<ExpenseModel>(context).addExpense(
           _nameController.text, double.parse(_priceController.text));
 
       quit();

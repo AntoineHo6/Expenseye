@@ -1,4 +1,4 @@
-# expense_app_beginner
+# expense_app
 
 Learning how to create a flutter app
 

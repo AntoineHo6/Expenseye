@@ -28,7 +28,7 @@ class _AddExpense extends State<AddExpense> {
             border: InputBorder.none,
             hintText: Strings.name,
             errorText: _isNameInvalid
-                ? Strings.name + ' ' + Strings.cantBeEmpty
+                ? Strings.name + ' ' + Strings.isInvalid
                 : null,
           ),
         ),
@@ -39,7 +39,7 @@ class _AddExpense extends State<AddExpense> {
             border: InputBorder.none,
             hintText: Strings.price,
             errorText: _isPriceInvalid
-                ? Strings.price + ' ' + Strings.cantBeEmpty
+                ? Strings.price + ' ' + Strings.isInvalid
                 : null,
           ),
           keyboardType: TextInputType.number,

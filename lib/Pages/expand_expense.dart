@@ -16,10 +16,7 @@ class ExpandExpense extends StatefulWidget {
 
 class _ExpandExpense extends State<ExpandExpense> {
   final _nameController = TextEditingController();
-  //bool _isTitleInvalid = false;
-
   final _priceController = TextEditingController();
-  //bool _isPriceInvalid = false;
 
   @override
   Widget build(BuildContext context) {
@@ -32,33 +29,70 @@ class _ExpandExpense extends State<ExpandExpense> {
           ),
           body: Column(
             children: <Widget>[
-              TextField(
-                maxLength: 50,
-                controller: _nameController,
-                onChanged: model.infoChanged,
-                decoration: InputDecoration(
-                  hintText: Strings.name,
-                  border: InputBorder.none,
-                  errorText: model.isNameInvalid
-                      ? Strings.name + ' ' + Strings.isInvalid
-                      : null,
+              Container(
+                color: Colors.yellowAccent, // * Temporary
+                padding: EdgeInsets.all(20),
+                margin: EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                  children: <Widget>[
+                    SizedBox(
+                      width: double.infinity,
+                      child: Text(
+                        Strings.name + ' :',
+                        textAlign: TextAlign.left,
+                        style: Theme.of(context).textTheme.title,
+                      ),
+                    ),
+                    TextField(
+                      //textAlign: TextAlign.center,
+                      maxLength: 50,
+                      controller: _nameController,
+                      onChanged: model.infoChanged,
+                      decoration: InputDecoration(
+                        hintText: Strings.name,
+                        errorText: model.isNameInvalid
+                            ? Strings.name + ' ' + Strings.isInvalid
+                            : null,
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              TextField(
-                maxLength: 10,
-                controller: _priceController,
-                onChanged: model.infoChanged,
-                decoration: InputDecoration(
-                  hintText: Strings.price,
-                  //border: InputBorder.none,
-                  errorText: model.isPriceInvalid
-                      ? Strings.price + ' ' + Strings.isInvalid
-                      : null,
+              Container(
+                color: Colors.amber, // * Temporary
+                padding: EdgeInsets.all(20),
+                margin: EdgeInsets.symmetric(horizontal: 20),
+                //color: Colors.blueAccent,
+                child: Column(
+                  children: <Widget>[
+                    SizedBox(
+                      width: double.infinity,
+                      child: Text(
+                        Strings.price + ' :',
+                        textAlign: TextAlign.left,
+                        style: Theme.of(context).textTheme.title,
+                      ),
+                    ),
+                    TextField(
+                      maxLength: 10,
+                      controller: _priceController,
+                      onChanged: model.infoChanged,
+                      decoration: InputDecoration(
+                        hintText: Strings.price,
+                        errorText: model.isPriceInvalid
+                            ? Strings.price + ' ' + Strings.isInvalid
+                            : null,
+                      ),
+                      keyboardType: TextInputType.number,
+                    ),
+                  ],
                 ),
-                keyboardType: TextInputType.number,
               ),
               RaisedButton(
-                child: Text(Strings.saveCaps),
+                child: Text(
+                  Strings.saveCaps,
+                  style: Theme.of(context).textTheme.button,
+                ),
                 onPressed: model.didInfoChange ? () => _save(model) : null,
               ),
             ],

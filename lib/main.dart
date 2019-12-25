@@ -12,6 +12,11 @@ class MyApp extends StatelessWidget {
       create: (_) => new ExpenseModel(),
       child: MaterialApp(
         home: TodayPage(),
+        theme: ThemeData(
+          textTheme: TextTheme(
+            // TODO: add custom font and shit
+          ),
+        ),
       ),
     );
   }

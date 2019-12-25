@@ -20,25 +20,17 @@ class ExpandExpenseModel extends ChangeNotifier {
     try {
       double.parse(price);
       isPriceInvalid = false;
-    } 
-    on FormatException {
+    } on FormatException {
       isPriceInvalid = true;
     }
 
-    // update var areFieldsInvalid
+    // update areFieldsInvalid
     if (!isNameInvalid && !isPriceInvalid) {
       areFieldsInvalid = false;
-    }
-    else {
+    } else {
       areFieldsInvalid = true;
     }
 
     notifyListeners();
-  }
-
-  void save() {
-    if (!isPriceInvalid) {
-      
-    }
   }
 }

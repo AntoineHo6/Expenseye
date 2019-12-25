@@ -17,8 +17,8 @@ class ExpenseModel extends ChangeNotifier {
     }
   }
 
-  void addExpense(String name, double price) {
-    expenses.add(Expense(name, price));
+  void addExpense(String name, String price) {
+    expenses.add(Expense(name, double.parse(price)));
     notifyListeners();
   }
 

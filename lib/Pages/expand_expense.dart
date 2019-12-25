@@ -1,4 +1,4 @@
-import 'package:expense_app_beginner/ChangeNotifiers/expand_expense_model.dart';
+import 'package:expense_app_beginner/ChangeNotifiers/edit_add_expense_model.dart';
 import 'package:expense_app_beginner/ChangeNotifiers/Global/expense_model.dart';
 import 'package:expense_app_beginner/Components/name_field_container.dart';
 import 'package:expense_app_beginner/Components/price_field_container.dart';
@@ -22,9 +22,9 @@ class _ExpandExpense extends State<ExpandExpense> {
 
   @override
   Widget build(BuildContext context) {
-    return new ChangeNotifierProvider<ExpandExpenseModel>(
-      create: (_) => new ExpandExpenseModel(),
-      child: Consumer<ExpandExpenseModel>(
+    return new ChangeNotifierProvider<EditAddExpenseModel>(
+      create: (_) => new EditAddExpenseModel(),
+      child: Consumer<EditAddExpenseModel>(
         builder: (context, model, child) => Scaffold(
           appBar: AppBar(
             title: Text(widget.expense.name),
@@ -49,19 +49,12 @@ class _ExpandExpense extends State<ExpandExpense> {
     );
   }
 
-  void _save(ExpandExpenseModel localNotifier) {
-    // 1. will check and show error msg if a field is invalid
+  void _save(EditAddExpenseModel localNotifier) {
     final String newName = _nameController.text;
     final String newPrice = _priceController.text;
-    localNotifier.checkFieldsInvalid(name: newName, price: newPrice);
 
-    // 2. if all the fields are valid, update and quit
-    if (!localNotifier.areFieldsInvalid) {
-      Provider.of<ExpenseModel>(context)
-          .editExpense(widget.expense, name: newName, price: newPrice);
-
-      Navigator.pop(context);
-    }
+    localNotifier.saveEditedExpense(context, widget.expense,
+        name: newName, price: newPrice);
   }
 
   @override

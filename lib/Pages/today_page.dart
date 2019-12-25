@@ -15,28 +15,41 @@ class TodayPage extends StatefulWidget {
 class _TodayPageState extends State<TodayPage> {
   @override
   Widget build(BuildContext context) {
-    final _expenseBloc = Provider.of<ExpenseModel>(context);
+    final _expenseModel = Provider.of<ExpenseModel>(context);
 
     return Scaffold(
       appBar: AppBar(
         title: Text(Strings.todaysExpenses),
       ),
       drawer: MyDrawer(),
-      body: Center(
-        child: ListView(
-          children: _expenseBloc.expenses
-              .map(
-                (expense) => Card(
-                  child: ListTile(
-                    leading: Icon(Icons.fastfood),
-                    title: Text(expense.name),
-                    subtitle: Text(expense.price.toString()),
-                    onLongPress: () => _openExpandExpense(expense),
-                  ),
-                ),
-              )
-              .toList(),
-        ),
+      body: Column(
+        children: <Widget>[
+          Container(
+            padding: EdgeInsets.all(20),
+            margin: EdgeInsets.symmetric(horizontal: 20),
+            //color: Colors.amber,
+            child: Text(
+              Strings.total + ': ' + _expenseModel.calcTodaysTotal().toString(),
+              style: Theme.of(context).textTheme.display1,
+            ),
+          ),
+          Expanded(
+            child: ListView(
+              children: _expenseModel.todaysExpenses
+                  .map(
+                    (expense) => Card(
+                      child: ListTile(
+                        leading: Icon(Icons.fastfood),
+                        title: Text(expense.name),
+                        subtitle: Text(expense.price.toString()),
+                        onLongPress: () => _openExpandExpense(expense),
+                      ),
+                    ),
+                  )
+                  .toList(),
+            ),
+          ),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),

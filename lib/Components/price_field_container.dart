@@ -11,7 +11,7 @@ class PriceFieldContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.amber, // * Temporary
+      //color: Colors.amber, // * Temporary
       padding: EdgeInsets.all(20),
       margin: EdgeInsets.symmetric(horizontal: 20),
       //color: Colors.blueAccent,

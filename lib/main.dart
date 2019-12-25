@@ -14,10 +14,21 @@ class MyApp extends StatelessWidget {
         home: TodayPage(),
         theme: ThemeData(
           textTheme: TextTheme(
-            // TODO: add custom font and shit
+            // TODO: add custom fonts and shit
           ),
         ),
       ),
     );
   }
 }
+
+/**
+ * TODO: types of expenses. Allow user to create their own type of expense.
+ * 
+ * TODO: Create settings
+ * 
+ * TODO: Create stats page
+ * 
+ * TODO: Create calendar page
+ */
+

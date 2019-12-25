@@ -1,5 +1,4 @@
 import 'package:expense_app_beginner/ChangeNotifiers/edit_add_expense_model.dart';
-import 'package:expense_app_beginner/ChangeNotifiers/Global/expense_model.dart';
 import 'package:expense_app_beginner/Components/name_field_container.dart';
 import 'package:expense_app_beginner/Components/price_field_container.dart';
 import 'package:expense_app_beginner/Models/Expense.dart';

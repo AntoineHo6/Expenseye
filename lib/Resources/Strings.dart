@@ -10,6 +10,7 @@ class Strings {
   static const String newExpense = 'New expense';
   static const String name = 'Name';
   static const String price = 'Price';
+  static const String total = 'Total';
 
   // * ERROR messages
   static const String cantBeEmpty = 'can\'t be empty';

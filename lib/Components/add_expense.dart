@@ -1,6 +1,5 @@
 import 'package:expense_app_beginner/ChangeNotifiers/edit_add_expense_model.dart';
 import 'package:expense_app_beginner/Resources/Strings.dart';
-import 'package:expense_app_beginner/ChangeNotifiers/Global/expense_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

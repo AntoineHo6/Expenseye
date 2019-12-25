@@ -1,7 +1,7 @@
 import 'package:expense_app_beginner/Components/add_expense.dart';
 import 'package:expense_app_beginner/Pages/expand_expense.dart';
 import 'package:expense_app_beginner/Components/my_drawer.dart';
-import 'package:expense_app_beginner/Expense.dart';
+import 'package:expense_app_beginner/Models/Expense.dart';
 import 'package:expense_app_beginner/Resources/Strings.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -29,7 +29,7 @@ class _TodayPageState extends State<TodayPage> {
                 (expense) => Card(
                   child: ListTile(
                     leading: Icon(Icons.fastfood),
-                    title: Text(expense.title),
+                    title: Text(expense.name),
                     subtitle: Text(expense.price.toString()),
                     onLongPress: () => _openExpandExpense(expense),
                   ),

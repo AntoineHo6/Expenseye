@@ -3,9 +3,8 @@ import 'package:flutter/material.dart';
 class ExpandExpenseModel extends ChangeNotifier {
   bool didInfoChange = false;
 
-  bool isTitleInvalid = false;
+  bool isNameInvalid = false;
   bool isPriceInvalid = false;
-
   bool areFieldsInvalid = false;
 
   void infoChanged(String text) {
@@ -13,17 +12,21 @@ class ExpandExpenseModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void checkFieldsInvalid(String priceText) {
-    //double newPrice;
+  void checkFieldsInvalid({String name, String price}) {
+    // check NAME field
+    isNameInvalid = name.isEmpty ? true : false;
+
+    // check PRICE field
     try {
+      double.parse(price);
       isPriceInvalid = false;
-      final newPrice = double.parse(priceText);
     } 
     on FormatException {
       isPriceInvalid = true;
     }
 
-    if (!isPriceInvalid) {
+    // update var areFieldsInvalid
+    if (!isNameInvalid && !isPriceInvalid) {
       areFieldsInvalid = false;
     }
     else {

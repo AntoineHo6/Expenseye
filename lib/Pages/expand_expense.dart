@@ -1,6 +1,6 @@
 import 'package:expense_app_beginner/ChangeNotifiers/expand_expense_model.dart';
 import 'package:expense_app_beginner/ChangeNotifiers/Global/expense_model.dart';
-import 'package:expense_app_beginner/Expense.dart';
+import 'package:expense_app_beginner/Models/Expense.dart';
 import 'package:expense_app_beginner/Resources/Strings.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -15,7 +15,7 @@ class ExpandExpense extends StatefulWidget {
 }
 
 class _ExpandExpense extends State<ExpandExpense> {
-  final _titleController = TextEditingController();
+  final _nameController = TextEditingController();
   //bool _isTitleInvalid = false;
 
   final _priceController = TextEditingController();
@@ -28,27 +28,31 @@ class _ExpandExpense extends State<ExpandExpense> {
       child: Consumer<ExpandExpenseModel>(
         builder: (context, model, child) => Scaffold(
           appBar: AppBar(
-            title: Text(widget.expense.title),
+            title: Text(widget.expense.name),
           ),
           body: Column(
             children: <Widget>[
               TextField(
-                controller: _titleController,
+                maxLength: 50,
+                controller: _nameController,
                 onChanged: model.infoChanged,
                 decoration: InputDecoration(
-                  hintText: "Title",
+                  hintText: Strings.name,
                   border: InputBorder.none,
+                  errorText: model.isNameInvalid
+                      ? Strings.name + ' ' + Strings.isInvalid
+                      : null,
                 ),
               ),
               TextField(
-                controller: _priceController,
                 maxLength: 10,
+                controller: _priceController,
                 onChanged: model.infoChanged,
                 decoration: InputDecoration(
-                  hintText: "Price",
+                  hintText: Strings.price,
                   //border: InputBorder.none,
                   errorText: model.isPriceInvalid
-                      ? Strings.price + ' ' + Strings.cantBeEmpty
+                      ? Strings.price + ' ' + Strings.isInvalid
                       : null,
                 ),
                 keyboardType: TextInputType.number,
@@ -64,34 +68,32 @@ class _ExpandExpense extends State<ExpandExpense> {
     );
   }
 
-  void _save(ExpandExpenseModel bloc) {
-    bloc.checkFieldsInvalid(_priceController.text);
+  void _save(ExpandExpenseModel localNotifier) {
+    // 1. will check and show error msg if a field is invalid
+    final String newName = _nameController.text;
+    final String newPrice = _priceController.text;
+    localNotifier.checkFieldsInvalid(name: newName, price: newPrice);
 
-    if (!bloc.areFieldsInvalid) {
-      Provider.of<ExpenseModel>(context).editExpense(widget.expense,
-          price: double.parse(_priceController.text));
+    // 2. if all the fields are valid, update and quit
+    if (!localNotifier.areFieldsInvalid) {
+      Provider.of<ExpenseModel>(context)
+          .editExpense(widget.expense, name: newName, price: newPrice);
+
+      Navigator.pop(context);
     }
-
-    Navigator.pop(context);
   }
 
   @override
   void dispose() {
-    _titleController.dispose();
+    _nameController.dispose();
     _priceController.dispose();
     super.dispose();
   }
 
   @override
   void initState() {
-    _titleController.text = widget.expense.title;
+    _nameController.text = widget.expense.name;
     _priceController.text = widget.expense.price.toString();
     super.initState();
   }
 }
-
-/**
- * TODO: update expense information on dispose() with:
- * TODO:    final _expenseBloc = Provider.of<ExpenseModel>(context);
- * TODO: make a bloc for this class instead of redundant setState()
- */

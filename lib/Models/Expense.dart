@@ -2,11 +2,11 @@ import 'dart:ui';
 
 class Expense {
   DateTime time;
-  String title;
+  String name;
   double price;
   Image image;
 
-  Expense(this.title, this.price) {
+  Expense(this.name, this.price) {
     time = DateTime.now();  // later put it as an arg
   }
 }

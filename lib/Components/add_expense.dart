@@ -23,18 +23,18 @@ class _AddExpense extends State<AddExpense> {
       title: Text(Strings.newExpense),
       content: Column(mainAxisSize: MainAxisSize.min, children: [
         TextField(
+          maxLength: 50,
           controller: _nameController,
           decoration: InputDecoration(
             border: InputBorder.none,
             hintText: Strings.name,
-            errorText: _isNameInvalid
-                ? Strings.name + ' ' + Strings.isInvalid
-                : null,
+            errorText:
+                _isNameInvalid ? Strings.name + ' ' + Strings.isInvalid : null,
           ),
         ),
         TextField(
-          controller: _priceController,
           maxLength: 10,
+          controller: _priceController,
           decoration: InputDecoration(
             border: InputBorder.none,
             hintText: Strings.price,
@@ -49,7 +49,7 @@ class _AddExpense extends State<AddExpense> {
         new FlatButton(
           child: new Text(Strings.cancelCaps),
           onPressed: () {
-            quit();
+            Navigator.of(context).pop();
           },
         ),
         new FlatButton(
@@ -63,27 +63,27 @@ class _AddExpense extends State<AddExpense> {
   }
 
   void _addNewExpense() {
-    setState(() {
-      _nameController.text.isEmpty
-          ? _isNameInvalid = true
-          : _isNameInvalid = false;
-      _priceController.text.isEmpty
-          ? _isPriceInvalid = true
-          : _isPriceInvalid = false;
-    });
+    // check NAME field
+    _nameController.text.isEmpty
+        ? _isNameInvalid = true
+        : _isNameInvalid = false;
 
-    // ExpenseBlocds
+    // check PRICE field
+    try {
+      double.parse(_priceController.text);
+      _isPriceInvalid = false;
+    } on FormatException {
+      _isPriceInvalid = true;
+    }
+    setState(() {});
+    
     // if both fields have valid values
     if (!_isNameInvalid && !_isPriceInvalid) {
       Provider.of<ExpenseModel>(context).addExpense(
           _nameController.text, double.parse(_priceController.text));
 
-      quit();
+      Navigator.of(context).pop();
     }
-  }
-
-  void quit() {
-    Navigator.of(context).pop();
   }
 
   @override
@@ -98,5 +98,4 @@ class _AddExpense extends State<AddExpense> {
  * TODO: Make textFields custom widgets for reusability and reduce code lines
  * TODO: add date and time for expense
  * TODO: Check if price is also invalid
- * TODO: Change price error text to invalid instead
  */

@@ -1,4 +1,5 @@
 import 'package:expense_app_beginner/ChangeNotifiers/edit_add_expense_model.dart';
+import 'package:expense_app_beginner/Components/date_picker_btn.dart';
 import 'package:expense_app_beginner/Components/name_field_container.dart';
 import 'package:expense_app_beginner/Components/price_field_container.dart';
 import 'package:expense_app_beginner/Models/Expense.dart';
@@ -34,7 +35,10 @@ class _ExpandExpense extends State<ExpandExpense> {
                   _nameController, model.isNameInvalid, model.infoChanged),
               PriceFieldContainer(
                   _priceController, model.isPriceInvalid, model.infoChanged),
-              //DatePickerBtn(),
+              Container(
+                margin: EdgeInsets.all(40),
+                child: DatePickerBtn(model),
+              ),
               RaisedButton(
                 child: Text(
                   Strings.saveCaps,

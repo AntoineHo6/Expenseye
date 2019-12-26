@@ -48,7 +48,10 @@ class _AddExpense extends State<AddExpense> {
                   ),
                   keyboardType: TextInputType.number,
                 ),
-                DatePickerBtn(model),
+                Container(
+                  margin: EdgeInsets.only(top: 20, left: 10, right: 10),
+                  child: DatePickerBtn(model),
+                ),
               ],
             ),
           ),

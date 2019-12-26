@@ -11,14 +11,27 @@ class EditAddExpenseModel extends ChangeNotifier {
   bool areFieldsInvalid = false;
 
   // * Only used when adding an expense
-  DateTime date;
+  DateTime date = DateTime.now();
 
   void infoChanged(String text) {
     didInfoChange = true;
     notifyListeners();
   }
 
-  void checkFieldsInvalid({String name, String price}) {
+  void updateDate(DateTime datePicked) {
+    if (datePicked == null) {
+      if (date == null) {
+        date = DateTime.now();
+      }
+    }
+    else {
+      date = datePicked;
+    }
+
+    infoChanged(null);
+  }
+
+  void checkFieldsInvalid({String name, String price, DateTime date}) {
     // check NAME field
     isNameInvalid = name.isEmpty ? true : false;
 
@@ -54,13 +67,13 @@ class EditAddExpenseModel extends ChangeNotifier {
     }
   }
 
-  void saveAddedExpense(BuildContext context, {String name, String price}) {
+  void saveAddedExpense(BuildContext context, {String name, String price, DateTime date}) {
     // 1. will check and show error msg if a field is invalid
-    checkFieldsInvalid(name: name, price: price);
+    checkFieldsInvalid(name: name, price: price, date: date);
 
     // 2. if all the fields are valid, update and quit
     if (!areFieldsInvalid) {
-      Provider.of<ExpenseModel>(context).addExpense(name, price);
+      Provider.of<ExpenseModel>(context).addExpense(name, price, date);
 
       Navigator.pop(context);
     }

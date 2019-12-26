@@ -1,7 +1,7 @@
 class Expense {
-  DateTime time;
+  DateTime date;
   String name;
   double price;
 
-  Expense(this.name, this.price, this.time);
+  Expense(this.name, this.price, this.date);
 }

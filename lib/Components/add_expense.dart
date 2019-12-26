@@ -20,34 +20,36 @@ class _AddExpense extends State<AddExpense> {
       child: Consumer<EditAddExpenseModel>(
         builder: (context, model, child) => AlertDialog(
           title: Text(Strings.newExpense),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              TextField(
-                maxLength: 50,
-                controller: _nameController,
-                decoration: InputDecoration(
-                  border: InputBorder.none,
-                  hintText: Strings.name,
-                  errorText: model.isNameInvalid
-                      ? Strings.name + ' ' + Strings.isInvalid
-                      : null,
+          content: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextField(
+                  maxLength: 50,
+                  controller: _nameController,
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    hintText: Strings.name,
+                    errorText: model.isNameInvalid
+                        ? Strings.name + ' ' + Strings.isInvalid
+                        : null,
+                  ),
                 ),
-              ),
-              TextField(
-                maxLength: 10,
-                controller: _priceController,
-                decoration: InputDecoration(
-                  border: InputBorder.none,
-                  hintText: Strings.price,
-                  errorText: model.isPriceInvalid
-                      ? Strings.price + ' ' + Strings.isInvalid
-                      : null,
+                TextField(
+                  maxLength: 10,
+                  controller: _priceController,
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    hintText: Strings.price,
+                    errorText: model.isPriceInvalid
+                        ? Strings.price + ' ' + Strings.isInvalid
+                        : null,
+                  ),
+                  keyboardType: TextInputType.number,
                 ),
-                keyboardType: TextInputType.number,
-              ),
-              DatePickerBtn(model),
-            ],
+                DatePickerBtn(model),
+              ],
+            ),
           ),
           actions: <Widget>[
             new FlatButton(
@@ -71,8 +73,10 @@ class _AddExpense extends State<AddExpense> {
   void _save(EditAddExpenseModel localNotifier) {
     final String newName = _nameController.text;
     final String newPrice = _priceController.text;
+    final DateTime newDate = localNotifier.date;
 
-    localNotifier.saveAddedExpense(context, name: newName, price: newPrice);
+    localNotifier.saveAddedExpense(context,
+        name: newName, price: newPrice, date: newDate);
   }
 
   @override

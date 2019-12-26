@@ -17,10 +17,9 @@ class ExpenseModel extends ChangeNotifier {
     }
   }
 
-  void addExpense(String name, String price) {
-    // ! DateTime 2020 is a placeholder
-    allExpenses.add(Expense(name, double.parse(price), DateTime(2020)));
-    todaysExpenses.add(Expense(name, double.parse(price), DateTime(2020)));
+  void addExpense(String name, String price, DateTime date) {
+    allExpenses.add(Expense(name, double.parse(price), date));
+    todaysExpenses.add(Expense(name, double.parse(price), date));
     notifyListeners();
   }
 

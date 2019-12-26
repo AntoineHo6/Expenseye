@@ -1,5 +1,5 @@
 import 'package:expense_app_beginner/Components/add_expense.dart';
-import 'package:expense_app_beginner/Pages/expand_expense.dart';
+import 'package:expense_app_beginner/Pages/edit_expense.dart';
 import 'package:expense_app_beginner/Components/my_drawer.dart';
 import 'package:expense_app_beginner/Models/Expense.dart';
 import 'package:expense_app_beginner/Resources/Strings.dart';

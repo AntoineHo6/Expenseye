@@ -11,10 +11,10 @@ class DatePickerBtn extends StatelessWidget {
     final DateTime _date = model.date;
 
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 10),
+      margin: EdgeInsets.all(10),
       child: RaisedButton(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
-        elevation: 4.0,
+        elevation: 3.0,
         onPressed: () async {
           DateTime datePicked = await showDatePicker(
             context: context,
@@ -39,13 +39,7 @@ class DatePickerBtn extends StatelessWidget {
               size: 18.0,
               //color: Colors.teal,
             ),
-            Text(
-              '${_date.year} - ${_date.month} - ${_date.day}',
-              style: TextStyle(
-                  //color: Colors.teal,
-                  //fontWeight: FontWeight.bold,
-                  fontSize: 18.0),
-            ),
+            Text('${_date.year} - ${_date.month} - ${_date.day}'),
           ],
         ),
         color: Colors.white,

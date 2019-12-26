@@ -42,7 +42,8 @@ class _TodayPageState extends State<TodayPage> {
                         leading: Icon(Icons.fastfood),
                         title: Text(expense.name),
                         subtitle: Text(expense.price.toString()),
-                        trailing: Text(expense.date.toString()),  // temp
+                        trailing:
+                            Text(_expenseModel.dateToString(expense.date)),
                         onLongPress: () => _openExpandExpense(expense),
                       ),
                     ),

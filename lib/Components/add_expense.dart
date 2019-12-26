@@ -19,6 +19,7 @@ class _AddExpense extends State<AddExpense> {
       create: (_) => new EditAddExpenseModel(),
       child: Consumer<EditAddExpenseModel>(
         builder: (context, model, child) => AlertDialog(
+          backgroundColor: Colors.white,
           title: Text(Strings.newExpense),
           content: SingleChildScrollView(
             child: Column(

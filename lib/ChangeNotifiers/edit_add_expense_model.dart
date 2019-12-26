@@ -11,21 +11,18 @@ class EditAddExpenseModel extends ChangeNotifier {
   bool areFieldsInvalid = false;
 
   // * Only used when adding an expense
-  DateTime date = DateTime.now();
+  DateTime date;
+
+  EditAddExpenseModel(this.date);
 
   void infoChanged(String text) {
     didInfoChange = true;
     notifyListeners();
   }
 
-  void updateDate(DateTime datePicked) {
-    if (datePicked == null) {
-      if (date == null) {
-        date = DateTime.now();
-      }
-    }
-    else {
-      date = datePicked;
+  void updateDate(DateTime newDate) {
+    if (newDate != null) {
+      date = newDate;
     }
 
     infoChanged(null);
@@ -54,14 +51,14 @@ class EditAddExpenseModel extends ChangeNotifier {
   }
 
   void saveEditedExpense(BuildContext context, Expense expense,
-      {String name, String price}) {
+      {String name, String price, DateTime date}) {
     // 1. will check and show error msg if a field is invalid
     checkFieldsInvalid(name: name, price: price);
 
     // 2. if all the fields are valid, update and quit
     if (!areFieldsInvalid) {
       Provider.of<ExpenseModel>(context)
-          .editExpense(expense, name: name, price: price);
+          .editExpense(expense, name: name, price: price, date: date);
 
       Navigator.pop(context);
     }
@@ -77,5 +74,22 @@ class EditAddExpenseModel extends ChangeNotifier {
 
       Navigator.pop(context);
     }
+  }
+
+  void chooseDate(BuildContext context, DateTime initialDate) async {
+        DateTime newDate = await showDatePicker(
+          context: context,
+          initialDate: initialDate,
+          firstDate: DateTime(2000),
+          lastDate: DateTime(2030),
+          builder: (BuildContext context, Widget child) {
+            return Theme(
+              data: ThemeData.light(),
+              child: child,
+            );
+          },
+        );
+
+        updateDate(newDate);
   }
 }

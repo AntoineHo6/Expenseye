@@ -23,9 +23,11 @@ class ExpenseModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void editExpense(Expense expense, {String name, String price}) {
+  void editExpense(Expense expense,
+      {String name, String price, DateTime date}) {
     if (name != null) expense.name = name;
     if (price != null) expense.price = double.parse(price);
+    if (date != null) expense.date = date;
     
     notifyListeners();
   }

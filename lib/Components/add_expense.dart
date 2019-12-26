@@ -16,7 +16,7 @@ class _AddExpense extends State<AddExpense> {
   @override
   Widget build(BuildContext context) {
     return new ChangeNotifierProvider<EditAddExpenseModel>(
-      create: (_) => new EditAddExpenseModel(),
+      create: (_) => new EditAddExpenseModel(DateTime.now()),
       child: Consumer<EditAddExpenseModel>(
         builder: (context, model, child) => AlertDialog(
           backgroundColor: Colors.white,
@@ -50,7 +50,10 @@ class _AddExpense extends State<AddExpense> {
                 ),
                 Container(
                   margin: EdgeInsets.only(top: 20, left: 10, right: 10),
-                  child: DatePickerBtn(model),
+                  child: DatePickerBtn(
+                    model.date,
+                    () => model.chooseDate(context, model.date),
+                  ),
                 ),
               ],
             ),

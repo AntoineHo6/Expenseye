@@ -1,7 +1,5 @@
 import 'package:expense_app_beginner/ChangeNotifiers/edit_add_expense_model.dart';
 import 'package:expense_app_beginner/Components/date_picker_btn.dart';
-import 'package:expense_app_beginner/Components/name_field_container.dart';
-import 'package:expense_app_beginner/Components/price_field_container.dart';
 import 'package:expense_app_beginner/Models/Expense.dart';
 import 'package:expense_app_beginner/Resources/Strings.dart';
 import 'package:flutter/material.dart';
@@ -23,30 +21,86 @@ class _ExpandExpense extends State<ExpandExpense> {
   @override
   Widget build(BuildContext context) {
     return new ChangeNotifierProvider<EditAddExpenseModel>(
-      create: (_) => new EditAddExpenseModel(),
+      create: (_) => new EditAddExpenseModel(widget.expense.date),
       child: Consumer<EditAddExpenseModel>(
         builder: (context, model, child) => Scaffold(
           appBar: AppBar(
             title: Text(widget.expense.name),
           ),
-          body: Column(
-            children: <Widget>[
-              NameFieldContainer(
-                  _nameController, model.isNameInvalid, model.infoChanged),
-              PriceFieldContainer(
-                  _priceController, model.isPriceInvalid, model.infoChanged),
-              Container(
-                margin: EdgeInsets.all(40),
-                child: DatePickerBtn(model),
-              ),
-              RaisedButton(
-                child: Text(
-                  Strings.saveCaps,
-                  style: Theme.of(context).textTheme.button,
+          body: SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                Container(
+                  padding: EdgeInsets.all(20),
+                  margin: EdgeInsets.symmetric(horizontal: 20),
+                  child: Column(
+                    children: <Widget>[
+                      SizedBox(
+                        width: double.infinity,
+                        child: Text(
+                          Strings.name + ' :',
+                          textAlign: TextAlign.left,
+                          style: Theme.of(context).textTheme.title,
+                        ),
+                      ),
+                      TextField(
+                        maxLength: 50,
+                        controller: _nameController,
+                        onChanged: model.infoChanged,
+                        decoration: InputDecoration(
+                          hintText: Strings.name,
+                          errorText: model.isNameInvalid
+                              ? Strings.name + ' ' + Strings.isInvalid
+                              : null,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-                onPressed: model.didInfoChange ? () => _save(model) : null,
-              ),
-            ],
+                Container(
+                  padding: EdgeInsets.all(20),
+                  margin: EdgeInsets.symmetric(horizontal: 20),
+                  child: Column(
+                    children: <Widget>[
+                      SizedBox(
+                        width: double.infinity,
+                        child: Text(
+                          Strings.price + ' :',
+                          textAlign: TextAlign.left,
+                          style: Theme.of(context).textTheme.title,
+                        ),
+                      ),
+                      TextField(
+                        maxLength: 10,
+                        controller: _priceController,
+                        onChanged: model.infoChanged,
+                        decoration: InputDecoration(
+                          hintText: Strings.price,
+                          errorText: model.isPriceInvalid
+                              ? Strings.price + ' ' + Strings.isInvalid
+                              : null,
+                        ),
+                        keyboardType: TextInputType.number,
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.all(40),
+                  child: DatePickerBtn(
+                    model.date,
+                    () => model.chooseDate(context, model.date),
+                  ),
+                ),
+                RaisedButton(
+                  child: Text(
+                    Strings.saveCaps,
+                    style: Theme.of(context).textTheme.button,
+                  ),
+                  onPressed: model.didInfoChange ? () => _save(model) : null,
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -58,7 +112,7 @@ class _ExpandExpense extends State<ExpandExpense> {
     final String newPrice = _priceController.text;
 
     localNotifier.saveEditedExpense(context, widget.expense,
-        name: newName, price: newPrice);
+        name: newName, price: newPrice, date: localNotifier.date);
   }
 
   @override

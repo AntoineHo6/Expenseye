@@ -23,9 +23,8 @@ class EditAddExpenseModel extends ChangeNotifier {
   void updateDate(DateTime newDate) {
     if (newDate != null) {
       date = newDate;
+      infoChanged(null);
     }
-
-    infoChanged(null);
   }
 
   void checkFieldsInvalid({String name, String price, DateTime date}) {

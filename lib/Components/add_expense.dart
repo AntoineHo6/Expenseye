@@ -1,4 +1,4 @@
-import 'package:expense_app_beginner/ChangeNotifiers/edit_add_expense_model.dart';
+import 'package:expense_app_beginner/Providers/edit_add_expense_model.dart';
 import 'package:expense_app_beginner/Components/date_picker_btn.dart';
 import 'package:expense_app_beginner/Resources/Strings.dart';
 import 'package:flutter/material.dart';

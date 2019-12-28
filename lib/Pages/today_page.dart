@@ -5,7 +5,7 @@ import 'package:expense_app_beginner/Models/Expense.dart';
 import 'package:expense_app_beginner/Resources/Strings.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:expense_app_beginner/ChangeNotifiers/Global/expense_model.dart';
+import 'package:expense_app_beginner/Providers/Global/expense_model.dart';
 
 class TodayPage extends StatefulWidget {
   @override

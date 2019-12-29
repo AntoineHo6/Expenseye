@@ -14,16 +14,16 @@ class ExpenseModel extends ChangeNotifier {
 
   // * TEMP method. to remove later
   void addDefaultExpenses() {
-    for (var i = 1; i < 4; i++) {
-      allExpenses.add(Expense('expense $i', 35, DateTime(2020)));
-      todaysExpenses.add(Expense('expense $i', 35, DateTime(2020)));
-    }
+    // for (var i = 1; i < 4; i++) {
+    //   allExpenses.add(Expense('expense $i', 35, DateTime(2020)));
+    //   todaysExpenses.add(Expense('expense $i', 35, DateTime(2020)));
+    // }
   }
 
   void addExpense(String name, String price, DateTime date) {
-    allExpenses.add(Expense(name, double.parse(price), date));
-    todaysExpenses.add(Expense(name, double.parse(price), date));
-    notifyListeners();
+    // allExpenses.add(Expense(name, double.parse(price), date));
+    // todaysExpenses.add(Expense(name, double.parse(price), date));
+    // notifyListeners();
   }
 
   void editExpense(Expense expense,

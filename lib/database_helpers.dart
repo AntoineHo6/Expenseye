@@ -17,6 +17,7 @@ class DatabaseHelper {
   final String columnId = Strings.columnId;
   final String columnName = Strings.columnName;
   final String columnPrice = Strings.columnPrice;
+  final String columnDate = Strings.columnDate;
 
   // Make this a singleton class.
   DatabaseHelper._privateConstructor();
@@ -46,7 +47,8 @@ class DatabaseHelper {
               CREATE TABLE $tableExpenses (
                 $columnId INTEGER PRIMARY KEY AUTOINCREMENT,
                 $columnName TEXT NOT NULL,
-                $columnPrice DOUBLE NOT NULL
+                $columnPrice DOUBLE NOT NULL,
+                $columnDate TEXT NOT NULL,
               )
               ''');
   }
@@ -62,7 +64,7 @@ class DatabaseHelper {
   Future<Expense> queryExpense(int id) async {
     Database db = await database;
     List<Map> maps = await db.query(tableExpenses,
-        columns: [columnId, columnName, columnPrice],
+        columns: [columnId, columnName, columnPrice, columnDate],
         where: '$columnId = ?',
         whereArgs: [id]);
     if (maps.length > 0) {
@@ -87,7 +89,6 @@ class DatabaseHelper {
     return expenses;
   }
 
-  // TODO: queryAllWords()
   // TODO: delete(int id)
   // TODO: update(Word word)
 }

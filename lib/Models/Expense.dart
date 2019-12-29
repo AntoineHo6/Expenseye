@@ -6,19 +6,21 @@ class Expense {
   double price;
   DateTime date;
 
-  Expense(this.name, this.price, this.date);
+  Expense(this.id, this.name, this.price, this.date);
 
   // convenience constructor to create a Word object
   Expense.fromMap(Map<String, dynamic> map) {
     id = map[Strings.tableExpenses];
     name = map[Strings.columnName];
     price = map[Strings.columnPrice];
+    date = map[Strings.columnDate];
   }
 
   Map<String, dynamic> toMap() {
     var map = <String, dynamic>{
       Strings.columnName: name,
-      Strings.columnPrice: price
+      Strings.columnPrice: price,
+      Strings.columnDate: date, // probably wont work
     };
     if (id != null) {
       map[Strings.columnId] = id;

@@ -15,4 +15,10 @@ class Strings {
   // * ERROR messages
   static const String cantBeEmpty = 'can\'t be empty';
   static const String isInvalid = 'is invalid';
+
+  // * database table and column names
+  static const String tableExpenses = 'expenses';
+  static const String columnId = 'expense_id';
+  static const String columnName = 'name';
+  static const String columnPrice = 'price';
 }

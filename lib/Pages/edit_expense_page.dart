@@ -5,16 +5,16 @@ import 'package:expense_app_beginner/Resources/Strings.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class ExpandExpense extends StatefulWidget {
+class EditExpense extends StatefulWidget {
   final Expense expense;
 
-  ExpandExpense(this.expense);
+  EditExpense(this.expense);
 
   @override
   _ExpandExpense createState() => _ExpandExpense();
 }
 
-class _ExpandExpense extends State<ExpandExpense> {
+class _ExpandExpense extends State<EditExpense> {
   final _nameController = TextEditingController();
   final _priceController = TextEditingController();
 

@@ -1,9 +1,12 @@
 import 'package:expense_app_beginner/Models/Expense.dart';
+import 'package:expense_app_beginner/database_helpers.dart';
 import 'package:flutter/material.dart';
 
 class ExpenseModel extends ChangeNotifier {
   List<Expense> allExpenses = new List();
   List<Expense> todaysExpenses = new List();
+
+  final DatabaseHelper dbHelper = DatabaseHelper.instance;
 
   ExpenseModel() {
     addDefaultExpenses();

@@ -1,7 +1,7 @@
 import 'package:expense_app_beginner/Components/add_expense.dart';
-import 'package:expense_app_beginner/Pages/edit_expense.dart';
 import 'package:expense_app_beginner/Components/my_drawer.dart';
 import 'package:expense_app_beginner/Models/Expense.dart';
+import 'package:expense_app_beginner/Pages/edit_expense_page.dart';
 import 'package:expense_app_beginner/Resources/Strings.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -34,21 +34,29 @@ class _TodayPageState extends State<TodayPage> {
             ),
           ),
           Expanded(
-            child: ListView(
-              children: _expenseModel.todaysExpenses
-                  .map(
-                    (expense) => Card(
-                      child: ListTile(
-                        leading: Icon(Icons.fastfood),
-                        title: Text(expense.name),
-                        subtitle: Text(expense.price.toString()),
-                        trailing:
-                            Text(_expenseModel.dateToString(expense.date)),
-                        onLongPress: () => _openExpandExpense(expense),
-                      ),
-                    ),
-                  )
-                  .toList(),
+            child: FutureBuilder<List<Expense>>(
+              future: _expenseModel.dbHelper.queryAllExpenses(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  // Expanded(
+                  return new ListView.builder(
+                    itemCount: snapshot.data.length,
+                    itemBuilder: (context, index) {
+                      return Card(
+                        child: ListTile(
+                          leading: Icon(Icons.fastfood),
+                          title: Text(snapshot.data[index].name),
+                          subtitle: Text(snapshot.data[index].price.toString()),
+                          onLongPress: () =>
+                              _openExpandExpense(snapshot.data[index]),
+                        ),
+                      );
+                    },
+                  );
+                } else if (snapshot.hasError) {
+                  return Text("${snapshot.error}");
+                }
+              },
             ),
           ),
         ],
@@ -71,7 +79,7 @@ class _TodayPageState extends State<TodayPage> {
   void _openExpandExpense(Expense expense) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => ExpandExpense(expense)),
+      MaterialPageRoute(builder: (context) => EditExpense(expense)),
     );
   }
 }

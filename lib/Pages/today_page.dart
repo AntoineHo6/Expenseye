@@ -22,44 +22,50 @@ class _TodayPageState extends State<TodayPage> {
         title: Text(Strings.todaysExpenses),
       ),
       drawer: MyDrawer(),
-      body: Column(
-        children: <Widget>[
-          Container(
-            padding: EdgeInsets.all(20),
-            margin: EdgeInsets.symmetric(horizontal: 20),
-            //color: Colors.amber,
-            child: Text(
-              Strings.total + ': ' + _expenseModel.calcTodaysTotal().toString(),
-              style: Theme.of(context).textTheme.display1,
-            ),
-          ),
-          Expanded(
-            child: FutureBuilder<List<Expense>>(
-              future: _expenseModel.dbHelper.queryAllExpenses(),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  // Expanded(
-                  return new ListView.builder(
-                    itemCount: snapshot.data.length,
-                    itemBuilder: (context, index) {
-                      return Card(
-                        child: ListTile(
-                          leading: Icon(Icons.fastfood),
-                          title: Text(snapshot.data[index].name),
-                          subtitle: Text(snapshot.data[index].price.toString()),
-                          onLongPress: () =>
-                              _openExpandExpense(snapshot.data[index]),
-                        ),
-                      );
-                    },
-                  );
-                } else if (snapshot.hasError) {
-                  return Text("${snapshot.error}");
-                }
-              },
-            ),
-          ),
-        ],
+      body: FutureBuilder<List<Expense>>(
+        future: _expenseModel.dbHelper.queryAllExpenses(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            if (snapshot.data != null) {
+              return Column(
+                children: <Widget>[
+                  Container(
+                    padding: EdgeInsets.all(20),
+                    margin: EdgeInsets.symmetric(horizontal: 20),
+                    //color: Colors.amber,
+                    child: Text(
+                      Strings.total +
+                          ': ' +
+                          _expenseModel.calcTotal(snapshot.data).toString(),
+                      style: Theme.of(context).textTheme.display1,
+                    ),
+                  ),
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: snapshot.data.length,
+                      itemBuilder: (context, index) {
+                        return Card(
+                          child: ListTile(
+                            leading: Icon(Icons.fastfood),
+                            title: Text(snapshot.data[index].name),
+                            subtitle:
+                                Text(snapshot.data[index].price.toString()),
+                            onLongPress: () =>
+                                _openExpandExpense(snapshot.data[index]),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              );
+            } else {
+              return Text('no data');
+            }
+          } else {
+            return new CircularProgressIndicator();
+          }
+        },
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),

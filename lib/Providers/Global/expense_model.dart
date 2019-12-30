@@ -8,17 +8,17 @@ class ExpenseModel extends ChangeNotifier {
 
   final DatabaseHelper dbHelper = DatabaseHelper.instance;
 
-  ExpenseModel() {
-    addDefaultExpenses();
+  ExpenseModel() {}
+
+  double calcTotal(List<Expense> expenses) {
+    double total = 0;
+    for (Expense expense in expenses) {
+      total += expense.price;
+    }
+
+    return total;
   }
 
-  // * TEMP method. to remove later
-  void addDefaultExpenses() {
-    // for (var i = 1; i < 4; i++) {
-    //   allExpenses.add(Expense('expense $i', 35, DateTime(2020)));
-    //   todaysExpenses.add(Expense('expense $i', 35, DateTime(2020)));
-    // }
-  }
 
   void addExpense(String name, String price, DateTime date) {
     // allExpenses.add(Expense(name, double.parse(price), date));
@@ -35,14 +35,14 @@ class ExpenseModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  double calcTodaysTotal() {
-    double total = 0;
-    for (Expense expense in todaysExpenses) {
-      total += expense.price;
-    }
+  // double calcTodaysTotal() {
+  //   double total = 0;
+  //   for (Expense expense in todaysExpenses) {
+  //     total += expense.price;
+  //   }
 
-    return total;
-  }
+  //   return total;
+  // }
 
   String dateToString(DateTime date) {
     return '${date.year} - ${date.month} - ${date.day}';

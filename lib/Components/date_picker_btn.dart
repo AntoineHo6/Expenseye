@@ -27,7 +27,7 @@ class DatePickerBtn extends RaisedButton {
             //color: Colors.teal,
           ),
           SizedBox(width: 10,),
-          Text(_expenseModel.dateToString(date)),
+          Text(_expenseModel.formattedDate(date)),
         ],
       ),
     );

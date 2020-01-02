@@ -11,7 +11,7 @@ class DatabaseHelper {
   // This is the actual database filename that is saved in the docs directory.
   static final _databaseName = "MyDatabase.db";
   // Increment this version when you need to change the schema.
-  static final _databaseVersion = 1;
+  static final _databaseVersion = 3;
 
   final String tableExpenses = Strings.tableExpenses;
   final String columnId = Strings.columnId;
@@ -48,7 +48,7 @@ class DatabaseHelper {
                 $columnId INTEGER PRIMARY KEY AUTOINCREMENT,
                 $columnName TEXT NOT NULL,
                 $columnPrice DOUBLE NOT NULL,
-                $columnDate TEXT NOT NULL,
+                $columnDate TEXT NOT NULL
               )
               ''');
   }
@@ -87,6 +87,19 @@ class DatabaseHelper {
     }
 
     return expenses;
+  }
+
+  void deleteAllData() async {
+    Database db = await database;
+
+    await db.execute('''
+              CREATE TABLE $tableExpenses (
+                $columnId INTEGER PRIMARY KEY AUTOINCREMENT,
+                $columnName TEXT NOT NULL,
+                $columnPrice DOUBLE NOT NULL,
+                $columnDate TEXT NOT NULL
+              )
+              ''');
   }
 
   // TODO: delete(int id)

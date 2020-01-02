@@ -52,6 +52,10 @@ class _TodayPageState extends State<TodayPage> {
                                 Text(snapshot.data[index].price.toString()),
                             onLongPress: () =>
                                 _openExpandExpense(snapshot.data[index]),
+                            trailing: Text(
+                              _expenseModel
+                                  .formattedDate(snapshot.data[index].date),
+                            ),
                           ),
                         );
                       },
@@ -75,6 +79,8 @@ class _TodayPageState extends State<TodayPage> {
   }
 
   void _openAddExpense() {
+    //Provider.of<ExpenseModel>(context).dbHelper.deleteAllData();
+
     showDialog(
       context: context,
       builder: (_) => AddExpense(),

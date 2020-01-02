@@ -21,5 +21,5 @@ class Strings {
   static const String columnId = 'expense_id';
   static const String columnName = 'name';
   static const String columnPrice = 'price';
-  static const String columnDate = 'date';
+  static const String columnDate = 'datetime';
 }

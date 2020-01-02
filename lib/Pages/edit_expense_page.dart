@@ -1,3 +1,4 @@
+import 'package:expense_app_beginner/Providers/Global/expense_model.dart';
 import 'package:expense_app_beginner/Providers/edit_add_expense_model.dart';
 import 'package:expense_app_beginner/Components/date_picker_btn.dart';
 import 'package:expense_app_beginner/Models/Expense.dart';
@@ -11,10 +12,10 @@ class EditExpense extends StatefulWidget {
   EditExpense(this.expense);
 
   @override
-  _ExpandExpense createState() => _ExpandExpense();
+  _EditExpense createState() => _EditExpense();
 }
 
-class _ExpandExpense extends State<EditExpense> {
+class _EditExpense extends State<EditExpense> {
   final _nameController = TextEditingController();
   final _priceController = TextEditingController();
 
@@ -111,8 +112,18 @@ class _ExpandExpense extends State<EditExpense> {
     final String newName = _nameController.text;
     final String newPrice = _priceController.text;
 
-    localProvider.saveEditedExpense(context, widget.expense.id,
-        name: newName, price: newPrice, date: localProvider.date);
+    bool areFieldsInvalid =
+        localProvider.checkFieldsInvalid(name: newName, price: newPrice);
+
+    // if all the fields are valid, update and quit
+    if (!areFieldsInvalid) {
+      Expense newExpense = new Expense.withId(widget.expense.id, newName,
+          double.parse(newPrice), localProvider.date);
+
+      Provider.of<ExpenseModel>(context).editExpense(newExpense);
+
+      Navigator.pop(context);
+    }
   }
 
   @override

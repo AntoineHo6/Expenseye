@@ -13,12 +13,6 @@ class DatabaseHelper {
   // Increment this version when you need to change the schema.
   static final _databaseVersion = 3;
 
-  final String tableExpenses = Strings.tableExpenses;
-  final String columnId = Strings.columnId;
-  final String columnName = Strings.columnName;
-  final String columnPrice = Strings.columnPrice;
-  final String columnDate = Strings.columnDate;
-
   // Make this a singleton class.
   DatabaseHelper._privateConstructor();
   static final DatabaseHelper instance = DatabaseHelper._privateConstructor();
@@ -41,31 +35,33 @@ class DatabaseHelper {
         version: _databaseVersion, onCreate: _onCreate);
   }
 
-  // SQL string to create the database
   Future _onCreate(Database db, int version) async {
     await db.execute('''
-              CREATE TABLE $tableExpenses (
-                $columnId INTEGER PRIMARY KEY AUTOINCREMENT,
-                $columnName TEXT NOT NULL,
-                $columnPrice DOUBLE NOT NULL,
-                $columnDate TEXT NOT NULL
+              CREATE TABLE ${Strings.tableExpenses} (
+                ${Strings.columnId} INTEGER PRIMARY KEY AUTOINCREMENT,
+                ${Strings.columnName} TEXT NOT NULL,
+                ${Strings.columnPrice} DOUBLE NOT NULL,
+                ${Strings.columnDate} TEXT NOT NULL
               )
               ''');
   }
 
-  // Database helper methods:
-
   Future<int> insert(Expense expense) async {
     Database db = await database;
-    int id = await db.insert(tableExpenses, expense.toMap());
+    int id = await db.insert(Strings.tableExpenses, expense.toMap());
     return id;
   }
 
   Future<Expense> queryExpense(int id) async {
     Database db = await database;
-    List<Map> maps = await db.query(tableExpenses,
-        columns: [columnId, columnName, columnPrice, columnDate],
-        where: '$columnId = ?',
+    List<Map> maps = await db.query(Strings.tableExpenses,
+        columns: [
+          Strings.columnId,
+          Strings.columnName,
+          Strings.columnPrice,
+          Strings.columnDate
+        ],
+        where: '${Strings.columnId} = ?',
         whereArgs: [id]);
     if (maps.length > 0) {
       return Expense.fromMap(maps.first);
@@ -78,7 +74,7 @@ class DatabaseHelper {
 
     List<Expense> expenses = new List();
 
-    List<Map> maps = await db.rawQuery('SELECT * FROM $tableExpenses');
+    List<Map> maps = await db.query('${Strings.tableExpenses}');
 
     if (maps.length > 0) {
       for (Map row in maps) {
@@ -92,8 +88,8 @@ class DatabaseHelper {
   Future<int> update(Expense expense) async {
     Database db = await database;
 
-    return await db.update(tableExpenses, expense.toMap(),
-        where: '$columnId = ?', whereArgs: [expense.id]);
+    return await db.update(Strings.tableExpenses, expense.toMap(),
+        where: '${Strings.columnId} = ?', whereArgs: [expense.id]);
   }
 
   // void deleteAllData() async {
@@ -102,5 +98,4 @@ class DatabaseHelper {
   // }
 
   // TODO: delete(int id)
-  // TODO: update(Word word)
 }

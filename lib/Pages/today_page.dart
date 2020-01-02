@@ -32,11 +32,8 @@ class _TodayPageState extends State<TodayPage> {
                   Container(
                     padding: EdgeInsets.all(20),
                     margin: EdgeInsets.symmetric(horizontal: 20),
-                    //color: Colors.amber,
                     child: Text(
-                      Strings.total +
-                          ': ' +
-                          _expenseModel.calcTotal(snapshot.data).toString(),
+                      _expenseModel.totalString(snapshot.data),
                       style: Theme.of(context).textTheme.display1,
                     ),
                   ),
@@ -64,23 +61,21 @@ class _TodayPageState extends State<TodayPage> {
                 ],
               );
             } else {
-              return Text('no data');
+              return Text('no data'); // temp
             }
           } else {
-            return new CircularProgressIndicator();
+            return new CircularProgressIndicator(); // add container to center
           }
         },
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
-        onPressed: () => _openAddExpense(),
+        onPressed: () => _showAddExpense(),
       ),
     );
   }
 
-  void _openAddExpense() {
-    //Provider.of<ExpenseModel>(context).dbHelper.deleteAllData();
-
+  void _showAddExpense() {
     showDialog(
       context: context,
       builder: (_) => AddExpense(),

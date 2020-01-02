@@ -1,7 +1,7 @@
 import 'package:expense_app_beginner/Resources/Strings.dart';
 import 'package:flutter/material.dart';
 
-class MyDrawer extends StatelessWidget {
+class MyDrawer extends Drawer {
   @override
   Widget build(BuildContext context) {
     return Drawer(

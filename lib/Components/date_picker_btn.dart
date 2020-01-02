@@ -24,7 +24,6 @@ class DatePickerBtn extends RaisedButton {
           Icon(
             Icons.date_range,
             size: 18.0,
-            //color: Colors.teal,
           ),
           SizedBox(width: 10,),
           Text(_expenseModel.formattedDate(date)),

@@ -1,3 +1,5 @@
+import 'package:expense_app_beginner/Models/Expense.dart';
+import 'package:expense_app_beginner/Providers/Global/expense_model.dart';
 import 'package:expense_app_beginner/Providers/edit_add_expense_model.dart';
 import 'package:expense_app_beginner/Components/date_picker_btn.dart';
 import 'package:expense_app_beginner/Resources/Strings.dart';
@@ -77,13 +79,23 @@ class _AddExpense extends State<AddExpense> {
     );
   }
 
-  void _save(EditAddExpenseModel localNotifier) {
+  void _save(EditAddExpenseModel localProvider) {
     final String newName = _nameController.text;
     final String newPrice = _priceController.text;
-    final DateTime newDate = localNotifier.date;
+    final DateTime newDate = localProvider.date;
 
-    localNotifier.saveAddedExpense(context,
+    bool areFieldsInvalid = localProvider.checkFieldsInvalid(
         name: newName, price: newPrice, date: newDate);
+
+    // if all the fields are valid, add and quit
+    if (!areFieldsInvalid) {
+      Expense newExpense =
+          new Expense(newName, double.parse(newPrice), newDate);
+
+      Provider.of<ExpenseModel>(context).addExpense(newExpense);
+
+      Navigator.pop(context);
+    }
   }
 
   @override

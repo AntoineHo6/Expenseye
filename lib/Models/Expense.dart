@@ -8,9 +8,11 @@ class Expense {
 
   Expense(this.name, this.price, this.date);
 
+  Expense.withId(this.id, this.name, this.price, this.date);
+
   // convenience constructor to create a Expense object
   Expense.fromMap(Map<String, dynamic> map) {
-    id = map[Strings.tableExpenses];
+    id = map[Strings.columnId];
     name = map[Strings.columnName];
     price = map[Strings.columnPrice];
     date = DateTime.parse(map[Strings.columnDate]);

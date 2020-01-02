@@ -14,18 +14,19 @@ class ExpenseModel extends ChangeNotifier {
     return total;
   }
 
-
   void addExpense(String name, String price, DateTime date) {
     dbHelper.insert(new Expense(name, double.parse(price), date));
     notifyListeners();
   }
 
-  void editExpense(Expense expense,
-      {String name, String price, DateTime date}) {
-    if (name != null) expense.name = name;
-    if (price != null) expense.price = double.parse(price);
-    if (date != null) expense.date = date;
-    
+  void editExpense(int expenseId, {String name, String price, DateTime date}) {
+    // if (name != null) expense.name = name;
+    // if (price != null) expense.price = double.parse(price);
+    // if (date != null) expense.date = date;
+
+    dbHelper
+        .update(new Expense.withId(expenseId, name, double.parse(price), date));
+
     notifyListeners();
   }
 

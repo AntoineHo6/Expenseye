@@ -27,6 +27,7 @@ class EditAddExpenseModel extends ChangeNotifier {
     }
   }
 
+  // Will check and show error msg if a field is invalid
   void checkFieldsInvalid({String name, String price, DateTime date}) {
     // check NAME field
     isNameInvalid = name.isEmpty ? true : false;
@@ -49,22 +50,20 @@ class EditAddExpenseModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void saveEditedExpense(BuildContext context, Expense expense,
+  void saveEditedExpense(BuildContext context, int expenseId,
       {String name, String price, DateTime date}) {
-    // 1. will check and show error msg if a field is invalid
     checkFieldsInvalid(name: name, price: price);
 
     // 2. if all the fields are valid, update and quit
     if (!areFieldsInvalid) {
       Provider.of<ExpenseModel>(context)
-          .editExpense(expense, name: name, price: price, date: date);
+          .editExpense(expenseId, name: name, price: price, date: date);
 
       Navigator.pop(context);
     }
   }
 
   void saveAddedExpense(BuildContext context, {String name, String price, DateTime date}) {
-    // 1. will check and show error msg if a field is invalid
     checkFieldsInvalid(name: name, price: price, date: date);
 
     // 2. if all the fields are valid, update and quit
@@ -92,3 +91,6 @@ class EditAddExpenseModel extends ChangeNotifier {
         updateDate(newDate);
   }
 }
+
+// TODO: refactor the saveAdded ans saveEdited functions. Shouldn't be checking
+// TODO: wether if the fields are valid.

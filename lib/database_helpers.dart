@@ -89,18 +89,17 @@ class DatabaseHelper {
     return expenses;
   }
 
-  void deleteAllData() async {
+  Future<int> update(Expense expense) async {
     Database db = await database;
 
-    await db.execute('''
-              CREATE TABLE $tableExpenses (
-                $columnId INTEGER PRIMARY KEY AUTOINCREMENT,
-                $columnName TEXT NOT NULL,
-                $columnPrice DOUBLE NOT NULL,
-                $columnDate TEXT NOT NULL
-              )
-              ''');
+    return await db.update(tableExpenses, expense.toMap(),
+        where: '$columnId = ?', whereArgs: [expense.id]);
   }
+
+  // void deleteAllData() async {
+  //   Database db = await database;
+
+  // }
 
   // TODO: delete(int id)
   // TODO: update(Word word)

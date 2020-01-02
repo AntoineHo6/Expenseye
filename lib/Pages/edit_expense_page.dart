@@ -107,12 +107,12 @@ class _ExpandExpense extends State<EditExpense> {
     );
   }
 
-  void _save(EditAddExpenseModel localNotifier) {
+  void _save(EditAddExpenseModel localProvider) {
     final String newName = _nameController.text;
     final String newPrice = _priceController.text;
 
-    localNotifier.saveEditedExpense(context, widget.expense,
-        name: newName, price: newPrice, date: localNotifier.date);
+    localProvider.saveEditedExpense(context, widget.expense.id,
+        name: newName, price: newPrice, date: localProvider.date);
   }
 
   @override

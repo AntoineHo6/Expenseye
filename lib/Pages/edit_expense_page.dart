@@ -1,3 +1,4 @@
+import 'package:expense_app/Components/Buttons/RaisedButtons/icon_btn.dart';
 import 'package:expense_app/Providers/Global/expense_model.dart';
 import 'package:expense_app/Providers/edit_add_expense_model.dart';
 import 'package:expense_app/Components/Buttons/RaisedButtons/date_picker_btn.dart';
@@ -90,9 +91,25 @@ class _EditExpense extends State<EditExpense> {
                 ),
                 Container(
                   margin: EdgeInsets.all(40),
-                  child: DatePickerBtn(
-                    model.date,
-                    () => model.chooseDate(context, model.date),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisSize: MainAxisSize.max,
+                    children: <Widget>[
+                      Container(
+                        margin: EdgeInsets.only(left: 3),
+                        child: IconBtn(),
+                      ),
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: Container(
+                          margin: EdgeInsets.only(right: 3),
+                          child: DatePickerBtn(
+                            model.date,
+                            () => model.chooseDate(context, model.date),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 RaisedButton(

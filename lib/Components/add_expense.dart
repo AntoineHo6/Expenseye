@@ -55,14 +55,22 @@ class _AddExpense extends State<AddExpense> {
                 Container(
                   margin: EdgeInsets.only(top: 20),
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisSize: MainAxisSize.max,
                     children: <Widget>[
-                      IconBtn(),
-                      SizedBox(
-                        width: 15,
+                      Container(
+                        margin: EdgeInsets.only(left: 3),
+                        child: IconBtn(),
                       ),
-                      DatePickerBtn(
-                        model.date,
-                        () => model.chooseDate(context, model.date),
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: Container(
+                          margin: EdgeInsets.only(right: 3),
+                          child: DatePickerBtn(
+                            model.date,
+                            () => model.chooseDate(context, model.date),
+                          ),
+                        ),
                       ),
                     ],
                   ),

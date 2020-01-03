@@ -19,6 +19,7 @@ class MyApp extends StatelessWidget {
           ),
           primaryColor: MyColors.indigoInk,
           accentColor: MyColors.blueberry,
+          backgroundColor: MyColors.periwinkle
         ),
       ),
     );

@@ -1,3 +1,4 @@
+import 'package:expense_app/Resources/Themes/Colors.dart';
 import 'package:flutter/material.dart';
 
 class EditAddExpenseModel extends ChangeNotifier {
@@ -54,7 +55,10 @@ class EditAddExpenseModel extends ChangeNotifier {
       lastDate: DateTime(2030),
       builder: (BuildContext context, Widget child) {
         return Theme(
-          data: ThemeData.light(),
+          data: ThemeData(
+            primarySwatch: MyColors.indigoInk,
+            splashColor: MyColors.indigoInk
+          ),
           child: child,
         );
       },
@@ -64,5 +68,4 @@ class EditAddExpenseModel extends ChangeNotifier {
   }
 }
 
-// TODO: refactor the saveAdded ans saveEdited functions. Shouldn't be checking
-// TODO: wether if the fields are valid.
+// TODO: ShowDatePicker should be in components

@@ -14,10 +14,10 @@ class DatePickerBtn extends RaisedButton {
     final _expenseModel = Provider.of<ExpenseModel>(context);
 
     return RaisedButton(
-      color: MyColors.blueberry,
+      color: MyColors.indigoInk,
       textColor: Colors.white,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
-      elevation: 4.0,
+      elevation: 3.0,
       onPressed: datePicker,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,

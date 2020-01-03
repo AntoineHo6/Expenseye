@@ -3,6 +3,7 @@ import 'package:expense_app_beginner/Providers/edit_add_expense_model.dart';
 import 'package:expense_app_beginner/Components/date_picker_btn.dart';
 import 'package:expense_app_beginner/Models/Expense.dart';
 import 'package:expense_app_beginner/Resources/Strings.dart';
+import 'package:expense_app_beginner/Resources/Themes/Colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -25,6 +26,7 @@ class _EditExpense extends State<EditExpense> {
       create: (_) => new EditAddExpenseModel(widget.expense.date),
       child: Consumer<EditAddExpenseModel>(
         builder: (context, model, child) => Scaffold(
+          backgroundColor: MyColors.periwinkle,
           appBar: AppBar(
             title: Text(widget.expense.name),
           ),
@@ -94,9 +96,10 @@ class _EditExpense extends State<EditExpense> {
                   ),
                 ),
                 RaisedButton(
+                  color: MyColors.blueberry,
+                  textTheme: ButtonTextTheme.primary,
                   child: Text(
                     Strings.saveCaps,
-                    style: Theme.of(context).textTheme.button,
                   ),
                   onPressed: model.didInfoChange ? () => _save(model) : null,
                 ),

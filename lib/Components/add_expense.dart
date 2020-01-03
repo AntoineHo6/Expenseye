@@ -3,6 +3,7 @@ import 'package:expense_app_beginner/Providers/Global/expense_model.dart';
 import 'package:expense_app_beginner/Providers/edit_add_expense_model.dart';
 import 'package:expense_app_beginner/Components/date_picker_btn.dart';
 import 'package:expense_app_beginner/Resources/Strings.dart';
+import 'package:expense_app_beginner/Resources/Themes/Colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -21,7 +22,7 @@ class _AddExpense extends State<AddExpense> {
       create: (_) => new EditAddExpenseModel(DateTime.now()),
       child: Consumer<EditAddExpenseModel>(
         builder: (context, model, child) => AlertDialog(
-          backgroundColor: Colors.white,
+          backgroundColor: MyColors.periwinkle,
           title: Text(Strings.newExpense),
           content: SingleChildScrollView(
             child: Column(
@@ -62,12 +63,14 @@ class _AddExpense extends State<AddExpense> {
           ),
           actions: <Widget>[
             new FlatButton(
+              textColor: MyColors.indigoInk,
               child: new Text(Strings.cancelCaps),
               onPressed: () {
                 Navigator.of(context).pop();
               },
             ),
             new FlatButton(
+              textColor: MyColors.indigoInk,
               child: new Text(Strings.submitCaps),
               onPressed: () {
                 _save(model);

@@ -1,4 +1,5 @@
 import 'package:expense_app_beginner/Providers/Global/expense_model.dart';
+import 'package:expense_app_beginner/Resources/Themes/Colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -13,7 +14,7 @@ class DatePickerBtn extends RaisedButton {
     final _expenseModel = Provider.of<ExpenseModel>(context);
 
     return RaisedButton(
-      color: Colors.blueAccent,
+      color: MyColors.blueberry,
       textColor: Colors.white,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
       elevation: 4.0,

@@ -3,6 +3,7 @@ import 'package:expense_app_beginner/Components/my_drawer.dart';
 import 'package:expense_app_beginner/Models/Expense.dart';
 import 'package:expense_app_beginner/Pages/edit_expense_page.dart';
 import 'package:expense_app_beginner/Resources/Strings.dart';
+import 'package:expense_app_beginner/Resources/Themes/Colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:expense_app_beginner/Providers/Global/expense_model.dart';
@@ -18,6 +19,7 @@ class _TodayPageState extends State<TodayPage> {
     final _expenseModel = Provider.of<ExpenseModel>(context);
 
     return Scaffold(
+      backgroundColor: MyColors.periwinkle,
       appBar: AppBar(
         title: Text(Strings.todaysExpenses),
       ),

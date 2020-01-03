@@ -1,5 +1,6 @@
 import 'package:expense_app_beginner/Providers/Global/expense_model.dart';
 import 'package:expense_app_beginner/Pages/today_page.dart';
+import 'package:expense_app_beginner/Resources/Themes/Colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -16,6 +17,8 @@ class MyApp extends StatelessWidget {
           textTheme: TextTheme(
             // TODO: add custom fonts and shit
           ),
+          primaryColor: MyColors.indigoInk,
+          accentColor: MyColors.blueberry,
         ),
       ),
     );

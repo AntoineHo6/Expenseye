@@ -1,4 +1,4 @@
-import 'package:expense_app_beginner/Resources/Themes/Colors.dart';
+import 'package:expense_app/Resources/Themes/Colors.dart';
 import 'package:flutter/material.dart';
 
 class IconBtn extends RaisedButton {

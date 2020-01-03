@@ -1,4 +1,4 @@
-import 'package:expense_app_beginner/Resources/Strings.dart';
+import 'package:expense_app/Resources/Strings.dart';
 
 class Expense {
   int id;

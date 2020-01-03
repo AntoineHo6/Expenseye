@@ -1,5 +1,5 @@
-import 'package:expense_app_beginner/Resources/Strings.dart';
-import 'package:expense_app_beginner/Resources/Themes/Colors.dart';
+import 'package:expense_app/Resources/Strings.dart';
+import 'package:expense_app/Resources/Themes/Colors.dart';
 import 'package:flutter/material.dart';
 
 class MyDrawer extends Drawer {

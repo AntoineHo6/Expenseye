@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:expense_app_beginner/Models/Expense.dart';
+import 'package:expense_app/Models/Expense.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';

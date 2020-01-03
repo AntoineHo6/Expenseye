@@ -63,10 +63,16 @@ class _TodayPageState extends State<TodayPage> {
                 ],
               );
             } else {
-              return Text('no data'); // temp
+              return Align(
+                alignment: Alignment.center,
+                child: Text(Strings.dataIsNull),
+              );
             }
           } else {
-            return new CircularProgressIndicator(); // add container to center
+            return Align(
+              alignment: Alignment.center,
+              child: new CircularProgressIndicator(),
+            );
           }
         },
       ),
@@ -78,6 +84,8 @@ class _TodayPageState extends State<TodayPage> {
   }
 
   void _showAddExpense() {
+    Provider.of<ExpenseModel>(context).dbHelper.deleteAllData();
+
     showDialog(
       context: context,
       builder: (_) => AddExpense(),

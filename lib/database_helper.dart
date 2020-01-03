@@ -11,7 +11,7 @@ class DatabaseHelper {
   // This is the actual database filename that is saved in the docs directory.
   static final _databaseName = "MyDatabase.db";
   // Increment this version when you need to change the schema.
-  static final _databaseVersion = 3;
+  static final _databaseVersion = 4;
 
   // Make this a singleton class.
   DatabaseHelper._privateConstructor();
@@ -41,7 +41,8 @@ class DatabaseHelper {
                 ${Strings.columnId} INTEGER PRIMARY KEY AUTOINCREMENT,
                 ${Strings.columnName} TEXT NOT NULL,
                 ${Strings.columnPrice} DOUBLE NOT NULL,
-                ${Strings.columnDate} TEXT NOT NULL
+                ${Strings.columnDate} TEXT NOT NULL,
+                ${Strings.columnIcon} INTEGER NOT NULL
               )
               ''');
   }
@@ -59,7 +60,8 @@ class DatabaseHelper {
           Strings.columnId,
           Strings.columnName,
           Strings.columnPrice,
-          Strings.columnDate
+          Strings.columnDate,
+          Strings.columnIcon
         ],
         where: '${Strings.columnId} = ?',
         whereArgs: [id]);
@@ -92,10 +94,9 @@ class DatabaseHelper {
         where: '${Strings.columnId} = ?', whereArgs: [expense.id]);
   }
 
-  // void deleteAllData() async {
-  //   Database db = await database;
-
-  // }
+  void deleteAllData() async {
+    Database db = await database;
+  }
 
   // TODO: delete(int id)
 }

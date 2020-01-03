@@ -9,7 +9,7 @@ class IconBtn extends RaisedButton {
       textColor: Colors.white,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
       elevation: 3.0,
-      onPressed: () => print('John wick'),
+      onPressed: () => print('John wick'),  // temp
       child: Icon(Icons.fastfood),
     );
   }

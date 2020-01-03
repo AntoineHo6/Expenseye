@@ -14,9 +14,6 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         home: TodayPage(),
         theme: ThemeData(
-          textTheme: TextTheme(
-            // TODO: add custom fonts and shit
-          ),
           primaryColor: MyColors.indigoInk,
           accentColor: MyColors.blueberry,
           backgroundColor: MyColors.periwinkle
@@ -25,14 +22,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-/**
- * TODO: types of expenses. Allow user to create their own type of expense.
- * 
- * TODO: Create settings
- * 
- * TODO: Create stats page
- * 
- * TODO: Create calendar page
- */
-

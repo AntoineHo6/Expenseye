@@ -5,6 +5,7 @@ class Expense {
   String name;
   double price;
   DateTime date;
+  int icon; // * should be Icon
 
   Expense(this.name, this.price, this.date);
 
@@ -15,6 +16,7 @@ class Expense {
     name = map[Strings.columnName];
     price = map[Strings.columnPrice];
     date = DateTime.parse(map[Strings.columnDate]);
+    icon = map[Strings.columnIcon]; // * should convert id to Icon
   }
 
   Map<String, dynamic> toMap() {
@@ -22,6 +24,7 @@ class Expense {
       Strings.columnName: name,
       Strings.columnPrice: price,
       Strings.columnDate: date.toIso8601String(),
+      Strings.columnIcon: icon  // * should get id of the icon instead
     };
     if (id != null) {
       map[Strings.columnId] = id;

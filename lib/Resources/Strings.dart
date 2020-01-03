@@ -13,6 +13,7 @@ class Strings {
   static const String total = 'Total';
   static const String settings = 'Settings';
   static const String categories = 'Categories';
+  static const String dataIsNull = 'Data is null';
 
   // * ERROR messages
   static const String cantBeEmpty = 'can\'t be empty';
@@ -23,5 +24,6 @@ class Strings {
   static const String columnId = 'expense_id';
   static const String columnName = 'name';
   static const String columnPrice = 'price';
-  static const String columnDate = 'datetime';
+  static const String columnDate = 'date';
+  static const String columnIcon = 'icon';
 }

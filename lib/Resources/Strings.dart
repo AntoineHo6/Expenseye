@@ -1,5 +1,5 @@
 class Strings {
-  // * CAPS messages
+  // * BUTTON messages
   static const String submitCaps = 'SUBMIT';
   static const String cancelCaps = 'CANCEL';
   static const String saveCaps = 'SAVE';
@@ -11,12 +11,13 @@ class Strings {
   static const String name = 'Name';
   static const String price = 'Price';
   static const String total = 'Total';
+  static const String settings = 'Settings';
 
   // * ERROR messages
   static const String cantBeEmpty = 'can\'t be empty';
   static const String isInvalid = 'is invalid';
 
-  // * database table and column names
+  // * DATABASE table and column names
   static const String tableExpenses = 'expenses';
   static const String columnId = 'expense_id';
   static const String columnName = 'name';

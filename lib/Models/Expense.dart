@@ -24,7 +24,7 @@ class Expense {
       Strings.columnName: name,
       Strings.columnPrice: price,
       Strings.columnDate: date.toIso8601String(),
-      Strings.columnIcon: icon  // * should get id of the icon instead
+      Strings.columnIcon: 1  // * temp. should get id of the icon instead
     };
     if (id != null) {
       map[Strings.columnId] = id;

@@ -94,9 +94,9 @@ class DatabaseHelper {
         where: '${Strings.columnId} = ?', whereArgs: [expense.id]);
   }
 
-  void deleteAllData() async {
-    Database db = await database;
-  }
+  // void customQuery() async {
+  //   Database db = await database;
+  // }
 
   // TODO: delete(int id)
 }

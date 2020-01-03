@@ -84,8 +84,6 @@ class _TodayPageState extends State<TodayPage> {
   }
 
   void _showAddExpense() {
-    Provider.of<ExpenseModel>(context).dbHelper.deleteAllData();
-
     showDialog(
       context: context,
       builder: (_) => AddExpense(),

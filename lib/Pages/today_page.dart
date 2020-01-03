@@ -45,7 +45,7 @@ class _TodayPageState extends State<TodayPage> {
                       itemBuilder: (context, index) {
                         return Card(
                           child: ListTile(
-                            leading: Text(snapshot.data[index].id.toString()),
+                            leading: Icon(Icons.fastfood),
                             title: Text(snapshot.data[index].name),
                             subtitle:
                                 Text(snapshot.data[index].price.toString()),

@@ -27,6 +27,15 @@ class MyDrawer extends Drawer {
               },
             ),
             ListTile(
+              title: Text(Strings.categories),
+              onTap: () {
+                // Update the state of the app
+                // ...
+                // Then close the drawer
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
               title: Text(Strings.settings),
               onTap: () {
                 // Update the state of the app

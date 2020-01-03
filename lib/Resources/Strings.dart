@@ -12,6 +12,7 @@ class Strings {
   static const String price = 'Price';
   static const String total = 'Total';
   static const String settings = 'Settings';
+  static const String categories = 'Categories';
 
   // * ERROR messages
   static const String cantBeEmpty = 'can\'t be empty';

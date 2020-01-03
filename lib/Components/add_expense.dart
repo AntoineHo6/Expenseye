@@ -1,3 +1,4 @@
+import 'package:expense_app_beginner/Components/icon_btn.dart';
 import 'package:expense_app_beginner/Models/Expense.dart';
 import 'package:expense_app_beginner/Providers/Global/expense_model.dart';
 import 'package:expense_app_beginner/Providers/edit_add_expense_model.dart';
@@ -52,10 +53,18 @@ class _AddExpense extends State<AddExpense> {
                   keyboardType: TextInputType.number,
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: 20, left: 10, right: 10),
-                  child: DatePickerBtn(
-                    model.date,
-                    () => model.chooseDate(context, model.date),
+                  margin: EdgeInsets.only(top: 20),
+                  child: Row(
+                    children: <Widget>[
+                      IconBtn(),
+                      SizedBox(
+                        width: 15,
+                      ),
+                      DatePickerBtn(
+                        model.date,
+                        () => model.chooseDate(context, model.date),
+                      ),
+                    ],
                   ),
                 ),
               ],

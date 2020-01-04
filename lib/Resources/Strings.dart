@@ -3,10 +3,11 @@ class Strings {
   static const String submitCaps = 'SUBMIT';
   static const String cancelCaps = 'CANCEL';
   static const String saveCaps = 'SAVE';
+  static const String confirmCaps = 'CONFIRM';
 
   static const String appName = 'Expenses app';
   static const String todaysExpenses = 'Today\'s expenses';
-  
+
   static const String newExpense = 'New expense';
   static const String name = 'Name';
   static const String price = 'Price';
@@ -15,6 +16,10 @@ class Strings {
   static const String categories = 'Categories';
   static const String icons = 'Icons';
   static const String dataIsNull = 'Data is null';
+  static const String confirm = 'Confirm';
+
+  static const String confirmMsg =
+      'Are you sure you want to delete this expense?';
 
   // * ERROR messages
   static const String cantBeEmpty = 'can\'t be empty';

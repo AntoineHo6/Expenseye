@@ -1,4 +1,5 @@
 import 'package:expense_app/Components/Buttons/RaisedButtons/icon_btn.dart';
+import 'package:expense_app/Components/confirmation_dialog.dart';
 import 'package:expense_app/Providers/Global/expense_model.dart';
 import 'package:expense_app/Providers/edit_add_expense_model.dart';
 import 'package:expense_app/Components/Buttons/RaisedButtons/date_picker_btn.dart';
@@ -156,11 +157,16 @@ class _EditExpense extends State<EditExpense> {
     }
   }
 
-  void _delete(ExpenseModel globalProvider) {
-    // add alert dialog confirmation
+  void _delete(ExpenseModel globalProvider) async {
+    bool confirmed = await showDialog(
+      context: context,
+      builder: (_) => ConfirmationDialog(widget.expense.id),
+    );
 
-    globalProvider.deleteExpense(widget.expense.id);
-    Navigator.pop(context);
+    if (confirmed) {
+      globalProvider.deleteExpense(widget.expense.id);
+      Navigator.pop(context);
+    }
   }
 
   @override

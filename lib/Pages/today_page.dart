@@ -89,7 +89,6 @@ class _TodayPageState extends State<TodayPage> {
     showDialog(
       context: context,
       builder: (_) => AddExpense(),
-      barrierDismissible: false,
     );
   }
 

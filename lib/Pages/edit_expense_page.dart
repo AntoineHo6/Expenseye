@@ -25,8 +25,8 @@ class _EditExpense extends State<EditExpense> {
   @override
   Widget build(BuildContext context) {
     return new ChangeNotifierProvider<EditAddExpenseModel>(
-      create: (_) => new EditAddExpenseModel(
-          widget.expense.date, ExpenseCategory.food), // temp
+      create: (_) =>
+          new EditAddExpenseModel(widget.expense.date, widget.expense.category),
       child: Consumer<EditAddExpenseModel>(
         builder: (context, model, child) => Scaffold(
           backgroundColor: MyColors.periwinkle,
@@ -99,7 +99,7 @@ class _EditExpense extends State<EditExpense> {
                     children: <Widget>[
                       Container(
                         margin: EdgeInsets.only(left: 3),
-                        child: IconBtn(ExpenseCategory.food),
+                        child: IconBtn(model.category),
                       ),
                       Align(
                         alignment: Alignment.centerRight,
@@ -141,7 +141,7 @@ class _EditExpense extends State<EditExpense> {
           newName,
           double.parse(newPrice),
           localProvider.date,
-          ExpenseCategory.food); // temp
+          localProvider.category);
 
       Provider.of<ExpenseModel>(context).editExpense(newExpense);
 

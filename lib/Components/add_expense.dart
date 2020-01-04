@@ -20,8 +20,6 @@ class _AddExpense extends State<AddExpense> {
 
   @override
   Widget build(BuildContext context) {
-    final _expenseModel = Provider.of<ExpenseModel>(context);
-
     return new ChangeNotifierProvider<EditAddExpenseModel>(
       create: (_) =>
           new EditAddExpenseModel(DateTime.now(), ExpenseCategory.food),
@@ -111,14 +109,13 @@ class _AddExpense extends State<AddExpense> {
     // if all the fields are valid, add and quit
     if (!areFieldsInvalid) {
       Expense newExpense = new Expense(newName, double.parse(newPrice), newDate,
-          localProvider.category); // temp
+          localProvider.category);
 
       Provider.of<ExpenseModel>(context).addExpense(newExpense);
 
       Navigator.pop(context);
     }
   }
-
 
   @override
   void dispose() {
@@ -127,7 +124,3 @@ class _AddExpense extends State<AddExpense> {
     super.dispose();
   }
 }
-
-/**
- * TODO: add date and time for expense
- */

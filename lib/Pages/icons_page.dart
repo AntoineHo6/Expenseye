@@ -1,5 +1,4 @@
 import 'package:expense_app/Providers/Global/expense_model.dart';
-import 'package:expense_app/Providers/edit_add_expense_model.dart';
 import 'package:expense_app/Resources/Strings.dart';
 import 'package:expense_app/expense_category.dart';
 import 'package:flutter/material.dart';
@@ -48,8 +47,3 @@ class _IconsPageState extends State<IconsPage> {
     );
   }
 }
-
-/**
- * TODO: categories: food, transportation, shopping, entertainment, personal,
- * TODO:             medical, home, travel, people, others
- */

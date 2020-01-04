@@ -24,8 +24,6 @@ class _EditExpense extends State<EditExpense> {
 
   @override
   Widget build(BuildContext context) {
-    final _expenseModel = Provider.of<ExpenseModel>(context);
-
     return new ChangeNotifierProvider<EditAddExpenseModel>(
       create: (_) => new EditAddExpenseModel(
           widget.expense.date, ExpenseCategory.food), // temp

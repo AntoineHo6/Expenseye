@@ -23,6 +23,8 @@ class _EditExpense extends State<EditExpense> {
 
   @override
   Widget build(BuildContext context) {
+    final _expenseModel = Provider.of<ExpenseModel>(context);
+
     return new ChangeNotifierProvider<EditAddExpenseModel>(
       create: (_) =>
           new EditAddExpenseModel(widget.expense.date, widget.expense.category),
@@ -31,6 +33,16 @@ class _EditExpense extends State<EditExpense> {
           backgroundColor: MyColors.periwinkle,
           appBar: AppBar(
             title: Text(widget.expense.name),
+            actions: <Widget>[
+              FlatButton(
+                textColor: Colors.white,
+                onPressed: () => _delete(_expenseModel),
+                child: Icon(Icons.delete_forever),
+                shape: CircleBorder(
+                  side: BorderSide(color: Colors.transparent),
+                ),
+              ),
+            ],
           ),
           body: SingleChildScrollView(
             child: Column(
@@ -135,17 +147,20 @@ class _EditExpense extends State<EditExpense> {
 
     // if all the fields are valid, update and quit
     if (!areFieldsInvalid) {
-      Expense newExpense = new Expense.withId(
-          widget.expense.id,
-          newName,
-          double.parse(newPrice),
-          localProvider.date,
-          localProvider.category);
+      Expense newExpense = new Expense.withId(widget.expense.id, newName,
+          double.parse(newPrice), localProvider.date, localProvider.category);
 
       Provider.of<ExpenseModel>(context).editExpense(newExpense);
 
       Navigator.pop(context);
     }
+  }
+
+  void _delete(ExpenseModel globalProvider) {
+    // add alert dialog confirmation
+
+    globalProvider.deleteExpense(widget.expense.id);
+    Navigator.pop(context);
   }
 
   @override

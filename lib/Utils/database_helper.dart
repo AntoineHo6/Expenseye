@@ -93,6 +93,15 @@ class DatabaseHelper {
         where: '${Strings.columnId} = ?', whereArgs: [expense.id]);
   }
 
+  Future<int> delete(int id) async {
+    Database db = await database;
+    
+    return await db.delete(Strings.tableExpenses,
+        where: '${Strings.columnId} = ?', whereArgs: [id]);
+  }
+
+  //Future close() async => db.close();
+
   // void customQuery() async {
   //   Database db = await database;
 
@@ -108,6 +117,4 @@ class DatabaseHelper {
   //             )
   //             ''');
   // }
-
-  // TODO: delete(int id)
 }

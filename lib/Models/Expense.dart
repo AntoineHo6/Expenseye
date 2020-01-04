@@ -1,5 +1,5 @@
 import 'package:expense_app/Resources/Strings.dart';
-import 'package:expense_app/expense_category.dart';
+import 'package:expense_app/Utils/expense_category.dart';
 
 class Expense {
   int id;

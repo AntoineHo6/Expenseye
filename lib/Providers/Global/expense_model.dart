@@ -17,6 +17,11 @@ class ExpenseModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  void deleteExpense(int id) {
+    dbHelper.delete(id);
+    notifyListeners();
+  }
+
   double calcTotal(List<Expense> expenses) {
     double total = 0;
     for (Expense expense in expenses) {

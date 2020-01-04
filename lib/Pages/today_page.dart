@@ -53,7 +53,7 @@ class _TodayPageState extends State<TodayPage> {
                                     .properties[expense.category]['color']),
                             title: Text(expense.name),
                             subtitle: Text(expense.price.toString()),
-                            onLongPress: () => _openEditExpense(expense),
+                            onTap: () => _openEditExpense(expense),
                             trailing: Text(
                               _expenseModel.formattedDate(expense.date),
                             ),

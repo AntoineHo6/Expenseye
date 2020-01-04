@@ -1,6 +1,6 @@
 import 'package:expense_app/Providers/Global/expense_model.dart';
 import 'package:expense_app/Resources/Strings.dart';
-import 'package:expense_app/expense_category.dart';
+import 'package:expense_app/Utils/expense_category.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

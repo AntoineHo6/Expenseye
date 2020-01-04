@@ -1,7 +1,7 @@
 import 'package:expense_app/Models/Expense.dart';
 import 'package:expense_app/Resources/Strings.dart';
-import 'package:expense_app/database_helper.dart';
-import 'package:expense_app/expense_category.dart';
+import 'package:expense_app/Utils/database_helper.dart';
+import 'package:expense_app/Utils/expense_category.dart';
 import 'package:flutter/material.dart';
 
 class ExpenseModel extends ChangeNotifier {

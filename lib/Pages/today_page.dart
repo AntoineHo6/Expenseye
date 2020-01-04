@@ -4,6 +4,7 @@ import 'package:expense_app/Models/Expense.dart';
 import 'package:expense_app/Pages/edit_expense_page.dart';
 import 'package:expense_app/Resources/Strings.dart';
 import 'package:expense_app/Resources/Themes/Colors.dart';
+import 'package:expense_app/Utils/expense_category.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:expense_app/Providers/Global/expense_model.dart';
@@ -43,18 +44,18 @@ class _TodayPageState extends State<TodayPage> {
                     child: ListView.builder(
                       itemCount: snapshot.data.length,
                       itemBuilder: (context, index) {
+                        Expense expense = snapshot.data[index];
                         return Card(
                           child: ListTile(
-                            leading: Icon(_expenseModel
-                                .catToIconData(snapshot.data[index].category)),
-                            title: Text(snapshot.data[index].name),
-                            subtitle:
-                                Text(snapshot.data[index].price.toString()),
-                            onLongPress: () =>
-                                _openEditExpense(snapshot.data[index]),
+                            leading: Icon(
+                                _expenseModel.catToIconData(expense.category),
+                                color: CategoryProperties
+                                    .properties[expense.category]['color']),
+                            title: Text(expense.name),
+                            subtitle: Text(expense.price.toString()),
+                            onLongPress: () => _openEditExpense(expense),
                             trailing: Text(
-                              _expenseModel
-                                  .formattedDate(snapshot.data[index].date),
+                              _expenseModel.formattedDate(expense.date),
                             ),
                           ),
                         );

@@ -28,19 +28,13 @@ class _IconsPageState extends State<IconsPage> {
           ExpenseCategory.values.length,
           (index) {
             return RaisedButton(
+              color: CategoryProperties
+                  .properties[ExpenseCategory.values[index]]['color'],
               onPressed: () =>
                   Navigator.pop(context, ExpenseCategory.values[index]),
-              child: Container(
-                color: Colors.amber,
-                padding: const EdgeInsets.all(30),
-                child: LayoutBuilder(
-                  builder: (context, constraint) {
-                    return Icon(
-                        _expenseModel
-                            .catToIconData(ExpenseCategory.values[index]),
-                        size: constraint.biggest.height);
-                  },
-                ),
+              child: Icon(
+                _expenseModel.catToIconData(ExpenseCategory.values[index]),
+                size: 50,
               ),
             );
           },

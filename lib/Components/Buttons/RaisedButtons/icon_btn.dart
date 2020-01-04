@@ -1,8 +1,7 @@
 import 'package:expense_app/Pages/icons_page.dart';
 import 'package:expense_app/Providers/Global/expense_model.dart';
 import 'package:expense_app/Providers/edit_add_expense_model.dart';
-import 'package:expense_app/Resources/Themes/Colors.dart';
-import 'package:expense_app/expense_category.dart';
+import 'package:expense_app/Utils/expense_category.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -17,8 +16,8 @@ class IconBtn extends RaisedButton {
     final _editAddExpenseModel = Provider.of<EditAddExpenseModel>(context);
 
     return RaisedButton(
-      color: MyColors.blueberry,
-      textColor: Colors.white,
+      color: CategoryProperties.properties[category]['color'],
+      //textColor: Colors.white,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
       elevation: 3.0,
       onPressed: () => _openIconsPage(context, _editAddExpenseModel),
@@ -33,7 +32,9 @@ class IconBtn extends RaisedButton {
       MaterialPageRoute(builder: (context) => IconsPage()),
     );
 
-    _editAddExpenseModel.category = result;
-    _editAddExpenseModel.infoChanged(null);
+    if (result != null) {
+      _editAddExpenseModel.category = result;
+      _editAddExpenseModel.infoChanged(null);
+    }
   }
 }

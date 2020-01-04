@@ -18,43 +18,43 @@ class CategoryProperties {
   static const Map<ExpenseCategory, Map<String, Object>> properties = {
     ExpenseCategory.food: {
       'iconData': Icons.restaurant,
-      'color': Colors.red
+      'color': Color(0xffff9933)
     },
     ExpenseCategory.transportation: {
       'iconData': Icons.directions_car,
-      'color': Colors.red
+      'color': Colors.amber
     },
     ExpenseCategory.shopping: {
       'iconData': Icons.shopping_cart,
-      'color': Colors.red
+      'color': Color(0xff47d147)
     },
     ExpenseCategory.entertainment: {
       'iconData': Icons.movie,
-      'color': Colors.red
+      'color': Color(0xffcc66cc)
     },
     ExpenseCategory.personal: {
       'iconData': Icons.face,
-      'color': Colors.red
+      'color': Color(0xff66ccff)
     },
     ExpenseCategory.medical: {
       'iconData': Icons.healing,
-      'color': Colors.red
+      'color': Color(0xffff3333)
     },
     ExpenseCategory.home: {
       'iconData': Icons.home,
-      'color': Colors.red
+      'color': Color(0xffc68c53)
     },
     ExpenseCategory.travel: {
       'iconData': Icons.airplanemode_active,
-      'color': Colors.red
+      'color': Color(0xff99e600)
     },
     ExpenseCategory.people: {
       'iconData': Icons.people,
-      'color': Colors.red
+      'color': Color(0xff3377ff)
     },
     ExpenseCategory.others: {
       'iconData': Icons.tab,
-      'color': Colors.red
+      'color': Color(0xff669999)
     }
   };
 }

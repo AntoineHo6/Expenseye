@@ -1,6 +1,7 @@
 import 'package:expense_app/Models/Expense.dart';
 import 'package:expense_app/Resources/Strings.dart';
 import 'package:expense_app/database_helper.dart';
+import 'package:expense_app/expense_category.dart';
 import 'package:flutter/material.dart';
 
 class ExpenseModel extends ChangeNotifier {
@@ -33,30 +34,7 @@ class ExpenseModel extends ChangeNotifier {
     return '${date.day}/${date.month}/${date.year}';
   }
 
-  IconData indexToIconData(int index) {
-    switch (index) {
-      case 0:
-        return Icons.restaurant;
-      case 1:
-        return Icons.directions_car;
-      case 2:
-        return Icons.shopping_cart;
-      case 3:
-        return Icons.movie;
-      case 4:
-        return Icons.face;
-      case 5:
-        return Icons.healing;
-      case 6:
-        return Icons.home;
-      case 7:
-        return Icons.airplanemode_active;
-      case 8:
-        return Icons.people;
-      case 9:
-        return Icons.tab;
-      default:
-        return Icons.sentiment_dissatisfied;
-    }
+  IconData catToIconData(ExpenseCategory category) {
+    return CategoryProperties.properties[category]['iconData'];
   }
 }

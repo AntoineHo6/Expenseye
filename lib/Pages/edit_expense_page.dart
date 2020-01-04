@@ -5,7 +5,6 @@ import 'package:expense_app/Components/Buttons/RaisedButtons/date_picker_btn.dar
 import 'package:expense_app/Models/Expense.dart';
 import 'package:expense_app/Resources/Strings.dart';
 import 'package:expense_app/Resources/Themes/Colors.dart';
-import 'package:expense_app/expense_category.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

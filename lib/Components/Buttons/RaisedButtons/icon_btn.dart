@@ -22,7 +22,7 @@ class IconBtn extends RaisedButton {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
       elevation: 3.0,
       onPressed: () => _openIconsPage(context, _editAddExpenseModel),
-      child: Icon(_expenseModel.indexToIconData(category.index)),
+      child: Icon(_expenseModel.catToIconData(category)),
     );
   }
 

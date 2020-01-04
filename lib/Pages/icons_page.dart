@@ -35,7 +35,9 @@ class _IconsPageState extends State<IconsPage> {
                 padding: const EdgeInsets.all(30),
                 child: LayoutBuilder(
                   builder: (context, constraint) {
-                    return Icon(_expenseModel.indexToIconData(index),
+                    return Icon(
+                        _expenseModel
+                            .catToIconData(ExpenseCategory.values[index]),
                         size: constraint.biggest.height);
                   },
                 ),

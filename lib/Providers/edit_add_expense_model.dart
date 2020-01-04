@@ -1,4 +1,3 @@
-import 'package:expense_app/Resources/Themes/Colors.dart';
 import 'package:flutter/material.dart';
 
 class EditAddExpenseModel extends ChangeNotifier {
@@ -7,7 +6,6 @@ class EditAddExpenseModel extends ChangeNotifier {
   bool isNameInvalid = false;
   bool isPriceInvalid = false;
 
-  // * Only used when adding an expense
   DateTime date;
 
   EditAddExpenseModel(this.date);
@@ -45,26 +43,6 @@ class EditAddExpenseModel extends ChangeNotifier {
     } else {
       return true;
     }
-  }
-
-  void chooseDate(BuildContext context, DateTime initialDate) async {
-    DateTime newDate = await showDatePicker(
-      context: context,
-      initialDate: initialDate,
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2030),
-      builder: (BuildContext context, Widget child) {
-        return Theme(
-          data: ThemeData(
-            primarySwatch: MyColors.indigoInk,
-            splashColor: MyColors.indigoInk
-          ),
-          child: child,
-        );
-      },
-    );
-
-    updateDate(newDate);
   }
 }
 

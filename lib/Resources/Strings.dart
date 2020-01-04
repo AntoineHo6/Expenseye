@@ -13,6 +13,7 @@ class Strings {
   static const String total = 'Total';
   static const String settings = 'Settings';
   static const String categories = 'Categories';
+  static const String icons = 'Icons';
   static const String dataIsNull = 'Data is null';
 
   // * ERROR messages
@@ -25,5 +26,5 @@ class Strings {
   static const String columnName = 'name';
   static const String columnPrice = 'price';
   static const String columnDate = 'date';
-  static const String columnIcon = 'icon';
+  static const String columnCategory = 'category';
 }

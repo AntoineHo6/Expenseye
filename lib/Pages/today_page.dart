@@ -50,7 +50,7 @@ class _TodayPageState extends State<TodayPage> {
                             subtitle:
                                 Text(snapshot.data[index].price.toString()),
                             onLongPress: () =>
-                                _openExpandExpense(snapshot.data[index]),
+                                _openEditExpense(snapshot.data[index]),
                             trailing: Text(
                               _expenseModel
                                   .formattedDate(snapshot.data[index].date),
@@ -91,7 +91,7 @@ class _TodayPageState extends State<TodayPage> {
     );
   }
 
-  void _openExpandExpense(Expense expense) {
+  void _openEditExpense(Expense expense) {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => EditExpense(expense)),

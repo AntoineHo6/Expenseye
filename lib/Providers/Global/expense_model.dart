@@ -13,7 +13,6 @@ class ExpenseModel extends ChangeNotifier {
 
   void editExpense(Expense newExpense) {
     dbHelper.update(newExpense);
-
     notifyListeners();
   }
 
@@ -25,11 +24,37 @@ class ExpenseModel extends ChangeNotifier {
     return total;
   }
 
+  // * may move out of this provider
   String totalString(List<Expense> expenses) {
     return '${Strings.total}: ${calcTotal(expenses).toString()} \$';
   }
 
   String formattedDate(DateTime date) {
-    return '${date.year} - ${date.month} - ${date.day}';
+    return '${date.day}/${date.month}/${date.year}';
+  }
+
+  IconData indexToIconData(int index) {
+    switch (index) {
+      case 0:
+        return Icons.restaurant;
+      case 1:
+        return Icons.directions_car;
+      case 2:
+        return Icons.shopping_cart;
+        case 3:
+        return Icons.movie;
+        case 4:
+        return Icons.face;
+        case 5:
+        return Icons.healing;
+        case 6:
+        return Icons.home;
+        case 7:
+        return Icons.airplanemode_active;
+        case 8:
+        return Icons.people;
+        case 9:
+        return Icons.tab;
+    }
   }
 }

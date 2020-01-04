@@ -42,7 +42,7 @@ class DatabaseHelper {
                 ${Strings.columnName} TEXT NOT NULL,
                 ${Strings.columnPrice} DOUBLE NOT NULL,
                 ${Strings.columnDate} TEXT NOT NULL,
-                ${Strings.columnIcon} INTEGER NOT NULL
+                ${Strings.columnCategory} INTEGER NOT NULL
               )
               ''');
   }
@@ -61,7 +61,7 @@ class DatabaseHelper {
           Strings.columnName,
           Strings.columnPrice,
           Strings.columnDate,
-          Strings.columnIcon
+          Strings.columnCategory
         ],
         where: '${Strings.columnId} = ?',
         whereArgs: [id]);
@@ -96,6 +96,18 @@ class DatabaseHelper {
 
   // void customQuery() async {
   //   Database db = await database;
+
+  //   db.rawQuery('DROP TABLE ${Strings.tableExpenses}');
+
+  //   await db.execute('''
+  //             CREATE TABLE ${Strings.tableExpenses} (
+  //               ${Strings.columnId} INTEGER PRIMARY KEY AUTOINCREMENT,
+  //               ${Strings.columnName} TEXT NOT NULL,
+  //               ${Strings.columnPrice} DOUBLE NOT NULL,
+  //               ${Strings.columnDate} TEXT NOT NULL,
+  //               ${Strings.columnCategory} INTEGER NOT NULL
+  //             )
+  //             ''');
   // }
 
   // TODO: delete(int id)

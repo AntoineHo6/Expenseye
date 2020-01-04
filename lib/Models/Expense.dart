@@ -1,22 +1,23 @@
 import 'package:expense_app/Resources/Strings.dart';
+import 'package:expense_app/expense_category.dart';
 
 class Expense {
   int id;
   String name;
   double price;
   DateTime date;
-  int icon; // * should be Icon
+  ExpenseCategory category;
 
-  Expense(this.name, this.price, this.date);
+  Expense(this.name, this.price, this.date, this.category);
 
-  Expense.withId(this.id, this.name, this.price, this.date);
+  Expense.withId(this.id, this.name, this.price, this.date, this.category);
 
   Expense.fromMap(Map<String, dynamic> map) {
     id = map[Strings.columnId];
     name = map[Strings.columnName];
     price = map[Strings.columnPrice];
     date = DateTime.parse(map[Strings.columnDate]);
-    icon = map[Strings.columnIcon]; // * should convert id to Icon
+    category = ExpenseCategory.values[map[Strings.columnCategory]];
   }
 
   Map<String, dynamic> toMap() {
@@ -24,7 +25,7 @@ class Expense {
       Strings.columnName: name,
       Strings.columnPrice: price,
       Strings.columnDate: date.toIso8601String(),
-      Strings.columnIcon: 1  // * temp. should get id of the icon instead
+      Strings.columnCategory: category.index
     };
     if (id != null) {
       map[Strings.columnId] = id;

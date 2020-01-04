@@ -5,6 +5,7 @@ import 'package:expense_app/Components/Buttons/RaisedButtons/date_picker_btn.dar
 import 'package:expense_app/Models/Expense.dart';
 import 'package:expense_app/Resources/Strings.dart';
 import 'package:expense_app/Resources/Themes/Colors.dart';
+import 'package:expense_app/expense_category.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -103,10 +104,7 @@ class _EditExpense extends State<EditExpense> {
                         alignment: Alignment.centerRight,
                         child: Container(
                           margin: EdgeInsets.only(right: 3),
-                          child: DatePickerBtn(
-                            model.date,
-                            () => model.chooseDate(context, model.date),
-                          ),
+                          child: DatePickerBtn(model.date),
                         ),
                       ),
                     ],
@@ -138,7 +136,7 @@ class _EditExpense extends State<EditExpense> {
     // if all the fields are valid, update and quit
     if (!areFieldsInvalid) {
       Expense newExpense = new Expense.withId(widget.expense.id, newName,
-          double.parse(newPrice), localProvider.date);
+          double.parse(newPrice), localProvider.date, ExpenseCategory.food); // temp
 
       Provider.of<ExpenseModel>(context).editExpense(newExpense);
 

@@ -1,4 +1,5 @@
 import 'package:expense_app/Providers/Global/expense_model.dart';
+import 'package:expense_app/Providers/edit_add_expense_model.dart';
 import 'package:expense_app/Resources/Strings.dart';
 import 'package:expense_app/expense_category.dart';
 import 'package:flutter/material.dart';
@@ -27,14 +28,18 @@ class _IconsPageState extends State<IconsPage> {
         children: List.generate(
           ExpenseCategory.values.length,
           (index) {
-            return Container(
-              color: Colors.amber,
-              padding: const EdgeInsets.all(30),
-              child: LayoutBuilder(
-                builder: (context, constraint) {
-                  return Icon(_expenseModel.indexToIconData(index),
-                      size: constraint.biggest.height);
-                },
+            return RaisedButton(
+              onPressed: () =>
+                  Navigator.pop(context, ExpenseCategory.values[index]),
+              child: Container(
+                color: Colors.amber,
+                padding: const EdgeInsets.all(30),
+                child: LayoutBuilder(
+                  builder: (context, constraint) {
+                    return Icon(_expenseModel.indexToIconData(index),
+                        size: constraint.biggest.height);
+                  },
+                ),
               ),
             );
           },

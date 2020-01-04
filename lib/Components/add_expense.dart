@@ -20,8 +20,11 @@ class _AddExpense extends State<AddExpense> {
 
   @override
   Widget build(BuildContext context) {
+    final _expenseModel = Provider.of<ExpenseModel>(context);
+
     return new ChangeNotifierProvider<EditAddExpenseModel>(
-      create: (_) => new EditAddExpenseModel(DateTime.now()),
+      create: (_) =>
+          new EditAddExpenseModel(DateTime.now(), ExpenseCategory.food),
       child: Consumer<EditAddExpenseModel>(
         builder: (context, model, child) => AlertDialog(
           backgroundColor: MyColors.periwinkle,
@@ -61,7 +64,7 @@ class _AddExpense extends State<AddExpense> {
                     children: <Widget>[
                       Container(
                         margin: EdgeInsets.only(left: 3),
-                        child: IconBtn(),
+                        child: IconBtn(model.category),
                       ),
                       Align(
                         alignment: Alignment.centerRight,
@@ -107,14 +110,15 @@ class _AddExpense extends State<AddExpense> {
 
     // if all the fields are valid, add and quit
     if (!areFieldsInvalid) {
-      Expense newExpense = new Expense(
-          newName, double.parse(newPrice), newDate, ExpenseCategory.food); // temp
+      Expense newExpense = new Expense(newName, double.parse(newPrice), newDate,
+          localProvider.category); // temp
 
       Provider.of<ExpenseModel>(context).addExpense(newExpense);
 
       Navigator.pop(context);
     }
   }
+
 
   @override
   void dispose() {

@@ -45,7 +45,7 @@ class _TodayPageState extends State<TodayPage> {
                       itemBuilder: (context, index) {
                         return Card(
                           child: ListTile(
-                            leading: Icon(Icons.fastfood),
+                            leading: Icon(_expenseModel.indexToIconData(snapshot.data[index].category.index)),
                             title: Text(snapshot.data[index].name),
                             subtitle:
                                 Text(snapshot.data[index].price.toString()),

@@ -1,3 +1,4 @@
+import 'package:expense_app/expense_category.dart';
 import 'package:flutter/material.dart';
 
 class EditAddExpenseModel extends ChangeNotifier {
@@ -7,8 +8,9 @@ class EditAddExpenseModel extends ChangeNotifier {
   bool isPriceInvalid = false;
 
   DateTime date;
+  ExpenseCategory category;
 
-  EditAddExpenseModel(this.date);
+  EditAddExpenseModel(this.date, this.category);
 
   void infoChanged(String text) {
     didInfoChange = true;

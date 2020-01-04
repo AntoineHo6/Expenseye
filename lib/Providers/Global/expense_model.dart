@@ -41,20 +41,22 @@ class ExpenseModel extends ChangeNotifier {
         return Icons.directions_car;
       case 2:
         return Icons.shopping_cart;
-        case 3:
+      case 3:
         return Icons.movie;
-        case 4:
+      case 4:
         return Icons.face;
-        case 5:
+      case 5:
         return Icons.healing;
-        case 6:
+      case 6:
         return Icons.home;
-        case 7:
+      case 7:
         return Icons.airplanemode_active;
-        case 8:
+      case 8:
         return Icons.people;
-        case 9:
+      case 9:
         return Icons.tab;
+      default:
+        return Icons.sentiment_dissatisfied;
     }
   }
 }

@@ -24,8 +24,11 @@ class _EditExpense extends State<EditExpense> {
 
   @override
   Widget build(BuildContext context) {
+    final _expenseModel = Provider.of<ExpenseModel>(context);
+
     return new ChangeNotifierProvider<EditAddExpenseModel>(
-      create: (_) => new EditAddExpenseModel(widget.expense.date),
+      create: (_) => new EditAddExpenseModel(
+          widget.expense.date, ExpenseCategory.food), // temp
       child: Consumer<EditAddExpenseModel>(
         builder: (context, model, child) => Scaffold(
           backgroundColor: MyColors.periwinkle,
@@ -98,7 +101,7 @@ class _EditExpense extends State<EditExpense> {
                     children: <Widget>[
                       Container(
                         margin: EdgeInsets.only(left: 3),
-                        child: IconBtn(),
+                        child: IconBtn(ExpenseCategory.food),
                       ),
                       Align(
                         alignment: Alignment.centerRight,
@@ -135,8 +138,12 @@ class _EditExpense extends State<EditExpense> {
 
     // if all the fields are valid, update and quit
     if (!areFieldsInvalid) {
-      Expense newExpense = new Expense.withId(widget.expense.id, newName,
-          double.parse(newPrice), localProvider.date, ExpenseCategory.food); // temp
+      Expense newExpense = new Expense.withId(
+          widget.expense.id,
+          newName,
+          double.parse(newPrice),
+          localProvider.date,
+          ExpenseCategory.food); // temp
 
       Provider.of<ExpenseModel>(context).editExpense(newExpense);
 

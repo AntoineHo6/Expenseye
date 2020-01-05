@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         home: DailyPage(),
         theme: ThemeData(
-          primaryColor: MyColors.indigoInk,
+          primaryColor: MyColors.blueberry,
           accentColor: MyColors.blueberry,
           backgroundColor: MyColors.periwinkle
         ),

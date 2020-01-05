@@ -14,6 +14,7 @@ class Strings {
   static const String icons = 'Icons';
   static const String dataIsNull = 'Data is null';
   static const String confirm = 'Confirm';
+  static const String pieChart = 'Pie Chart';
   
   // * DRAWER options
   static const String viewBy = 'View by';

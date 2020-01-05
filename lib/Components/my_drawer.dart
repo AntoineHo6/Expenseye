@@ -12,13 +12,19 @@ class MyDrawer extends Drawer {
           padding: EdgeInsets.zero,
           children: <Widget>[
             DrawerHeader(
-              child: Text(
-                Strings.appName,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 25
-                ),
+              child:
+              Align(
+              alignment: Alignment.centerLeft,
+              child: Column(
+                children: <Widget>[
+                  Icon(Icons.remove_red_eye, color: Colors.white),
+                  Text(
+                    Strings.appName,
+                    style: TextStyle(color: Colors.white, fontSize: 25),
+                  ),
+                ],
               ),
+            ),
               decoration: BoxDecoration(
                 color: MyColors.indigoInk,
               ),
@@ -43,6 +49,15 @@ class MyDrawer extends Drawer {
             ),
             ListTile(
               title: Text(Strings.categories),
+              onTap: () {
+                // Update the state of the app
+                // ...
+                // Then close the drawer
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              title: Text('Statistics'),
               onTap: () {
                 // Update the state of the app
                 // ...

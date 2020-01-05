@@ -1,5 +1,5 @@
 import 'package:expense_app/Providers/Global/expense_model.dart';
-import 'package:expense_app/Pages/today_page.dart';
+import 'package:expense_app/Pages/daily_page.dart';
 import 'package:expense_app/Resources/Themes/Colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (_) => new ExpenseModel(),
       child: MaterialApp(
-        home: TodayPage(),
+        home: DailyPage(),
         theme: ThemeData(
           primaryColor: MyColors.indigoInk,
           accentColor: MyColors.blueberry,

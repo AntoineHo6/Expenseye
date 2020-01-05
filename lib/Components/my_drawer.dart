@@ -12,19 +12,34 @@ class MyDrawer extends Drawer {
           padding: EdgeInsets.zero,
           children: <Widget>[
             DrawerHeader(
-              child: Text('Drawer Header'),
+              child: Text(
+                Strings.appName,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 25
+                ),
+              ),
               decoration: BoxDecoration(
                 color: MyColors.indigoInk,
               ),
             ),
-            ListTile(
-              title: Text(Strings.todaysExpenses),
-              onTap: () {
-                // Update the state of the app
-                // ...
-                // Then close the drawer
-                Navigator.pop(context);
-              },
+            ExpansionTile(
+              title: Text(Strings.viewBy),
+              children: <Widget>[
+                // TODO: implement onTap
+                ListTile(
+                  title: Text(Strings.daily),
+                ),
+                ListTile(
+                  title: Text(Strings.weekly),
+                ),
+                ListTile(
+                  title: Text(Strings.monthly),
+                ),
+                ListTile(
+                  title: Text(Strings.yearly),
+                ),
+              ],
             ),
             ListTile(
               title: Text(Strings.categories),

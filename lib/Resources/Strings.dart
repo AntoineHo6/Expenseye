@@ -1,22 +1,28 @@
 class Strings {
+  static const String appName = 'Expense Eye';
+
   // * BUTTON messages
   static const String submitCaps = 'SUBMIT';
   static const String cancelCaps = 'CANCEL';
   static const String saveCaps = 'SAVE';
   static const String confirmCaps = 'CONFIRM';
 
-  static const String appName = 'Expenses app';
-  static const String todaysExpenses = 'Today\'s expenses';
-
   static const String newExpense = 'New expense';
   static const String name = 'Name';
   static const String price = 'Price';
   static const String total = 'Total';
-  static const String settings = 'Settings';
-  static const String categories = 'Categories';
   static const String icons = 'Icons';
   static const String dataIsNull = 'Data is null';
   static const String confirm = 'Confirm';
+  
+  // * DRAWER options
+  static const String viewBy = 'View by';
+  static const String daily = 'Daily';
+  static const String weekly = 'Weekly';
+  static const String monthly = 'Monthly';
+  static const String yearly = 'Yearly';
+  static const String categories = 'Categories';
+  static const String settings = 'Settings';
 
   static const String confirmMsg =
       'Are you sure you want to delete this expense?';

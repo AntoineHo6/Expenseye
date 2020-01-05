@@ -9,12 +9,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:expense_app/Providers/Global/expense_model.dart';
 
-class TodayPage extends StatefulWidget {
+class DailyPage extends StatefulWidget {
   @override
   _TodayPageState createState() => _TodayPageState();
 }
 
-class _TodayPageState extends State<TodayPage> {
+class _TodayPageState extends State<DailyPage> {
   @override
   Widget build(BuildContext context) {
     final _expenseModel = Provider.of<ExpenseModel>(context);
@@ -22,7 +22,7 @@ class _TodayPageState extends State<TodayPage> {
     return Scaffold(
       backgroundColor: MyColors.periwinkle,
       appBar: AppBar(
-        title: Text(Strings.todaysExpenses),
+        title: Text(Strings.daily),
       ),
       drawer: MyDrawer(),
       body: FutureBuilder<List<Expense>>(

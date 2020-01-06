@@ -5,6 +5,7 @@ import 'package:expense_app/Models/Expense.dart';
 import 'package:expense_app/Pages/edit_expense_page.dart';
 import 'package:expense_app/Resources/Strings.dart';
 import 'package:expense_app/Resources/Themes/Colors.dart';
+import 'package:expense_app/Utils/chart_util.dart';
 import 'package:expense_app/Utils/expense_category.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -19,12 +20,6 @@ class _TodayPageState extends State<DailyPage> {
   @override
   Widget build(BuildContext context) {
     final _expenseModel = Provider.of<ExpenseModel>(context);
-
-    final tab = new TabBar(tabs: <Tab>[
-      new Tab(icon: new Icon(Icons.arrow_forward)),
-      new Tab(icon: new Icon(Icons.arrow_downward)),
-      new Tab(icon: new Icon(Icons.arrow_back)),
-    ]);
 
     return Scaffold(
       backgroundColor: MyColors.periwinkle,
@@ -143,14 +138,14 @@ class _TodayPageState extends State<DailyPage> {
                 iconSize: 30.0,
                 padding: EdgeInsets.only(left: 28.0),
                 icon: Icon(Icons.search),
-                onPressed: () => print('John Wick'),  // temp
+                onPressed: () => print('John Wick'), // temp
               ),
               IconButton(
                 color: MyColors.indigoInk,
                 iconSize: 30.0,
                 padding: EdgeInsets.only(right: 28.0),
                 icon: Icon(Icons.pie_chart),
-                onPressed: _showPieChart,
+                onPressed: () => _showPieChart(_expenseModel),
               ),
             ],
           ),
@@ -173,13 +168,18 @@ class _TodayPageState extends State<DailyPage> {
     );
   }
 
-  void _showPieChart() {
-    showDialog(
-      context: context,
-      builder: (_) => AlertDialog(
-        title: Text(Strings.pieChart),
-        content: SimplePieChart.withSampleData(),
-      ),
-    );
+  // TODO: should be a page with multiple types of charts
+  void _showPieChart(ExpenseModel globalProvider) async {
+    await globalProvider.dbHelper.queryAllExpenses().then((value) {
+      var aggregatedExpenses = ChartUtil.convertExpensesToChartSeries(value);
+
+      showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+          title: Text(Strings.pieChart),
+          content: SimplePieChart(aggregatedExpenses),
+        ),
+      );
+    });
   }
 }

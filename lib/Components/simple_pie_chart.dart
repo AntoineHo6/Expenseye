@@ -1,5 +1,5 @@
 import 'package:charts_flutter/flutter.dart' as charts;
-import 'package:expense_app/Models/Expense.dart';
+import 'package:expense_app/Utils/chart_util.dart';
 import 'package:expense_app/Utils/expense_category.dart';
 import 'package:flutter/material.dart';
 
@@ -24,24 +24,28 @@ class SimplePieChart extends StatelessWidget {
   }
 
   /// Create one series with sample hard coded data.
-  static List<charts.Series<Expense, ExpenseCategory>> _createSampleData() {
-    final data = [
-      new Expense('John Cena', 10, DateTime.now(), ExpenseCategory.people),
-      //new Expense('Baguette', 5, DateTime.now(), ExpenseCategory.food),
-      new Expense('Baguette', 3, DateTime.now(), ExpenseCategory.food),
-      new Expense('Insulin', 10, DateTime.now(), ExpenseCategory.medical),
-      new Expense('PS350', 3, DateTime.now(), ExpenseCategory.shopping),
+  static List<charts.Series<ExpenseGroup, ExpenseCategory>>
+      _createSampleData() {
+    List<ExpenseGroup> aggregatedExpenses = [
+      new ExpenseGroup(ExpenseCategory.food, 5),
+      new ExpenseGroup(ExpenseCategory.transportation, 0),
+      new ExpenseGroup(ExpenseCategory.shopping, 8),
+      new ExpenseGroup(ExpenseCategory.entertainment, 0),
+      new ExpenseGroup(ExpenseCategory.personal, 0),
+      new ExpenseGroup(ExpenseCategory.medical, 1),
+      new ExpenseGroup(ExpenseCategory.home, 3),
+      new ExpenseGroup(ExpenseCategory.travel, 7),
+      new ExpenseGroup(ExpenseCategory.people, 1),
+      new ExpenseGroup(ExpenseCategory.others, 2),
     ];
-
     return [
-      new charts.Series<Expense, ExpenseCategory>(
-        id: 'Sales',
-        domainFn: (Expense expense, _) => expense.category,
-        measureFn: (Expense expense, _) => expense.price,
-        colorFn: (Expense expense, _) => charts.ColorUtil.fromDartColor(
-            CategoryProperties.properties[expense.category]['color']),
-        data: data,
-      )
+      new charts.Series(
+          id: 'Expenses',
+          domainFn: (ExpenseGroup group, _) => group.category,
+          measureFn: (ExpenseGroup group, _) => group.total,
+          colorFn: (ExpenseGroup group, _) => charts.ColorUtil.fromDartColor(
+              CategoryProperties.properties[group.category]['color']),
+          data: aggregatedExpenses)
     ];
   }
 }

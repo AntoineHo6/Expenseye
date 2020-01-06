@@ -4,6 +4,8 @@ import 'package:expense_app/Resources/Themes/Colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'Pages/home_page.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -12,7 +14,7 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (_) => new ExpenseModel(),
       child: MaterialApp(
-        home: DailyPage(),
+        home: HomePage(),
         theme: ThemeData(
           primaryColor: MyColors.blueberry,
           accentColor: MyColors.blueberry,

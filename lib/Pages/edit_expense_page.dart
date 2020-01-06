@@ -9,6 +9,7 @@ import 'package:expense_app/Resources/Themes/Colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+// TODO: add suffix page
 class EditExpense extends StatefulWidget {
   final Expense expense;
 

@@ -118,41 +118,29 @@ class _TodayPageState extends State<DailyPage> {
           }
         },
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () => _showAddExpense(),
         elevation: 2,
       ),
       // TODO: make this a standalone component for reusability
-      bottomNavigationBar: BottomAppBar(
-        shape: CircularNotchedRectangle(),
-        child: Container(
-          height: 75,
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              IconButton(
-                color: MyColors.indigoInk,
-                iconSize: 30.0,
-                padding: EdgeInsets.only(left: 28.0),
-                icon: Icon(Icons.search),
-                onPressed: () => print('John Wick'), // temp
-              ),
-              IconButton(
-                color: MyColors.indigoInk,
-                iconSize: 30.0,
-                padding: EdgeInsets.only(right: 28.0),
-                icon: Icon(Icons.pie_chart),
-                onPressed: () => _showPieChart(_expenseModel),
-              ),
-            ],
-          ),
-        ),
-      ),
+      bottomNavigationBar: BottomNavigationBar(
+       currentIndex: 0, // this will be set when a new tab is tapped
+       items: [
+         BottomNavigationBarItem(
+           icon: new Icon(Icons.list),
+           title: new Text('Expenses'),
+         ),
+         BottomNavigationBarItem(
+           icon: Icon(Icons.pie_chart),
+           title: Text('Stats')
+         )
+       ],
+     ),
     );
   }
+
+  // onPressed: () => _showPieChart(_expenseModel),
 
   void _showAddExpense() {
     showDialog(

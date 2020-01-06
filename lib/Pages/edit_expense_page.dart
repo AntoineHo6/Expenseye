@@ -10,16 +10,16 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 // TODO: add suffix page
-class EditExpense extends StatefulWidget {
+class EditExpensePage extends StatefulWidget {
   final Expense expense;
 
-  EditExpense(this.expense);
+  EditExpensePage(this.expense);
 
   @override
   _EditExpense createState() => _EditExpense();
 }
 
-class _EditExpense extends State<EditExpense> {
+class _EditExpense extends State<EditExpensePage> {
   final _nameController = TextEditingController();
   final _priceController = TextEditingController();
 

@@ -1,5 +1,6 @@
 import 'package:expense_app/Components/my_drawer.dart';
 import 'package:expense_app/Pages/daily_page.dart';
+import 'package:expense_app/Pages/stats_page.dart';
 import 'package:expense_app/Resources/Themes/Colors.dart';
 import 'package:flutter/material.dart';
 
@@ -25,7 +26,7 @@ class _HomePageState extends State<HomePage> {
           index: _currentIndex,
           children: <Widget>[
             DailyPage(),
-            Text('John Wick'),  // temp. should be stats page
+            StatsPage(),
           ],
         ),
       ),

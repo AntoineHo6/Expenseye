@@ -14,7 +14,7 @@ class SimplePieChart extends StatelessWidget {
     return new SimplePieChart(
       _createSampleData(),
       // Disable animations for image tests.
-      animate: false,
+      animate: true,
     );
   }
 

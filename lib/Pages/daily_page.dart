@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:expense_app/Providers/Global/expense_model.dart';
 
+// TODO: can be stateless?
 class DailyPage extends StatefulWidget {
   @override
   _TodayPageState createState() => _TodayPageState();
@@ -38,7 +39,7 @@ class _TodayPageState extends State<DailyPage> {
       ),
       drawer: MyDrawer(),
       body: FutureBuilder<List<Expense>>(
-        future: _expenseModel.dbHelper.queryAllExpenses(),
+        future: _expenseModel.dbHelper.queryAllExpenses(),  // temp
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data != null) {
@@ -109,7 +110,7 @@ class _TodayPageState extends State<DailyPage> {
   void _openEditExpense(Expense expense) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => EditExpense(expense)),
+      MaterialPageRoute(builder: (context) => EditExpensePage(expense)),
     );
   }
 

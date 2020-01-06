@@ -20,6 +20,12 @@ class _TodayPageState extends State<DailyPage> {
   Widget build(BuildContext context) {
     final _expenseModel = Provider.of<ExpenseModel>(context);
 
+    final tab = new TabBar(tabs: <Tab>[
+      new Tab(icon: new Icon(Icons.arrow_forward)),
+      new Tab(icon: new Icon(Icons.arrow_downward)),
+      new Tab(icon: new Icon(Icons.arrow_back)),
+    ]);
+
     return Scaffold(
       backgroundColor: MyColors.periwinkle,
       appBar: AppBar(
@@ -51,33 +57,33 @@ class _TodayPageState extends State<DailyPage> {
                       style: Theme.of(context).textTheme.display1,
                     ),
                   ),
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Container(
-                      margin: EdgeInsets.only(left: 4, bottom: 5),
-                      child: RaisedButton(
-                        color: MyColors.blueberry,
-                        padding: EdgeInsets.all(15),
-                        onPressed: () => _showPieChart(),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            Icon(
-                              Icons.pie_chart,
-                              color: Colors.white,
-                            ),
-                            SizedBox(
-                              width: 6,
-                            ),
-                            Text(
-                              Strings.pieChart,
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
+                  // Align(
+                  //   alignment: Alignment.centerLeft,
+                  //   child: Container(
+                  //     margin: EdgeInsets.only(left: 4, bottom: 5),
+                  //     child: RaisedButton(
+                  //       color: MyColors.blueberry,
+                  //       padding: EdgeInsets.all(15),
+                  //       onPressed: () => _showPieChart(),
+                  //       child: Row(
+                  //         mainAxisSize: MainAxisSize.min,
+                  //         children: <Widget>[
+                  //           Icon(
+                  //             Icons.pie_chart,
+                  //             color: Colors.white,
+                  //           ),
+                  //           SizedBox(
+                  //             width: 6,
+                  //           ),
+                  //           Text(
+                  //             Strings.pieChart,
+                  //             style: TextStyle(color: Colors.white),
+                  //           ),
+                  //         ],
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
                   Expanded(
                     child: ListView.builder(
                       shrinkWrap: true,
@@ -117,9 +123,38 @@ class _TodayPageState extends State<DailyPage> {
           }
         },
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () => _showAddExpense(),
+        elevation: 2,
+      ),
+      // TODO: make this a standalone component for reusability
+      bottomNavigationBar: BottomAppBar(
+        shape: CircularNotchedRectangle(),
+        child: Container(
+          height: 75,
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              IconButton(
+                color: MyColors.indigoInk,
+                iconSize: 30.0,
+                padding: EdgeInsets.only(left: 28.0),
+                icon: Icon(Icons.search),
+                onPressed: () => print('John Wick'),  // temp
+              ),
+              IconButton(
+                color: MyColors.indigoInk,
+                iconSize: 30.0,
+                padding: EdgeInsets.only(right: 28.0),
+                icon: Icon(Icons.pie_chart),
+                onPressed: _showPieChart,
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

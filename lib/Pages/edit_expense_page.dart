@@ -50,8 +50,8 @@ class _EditExpense extends State<EditExpensePage> {
             child: Column(
               children: <Widget>[
                 Container(
-                  padding: EdgeInsets.all(20),
-                  margin: EdgeInsets.symmetric(horizontal: 20),
+                  padding: const EdgeInsets.all(20),
+                  margin: const EdgeInsets.symmetric(horizontal: 20),
                   child: Column(
                     children: <Widget>[
                       SizedBox(
@@ -77,8 +77,8 @@ class _EditExpense extends State<EditExpensePage> {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.all(20),
-                  margin: EdgeInsets.symmetric(horizontal: 20),
+                  padding: const EdgeInsets.all(20),
+                  margin: const EdgeInsets.symmetric(horizontal: 20),
                   child: Column(
                     children: <Widget>[
                       SizedBox(
@@ -105,19 +105,19 @@ class _EditExpense extends State<EditExpensePage> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.all(40),
+                  margin: const EdgeInsets.all(40),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     mainAxisSize: MainAxisSize.max,
                     children: <Widget>[
                       Container(
-                        margin: EdgeInsets.only(left: 3),
+                        margin: const EdgeInsets.only(left: 3),
                         child: IconBtn(model.category),
                       ),
                       Align(
                         alignment: Alignment.centerRight,
                         child: Container(
-                          margin: EdgeInsets.only(right: 3),
+                          margin: const EdgeInsets.only(right: 3),
                           child: DatePickerBtn(model.date),
                         ),
                       ),

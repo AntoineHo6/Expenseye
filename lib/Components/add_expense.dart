@@ -55,19 +55,19 @@ class _AddExpense extends State<AddExpense> {
                   keyboardType: TextInputType.number,
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: 20),
+                  margin: const EdgeInsets.only(top: 20),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     mainAxisSize: MainAxisSize.max,
                     children: <Widget>[
                       Container(
-                        margin: EdgeInsets.only(left: 3),
+                        margin: const EdgeInsets.only(left: 3),
                         child: IconBtn(model.category),
                       ),
                       Align(
                         alignment: Alignment.centerRight,
                         child: Container(
-                          margin: EdgeInsets.only(right: 3),
+                          margin: const EdgeInsets.only(right: 3),
                           child: DatePickerBtn(model.date),
                         ),
                       ),

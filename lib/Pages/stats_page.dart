@@ -30,7 +30,7 @@ class StatsPage extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
                       Container(
-                        margin: EdgeInsets.only(top: 20),
+                        margin: const EdgeInsets.only(top: 20),
                         color: Colors.amber,
                         child: Column(
                           children: <Widget>[

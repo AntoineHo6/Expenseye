@@ -46,8 +46,8 @@ class _TodayPageState extends State<DailyPage> {
               return Column(
                 children: <Widget>[
                   Container(
-                    padding: EdgeInsets.all(20),
-                    margin: EdgeInsets.symmetric(horizontal: 20),
+                    padding: const EdgeInsets.all(20),
+                    margin: const EdgeInsets.symmetric(horizontal: 20),
                     child: Text(
                       _expenseModel.totalString(snapshot.data),
                       style: Theme.of(context).textTheme.display1,

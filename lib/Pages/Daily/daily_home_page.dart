@@ -1,6 +1,6 @@
 import 'package:expense_app/Components/my_drawer.dart';
 import 'package:expense_app/Pages/Daily/daily_page.dart';
-import 'package:expense_app/Pages/stats_page.dart';
+import 'package:expense_app/Pages/Daily/daily_stats_page.dart';
 import 'package:expense_app/Resources/Themes/Colors.dart';
 import 'package:flutter/material.dart';
 
@@ -23,7 +23,7 @@ class _DailyHomePageState extends State<DailyHomePage> {
           index: _currentIndex,
           children: <Widget>[
             DailyPage(),
-            StatsPage(),
+            DailyStatsPage(),
           ],
         ),
       ),

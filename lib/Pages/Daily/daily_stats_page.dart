@@ -8,7 +8,7 @@ import 'package:expense_app/Utils/chart_util.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class StatsPage extends StatelessWidget {
+class DailyStatsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _expenseModel = Provider.of<ExpenseModel>(context);
@@ -16,11 +16,12 @@ class StatsPage extends StatelessWidget {
     return Scaffold(
         backgroundColor: MyColors.periwinkle,
         appBar: AppBar(
-          title: Text('Statistics'),  // temp
+          title: Text('Statistics'), // temp
         ),
         drawer: MyDrawer(),
         body: FutureBuilder<List<Expense>>(
-            future: _expenseModel.dbHelper.queryAllExpenses(), // temp
+            future: _expenseModel.dbHelper
+                .queryExpensesInDate(_expenseModel.dailyDate),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 if (snapshot.data != null) {

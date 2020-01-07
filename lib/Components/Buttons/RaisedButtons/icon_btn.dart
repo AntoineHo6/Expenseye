@@ -5,7 +5,7 @@ import 'package:expense_app/Utils/expense_category.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class IconBtn extends RaisedButton {
+class IconBtn extends StatelessWidget {
   final ExpenseCategory category;
 
   const IconBtn(this.category);

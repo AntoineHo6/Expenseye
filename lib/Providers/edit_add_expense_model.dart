@@ -1,3 +1,4 @@
+import 'package:expense_app/Resources/Themes/Colors.dart';
 import 'package:expense_app/Utils/expense_category.dart';
 import 'package:flutter/material.dart';
 
@@ -42,10 +43,28 @@ class EditAddExpenseModel extends ChangeNotifier {
     // update areFieldsInvalid
     if (!isNameInvalid && !isPriceInvalid) {
       return false;
-    } else {
-      return true;
     }
+    
+    return true;
+  }
+
+  Future<DateTime> chooseDate(
+      BuildContext context, DateTime initialDate) async {
+    DateTime newDate = await showDatePicker(
+      context: context,
+      initialDate: initialDate,
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2030),
+      builder: (BuildContext context, Widget child) {
+        return Theme(
+          data: ThemeData(
+              primarySwatch: MyColors.indigoInk,
+              splashColor: MyColors.indigoInk),
+          child: child,
+        );
+      },
+    );
+
+    return newDate;
   }
 }
-
-// TODO: ShowDatePicker should be in components

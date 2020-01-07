@@ -1,15 +1,15 @@
 import 'package:expense_app/Components/my_drawer.dart';
-import 'package:expense_app/Pages/daily_page.dart';
+import 'package:expense_app/Pages/Daily/daily_page.dart';
 import 'package:expense_app/Pages/stats_page.dart';
 import 'package:expense_app/Resources/Themes/Colors.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends StatefulWidget {
+class DailyHomePage extends StatefulWidget {
   @override
-  _HomePageState createState() => _HomePageState();
+  _DailyHomePageState createState() => _DailyHomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _DailyHomePageState extends State<DailyHomePage> {
   int _currentIndex = 0;
 
   @override

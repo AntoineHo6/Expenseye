@@ -9,12 +9,16 @@ import 'package:expense_app/Utils/expense_category.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class AddExpense extends StatefulWidget {
+class AddExpenseDialog extends StatefulWidget {
+  final DateTime initialDate;
+
+  AddExpenseDialog(this.initialDate);
+
   @override
   _AddExpense createState() => _AddExpense();
 }
 
-class _AddExpense extends State<AddExpense> {
+class _AddExpense extends State<AddExpenseDialog> {
   final _nameController = TextEditingController();
   final _priceController = TextEditingController();
 
@@ -22,7 +26,7 @@ class _AddExpense extends State<AddExpense> {
   Widget build(BuildContext context) {
     return new ChangeNotifierProvider<EditAddExpenseModel>(
       create: (_) =>
-          new EditAddExpenseModel(DateTime.now(), ExpenseCategory.food),
+          new EditAddExpenseModel(widget.initialDate, ExpenseCategory.food),
       child: Consumer<EditAddExpenseModel>(
         builder: (context, model, child) => AlertDialog(
           backgroundColor: MyColors.periwinkle,
@@ -68,7 +72,13 @@ class _AddExpense extends State<AddExpense> {
                         alignment: Alignment.centerRight,
                         child: Container(
                           margin: const EdgeInsets.only(right: 3),
-                          child: DatePickerBtn(model.date),
+                          child: SizedBox(
+                            width: 125,
+                            child: DatePickerBtn(
+                              model.date,
+                              () => chooseDate(model),
+                            ),
+                          ),
                         ),
                       ),
                     ],
@@ -78,16 +88,16 @@ class _AddExpense extends State<AddExpense> {
             ),
           ),
           actions: <Widget>[
-            new FlatButton(
+            FlatButton(
               textColor: MyColors.indigoInk,
-              child: new Text(Strings.cancelCaps),
+              child: Text(Strings.cancelCaps),
               onPressed: () {
                 Navigator.of(context).pop();
               },
             ),
-            new FlatButton(
+            FlatButton(
               textColor: MyColors.indigoInk,
-              child: new Text(Strings.submitCaps),
+              child: Text(Strings.submitCaps),
               onPressed: () {
                 _save(model);
               },
@@ -98,18 +108,26 @@ class _AddExpense extends State<AddExpense> {
     );
   }
 
+  void chooseDate(EditAddExpenseModel localProvider) async {
+    DateTime newDate =
+        await localProvider.chooseDate(context, widget.initialDate);
+
+    localProvider.updateDate(newDate);
+  }
+
   void _save(EditAddExpenseModel localProvider) {
     final String newName = _nameController.text;
     final String newPrice = _priceController.text;
     final DateTime newDate = localProvider.date;
+    print(newDate.toIso8601String());
 
     bool areFieldsInvalid = localProvider.checkFieldsInvalid(
         name: newName, price: newPrice, date: newDate);
 
     // if all the fields are valid, add and quit
     if (!areFieldsInvalid) {
-      Expense newExpense = new Expense(newName, double.parse(newPrice), newDate,
-          localProvider.category);
+      Expense newExpense = new Expense(
+          newName, double.parse(newPrice), newDate, localProvider.category);
 
       Provider.of<ExpenseModel>(context).addExpense(newExpense);
 

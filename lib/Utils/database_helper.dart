@@ -73,14 +73,13 @@ class DatabaseHelper {
   Future<List<Expense>> queryExpensesInDate(DateTime date) async {
     Database db = await database;
     String dateStrToFind = date.toIso8601String().split('T')[0];
-    print(dateStrToFind);
 
-    List<Map> maps = await db.query(Strings.tableExpenses, where: '${Strings.columnDate} LIKE \'$dateStrToFind%\'');
+    List<Map> maps = await db.query(Strings.tableExpenses,
+        where: '${Strings.columnDate} LIKE \'$dateStrToFind%\'');
 
     List<Expense> expenses = new List();
     if (maps.length > 0) {
       for (Map row in maps) {
-        print('Added');
         expenses.add(new Expense.fromMap(row));
       }
     }

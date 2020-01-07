@@ -4,10 +4,11 @@ import 'package:expense_app/Resources/Themes/Colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class DatePickerBtn extends RaisedButton {
+class DatePickerBtn extends StatelessWidget {
   final DateTime date;
+  final Function func;
 
-  const DatePickerBtn(this.date);
+  DatePickerBtn(this.date, this.func);
 
   @override
   Widget build(BuildContext context) {
@@ -20,18 +21,23 @@ class DatePickerBtn extends RaisedButton {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
       elevation: 3.0,
       onPressed: () => chooseDate(context, date, _editAddExpenseModel),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Icon(
-            Icons.date_range,
-            size: 18.0,
-          ),
-          SizedBox(
-            width: 10,
-          ),
-          Text(_expenseModel.formattedDate(date)),
-        ],
+      child: FittedBox(
+        fit: BoxFit.fitWidth,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Icon(
+              Icons.date_range,
+              size: 18.0,
+            ),
+            SizedBox(
+              width: 5,
+            ),
+            Text(
+              _expenseModel.formattedDate(date),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -39,7 +45,7 @@ class DatePickerBtn extends RaisedButton {
   void chooseDate(BuildContext context, DateTime initialDate,
       EditAddExpenseModel _editAddExpenseModel) async {
     DateTime newDate;
-    
+
     await showDatePicker(
       context: context,
       initialDate: initialDate,

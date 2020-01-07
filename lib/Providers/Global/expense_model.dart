@@ -8,6 +8,22 @@ class ExpenseModel extends ChangeNotifier {
   final DatabaseHelper dbHelper = DatabaseHelper.instance;
   DateTime dailyDate = DateTime.now();
 
+  // * maybe should be in dateUtil file?
+  static const Map<int, String> _monthAbb = {
+    1: 'Jan.',
+    2: 'Feb.',
+    3: 'Mar.',
+    4: 'Apr.',
+    5: 'May.',
+    6: 'Jun.',
+    7: 'jul.',
+    8: 'Aug.',
+    9: 'Sep.',
+    10: 'Oct.',
+    11: 'Nov.',
+    12: 'Dec.'
+  };
+
   void addExpense(Expense newExpense) {
     dbHelper.insert(newExpense);
     notifyListeners();
@@ -37,7 +53,7 @@ class ExpenseModel extends ChangeNotifier {
   }
 
   String formattedDate(DateTime date) {
-    return '${date.day}/${date.month}/${date.year}';
+    return '${_monthAbb[date.month]} ${date.day} ${date.year}';
   }
 
   IconData catToIconData(ExpenseCategory category) {

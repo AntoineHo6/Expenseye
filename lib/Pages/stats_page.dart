@@ -16,7 +16,7 @@ class StatsPage extends StatelessWidget {
     return Scaffold(
         backgroundColor: MyColors.periwinkle,
         appBar: AppBar(
-          title: Text('Statistics'),
+          title: Text('Statistics'),  // temp
         ),
         drawer: MyDrawer(),
         body: FutureBuilder<List<Expense>>(

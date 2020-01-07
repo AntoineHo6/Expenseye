@@ -1,5 +1,5 @@
 import 'package:expense_app/Components/Buttons/RaisedButtons/icon_btn.dart';
-import 'package:expense_app/Components/confirmation_dialog.dart';
+import 'package:expense_app/Components/AlertDialogs/confirmation_dialog.dart';
 import 'package:expense_app/Providers/Global/expense_model.dart';
 import 'package:expense_app/Providers/edit_add_expense_model.dart';
 import 'package:expense_app/Components/Buttons/RaisedButtons/date_picker_btn.dart';
@@ -9,7 +9,6 @@ import 'package:expense_app/Resources/Themes/Colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-// TODO: add suffix page
 class EditExpensePage extends StatefulWidget {
   final Expense expense;
 
@@ -25,8 +24,6 @@ class _EditExpense extends State<EditExpensePage> {
 
   @override
   Widget build(BuildContext context) {
-    final _expenseModel = Provider.of<ExpenseModel>(context);
-
     return new ChangeNotifierProvider<EditAddExpenseModel>(
       create: (_) =>
           new EditAddExpenseModel(widget.expense.date, widget.expense.category),
@@ -38,7 +35,7 @@ class _EditExpense extends State<EditExpensePage> {
             actions: <Widget>[
               FlatButton(
                 textColor: Colors.white,
-                onPressed: () => _delete(_expenseModel),
+                onPressed: () => _delete(),
                 child: Icon(Icons.delete_forever),
                 shape: CircleBorder(
                   side: BorderSide(color: Colors.transparent),
@@ -118,7 +115,10 @@ class _EditExpense extends State<EditExpensePage> {
                         alignment: Alignment.centerRight,
                         child: Container(
                           margin: const EdgeInsets.only(right: 3),
-                          child: DatePickerBtn(model.date),
+                          child: DatePickerBtn(
+                            model.date,
+                            () => chooseDate(model),
+                          ),
                         ),
                       ),
                     ],
@@ -140,6 +140,13 @@ class _EditExpense extends State<EditExpensePage> {
     );
   }
 
+  void chooseDate(EditAddExpenseModel localProvider) async {
+    DateTime newDate =
+        await localProvider.chooseDate(context, localProvider.date);
+
+    localProvider.updateDate(newDate);
+  }
+
   void _save(EditAddExpenseModel localProvider) {
     final String newName = _nameController.text;
     final String newPrice = _priceController.text;
@@ -158,7 +165,9 @@ class _EditExpense extends State<EditExpensePage> {
     }
   }
 
-  void _delete(ExpenseModel globalProvider) async {
+  void _delete() async {
+    final globalProvider = Provider.of<ExpenseModel>(context);
+
     bool confirmed = await showDialog(
       context: context,
       builder: (_) => ConfirmationDialog(widget.expense.id),

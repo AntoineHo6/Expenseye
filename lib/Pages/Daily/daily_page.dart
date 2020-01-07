@@ -1,4 +1,4 @@
-import 'package:expense_app/Components/add_expense.dart';
+import 'package:expense_app/Components/AlertDialogs/add_expense_dialog.dart';
 import 'package:expense_app/Components/my_drawer.dart';
 import 'package:expense_app/Models/Expense.dart';
 import 'package:expense_app/Pages/edit_expense_page.dart';
@@ -25,8 +25,8 @@ class _TodayPageState extends State<DailyPage> {
         title: Text(_expenseModel.formattedDate(_expenseModel.dailyDate)),
         actions: <Widget>[
           FlatButton(
-            textColor: Colors.white, // temp
-            onPressed: () => chooseDate(DateTime.now(), _expenseModel),
+            textColor: Colors.white,
+            onPressed: () => chooseDate(_expenseModel),
             child: Icon(Icons.calendar_today),
             shape: CircleBorder(
               side: BorderSide(color: Colors.transparent),
@@ -36,7 +36,8 @@ class _TodayPageState extends State<DailyPage> {
       ),
       drawer: MyDrawer(),
       body: FutureBuilder<List<Expense>>(
-        future: _expenseModel.dbHelper.queryExpensesInDate(_expenseModel.dailyDate), // temp
+        future: _expenseModel.dbHelper
+            .queryExpensesInDate(_expenseModel.dailyDate),
         //future: _expenseModel.dbHelper.queryAllExpenses(), // temp
         builder: (context, snapshot) {
           if (snapshot.hasData) {
@@ -92,16 +93,16 @@ class _TodayPageState extends State<DailyPage> {
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
-        onPressed: () => _showAddExpense(),
+        onPressed: () => _showAddExpense(_expenseModel.dailyDate),
         elevation: 2,
       ),
     );
   }
 
-  void _showAddExpense() {
+  void _showAddExpense(DateTime date) {
     showDialog(
       context: context,
-      builder: (_) => AddExpense(),
+      builder: (_) => AddExpenseDialog(date),
     );
   }
 
@@ -112,10 +113,10 @@ class _TodayPageState extends State<DailyPage> {
     );
   }
 
-  void chooseDate(DateTime initialDate, ExpenseModel _expenseModel) async {
+  void chooseDate(ExpenseModel _expenseModel) async {
     await showDatePicker(
       context: context,
-      initialDate: initialDate,
+      initialDate: _expenseModel.dailyDate,
       firstDate: DateTime(2000),
       lastDate: DateTime(2030),
       builder: (BuildContext context, Widget child) {
@@ -129,7 +130,5 @@ class _TodayPageState extends State<DailyPage> {
     ).then((value) {
       _expenseModel.updateDate(value);
     });
-
-
   }
 }

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 class ExpenseModel extends ChangeNotifier {
   final DatabaseHelper dbHelper = DatabaseHelper.instance;
+  DateTime dailyDate = DateTime.now();
 
   void addExpense(Expense newExpense) {
     dbHelper.insert(newExpense);
@@ -41,5 +42,12 @@ class ExpenseModel extends ChangeNotifier {
 
   IconData catToIconData(ExpenseCategory category) {
     return CategoryProperties.properties[category]['iconData'];
+  }
+
+  void updateDate(DateTime newDate) {
+    if (newDate != null) {
+      dailyDate = newDate;
+      notifyListeners();
+    }
   }
 }

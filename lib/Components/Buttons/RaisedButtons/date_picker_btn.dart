@@ -38,7 +38,9 @@ class DatePickerBtn extends RaisedButton {
 
   void chooseDate(BuildContext context, DateTime initialDate,
       EditAddExpenseModel _editAddExpenseModel) async {
-    DateTime newDate = await showDatePicker(
+    DateTime newDate;
+    
+    await showDatePicker(
       context: context,
       initialDate: initialDate,
       firstDate: DateTime(2000),
@@ -51,7 +53,9 @@ class DatePickerBtn extends RaisedButton {
           child: child,
         );
       },
-    );
+    ).then((value) {
+      newDate = value;
+    });
 
     _editAddExpenseModel.updateDate(newDate);
   }

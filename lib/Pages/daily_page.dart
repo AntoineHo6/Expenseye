@@ -1,17 +1,14 @@
 import 'package:expense_app/Components/add_expense.dart';
 import 'package:expense_app/Components/my_drawer.dart';
-import 'package:expense_app/Components/simple_pie_chart.dart';
 import 'package:expense_app/Models/Expense.dart';
 import 'package:expense_app/Pages/edit_expense_page.dart';
 import 'package:expense_app/Resources/Strings.dart';
 import 'package:expense_app/Resources/Themes/Colors.dart';
-import 'package:expense_app/Utils/chart_util.dart';
 import 'package:expense_app/Utils/expense_category.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:expense_app/Providers/Global/expense_model.dart';
 
-// TODO: can be stateless?
 class DailyPage extends StatefulWidget {
   @override
   _TodayPageState createState() => _TodayPageState();
@@ -25,11 +22,11 @@ class _TodayPageState extends State<DailyPage> {
     return Scaffold(
       backgroundColor: MyColors.periwinkle,
       appBar: AppBar(
-        title: Text(Strings.daily),
+        title: Text(_expenseModel.formattedDate(_expenseModel.dailyDate)),
         actions: <Widget>[
           FlatButton(
-            textColor: Colors.white,
-            onPressed: () => print('JOOHN WIICK'), // temp
+            textColor: Colors.white, // temp
+            onPressed: () => chooseDate(DateTime.now(), _expenseModel),
             child: Icon(Icons.calendar_today),
             shape: CircleBorder(
               side: BorderSide(color: Colors.transparent),
@@ -39,7 +36,7 @@ class _TodayPageState extends State<DailyPage> {
       ),
       drawer: MyDrawer(),
       body: FutureBuilder<List<Expense>>(
-        future: _expenseModel.dbHelper.queryAllExpenses(),  // temp
+        future: _expenseModel.dbHelper.queryExpensesInDate(_expenseModel.dailyDate), // temp
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data != null) {
@@ -114,18 +111,24 @@ class _TodayPageState extends State<DailyPage> {
     );
   }
 
-  // TODO: should be a page with multiple types of charts
-  void _showPieChart(ExpenseModel globalProvider) async {
-    await globalProvider.dbHelper.queryAllExpenses().then((value) {
-      var aggregatedExpenses = ChartUtil.convertExpensesToChartSeries(value);
-
-      showDialog(
-        context: context,
-        builder: (_) => AlertDialog(
-          title: Text(Strings.pieChart),
-          content: SimplePieChart(aggregatedExpenses),
-        ),
-      );
+  void chooseDate(DateTime initialDate, ExpenseModel _expenseModel) async {
+    await showDatePicker(
+      context: context,
+      initialDate: initialDate,
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2030),
+      builder: (BuildContext context, Widget child) {
+        return Theme(
+          data: ThemeData(
+              primarySwatch: MyColors.indigoInk,
+              splashColor: MyColors.indigoInk),
+          child: child,
+        );
+      },
+    ).then((value) {
+      _expenseModel.updateDate(value);
     });
+
+
   }
 }

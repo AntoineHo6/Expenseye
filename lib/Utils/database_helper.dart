@@ -70,13 +70,31 @@ class DatabaseHelper {
     return null;
   }
 
+  Future<List<Expense>> queryExpensesInDate(DateTime date) async {
+    Database db = await database;
+    String dateStrToFind = date.toIso8601String().split('T')[0];
+    print(dateStrToFind);
+
+    
+    List<Map> maps = await db.rawQuery('SELECT * FROM ${Strings.tableExpenses} WHERE ${Strings.columnDate} LIKE \'$dateStrToFind\%\'');
+
+    List<Expense> expenses = new List();
+    if (maps.length > 0) {
+      for (Map row in maps) {
+        print('Added');
+        expenses.add(new Expense.fromMap(row));
+      }
+    }
+
+    return expenses;
+  }
+
   Future<List<Expense>> queryAllExpenses() async {
     Database db = await database;
 
-    List<Expense> expenses = new List();
-
     List<Map> maps = await db.query('${Strings.tableExpenses}');
 
+    List<Expense> expenses = new List();
     if (maps.length > 0) {
       for (Map row in maps) {
         expenses.add(new Expense.fromMap(row));
@@ -95,7 +113,7 @@ class DatabaseHelper {
 
   Future<int> delete(int id) async {
     Database db = await database;
-    
+
     return await db.delete(Strings.tableExpenses,
         where: '${Strings.columnId} = ?', whereArgs: [id]);
   }

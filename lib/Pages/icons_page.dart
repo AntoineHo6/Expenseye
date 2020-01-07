@@ -1,20 +1,17 @@
 import 'package:expense_app/Providers/Global/expense_model.dart';
 import 'package:expense_app/Resources/Strings.dart';
+import 'package:expense_app/Resources/Themes/Colors.dart';
 import 'package:expense_app/Utils/expense_category.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class IconsPage extends StatefulWidget {
-  @override
-  _IconsPageState createState() => _IconsPageState();
-}
-
-class _IconsPageState extends State<IconsPage> {
+class IconsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _expenseModel = Provider.of<ExpenseModel>(context);
 
     return Scaffold(
+      backgroundColor: MyColors.periwinkle,
       appBar: AppBar(
         title: Text(Strings.icons),
       ),
@@ -28,13 +25,28 @@ class _IconsPageState extends State<IconsPage> {
           ExpenseCategory.values.length,
           (index) {
             return RaisedButton(
-              color: CategoryProperties
-                  .properties[ExpenseCategory.values[index]]['color'],
+              color: Colors.white,
               onPressed: () =>
                   Navigator.pop(context, ExpenseCategory.values[index]),
-              child: Icon(
-                _expenseModel.catToIconData(ExpenseCategory.values[index]),
-                size: 50,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Icon(
+                    _expenseModel
+                        .catToIconData(ExpenseCategory.values[index]),
+                    color: CategoryProperties
+                        .properties[ExpenseCategory.values[index]]['color'],
+                    size: 50,
+                  ),
+                  FittedBox(
+                    fit: BoxFit.fitWidth,
+                    child: Text(
+                      CategoryProperties
+                              .properties[ExpenseCategory.values[index]]
+                          ['string'],
+                    ),
+                  ),
+                ],
               ),
             );
           },

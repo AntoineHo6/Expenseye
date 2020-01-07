@@ -16,12 +16,14 @@ class IconBtn extends RaisedButton {
     final _editAddExpenseModel = Provider.of<EditAddExpenseModel>(context);
 
     return RaisedButton(
-      color: CategoryProperties.properties[category]['color'],
-      //textColor: Colors.white,
+      color: Colors.white,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
       elevation: 3.0,
       onPressed: () => _openIconsPage(context, _editAddExpenseModel),
-      child: Icon(_expenseModel.catToIconData(category)),
+      child: Icon(
+        _expenseModel.catToIconData(category),
+        color: CategoryProperties.properties[category]['color'],
+      ),
     );
   }
 

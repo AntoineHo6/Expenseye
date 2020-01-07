@@ -16,9 +16,6 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: MyColors.periwinkle,
-      // appBar: AppBar(
-      //   title: Text(Strings.daily),
-      // ),
       drawer: MyDrawer(),
       body: SafeArea(
         top: false,
@@ -31,6 +28,7 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.white70,
         currentIndex: _currentIndex,
         onTap: (int index) {
           setState(() {

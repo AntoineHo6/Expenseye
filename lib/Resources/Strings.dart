@@ -15,7 +15,21 @@ class Strings {
   static const String dataIsNull = 'Data is null';
   static const String confirm = 'Confirm';
   static const String pieChart = 'Pie Chart';
-  
+  static const String confirmMsg =
+      'Are you sure you want to delete this expense?';
+
+  // * CATEGORIES
+  static const String food = 'Food';
+  static const String transportation = 'Transportation';
+  static const String shopping = 'Shopping';
+  static const String entertainment = 'Entertainment';
+  static const String personal = 'Personal';
+  static const String medical = 'Medical';
+  static const String home = 'Home';
+  static const String travel = 'Travel';
+  static const String people = 'People';
+  static const String others = 'Others';
+
   // * DRAWER options
   static const String viewBy = 'View by';
   static const String daily = 'Daily';
@@ -24,9 +38,6 @@ class Strings {
   static const String yearly = 'Yearly';
   static const String categories = 'Categories';
   static const String settings = 'Settings';
-
-  static const String confirmMsg =
-      'Are you sure you want to delete this expense?';
 
   // * ERROR messages
   static const String cantBeEmpty = 'can\'t be empty';

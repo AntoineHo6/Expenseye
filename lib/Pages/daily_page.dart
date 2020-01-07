@@ -37,6 +37,7 @@ class _TodayPageState extends State<DailyPage> {
       drawer: MyDrawer(),
       body: FutureBuilder<List<Expense>>(
         future: _expenseModel.dbHelper.queryExpensesInDate(_expenseModel.dailyDate), // temp
+        //future: _expenseModel.dbHelper.queryAllExpenses(), // temp
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data != null) {

@@ -75,8 +75,7 @@ class DatabaseHelper {
     String dateStrToFind = date.toIso8601String().split('T')[0];
     print(dateStrToFind);
 
-    
-    List<Map> maps = await db.rawQuery('SELECT * FROM ${Strings.tableExpenses} WHERE ${Strings.columnDate} LIKE \'$dateStrToFind\%\'');
+    List<Map> maps = await db.query(Strings.tableExpenses, where: '${Strings.columnDate} LIKE \'$dateStrToFind%\'');
 
     List<Expense> expenses = new List();
     if (maps.length > 0) {
@@ -92,7 +91,7 @@ class DatabaseHelper {
   Future<List<Expense>> queryAllExpenses() async {
     Database db = await database;
 
-    List<Map> maps = await db.query('${Strings.tableExpenses}');
+    List<Map> maps = await db.query(Strings.tableExpenses);
 
     List<Expense> expenses = new List();
     if (maps.length > 0) {

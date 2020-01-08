@@ -2,6 +2,7 @@ import 'package:expense_app/Components/AlertDialogs/add_expense_dialog.dart';
 import 'package:expense_app/Components/my_drawer.dart';
 import 'package:expense_app/Models/Expense.dart';
 import 'package:expense_app/Pages/edit_expense_page.dart';
+import 'package:expense_app/Pages/table_calendar_page.dart';
 import 'package:expense_app/Resources/Strings.dart';
 import 'package:expense_app/Resources/Themes/Colors.dart';
 import 'package:expense_app/Utils/expense_category.dart';
@@ -26,7 +27,8 @@ class _TodayPageState extends State<DailyPage> {
         actions: <Widget>[
           FlatButton(
             textColor: Colors.white,
-            onPressed: () => chooseDate(_expenseModel),
+            //onPressed: () => chooseDate(_expenseModel),
+            onPressed: openTableCalendarPage,
             child: Icon(Icons.calendar_today),
             shape: CircleBorder(
               side: BorderSide(color: Colors.transparent),
@@ -36,8 +38,8 @@ class _TodayPageState extends State<DailyPage> {
       ),
       drawer: MyDrawer(),
       body: FutureBuilder<List<Expense>>(
-        future: _expenseModel.dbHelper
-            .queryExpensesInDate(_expenseModel.dailyDate),
+        future:
+            _expenseModel.dbHelper.queryExpensesInDate(_expenseModel.dailyDate),
         //future: _expenseModel.dbHelper.queryAllExpenses(), // temp
         builder: (context, snapshot) {
           if (snapshot.hasData) {
@@ -68,7 +70,8 @@ class _TodayPageState extends State<DailyPage> {
                             subtitle: Text(expense.price.toString()),
                             onTap: () => _openEditExpense(expense),
                             trailing: Text(
-                              _expenseModel.formattedDate(expense.date),
+                              //_expenseModel.formattedDate(expense.date),
+                              expense.date.toIso8601String(),
                             ),
                           ),
                         );
@@ -113,6 +116,14 @@ class _TodayPageState extends State<DailyPage> {
     );
   }
 
+  void openTableCalendarPage() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => TableCalendarPage()),
+    );
+  }
+
+  // * deprecated
   void chooseDate(ExpenseModel _expenseModel) async {
     await showDatePicker(
       context: context,

@@ -16,7 +16,7 @@ class DailyStatsPage extends StatelessWidget {
     return Scaffold(
         backgroundColor: MyColors.periwinkle,
         appBar: AppBar(
-          title: Text('Statistics'), // temp
+          title: Text(_expenseModel.formattedDate(_expenseModel.dailyDate)),
         ),
         drawer: MyDrawer(),
         body: FutureBuilder<List<Expense>>(

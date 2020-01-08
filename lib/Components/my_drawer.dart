@@ -1,3 +1,4 @@
+import 'package:expense_app/Pages/Daily/daily_home_page.dart';
 import 'package:expense_app/Resources/Strings.dart';
 import 'package:expense_app/Resources/Themes/Colors.dart';
 import 'package:flutter/material.dart';
@@ -35,6 +36,7 @@ class MyDrawer extends Drawer {
                 // TODO: implement onTap
                 ListTile(
                   title: Text(Strings.daily),
+                  onTap: () => _openDailyHomePage(context),
                 ),
                 ListTile(
                   title: Text(Strings.weekly),
@@ -77,6 +79,13 @@ class MyDrawer extends Drawer {
           ],
         ),
       ),
+    );
+  }
+
+  void _openDailyHomePage(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => DailyHomePage()),
     );
   }
 }

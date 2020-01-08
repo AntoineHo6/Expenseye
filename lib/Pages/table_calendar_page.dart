@@ -1,6 +1,7 @@
 import 'package:expense_app/Models/Expense.dart';
 import 'package:expense_app/Providers/Global/expense_model.dart';
 import 'package:expense_app/Resources/Strings.dart';
+import 'package:expense_app/Utils/date_time_util.dart';
 import 'package:expense_app/Utils/expense_category.dart';
 import 'package:expense_app/Utils/table_calendar_util.dart';
 import 'package:flutter/material.dart';
@@ -69,8 +70,7 @@ class _TableCalendarPage extends State<TableCalendarPage>
   }
 
   void _changeDate(DateTime date, ExpenseModel globalProvider) {
-    globalProvider.dailyDate = date;
-    print(date.toIso8601String());
+    globalProvider.dailyDate = DateTimeUtil.cleanDateTime(date);
 
     Navigator.pop(context);
   }

@@ -90,8 +90,7 @@ class DatabaseHelper {
   Future<List<Expense>> queryAllExpenses() async {
     Database db = await database;
 
-    List<Map> maps =
-        await db.query(Strings.tableExpenses, orderBy: Strings.columnDate);
+    List<Map> maps = await db.query(Strings.tableExpenses);
 
     List<Expense> expenses = new List();
     if (maps.length > 0) {

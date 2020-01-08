@@ -1,6 +1,7 @@
 import 'package:expense_app/Models/Expense.dart';
 import 'package:expense_app/Resources/Strings.dart';
 import 'package:expense_app/Utils/database_helper.dart';
+import 'package:expense_app/Utils/date_time_util.dart';
 import 'package:expense_app/Utils/expense_category.dart';
 import 'package:flutter/material.dart';
 
@@ -8,7 +9,7 @@ class ExpenseModel extends ChangeNotifier {
   final DatabaseHelper dbHelper = DatabaseHelper.instance;
 
   // don't include todays time for uniform data
-  DateTime dailyDate = DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day);
+  DateTime dailyDate = DateTimeUtil.cleanDateTime(DateTime.now());
 
   // * maybe should be in dateUtil file?
   static const Map<int, String> _monthAbb = {

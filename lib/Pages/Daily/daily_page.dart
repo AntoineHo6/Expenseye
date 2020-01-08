@@ -40,7 +40,6 @@ class _TodayPageState extends State<DailyPage> {
       body: FutureBuilder<List<Expense>>(
         future:
             _expenseModel.dbHelper.queryExpensesInDate(_expenseModel.dailyDate),
-        //future: _expenseModel.dbHelper.queryAllExpenses(), // temp
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data != null) {
@@ -70,8 +69,7 @@ class _TodayPageState extends State<DailyPage> {
                             subtitle: Text(expense.price.toString()),
                             onTap: () => _openEditExpense(expense),
                             trailing: Text(
-                              //_expenseModel.formattedDate(expense.date),
-                              expense.date.toIso8601String(),
+                              _expenseModel.formattedDate(expense.date),
                             ),
                           ),
                         );

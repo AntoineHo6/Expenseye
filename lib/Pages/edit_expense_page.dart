@@ -1,5 +1,7 @@
 import 'package:expense_app/Components/Buttons/RaisedButtons/icon_btn.dart';
 import 'package:expense_app/Components/AlertDialogs/confirmation_dialog.dart';
+import 'package:expense_app/Components/TextFields/name_text_field.dart';
+import 'package:expense_app/Components/TextFields/price_text_field.dart';
 import 'package:expense_app/Providers/Global/expense_model.dart';
 import 'package:expense_app/Providers/edit_add_expense_model.dart';
 import 'package:expense_app/Components/Buttons/RaisedButtons/date_picker_btn.dart';
@@ -63,20 +65,12 @@ class _EditExpense extends State<EditExpensePage> {
                       Theme(
                         data: ThemeData(
                           textTheme: Theme.of(context).textTheme,
-                          primaryColor: MyColors.black02dp,
                           hintColor: Colors.white,
                         ),
-                        child: TextField(
-                          maxLength: 50,
+                        child: NameTextField(
                           controller: _nameController,
+                          isNameInvalid: model.isNameInvalid,
                           onChanged: model.infoChanged,
-                          decoration: InputDecoration(
-                            hintText: Strings.name,
-                            hintStyle: TextStyle(color: MyColors.black24dp),
-                            errorText: model.isNameInvalid
-                                ? Strings.name + ' ' + Strings.isInvalid
-                                : null,
-                          ),
                         ),
                       ),
                     ],
@@ -98,21 +92,12 @@ class _EditExpense extends State<EditExpensePage> {
                       Theme(
                         data: ThemeData(
                           textTheme: Theme.of(context).textTheme,
-                          primaryColor: MyColors.black02dp,
                           hintColor: Colors.white,
                         ),
-                        child: TextField(
-                          maxLength: 10,
+                        child: PriceTextField(
                           controller: _priceController,
+                          isPriceInvalid: model.isPriceInvalid,
                           onChanged: model.infoChanged,
-                          decoration: InputDecoration(
-                            hintText: Strings.price,
-                            hintStyle: TextStyle(color: MyColors.black24dp),
-                            errorText: model.isPriceInvalid
-                                ? Strings.price + ' ' + Strings.isInvalid
-                                : null,
-                          ),
-                          keyboardType: TextInputType.number,
                         ),
                       ),
                     ],
@@ -192,7 +177,8 @@ class _EditExpense extends State<EditExpensePage> {
     );
 
     if (confirmed) {
-      Provider.of<ExpenseModel>(context, listen: false).deleteExpense(widget.expense.id);
+      Provider.of<ExpenseModel>(context, listen: false)
+          .deleteExpense(widget.expense.id);
       Navigator.pop(context, 2);
     }
   }

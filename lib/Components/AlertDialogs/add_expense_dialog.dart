@@ -1,4 +1,6 @@
 import 'package:expense_app/Components/Buttons/RaisedButtons/icon_btn.dart';
+import 'package:expense_app/Components/TextFields/name_text_field.dart';
+import 'package:expense_app/Components/TextFields/price_text_field.dart';
 import 'package:expense_app/Models/Expense.dart';
 import 'package:expense_app/Providers/Global/expense_model.dart';
 import 'package:expense_app/Providers/edit_add_expense_model.dart';
@@ -45,17 +47,9 @@ class _AddExpense extends State<AddExpenseDialog> {
                     textTheme: Theme.of(context).textTheme,
                     hintColor: Colors.white,
                   ),
-                  child: TextField(
-                    maxLength: 50,
+                  child: NameTextField(
                     controller: _nameController,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: Strings.name,
-                      hintStyle: TextStyle(color: MyColors.black24dp),
-                      errorText: model.isNameInvalid
-                          ? Strings.name + ' ' + Strings.isInvalid
-                          : null,
-                    ),
+                    isNameInvalid: model.isNameInvalid,
                   ),
                 ),
                 Theme(
@@ -63,18 +57,9 @@ class _AddExpense extends State<AddExpenseDialog> {
                     textTheme: Theme.of(context).textTheme,
                     hintColor: Colors.white,
                   ),
-                  child: TextField(
-                    maxLength: 10,
+                  child: PriceTextField(
                     controller: _priceController,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: Strings.price,
-                      hintStyle: TextStyle(color: MyColors.black24dp),
-                      errorText: model.isPriceInvalid
-                          ? Strings.price + ' ' + Strings.isInvalid
-                          : null,
-                    ),
-                    keyboardType: TextInputType.number,
+                    isPriceInvalid: model.isPriceInvalid,
                   ),
                 ),
                 Container(

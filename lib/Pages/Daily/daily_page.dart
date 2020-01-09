@@ -60,6 +60,7 @@ class _TodayPageState extends State<DailyPage> {
                       itemBuilder: (context, index) {
                         Expense expense = snapshot.data[index];
                         return Card(
+                          margin: const EdgeInsets.only(left: 15, right: 15, top: 4, bottom: 4),
                           color: MyColors.black02dp,
                           child: ListTile(
                             leading: Icon(
@@ -104,7 +105,7 @@ class _TodayPageState extends State<DailyPage> {
         child: Icon(Icons.add),
         onPressed: () => _showAddExpense(_expenseModel.dailyDate),
         elevation: 2,
-        backgroundColor: Color(0xff33B4A8),
+        backgroundColor: MyColors.secondary,
       ),
     );
   }

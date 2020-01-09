@@ -59,15 +59,23 @@ class _EditExpense extends State<EditExpensePage> {
                           style: Theme.of(context).textTheme.title,
                         ),
                       ),
-                      TextField(
-                        maxLength: 50,
-                        controller: _nameController,
-                        onChanged: model.infoChanged,
-                        decoration: InputDecoration(
-                          hintText: Strings.name,
-                          errorText: model.isNameInvalid
-                              ? Strings.name + ' ' + Strings.isInvalid
-                              : null,
+                      Theme(
+                        data: ThemeData(
+                          textTheme: Theme.of(context).textTheme,
+                          primaryColor: MyColors.black02dp,
+                          hintColor: Colors.white,
+                        ),
+                        child: TextField(
+                          maxLength: 50,
+                          controller: _nameController,
+                          onChanged: model.infoChanged,
+                          decoration: InputDecoration(
+                            hintText: Strings.name,
+                            hintStyle: TextStyle(color: MyColors.black24dp),
+                            errorText: model.isNameInvalid
+                                ? Strings.name + ' ' + Strings.isInvalid
+                                : null,
+                          ),
                         ),
                       ),
                     ],
@@ -86,17 +94,25 @@ class _EditExpense extends State<EditExpensePage> {
                           style: Theme.of(context).textTheme.title,
                         ),
                       ),
-                      TextField(
-                        maxLength: 10,
-                        controller: _priceController,
-                        onChanged: model.infoChanged,
-                        decoration: InputDecoration(
-                          hintText: Strings.price,
-                          errorText: model.isPriceInvalid
-                              ? Strings.price + ' ' + Strings.isInvalid
-                              : null,
+                      Theme(
+                        data: ThemeData(
+                          textTheme: Theme.of(context).textTheme,
+                          primaryColor: MyColors.black02dp,
+                          hintColor: Colors.white,
                         ),
-                        keyboardType: TextInputType.number,
+                        child: TextField(
+                          maxLength: 10,
+                          controller: _priceController,
+                          onChanged: model.infoChanged,
+                          decoration: InputDecoration(
+                            hintText: Strings.price,
+                            hintStyle: TextStyle(color: MyColors.black24dp),
+                            errorText: model.isPriceInvalid
+                                ? Strings.price + ' ' + Strings.isInvalid
+                                : null,
+                          ),
+                          keyboardType: TextInputType.number,
+                        ),
                       ),
                     ],
                   ),

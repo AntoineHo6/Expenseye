@@ -39,30 +39,42 @@ class _AddExpense extends State<AddExpenseDialog> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                TextField(
-                  maxLength: 50,
-                  controller: _nameController,
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: Strings.name,
-                    hintStyle: TextStyle(color: MyColors.black24dp),
-                    errorText: model.isNameInvalid
-                        ? Strings.name + ' ' + Strings.isInvalid
-                        : null,
+                Theme(
+                  data: ThemeData(
+                    textTheme: Theme.of(context).textTheme,
+                    hintColor: Colors.white,
+                  ),
+                  child: TextField(
+                    maxLength: 50,
+                    controller: _nameController,
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: Strings.name,
+                      hintStyle: TextStyle(color: MyColors.black24dp),
+                      errorText: model.isNameInvalid
+                          ? Strings.name + ' ' + Strings.isInvalid
+                          : null,
+                    ),
                   ),
                 ),
-                TextField(
-                  maxLength: 10,
-                  controller: _priceController,
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    hintText: Strings.price,
-                    hintStyle: TextStyle(color: MyColors.black24dp),
-                    errorText: model.isPriceInvalid
-                        ? Strings.price + ' ' + Strings.isInvalid
-                        : null,
+                Theme(
+                  data: ThemeData(
+                    textTheme: Theme.of(context).textTheme,
+                    hintColor: Colors.white,
                   ),
-                  keyboardType: TextInputType.number,
+                  child: TextField(
+                    maxLength: 10,
+                    controller: _priceController,
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: Strings.price,
+                      hintStyle: TextStyle(color: MyColors.black24dp),
+                      errorText: model.isPriceInvalid
+                          ? Strings.price + ' ' + Strings.isInvalid
+                          : null,
+                    ),
+                    keyboardType: TextInputType.number,
+                  ),
                 ),
                 Container(
                   margin: const EdgeInsets.only(top: 20),

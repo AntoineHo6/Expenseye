@@ -21,9 +21,11 @@ class MyApp extends StatelessWidget {
           textTheme: TextTheme(
             display1: TextStyle(color: Colors.white),
             headline: TextStyle(color: Colors.white),
+            title: TextStyle(color: Colors.white),
+            subhead: TextStyle(color: Colors.white),
             body1: TextStyle(color: Colors.white),
             subtitle: TextStyle(color: Colors.white),
-            subhead: TextStyle(color: Colors.white),
+            caption: TextStyle(color: Colors.white),
           ),
         ),
       ),

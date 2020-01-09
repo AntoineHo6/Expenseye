@@ -13,44 +13,64 @@ class MyDrawer extends Drawer {
           padding: EdgeInsets.zero,
           children: <Widget>[
             DrawerHeader(
-              child:
-              Align(
-              alignment: Alignment.centerLeft,
-              child: Column(
-                children: <Widget>[
-                  Icon(Icons.remove_red_eye, color: Colors.white),
-                  Text(
-                    Strings.appName,
-                    style: Theme.of(context).textTheme.headline,
-                  ),
-                ],
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Column(
+                  children: <Widget>[
+                    Icon(Icons.remove_red_eye, color: Colors.white),
+                    Text(
+                      Strings.appName,
+                      style: Theme.of(context).textTheme.headline,
+                    ),
+                  ],
+                ),
               ),
-            ),
               decoration: BoxDecoration(
                 color: MyColors.black02dp,
               ),
             ),
-            ExpansionTile(
-              title: Text(Strings.viewBy),
-              children: <Widget>[
-                // TODO: implement onTap
-                ListTile(
-                  title: Text(Strings.daily),
-                  onTap: () => _openDailyHomePage(context),
-                ),
-                ListTile(
-                  title: Text(Strings.weekly),
-                ),
-                ListTile(
-                  title: Text(Strings.monthly),
-                ),
-                ListTile(
-                  title: Text(Strings.yearly),
-                ),
-              ],
+            Theme(
+              data: ThemeData(
+                textTheme: Theme.of(context).textTheme,
+                unselectedWidgetColor: Colors.white,
+                accentColor: MyColors.secondary,
+              ),
+              child: ExpansionTile(
+                title: Text(Strings.viewBy),
+                children: <Widget>[
+                  ListTile(
+                    title: Text(
+                      '\t\t\t${Strings.daily}',
+                      style: Theme.of(context).textTheme.subtitle,
+                    ),
+                    onTap: () => _openDailyHomePage(context),
+                  ),
+                  // ListTile(
+                  //   title: Text(
+                  //     Strings.weekly,
+                  //     style: Theme.of(context).textTheme.subtitle,
+                  //   ),
+                  // ),
+                  ListTile(
+                    title: Text(
+                      '\t\t\t${Strings.monthly}',
+                      style: Theme.of(context).textTheme.subtitle,
+                    ),
+                  ),
+                  ListTile(
+                    title: Text(
+                      '\t\t\t${Strings.yearly}',
+                      style: Theme.of(context).textTheme.subtitle,
+                    ),
+                  ),
+                ],
+              ),
             ),
             ListTile(
-              title: Text(Strings.categories),
+              title: Text(
+                Strings.categories,
+                style: Theme.of(context).textTheme.subtitle,
+              ),
               onTap: () {
                 // Update the state of the app
                 // ...
@@ -59,16 +79,10 @@ class MyDrawer extends Drawer {
               },
             ),
             ListTile(
-              title: Text('Statistics'),
-              onTap: () {
-                // Update the state of the app
-                // ...
-                // Then close the drawer
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              title: Text(Strings.settings),
+              title: Text(
+                Strings.settings,
+                style: Theme.of(context).textTheme.subtitle,
+              ),
               onTap: () {
                 // Update the state of the app
                 // ...

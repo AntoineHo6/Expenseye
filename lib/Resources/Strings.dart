@@ -15,6 +15,10 @@ class Strings {
   static const String dataIsNull = 'Data is null';
   static const String confirm = 'Confirm';
   static const String pieChart = 'Pie Chart';
+  static const String expenses = 'Expenses';
+  static const String stats = 'Stats';
+
+  // * QUESTIONS
   static const String confirmMsg =
       'Are you sure you want to delete this expense?';
 

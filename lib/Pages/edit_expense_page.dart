@@ -27,9 +27,9 @@ class _EditExpense extends State<EditExpensePage> {
 
   @override
   Widget build(BuildContext context) {
-    return new ChangeNotifierProvider(
+    return ChangeNotifierProvider(
       create: (_) =>
-          new EditAddExpenseModel(widget.expense.date, widget.expense.category),
+          EditAddExpenseModel(widget.expense.date, widget.expense.category),
       child: Consumer<EditAddExpenseModel>(
         builder: (context, model, child) => Scaffold(
           backgroundColor: MyColors.black00dp,

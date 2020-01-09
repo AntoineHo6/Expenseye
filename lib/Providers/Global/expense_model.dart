@@ -3,6 +3,7 @@ import 'package:expense_app/Resources/Strings.dart';
 import 'package:expense_app/Utils/database_helper.dart';
 import 'package:flutter/material.dart';
 
+// rename to localDbModel
 class ExpenseModel extends ChangeNotifier {
   final DatabaseHelper dbHelper = DatabaseHelper.instance;
 

@@ -1,6 +1,7 @@
 import 'package:expense_app/Components/my_drawer.dart';
 import 'package:expense_app/Pages/Daily/daily_stats_page.dart';
 import 'package:expense_app/Pages/Monthly/monthly_page.dart';
+import 'package:expense_app/Resources/Strings.dart';
 import 'package:expense_app/Resources/Themes/Colors.dart';
 import 'package:flutter/material.dart';
 
@@ -39,14 +40,14 @@ class _MonthlyHomePageState extends State<MonthlyHomePage> {
           BottomNavigationBarItem(
             icon: const Icon(Icons.list, color: Colors.white,),
             title: Text(
-              'Expenses',
+              Strings.expenses,
               style: Theme.of(context).textTheme.body1,
             ),
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.pie_chart, color: Colors.white),
             title: Text(
-              'Stats',
+              Strings.stats,
               style: Theme.of(context).textTheme.body1,
             ),
           )

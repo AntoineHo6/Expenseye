@@ -1,8 +1,11 @@
 import 'package:expense_app/Components/my_drawer.dart';
 import 'package:expense_app/Pages/Daily/daily_page.dart';
 import 'package:expense_app/Pages/Daily/daily_stats_page.dart';
+import 'package:expense_app/Providers/daily_model.dart';
+import 'package:expense_app/Resources/Strings.dart';
 import 'package:expense_app/Resources/Themes/Colors.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class DailyHomePage extends StatefulWidget {
   @override
@@ -14,43 +17,49 @@ class _DailyHomePageState extends State<DailyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: MyColors.black00dp,
-      drawer: MyDrawer(),
-      body: SafeArea(
-        top: false,
-        child: IndexedStack(
-          index: _currentIndex,
-          children: <Widget>[
-            DailyPage(),
-            DailyStatsPage(),
-          ],
-        ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: MyColors.black24dp,
-        currentIndex: _currentIndex,
-        onTap: (int index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
-        items: [
-          BottomNavigationBarItem(
-            icon: const Icon(Icons.list, color: Colors.white,),
-            title: Text(
-              'Expenses',
-              style: Theme.of(context).textTheme.body1,
+    return ChangeNotifierProvider(
+      create: (_) => DailyModel(),
+      child: Consumer<DailyModel>(
+        builder: (context, model, child) => Scaffold(
+          backgroundColor: MyColors.black00dp,
+          drawer: MyDrawer(),
+          body: SafeArea(
+            top: false,
+            child: IndexedStack(
+              index: _currentIndex,
+              children: <Widget>[
+                DailyPage(),
+                DailyStatsPage(),
+              ],
             ),
           ),
-          BottomNavigationBarItem(
-            icon: const Icon(Icons.pie_chart, color: Colors.white),
-            title: Text(
-              'Stats',
-              style: Theme.of(context).textTheme.body1,
-            ),
-          )
-        ],
+          bottomNavigationBar: BottomNavigationBar(
+            selectedIconTheme: IconThemeData(color: MyColors.secondary),
+            backgroundColor: MyColors.black24dp,
+            currentIndex: _currentIndex,
+            onTap: (int index) {
+              setState(() {
+                _currentIndex = index;
+              });
+            },
+            items: [
+              BottomNavigationBarItem(
+                icon: const Icon(Icons.list),
+                title: Text(
+                  Strings.expenses,
+                  style: Theme.of(context).textTheme.body1,
+                ),
+              ),
+              BottomNavigationBarItem(
+                icon: const Icon(Icons.pie_chart),
+                title: Text(
+                  Strings.stats,
+                  style: Theme.of(context).textTheme.body1,
+                ),
+              )
+            ],
+          ),
+        ),
       ),
     );
   }

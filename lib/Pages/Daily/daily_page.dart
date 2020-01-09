@@ -1,8 +1,7 @@
-import 'package:expense_app/Components/AlertDialogs/add_expense_dialog.dart';
+import 'package:expense_app/Components/Buttons/FlatButton/app_bar_calendar_btn.dart';
 import 'package:expense_app/Components/my_drawer.dart';
 import 'package:expense_app/Models/Expense.dart';
-import 'package:expense_app/Pages/edit_expense_page.dart';
-import 'package:expense_app/Pages/table_calendar_page.dart';
+import 'package:expense_app/Providers/daily_model.dart';
 import 'package:expense_app/Resources/Strings.dart';
 import 'package:expense_app/Resources/Themes/Colors.dart';
 import 'package:expense_app/Utils/date_time_util.dart';
@@ -17,31 +16,25 @@ class DailyPage extends StatefulWidget {
 }
 
 class _TodayPageState extends State<DailyPage> {
-  // don't include todays time for uniform data
-  DateTime _currentDate = DateTimeUtil.timeToZeroInDate(DateTime.now());
-
   @override
   Widget build(BuildContext context) {
     final _expenseModel = Provider.of<ExpenseModel>(context);
+    final _dailyModel = Provider.of<DailyModel>(context);
 
     return Scaffold(
       backgroundColor: MyColors.black00dp,
       appBar: AppBar(
-        title: Text(DateTimeUtil.formattedDate(_currentDate)),
+        title: Text(DateTimeUtil.formattedDate(_dailyModel.currentDate)),
         actions: <Widget>[
-          FlatButton(
-            textColor: Colors.white,
-            onPressed: _openTableCalendarPage,
-            child: const Icon(Icons.calendar_today),
-            shape: CircleBorder(
-              side: const BorderSide(color: Colors.transparent),
-            ),
+          AppBarCalendarBtn(
+            onPressed: () => _dailyModel.openTableCalendarPage(context),
           ),
         ],
       ),
       drawer: MyDrawer(),
       body: FutureBuilder<List<Expense>>(
-        future: _expenseModel.dbHelper.queryExpensesInDate(_currentDate),
+        future:
+            _expenseModel.dbHelper.queryExpensesInDate(_dailyModel.currentDate),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data != null) {
@@ -79,7 +72,8 @@ class _TodayPageState extends State<DailyPage> {
                               expense.price.toString(),
                               style: Theme.of(context).textTheme.subtitle,
                             ),
-                            onTap: () => _openEditExpense(expense),
+                            onTap: () =>
+                                _dailyModel.openEditExpense(context, expense),
                             trailing: Text(
                               DateTimeUtil.formattedDate(expense.date),
                               style: Theme.of(context).textTheme.subtitle,
@@ -107,56 +101,10 @@ class _TodayPageState extends State<DailyPage> {
       ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
-        onPressed: () => _showAddExpense(_currentDate),
+        onPressed: () => _dailyModel.showAddExpense(context),
         elevation: 2,
         backgroundColor: MyColors.secondary,
       ),
     );
-  }
-
-  void _showAddExpense(DateTime date) async {
-    bool confirmed = await showDialog(
-      context: context,
-      builder: (_) => AddExpenseDialog(date),
-    );
-
-    if (confirmed) {
-      final snackBar = SnackBar(
-        content: Text(Strings.succAdded),
-        backgroundColor: Colors.grey.withOpacity(0.5),
-      );
-
-      Scaffold.of(context).showSnackBar(snackBar);
-    }
-  }
-
-  void _openEditExpense(Expense expense) async {
-    int action = await Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => EditExpensePage(expense)),
-    );
-
-    if (action != null) {
-      final snackBar = SnackBar(
-        content:
-            action == 1 ? Text(Strings.succEdited) : Text(Strings.succDeleted),
-        backgroundColor: Colors.grey.withOpacity(0.5),
-      );
-
-      Scaffold.of(context).showSnackBar(snackBar);
-    }
-  }
-
-  void _openTableCalendarPage() async {
-    DateTime newDate = await Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => TableCalendarPage(_currentDate)),
-    );
-
-    if (newDate != null) {
-      setState(() {
-        _currentDate = newDate;
-      });
-    }
   }
 }

@@ -11,20 +11,20 @@ class ConfirmationDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       backgroundColor: MyColors.black00dp,
-      title: Text(Strings.confirm),
-      content: Text(Strings.confirmMsg),
+      title: const Text(Strings.confirm),
+      content: const Text(Strings.confirmMsg),
       actions: <Widget>[
         FlatButton(
           onPressed: () => Navigator.pop(context, false),
           textColor: Colors.white,
-          child: Text(
+          child: const Text(
             Strings.cancelCaps,
           ),
         ),
         FlatButton(
           onPressed: () => Navigator.pop(context, true),
           textColor: Colors.white,
-          child: Text(
+          child: const Text(
             Strings.confirmCaps,
           ),
         ),

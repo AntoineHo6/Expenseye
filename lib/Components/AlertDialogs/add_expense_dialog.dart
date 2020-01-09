@@ -5,6 +5,7 @@ import 'package:expense_app/Providers/edit_add_expense_model.dart';
 import 'package:expense_app/Components/Buttons/RaisedButtons/date_picker_btn.dart';
 import 'package:expense_app/Resources/Strings.dart';
 import 'package:expense_app/Resources/Themes/Colors.dart';
+import 'package:expense_app/Utils/date_time_util.dart';
 import 'package:expense_app/Utils/expense_category.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -24,7 +25,7 @@ class _AddExpense extends State<AddExpenseDialog> {
 
   @override
   Widget build(BuildContext context) {
-    return new ChangeNotifierProvider<EditAddExpenseModel>(
+    return new ChangeNotifierProvider(
       create: (_) =>
           new EditAddExpenseModel(widget.initialDate, ExpenseCategory.food),
       child: Consumer<EditAddExpenseModel>(
@@ -84,7 +85,10 @@ class _AddExpense extends State<AddExpenseDialog> {
                     children: <Widget>[
                       Container(
                         margin: const EdgeInsets.only(left: 3),
-                        child: IconBtn(model.category),
+                        child: IconBtn(
+                          model.category,
+                          () => model.openIconsPage(context),
+                        ),
                       ),
                       Align(
                         alignment: Alignment.centerRight,
@@ -128,7 +132,7 @@ class _AddExpense extends State<AddExpenseDialog> {
 
   void chooseDate(EditAddExpenseModel localProvider) async {
     DateTime newDate =
-        await localProvider.chooseDate(context, widget.initialDate);
+        await DateTimeUtil.chooseDate(context, widget.initialDate);
 
     localProvider.updateDate(newDate);
   }
@@ -137,7 +141,6 @@ class _AddExpense extends State<AddExpenseDialog> {
     final String newName = _nameController.text;
     final String newPrice = _priceController.text;
     final DateTime newDate = localProvider.date;
-    print(newDate.toIso8601String());
 
     bool areFieldsInvalid = localProvider.checkFieldsInvalid(
         name: newName, price: newPrice, date: newDate);
@@ -147,7 +150,7 @@ class _AddExpense extends State<AddExpenseDialog> {
       Expense newExpense = new Expense(
           newName, double.parse(newPrice), newDate, localProvider.category);
 
-      Provider.of<ExpenseModel>(context).addExpense(newExpense);
+      Provider.of<ExpenseModel>(context, listen: false).addExpense(newExpense);
 
       Navigator.pop(context, true);
     }

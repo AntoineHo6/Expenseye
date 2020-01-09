@@ -5,6 +5,7 @@ import 'package:expense_app/Providers/Global/expense_model.dart';
 import 'package:expense_app/Resources/Strings.dart';
 import 'package:expense_app/Resources/Themes/Colors.dart';
 import 'package:expense_app/Utils/chart_util.dart';
+import 'package:expense_app/Utils/date_time_util.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -16,7 +17,7 @@ class DailyStatsPage extends StatelessWidget {
     return Scaffold(
         backgroundColor: MyColors.black00dp,
         appBar: AppBar(
-          title: Text(_expenseModel.formattedDate(DateTime.now())), // temp
+          title: Text(DateTimeUtil.formattedDate(DateTime.now())), // temp
         ),
         drawer: MyDrawer(),
         body: FutureBuilder<List<Expense>>(

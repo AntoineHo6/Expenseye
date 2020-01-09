@@ -6,6 +6,7 @@ import 'package:expense_app/Components/Buttons/RaisedButtons/date_picker_btn.dar
 import 'package:expense_app/Models/Expense.dart';
 import 'package:expense_app/Resources/Strings.dart';
 import 'package:expense_app/Resources/Themes/Colors.dart';
+import 'package:expense_app/Utils/date_time_util.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -24,7 +25,7 @@ class _EditExpense extends State<EditExpensePage> {
 
   @override
   Widget build(BuildContext context) {
-    return new ChangeNotifierProvider<EditAddExpenseModel>(
+    return new ChangeNotifierProvider(
       create: (_) =>
           new EditAddExpenseModel(widget.expense.date, widget.expense.category),
       child: Consumer<EditAddExpenseModel>(
@@ -125,7 +126,10 @@ class _EditExpense extends State<EditExpensePage> {
                     children: <Widget>[
                       Container(
                         margin: const EdgeInsets.only(left: 3),
-                        child: IconBtn(model.category),
+                        child: IconBtn(
+                          model.category,
+                          () => model.openIconsPage(context),
+                        ),
                       ),
                       Align(
                         alignment: Alignment.centerRight,
@@ -158,7 +162,7 @@ class _EditExpense extends State<EditExpensePage> {
 
   void chooseDate(EditAddExpenseModel localProvider) async {
     DateTime newDate =
-        await localProvider.chooseDate(context, localProvider.date);
+        await DateTimeUtil.chooseDate(context, localProvider.date);
 
     localProvider.updateDate(newDate);
   }
@@ -175,22 +179,20 @@ class _EditExpense extends State<EditExpensePage> {
       Expense newExpense = new Expense.withId(widget.expense.id, newName,
           double.parse(newPrice), localProvider.date, localProvider.category);
 
-      Provider.of<ExpenseModel>(context).editExpense(newExpense);
+      Provider.of<ExpenseModel>(context, listen: false).editExpense(newExpense);
 
       Navigator.pop(context, 1);
     }
   }
 
   void _delete() async {
-    final globalProvider = Provider.of<ExpenseModel>(context);
-
     bool confirmed = await showDialog(
       context: context,
       builder: (_) => ConfirmationDialog(widget.expense.id),
     );
 
     if (confirmed) {
-      globalProvider.deleteExpense(widget.expense.id);
+      Provider.of<ExpenseModel>(context, listen: false).deleteExpense(widget.expense.id);
       Navigator.pop(context, 2);
     }
   }

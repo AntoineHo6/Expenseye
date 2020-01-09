@@ -1,6 +1,5 @@
 import 'package:expense_app/Pages/Daily/daily_home_page.dart';
 import 'package:expense_app/Pages/Monthly/monthly_home_page.dart';
-import 'package:expense_app/Pages/Monthly/monthly_page.dart';
 import 'package:expense_app/Resources/Strings.dart';
 import 'package:expense_app/Resources/Themes/Colors.dart';
 import 'package:flutter/material.dart';

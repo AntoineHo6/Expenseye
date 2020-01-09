@@ -44,7 +44,7 @@ class _DailyHomePageState extends State<DailyHomePage> {
             ),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.pie_chart, color: Colors.white),
+            icon: const Icon(Icons.pie_chart, color: Colors.white),
             title: Text(
               'Stats',
               style: Theme.of(context).textTheme.body1,

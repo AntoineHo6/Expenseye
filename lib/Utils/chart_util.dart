@@ -2,14 +2,6 @@ import 'package:expense_app/Models/Expense.dart';
 import 'package:expense_app/Utils/expense_category.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
-// can't implement map instead because charts use lists
-class ExpenseGroup {
-  ExpenseCategory category;
-  double total;
-
-  ExpenseGroup(this.category, this.total);
-}
-
 class ChartUtil {
   static List<charts.Series<ExpenseGroup, ExpenseCategory>>
       convertExpensesToChartSeries(List<Expense> expenses) {
@@ -71,4 +63,12 @@ class ChartUtil {
           data: aggregatedExpenses)
     ];
   }
+}
+
+// can't implement map instead because charts use lists
+class ExpenseGroup {
+  ExpenseCategory category;
+  double total;
+
+  ExpenseGroup(this.category, this.total);
 }

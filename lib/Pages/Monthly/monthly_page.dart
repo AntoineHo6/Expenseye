@@ -4,10 +4,8 @@ import 'package:expense_app/Providers/Global/expense_model.dart';
 import 'package:expense_app/Resources/Strings.dart';
 import 'package:expense_app/Resources/Themes/Colors.dart';
 import 'package:expense_app/Utils/date_time_util.dart';
-import 'package:expense_app/Utils/expense_category.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:month_picker_dialog/month_picker_dialog.dart';
 
 class MonthlyPage extends StatefulWidget {
   @override
@@ -72,12 +70,8 @@ class _MonthlyPageState extends State<MonthlyPage> {
     );
   }
 
-  // TODO: move this to date_time_util
   void _chooseMonth(DateTime initialDate) async {
-    DateTime newMonth = await showMonthPicker(
-      context: context,
-      initialDate: initialDate,
-    );
+    DateTime newMonth = await DateTimeUtil.chooseMonth(context, initialDate);
 
     if (newMonth != null) {
       _currentDate = newMonth;

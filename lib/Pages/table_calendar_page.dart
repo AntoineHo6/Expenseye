@@ -24,24 +24,27 @@ class _TableCalendarPage extends State<TableCalendarPage>
 
   @override
   Widget build(BuildContext context) {
-    final _expenseModel = Provider.of<ExpenseModel>(context);
+    final _expenseModel = Provider.of<ExpenseModel>(context, listen: false);
 
     return Scaffold(
       backgroundColor: MyColors.black00dp,
       appBar: AppBar(
-        title: Text('John wick'),
+        title: Text(Strings.pickADate),
       ),
       body: FutureBuilder<List<Expense>>(
         future: _expenseModel.dbHelper.queryAllExpenses(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data != null) {
-              Map<DateTime, List> _events = TableCalendarUtil.expensesToEvents(snapshot.data);
+              Map<DateTime, List> _events =
+                  TableCalendarUtil.expensesToEvents(snapshot.data);
 
               return TableCalendar(
                 headerStyle: HeaderStyle(
-                  leftChevronIcon: const Icon(Icons.chevron_left, color: Colors.white),
-                  rightChevronIcon: const Icon(Icons.chevron_right, color: Colors.white),
+                  leftChevronIcon:
+                      const Icon(Icons.chevron_left, color: Colors.white),
+                  rightChevronIcon:
+                      const Icon(Icons.chevron_right, color: Colors.white),
                   formatButtonVisible: false,
                 ),
                 calendarStyle: CalendarStyle(
@@ -52,16 +55,16 @@ class _TableCalendarPage extends State<TableCalendarPage>
                 calendarController: _calendarController,
                 events: _events,
                 initialSelectedDay: widget.initialDate,
-                onDaySelected: (date, list) => _changeDate(date, _expenseModel),
+                onDaySelected: (date, list) => _changeDate(date),
                 builders: CalendarBuilders(
-                  singleMarkerBuilder: (context, date, _) {
+                  singleMarkerBuilder: (context, date, expense) {
                     return Container(
                       width: 8.0,
                       height: 8.0,
                       margin: const EdgeInsets.symmetric(horizontal: 0.3),
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color: CategoryProperties.properties[_.category]
+                        color: CategoryProperties.properties[expense.category]
                             ['color'],
                       ),
                     );
@@ -69,10 +72,7 @@ class _TableCalendarPage extends State<TableCalendarPage>
                 ),
               );
             } else {
-              return Align(
-                alignment: Alignment.center,
-                child: Text(Strings.dataIsNull),
-              );
+              return null;
             }
           } else {
             return Align(
@@ -85,8 +85,8 @@ class _TableCalendarPage extends State<TableCalendarPage>
     );
   }
 
-  void _changeDate(DateTime date, ExpenseModel globalProvider) {
-    Navigator.pop(context, DateTimeUtil.cleanDateTime(date));
+  void _changeDate(DateTime date) {
+    Navigator.pop(context, DateTimeUtil.timeToZeroInDate(date));
   }
 
   @override

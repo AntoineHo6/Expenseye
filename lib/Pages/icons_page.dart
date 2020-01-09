@@ -1,15 +1,11 @@
-import 'package:expense_app/Providers/Global/expense_model.dart';
 import 'package:expense_app/Resources/Strings.dart';
 import 'package:expense_app/Resources/Themes/Colors.dart';
 import 'package:expense_app/Utils/expense_category.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class IconsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final _expenseModel = Provider.of<ExpenseModel>(context);
-
     return Scaffold(
       backgroundColor: MyColors.black00dp,
       appBar: AppBar(
@@ -32,8 +28,8 @@ class IconsPage extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   Icon(
-                    _expenseModel
-                        .catToIconData(ExpenseCategory.values[index]),
+                    CategoryProperties.properties[ExpenseCategory.values[index]]
+                        ['iconData'],
                     color: CategoryProperties
                         .properties[ExpenseCategory.values[index]]['color'],
                     size: 50,
@@ -45,9 +41,8 @@ class IconsPage extends StatelessWidget {
                     fit: BoxFit.fitWidth,
                     child: Text(
                       CategoryProperties
-                              .properties[ExpenseCategory.values[index]]
-                          ['string'],
-                          style: Theme.of(context).textTheme.subhead,
+                          .properties[ExpenseCategory.values[index]]['string'],
+                      style: Theme.of(context).textTheme.subhead,
                     ),
                   ),
                 ],

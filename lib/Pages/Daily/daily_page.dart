@@ -18,8 +18,8 @@ class DailyPage extends StatefulWidget {
 
 class _TodayPageState extends State<DailyPage> {
   // don't include todays time for uniform data
-  DateTime _currentDate = DateTimeUtil.cleanDateTime(DateTime.now());
-  
+  DateTime _currentDate = DateTimeUtil.timeToZeroInDate(DateTime.now());
+
   @override
   Widget build(BuildContext context) {
     final _expenseModel = Provider.of<ExpenseModel>(context);
@@ -27,7 +27,7 @@ class _TodayPageState extends State<DailyPage> {
     return Scaffold(
       backgroundColor: MyColors.black00dp,
       appBar: AppBar(
-        title: Text(_expenseModel.formattedDate(_currentDate)),
+        title: Text(DateTimeUtil.formattedDate(_currentDate)),
         actions: <Widget>[
           FlatButton(
             textColor: Colors.white,
@@ -41,8 +41,7 @@ class _TodayPageState extends State<DailyPage> {
       ),
       drawer: MyDrawer(),
       body: FutureBuilder<List<Expense>>(
-        future:
-            _expenseModel.dbHelper.queryExpensesInDate(_currentDate),
+        future: _expenseModel.dbHelper.queryExpensesInDate(_currentDate),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data != null) {
@@ -68,7 +67,8 @@ class _TodayPageState extends State<DailyPage> {
                           color: MyColors.black02dp,
                           child: ListTile(
                             leading: Icon(
-                                _expenseModel.catToIconData(expense.category),
+                                CategoryProperties.properties[expense.category]
+                                    ['iconData'],
                                 color: CategoryProperties
                                     .properties[expense.category]['color']),
                             title: Text(
@@ -81,7 +81,7 @@ class _TodayPageState extends State<DailyPage> {
                             ),
                             onTap: () => _openEditExpense(expense),
                             trailing: Text(
-                              _expenseModel.formattedDate(expense.date),
+                              DateTimeUtil.formattedDate(expense.date),
                               style: Theme.of(context).textTheme.subtitle,
                             ),
                           ),

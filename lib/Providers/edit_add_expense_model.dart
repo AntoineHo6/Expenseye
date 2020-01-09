@@ -1,3 +1,4 @@
+import 'package:expense_app/Pages/icons_page.dart';
 import 'package:expense_app/Utils/expense_category.dart';
 import 'package:flutter/material.dart';
 
@@ -47,22 +48,15 @@ class EditAddExpenseModel extends ChangeNotifier {
     return true;
   }
 
-  // TODO: move this to date_time_util
-  Future<DateTime> chooseDate(
-      BuildContext context, DateTime initialDate) async {
-    DateTime newDate = await showDatePicker(
-      context: context,
-      initialDate: initialDate,
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2030),
-      builder: (BuildContext context, Widget child) {
-        return Theme(
-          data: ThemeData.dark(),
-          child: child,
-        );
-      },
+  void openIconsPage(BuildContext context) async {
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => IconsPage()),
     );
 
-    return newDate;
+    if (result != null) {
+      category = result;
+      infoChanged(null);
+    }
   }
 }

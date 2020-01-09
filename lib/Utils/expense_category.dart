@@ -1,7 +1,6 @@
 import 'package:expense_app/Resources/Strings.dart';
 import 'package:flutter/material.dart';
 
-// TODO: add hobbie?
 enum ExpenseCategory {
   food,
   transportation,

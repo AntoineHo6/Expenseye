@@ -18,6 +18,9 @@ class Strings {
   static const String confirmMsg =
       'Are you sure you want to delete this expense?';
 
+  // * INSTRUCTIONS
+  static const String pickADate = 'Pick a date';
+
   // * CATEGORIES
   static const String food = 'Food';
   static const String transportation = 'Transportation';

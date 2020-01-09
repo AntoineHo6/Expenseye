@@ -1,8 +1,6 @@
 import 'package:expense_app/Models/Expense.dart';
 import 'package:expense_app/Resources/Strings.dart';
 import 'package:expense_app/Utils/database_helper.dart';
-import 'package:expense_app/Utils/date_time_util.dart';
-import 'package:expense_app/Utils/expense_category.dart';
 import 'package:flutter/material.dart';
 
 class ExpenseModel extends ChangeNotifier {
@@ -23,7 +21,7 @@ class ExpenseModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  double calcTotal(List<Expense> expenses) {
+  double _calcTotal(List<Expense> expenses) {
     double total = 0;
     for (Expense expense in expenses) {
       total += expense.price;
@@ -33,14 +31,7 @@ class ExpenseModel extends ChangeNotifier {
 
   // * may move out of this provider
   String totalString(List<Expense> expenses) {
-    return '${Strings.total}: ${calcTotal(expenses).toString()} \$';
+    return '${Strings.total}: ${_calcTotal(expenses).toString()} \$';
   }
 
-  String formattedDate(DateTime date) {
-    return '${DateTimeUtil.monthAbb[date.month]} ${date.day} ${date.year}';
-  }
-
-  IconData catToIconData(ExpenseCategory category) {
-    return CategoryProperties.properties[category]['iconData'];
-  }
 }

@@ -91,8 +91,11 @@ class DatabaseHelper {
   Future<List<Expense>> queryExpensesInMonth(String yearMonth) async {
     Database db = await database;
 
-    List<Map> maps = await db.query(Strings.tableExpenses,
-        where: '${Strings.columnDate} LIKE \'$yearMonth%\'');
+    List<Map> maps = await db.query(
+      Strings.tableExpenses,
+      where: '${Strings.columnDate} LIKE \'$yearMonth%\'',
+      orderBy: '${Strings.columnDate} DESC',
+    );
 
     // ! TURN THIS INTO FUNC
     List<Expense> expenses = new List();

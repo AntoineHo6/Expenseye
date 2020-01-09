@@ -1,6 +1,7 @@
 import 'package:expense_app/Components/my_drawer.dart';
 import 'package:expense_app/Models/Expense.dart';
 import 'package:expense_app/Providers/Global/expense_model.dart';
+import 'package:expense_app/Providers/monthly_model.dart';
 import 'package:expense_app/Resources/Strings.dart';
 import 'package:expense_app/Resources/Themes/Colors.dart';
 import 'package:expense_app/Utils/date_time_util.dart';
@@ -19,11 +20,14 @@ class _MonthlyPageState extends State<MonthlyPage> {
   @override
   Widget build(BuildContext context) {
     final _expenseModel = Provider.of<ExpenseModel>(context);
+    final _monthlyModel = Provider.of<MonthlyModel>(context);
 
     return Scaffold(
       backgroundColor: MyColors.black00dp,
       appBar: AppBar(
-        title: Text(DateTimeUtil.monthAbb[_currentDate.month]),
+        title: Text(
+          '${DateTimeUtil.monthNames[_currentDate.month]} ${_currentDate.year}',
+        ),
         actions: <Widget>[
           FlatButton(
             textColor: Colors.white,
@@ -40,15 +44,31 @@ class _MonthlyPageState extends State<MonthlyPage> {
         future: _expenseModel.dbHelper.queryExpensesInMonth(_yearMonth),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            if (snapshot.data != null) {
+            if (snapshot.data != null && snapshot.data.length > 0) {
+              var expensesSplitByDay =
+                  _monthlyModel.splitExpensesByDay(snapshot.data);
               return Column(
+                mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  Container(
-                    padding: const EdgeInsets.all(20),
-                    margin: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Text(
-                      _expenseModel.totalString(snapshot.data),
-                      style: Theme.of(context).textTheme.display1,
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: <Widget>[
+                          Container(
+                            padding: const EdgeInsets.all(20),
+                            margin: const EdgeInsets.symmetric(horizontal: 20),
+                            child: Text(
+                              _expenseModel.totalString(snapshot.data),
+                              style: Theme.of(context).textTheme.display1,
+                            ),
+                          ),
+                          Column(
+                            children:
+                                _monthlyModel.expensesSplitByDayToContainers(
+                                    context, expensesSplitByDay),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],

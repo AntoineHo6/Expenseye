@@ -1,4 +1,5 @@
 import 'package:expense_app/Components/Buttons/FlatButton/app_bar_calendar_btn.dart';
+import 'package:expense_app/Components/expense_list_tile.dart';
 import 'package:expense_app/Components/my_drawer.dart';
 import 'package:expense_app/Models/Expense.dart';
 import 'package:expense_app/Providers/daily_model.dart';
@@ -50,7 +51,6 @@ class _TodayPageState extends State<DailyPage> {
                   ),
                   Expanded(
                     child: ListView.builder(
-                      shrinkWrap: true,
                       itemCount: snapshot.data.length,
                       itemBuilder: (context, index) {
                         Expense expense = snapshot.data[index];
@@ -58,26 +58,10 @@ class _TodayPageState extends State<DailyPage> {
                           margin: const EdgeInsets.only(
                               left: 15, right: 15, top: 4, bottom: 4),
                           color: MyColors.black02dp,
-                          child: ListTile(
-                            leading: Icon(
-                                CategoryProperties.properties[expense.category]
-                                    ['iconData'],
-                                color: CategoryProperties
-                                    .properties[expense.category]['color']),
-                            title: Text(
-                              expense.name,
-                              style: Theme.of(context).textTheme.subhead,
-                            ),
-                            subtitle: Text(
-                              expense.price.toString(),
-                              style: Theme.of(context).textTheme.subtitle,
-                            ),
+                          child: ExpenseListTile(
+                            expense: expense,
                             onTap: () =>
                                 _dailyModel.openEditExpense(context, expense),
-                            trailing: Text(
-                              DateTimeUtil.formattedDate(expense.date),
-                              style: Theme.of(context).textTheme.subtitle,
-                            ),
                           ),
                         );
                       },

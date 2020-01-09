@@ -173,7 +173,7 @@ class _EditExpense extends State<EditExpensePage> {
   void _delete() async {
     bool confirmed = await showDialog(
       context: context,
-      builder: (_) => ConfirmationDialog(widget.expense.id),
+      builder: (_) => ConfirmationDialog(),
     );
 
     if (confirmed) {

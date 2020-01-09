@@ -3,9 +3,7 @@ import 'package:expense_app/Resources/Themes/Colors.dart';
 import 'package:flutter/material.dart';
 
 class ConfirmationDialog extends StatelessWidget {
-  final int id;
-
-  const ConfirmationDialog(this.id);
+  const ConfirmationDialog();
 
   @override
   Widget build(BuildContext context) {

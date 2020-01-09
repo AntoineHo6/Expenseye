@@ -5,6 +5,7 @@ import 'package:expense_app/Pages/edit_expense_page.dart';
 import 'package:expense_app/Pages/table_calendar_page.dart';
 import 'package:expense_app/Resources/Strings.dart';
 import 'package:expense_app/Resources/Themes/Colors.dart';
+import 'package:expense_app/Utils/date_time_util.dart';
 import 'package:expense_app/Utils/expense_category.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -16,6 +17,9 @@ class DailyPage extends StatefulWidget {
 }
 
 class _TodayPageState extends State<DailyPage> {
+  // don't include todays time for uniform data
+  DateTime _currentDate = DateTimeUtil.cleanDateTime(DateTime.now());
+  
   @override
   Widget build(BuildContext context) {
     final _expenseModel = Provider.of<ExpenseModel>(context);
@@ -23,7 +27,7 @@ class _TodayPageState extends State<DailyPage> {
     return Scaffold(
       backgroundColor: MyColors.black00dp,
       appBar: AppBar(
-        title: Text(_expenseModel.formattedDate(_expenseModel.dailyDate)),
+        title: Text(_expenseModel.formattedDate(_currentDate)),
         actions: <Widget>[
           FlatButton(
             textColor: Colors.white,
@@ -38,7 +42,7 @@ class _TodayPageState extends State<DailyPage> {
       drawer: MyDrawer(),
       body: FutureBuilder<List<Expense>>(
         future:
-            _expenseModel.dbHelper.queryExpensesInDate(_expenseModel.dailyDate),
+            _expenseModel.dbHelper.queryExpensesInDate(_currentDate),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data != null) {
@@ -77,8 +81,7 @@ class _TodayPageState extends State<DailyPage> {
                             ),
                             onTap: () => _openEditExpense(expense),
                             trailing: Text(
-                              // _expenseModel.formattedDate(expense.date),
-                              expense.date.toIso8601String(),
+                              _expenseModel.formattedDate(expense.date),
                               style: Theme.of(context).textTheme.subtitle,
                             ),
                           ),
@@ -104,7 +107,7 @@ class _TodayPageState extends State<DailyPage> {
       ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
-        onPressed: () => _showAddExpense(_expenseModel.dailyDate),
+        onPressed: () => _showAddExpense(_currentDate),
         elevation: 2,
         backgroundColor: MyColors.secondary,
       ),
@@ -144,10 +147,16 @@ class _TodayPageState extends State<DailyPage> {
     }
   }
 
-  void _openTableCalendarPage() {
-    Navigator.push(
+  void _openTableCalendarPage() async {
+    DateTime newDate = await Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => TableCalendarPage()),
+      MaterialPageRoute(builder: (context) => TableCalendarPage(_currentDate)),
     );
+
+    if (newDate != null) {
+      setState(() {
+        _currentDate = newDate;
+      });
+    }
   }
 }

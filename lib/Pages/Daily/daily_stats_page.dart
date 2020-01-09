@@ -16,12 +16,12 @@ class DailyStatsPage extends StatelessWidget {
     return Scaffold(
         backgroundColor: MyColors.black00dp,
         appBar: AppBar(
-          title: Text(_expenseModel.formattedDate(_expenseModel.dailyDate)),
+          title: Text(_expenseModel.formattedDate(DateTime.now())), // temp
         ),
         drawer: MyDrawer(),
         body: FutureBuilder<List<Expense>>(
             future: _expenseModel.dbHelper
-                .queryExpensesInDate(_expenseModel.dailyDate),
+                .queryExpensesInDate(DateTime.now()), // temp
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 if (snapshot.data != null) {

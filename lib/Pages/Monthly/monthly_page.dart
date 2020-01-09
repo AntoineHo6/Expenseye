@@ -72,6 +72,7 @@ class _MonthlyPageState extends State<MonthlyPage> {
     );
   }
 
+  // TODO: move this to date_time_util
   void _chooseMonth(DateTime initialDate) async {
     DateTime newMonth = await showMonthPicker(
       context: context,

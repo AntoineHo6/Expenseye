@@ -10,6 +10,10 @@ import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class TableCalendarPage extends StatefulWidget {
+  final initialDate;
+
+  TableCalendarPage(this.initialDate);
+
   @override
   _TableCalendarPage createState() => _TableCalendarPage();
 }
@@ -47,7 +51,7 @@ class _TableCalendarPage extends State<TableCalendarPage>
                 ),
                 calendarController: _calendarController,
                 events: _events,
-                initialSelectedDay: _expenseModel.dailyDate,
+                initialSelectedDay: widget.initialDate,
                 onDaySelected: (date, list) => _changeDate(date, _expenseModel),
                 builders: CalendarBuilders(
                   singleMarkerBuilder: (context, date, _) {
@@ -82,9 +86,7 @@ class _TableCalendarPage extends State<TableCalendarPage>
   }
 
   void _changeDate(DateTime date, ExpenseModel globalProvider) {
-    globalProvider.dailyDate = DateTimeUtil.cleanDateTime(date);
-
-    Navigator.pop(context);
+    Navigator.pop(context, DateTimeUtil.cleanDateTime(date));
   }
 
   @override

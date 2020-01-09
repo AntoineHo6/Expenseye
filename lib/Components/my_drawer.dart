@@ -1,4 +1,6 @@
 import 'package:expense_app/Pages/Daily/daily_home_page.dart';
+import 'package:expense_app/Pages/Monthly/monthly_home_page.dart';
+import 'package:expense_app/Pages/Monthly/monthly_page.dart';
 import 'package:expense_app/Resources/Strings.dart';
 import 'package:expense_app/Resources/Themes/Colors.dart';
 import 'package:flutter/material.dart';
@@ -56,6 +58,7 @@ class MyDrawer extends Drawer {
                       '\t\t\t${Strings.monthly}',
                       style: Theme.of(context).textTheme.subtitle,
                     ),
+                    onTap: () => _openMonthlyHomePage(context),
                   ),
                   ListTile(
                     title: Text(
@@ -100,6 +103,13 @@ class MyDrawer extends Drawer {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => DailyHomePage()),
+    );
+  }
+
+  void _openMonthlyHomePage(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => MonthlyHomePage()),
     );
   }
 }

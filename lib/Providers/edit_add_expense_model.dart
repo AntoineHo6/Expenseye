@@ -1,4 +1,3 @@
-import 'package:expense_app/Resources/Themes/Colors.dart';
 import 'package:expense_app/Utils/expense_category.dart';
 import 'package:flutter/material.dart';
 

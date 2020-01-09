@@ -110,7 +110,7 @@ class _AddExpense extends State<AddExpenseDialog> {
               textColor: Colors.white,
               child: Text(Strings.cancelCaps),
               onPressed: () {
-                Navigator.of(context).pop();
+                Navigator.pop(context, false);
               },
             ),
             FlatButton(
@@ -149,7 +149,7 @@ class _AddExpense extends State<AddExpenseDialog> {
 
       Provider.of<ExpenseModel>(context).addExpense(newExpense);
 
-      Navigator.pop(context);
+      Navigator.pop(context, true);
     }
   }
 

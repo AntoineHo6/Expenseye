@@ -43,6 +43,11 @@ class Strings {
   static const String cantBeEmpty = 'can\'t be empty';
   static const String isInvalid = 'is invalid';
 
+  // * SNACKBAR messages
+  static const String succAdded = 'Successfully added';
+  static const String succEdited = 'Successfully edited';
+  static const String succDeleted = 'Successfully deleted';
+
   // * DATABASE table and column names
   static const String tableExpenses = 'expenses';
   static const String columnId = 'expense_id';

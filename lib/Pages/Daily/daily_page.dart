@@ -27,11 +27,10 @@ class _TodayPageState extends State<DailyPage> {
         actions: <Widget>[
           FlatButton(
             textColor: Colors.white,
-            //onPressed: () => chooseDate(_expenseModel),
-            onPressed: openTableCalendarPage,
-            child: Icon(Icons.calendar_today),
+            onPressed: _openTableCalendarPage,
+            child: const Icon(Icons.calendar_today),
             shape: CircleBorder(
-              side: BorderSide(color: Colors.transparent),
+              side: const BorderSide(color: Colors.transparent),
             ),
           ),
         ],
@@ -60,7 +59,8 @@ class _TodayPageState extends State<DailyPage> {
                       itemBuilder: (context, index) {
                         Expense expense = snapshot.data[index];
                         return Card(
-                          margin: const EdgeInsets.only(left: 15, right: 15, top: 4, bottom: 4),
+                          margin: const EdgeInsets.only(
+                              left: 15, right: 15, top: 4, bottom: 4),
                           color: MyColors.black02dp,
                           child: ListTile(
                             leading: Icon(
@@ -77,7 +77,8 @@ class _TodayPageState extends State<DailyPage> {
                             ),
                             onTap: () => _openEditExpense(expense),
                             trailing: Text(
-                              _expenseModel.formattedDate(expense.date),
+                              // _expenseModel.formattedDate(expense.date),
+                              expense.date.toIso8601String(),
                               style: Theme.of(context).textTheme.subtitle,
                             ),
                           ),
@@ -88,21 +89,21 @@ class _TodayPageState extends State<DailyPage> {
                 ],
               );
             } else {
-              return Align(
+              return const Align(
                 alignment: Alignment.center,
                 child: Text(Strings.dataIsNull),
               );
             }
           } else {
-            return Align(
+            return const Align(
               alignment: Alignment.center,
-              child: new CircularProgressIndicator(),
+              child: CircularProgressIndicator(),
             );
           }
         },
       ),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
         onPressed: () => _showAddExpense(_expenseModel.dailyDate),
         elevation: 2,
         backgroundColor: MyColors.secondary,
@@ -110,21 +111,40 @@ class _TodayPageState extends State<DailyPage> {
     );
   }
 
-  void _showAddExpense(DateTime date) {
-    showDialog(
+  void _showAddExpense(DateTime date) async {
+    bool confirmed = await showDialog(
       context: context,
       builder: (_) => AddExpenseDialog(date),
     );
+
+    if (confirmed) {
+      final snackBar = SnackBar(
+        content: Text(Strings.succAdded),
+        backgroundColor: Colors.grey.withOpacity(0.5),
+      );
+
+      Scaffold.of(context).showSnackBar(snackBar);
+    }
   }
 
-  void _openEditExpense(Expense expense) {
-    Navigator.push(
+  void _openEditExpense(Expense expense) async {
+    int action = await Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => EditExpensePage(expense)),
     );
+
+    if (action != null) {
+      final snackBar = SnackBar(
+        content:
+            action == 1 ? Text(Strings.succEdited) : Text(Strings.succDeleted),
+        backgroundColor: Colors.grey.withOpacity(0.5),
+      );
+
+      Scaffold.of(context).showSnackBar(snackBar);
+    }
   }
 
-  void openTableCalendarPage() {
+  void _openTableCalendarPage() {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => TableCalendarPage()),

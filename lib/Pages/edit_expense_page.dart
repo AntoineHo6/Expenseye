@@ -177,7 +177,7 @@ class _EditExpense extends State<EditExpensePage> {
 
       Provider.of<ExpenseModel>(context).editExpense(newExpense);
 
-      Navigator.pop(context);
+      Navigator.pop(context, 1);
     }
   }
 
@@ -191,7 +191,7 @@ class _EditExpense extends State<EditExpensePage> {
 
     if (confirmed) {
       globalProvider.deleteExpense(widget.expense.id);
-      Navigator.pop(context);
+      Navigator.pop(context, 2);
     }
   }
 

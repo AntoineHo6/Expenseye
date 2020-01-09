@@ -87,6 +87,24 @@ class DatabaseHelper {
     return expenses;
   }
 
+  // update
+  Future<List<Expense>> queryExpensesInMonth(String yearMonth) async {
+    Database db = await database;
+
+    List<Map> maps = await db.query(Strings.tableExpenses,
+        where: '${Strings.columnDate} LIKE \'$yearMonth%\'');
+
+    // ! TURN THIS INTO FUNC
+    List<Expense> expenses = new List();
+    if (maps.length > 0) {
+      for (Map row in maps) {
+        expenses.add(new Expense.fromMap(row));
+      }
+    }
+
+    return expenses;
+  }
+
   Future<List<Expense>> queryAllExpenses() async {
     Database db = await database;
 

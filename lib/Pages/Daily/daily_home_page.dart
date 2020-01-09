@@ -15,7 +15,7 @@ class _DailyHomePageState extends State<DailyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: MyColors.periwinkle,
+      backgroundColor: MyColors.black00dp,
       drawer: MyDrawer(),
       body: SafeArea(
         top: false,
@@ -28,7 +28,7 @@ class _DailyHomePageState extends State<DailyHomePage> {
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.white70,
+        backgroundColor: MyColors.black24dp,
         currentIndex: _currentIndex,
         onTap: (int index) {
           setState(() {
@@ -37,12 +37,18 @@ class _DailyHomePageState extends State<DailyHomePage> {
         },
         items: [
           BottomNavigationBarItem(
-            icon: new Icon(Icons.list),
-            title: new Text('Expenses'),
+            icon: Icon(Icons.list, color: Colors.white,),
+            title: Text(
+              'Expenses',
+              style: Theme.of(context).textTheme.body1,
+            ),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.pie_chart),
-            title: Text('Stats'),
+            icon: Icon(Icons.pie_chart, color: Colors.white),
+            title: Text(
+              'Stats',
+              style: Theme.of(context).textTheme.body1,
+            ),
           )
         ],
       ),

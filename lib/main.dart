@@ -15,9 +15,16 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         home: DailyHomePage(),
         theme: ThemeData(
-          primaryColor: MyColors.blueberry,
-          accentColor: MyColors.blueberry,
-          backgroundColor: MyColors.periwinkle
+          primaryColor: MyColors.black02dp,
+          accentColor: MyColors.black02dp,
+          backgroundColor: MyColors.black00dp,
+          textTheme: TextTheme(
+            display1: TextStyle(color: Colors.white),
+            headline: TextStyle(color: Colors.white),
+            body1: TextStyle(color: Colors.white),
+            subtitle: TextStyle(color: Colors.white),
+            subhead: TextStyle(color: Colors.white),
+          ),
         ),
       ),
     );

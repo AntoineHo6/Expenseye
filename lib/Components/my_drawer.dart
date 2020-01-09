@@ -8,7 +8,7 @@ class MyDrawer extends Drawer {
   Widget build(BuildContext context) {
     return Drawer(
       child: Container(
-        color: MyColors.periwinkle,
+        color: MyColors.black00dp,
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
@@ -21,13 +21,13 @@ class MyDrawer extends Drawer {
                   Icon(Icons.remove_red_eye, color: Colors.white),
                   Text(
                     Strings.appName,
-                    style: TextStyle(color: Colors.white, fontSize: 25),
+                    style: Theme.of(context).textTheme.headline,
                   ),
                 ],
               ),
             ),
               decoration: BoxDecoration(
-                color: MyColors.indigoInk,
+                color: MyColors.black02dp,
               ),
             ),
             ExpansionTile(

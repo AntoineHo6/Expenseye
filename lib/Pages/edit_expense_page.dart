@@ -29,7 +29,7 @@ class _EditExpense extends State<EditExpensePage> {
           new EditAddExpenseModel(widget.expense.date, widget.expense.category),
       child: Consumer<EditAddExpenseModel>(
         builder: (context, model, child) => Scaffold(
-          backgroundColor: MyColors.periwinkle,
+          backgroundColor: MyColors.black00dp,
           appBar: AppBar(
             title: Text(widget.expense.name),
             actions: <Widget>[
@@ -125,7 +125,7 @@ class _EditExpense extends State<EditExpensePage> {
                   ),
                 ),
                 RaisedButton(
-                  color: MyColors.blueberry,
+                  color: MyColors.black02dp,
                   textTheme: ButtonTextTheme.primary,
                   child: Text(
                     Strings.saveCaps,

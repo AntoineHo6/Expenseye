@@ -1,6 +1,7 @@
 import 'package:expense_app/Pages/icons_page.dart';
 import 'package:expense_app/Providers/Global/expense_model.dart';
 import 'package:expense_app/Providers/edit_add_expense_model.dart';
+import 'package:expense_app/Resources/Themes/Colors.dart';
 import 'package:expense_app/Utils/expense_category.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -16,7 +17,7 @@ class IconBtn extends StatelessWidget {
     final _editAddExpenseModel = Provider.of<EditAddExpenseModel>(context);
 
     return RaisedButton(
-      color: Colors.white,
+      color: MyColors.black02dp,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
       elevation: 3.0,
       onPressed: () => _openIconsPage(context, _editAddExpenseModel),

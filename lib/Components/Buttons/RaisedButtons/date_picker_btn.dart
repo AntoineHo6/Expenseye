@@ -16,7 +16,7 @@ class DatePickerBtn extends StatelessWidget {
     final _editAddExpenseModel = Provider.of<EditAddExpenseModel>(context);
 
     return RaisedButton(
-      color: MyColors.indigoInk,
+      color: MyColors.black02dp,
       textColor: Colors.white,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
       elevation: 3.0,
@@ -53,9 +53,7 @@ class DatePickerBtn extends StatelessWidget {
       lastDate: DateTime(2030),
       builder: (BuildContext context, Widget child) {
         return Theme(
-          data: ThemeData(
-              primarySwatch: MyColors.indigoInk,
-              splashColor: MyColors.indigoInk),
+          data: ThemeData.dark(),
           child: child,
         );
       },

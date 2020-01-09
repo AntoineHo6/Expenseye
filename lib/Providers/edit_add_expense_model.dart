@@ -44,7 +44,7 @@ class EditAddExpenseModel extends ChangeNotifier {
     if (!isNameInvalid && !isPriceInvalid) {
       return false;
     }
-    
+
     return true;
   }
 
@@ -57,9 +57,7 @@ class EditAddExpenseModel extends ChangeNotifier {
       lastDate: DateTime(2030),
       builder: (BuildContext context, Widget child) {
         return Theme(
-          data: ThemeData(
-              primarySwatch: MyColors.indigoInk,
-              splashColor: MyColors.indigoInk),
+          data: ThemeData.dark(),
           child: child,
         );
       },

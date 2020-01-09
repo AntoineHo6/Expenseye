@@ -14,7 +14,7 @@ class DailyStatsPage extends StatelessWidget {
     final _expenseModel = Provider.of<ExpenseModel>(context);
 
     return Scaffold(
-        backgroundColor: MyColors.periwinkle,
+        backgroundColor: MyColors.black00dp,
         appBar: AppBar(
           title: Text(_expenseModel.formattedDate(_expenseModel.dailyDate)),
         ),

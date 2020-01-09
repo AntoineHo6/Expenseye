@@ -10,20 +10,20 @@ class ConfirmationDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      backgroundColor: MyColors.periwinkle,
+      backgroundColor: MyColors.black00dp,
       title: Text(Strings.confirm),
       content: Text(Strings.confirmMsg),
       actions: <Widget>[
         FlatButton(
           onPressed: () => Navigator.pop(context, false),
-          textColor: MyColors.indigoInk,
+          textColor: Colors.white,
           child: Text(
             Strings.cancelCaps,
           ),
         ),
         FlatButton(
           onPressed: () => Navigator.pop(context, true),
-          textColor: MyColors.indigoInk,
+          textColor: Colors.white,
           child: Text(
             Strings.confirmCaps,
           ),

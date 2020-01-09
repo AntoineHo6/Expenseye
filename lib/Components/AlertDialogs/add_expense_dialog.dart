@@ -29,8 +29,12 @@ class _AddExpense extends State<AddExpenseDialog> {
           new EditAddExpenseModel(widget.initialDate, ExpenseCategory.food),
       child: Consumer<EditAddExpenseModel>(
         builder: (context, model, child) => AlertDialog(
-          backgroundColor: MyColors.periwinkle,
-          title: Text(Strings.newExpense),
+          elevation: 12,
+          backgroundColor: MyColors.black01dp,
+          title: Text(
+            Strings.newExpense,
+            style: Theme.of(context).textTheme.headline,
+          ),
           content: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -41,6 +45,7 @@ class _AddExpense extends State<AddExpenseDialog> {
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     hintText: Strings.name,
+                    hintStyle: TextStyle(color: MyColors.black24dp),
                     errorText: model.isNameInvalid
                         ? Strings.name + ' ' + Strings.isInvalid
                         : null,
@@ -52,6 +57,7 @@ class _AddExpense extends State<AddExpenseDialog> {
                   decoration: InputDecoration(
                     border: InputBorder.none,
                     hintText: Strings.price,
+                    hintStyle: TextStyle(color: MyColors.black24dp),
                     errorText: model.isPriceInvalid
                         ? Strings.price + ' ' + Strings.isInvalid
                         : null,
@@ -89,14 +95,14 @@ class _AddExpense extends State<AddExpenseDialog> {
           ),
           actions: <Widget>[
             FlatButton(
-              textColor: MyColors.indigoInk,
+              textColor: Colors.white,
               child: Text(Strings.cancelCaps),
               onPressed: () {
                 Navigator.of(context).pop();
               },
             ),
             FlatButton(
-              textColor: MyColors.indigoInk,
+              textColor: Colors.white,
               child: Text(Strings.submitCaps),
               onPressed: () {
                 _save(model);

@@ -21,7 +21,7 @@ class _TodayPageState extends State<DailyPage> {
     final _expenseModel = Provider.of<ExpenseModel>(context);
 
     return Scaffold(
-      backgroundColor: MyColors.periwinkle,
+      backgroundColor: MyColors.black00dp,
       appBar: AppBar(
         title: Text(_expenseModel.formattedDate(_expenseModel.dailyDate)),
         actions: <Widget>[
@@ -60,16 +60,24 @@ class _TodayPageState extends State<DailyPage> {
                       itemBuilder: (context, index) {
                         Expense expense = snapshot.data[index];
                         return Card(
+                          color: MyColors.black02dp,
                           child: ListTile(
                             leading: Icon(
                                 _expenseModel.catToIconData(expense.category),
                                 color: CategoryProperties
                                     .properties[expense.category]['color']),
-                            title: Text(expense.name),
-                            subtitle: Text(expense.price.toString()),
+                            title: Text(
+                              expense.name,
+                              style: Theme.of(context).textTheme.subhead,
+                            ),
+                            subtitle: Text(
+                              expense.price.toString(),
+                              style: Theme.of(context).textTheme.subtitle,
+                            ),
                             onTap: () => _openEditExpense(expense),
                             trailing: Text(
                               _expenseModel.formattedDate(expense.date),
+                              style: Theme.of(context).textTheme.subtitle,
                             ),
                           ),
                         );
@@ -96,6 +104,7 @@ class _TodayPageState extends State<DailyPage> {
         child: Icon(Icons.add),
         onPressed: () => _showAddExpense(_expenseModel.dailyDate),
         elevation: 2,
+        backgroundColor: Color(0xff33B4A8),
       ),
     );
   }
@@ -119,25 +128,5 @@ class _TodayPageState extends State<DailyPage> {
       context,
       MaterialPageRoute(builder: (context) => TableCalendarPage()),
     );
-  }
-
-  // * deprecated
-  void chooseDate(ExpenseModel _expenseModel) async {
-    await showDatePicker(
-      context: context,
-      initialDate: _expenseModel.dailyDate,
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2030),
-      builder: (BuildContext context, Widget child) {
-        return Theme(
-          data: ThemeData(
-              primarySwatch: MyColors.indigoInk,
-              splashColor: MyColors.indigoInk),
-          child: child,
-        );
-      },
-    ).then((value) {
-      _expenseModel.updateDate(value);
-    });
   }
 }

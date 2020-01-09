@@ -1,6 +1,7 @@
 import 'package:expense_app/Models/Expense.dart';
 import 'package:expense_app/Providers/Global/expense_model.dart';
 import 'package:expense_app/Resources/Strings.dart';
+import 'package:expense_app/Resources/Themes/Colors.dart';
 import 'package:expense_app/Utils/date_time_util.dart';
 import 'package:expense_app/Utils/expense_category.dart';
 import 'package:expense_app/Utils/table_calendar_util.dart';
@@ -22,6 +23,7 @@ class _TableCalendarPage extends State<TableCalendarPage>
     final _expenseModel = Provider.of<ExpenseModel>(context);
 
     return Scaffold(
+      backgroundColor: MyColors.black00dp,
       appBar: AppBar(
         title: Text('John wick'),
       ),
@@ -33,6 +35,16 @@ class _TableCalendarPage extends State<TableCalendarPage>
               Map<DateTime, List> _events = TableCalendarUtil.expensesToEvents(snapshot.data);
 
               return TableCalendar(
+                headerStyle: HeaderStyle(
+                  leftChevronIcon: const Icon(Icons.chevron_left, color: Colors.white),
+                  rightChevronIcon: const Icon(Icons.chevron_right, color: Colors.white),
+                  formatButtonVisible: false,
+                ),
+                calendarStyle: CalendarStyle(
+                  todayColor: MyColors.black01dp,
+                  selectedColor: MyColors.black24dp,
+                  markersColor: Colors.white,
+                ),
                 calendarController: _calendarController,
                 events: _events,
                 initialSelectedDay: _expenseModel.dailyDate,

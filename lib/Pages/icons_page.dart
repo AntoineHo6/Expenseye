@@ -11,7 +11,7 @@ class IconsPage extends StatelessWidget {
     final _expenseModel = Provider.of<ExpenseModel>(context);
 
     return Scaffold(
-      backgroundColor: MyColors.periwinkle,
+      backgroundColor: MyColors.black00dp,
       appBar: AppBar(
         title: Text(Strings.icons),
       ),
@@ -25,7 +25,7 @@ class IconsPage extends StatelessWidget {
           ExpenseCategory.values.length,
           (index) {
             return RaisedButton(
-              color: Colors.white,
+              color: MyColors.black02dp,
               onPressed: () =>
                   Navigator.pop(context, ExpenseCategory.values[index]),
               child: Column(
@@ -38,12 +38,16 @@ class IconsPage extends StatelessWidget {
                         .properties[ExpenseCategory.values[index]]['color'],
                     size: 50,
                   ),
+                  SizedBox(
+                    height: 10,
+                  ),
                   FittedBox(
                     fit: BoxFit.fitWidth,
                     child: Text(
                       CategoryProperties
                               .properties[ExpenseCategory.values[index]]
                           ['string'],
+                          style: Theme.of(context).textTheme.subhead,
                     ),
                   ),
                 ],

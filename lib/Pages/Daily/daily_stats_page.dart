@@ -23,7 +23,7 @@ class DailyStatsPage extends StatelessWidget {
         title: Text(DateTimeUtil.formattedDate(_dailyModel.currentDate)),
         actions: <Widget>[
           AppBarCalendarBtn(
-            onPressed: () => _dailyModel.openTableCalendarPage(context),
+            onPressed: () => _dailyModel.openDailyTableCalendarPage(context),
           ),
         ],
       ),

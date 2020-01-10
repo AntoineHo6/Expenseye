@@ -15,8 +15,13 @@ class MonthlyPage extends StatefulWidget {
 }
 
 class _MonthlyPageState extends State<MonthlyPage> {
-  DateTime _currentDate = DateTime.now();
-  String _yearMonth = _getYearMonthString(DateTime.now());
+  // if (newMonth != null) {
+  //     _currentDate = newMonth;
+
+  //     setState(() {
+  //       _yearMonth = _getYearMonthString(newMonth);
+  //     });
+  //   }
 
   @override
   Widget build(BuildContext context) {
@@ -27,12 +32,13 @@ class _MonthlyPageState extends State<MonthlyPage> {
       backgroundColor: MyColors.black00dp,
       appBar: AppBar(
         title: Text(
-          '${DateTimeUtil.monthNames[_currentDate.month]} ${_currentDate.year}',
+          '${DateTimeUtil.monthNames[_monthlyModel.currentDate.month]} ${_monthlyModel.currentDate.year}',
         ),
         actions: <Widget>[
           FlatButton(
             textColor: Colors.white,
-            onPressed: () => _chooseMonth(_currentDate),
+            onPressed: () =>
+                _monthlyModel.openMonthlyTableCalendarPage(context),
             child: const Icon(Icons.calendar_today),
             shape: const CircleBorder(
               side: const BorderSide(color: Colors.transparent),
@@ -42,7 +48,8 @@ class _MonthlyPageState extends State<MonthlyPage> {
       ),
       drawer: MyDrawer(),
       body: FutureBuilder<List<Expense>>(
-        future: _expenseModel.dbHelper.queryExpensesInMonth(_yearMonth),
+        future: _expenseModel.dbHelper
+            .queryExpensesInMonth(_monthlyModel.yearMonth),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data != null && snapshot.data.length > 0) {
@@ -89,26 +96,9 @@ class _MonthlyPageState extends State<MonthlyPage> {
         },
       ),
       floatingActionButton: AddExpenseFab(
-        onPressed: () => _expenseModel.showAddExpense(context, _currentDate),
+        onPressed: () =>
+            _expenseModel.showAddExpense(context, _monthlyModel.currentDate),
       ),
     );
-  }
-
-  void _chooseMonth(DateTime initialDate) async {
-    DateTime newMonth = await DateTimeUtil.chooseMonth(context, initialDate);
-
-    if (newMonth != null) {
-      _currentDate = newMonth;
-
-      setState(() {
-        _yearMonth = _getYearMonthString(newMonth);
-      });
-    }
-  }
-
-  static String _getYearMonthString(DateTime newMonth) {
-    String temp = newMonth.toIso8601String().split('T')[0];
-
-    return temp.substring(0, temp.length - 3);
   }
 }

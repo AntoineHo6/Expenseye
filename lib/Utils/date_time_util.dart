@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:month_picker_dialog/month_picker_dialog.dart';
 
 class DateTimeUtil {
   static const Map<int, String> monthAbb = {
@@ -54,16 +53,6 @@ class DateTimeUtil {
     );
 
     return newDate;
-  }
-
-  static Future<DateTime> chooseMonth(
-      BuildContext context, DateTime initialDate) async {
-    DateTime newMonth = await showMonthPicker(
-      context: context,
-      initialDate: initialDate,
-    );
-
-    return newMonth;
   }
 
   static String formattedDate(DateTime date) {

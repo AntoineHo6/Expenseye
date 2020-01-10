@@ -28,7 +28,7 @@ class _TodayPageState extends State<DailyPage> {
         title: Text(DateTimeUtil.formattedDate(_dailyModel.currentDate)),
         actions: <Widget>[
           AppBarCalendarBtn(
-            onPressed: () => _dailyModel.openTableCalendarPage(context),
+            onPressed: () => _dailyModel.openDailyTableCalendarPage(context),
           ),
         ],
       ),

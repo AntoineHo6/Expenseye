@@ -6,6 +6,7 @@ class Strings {
   static const String cancelCaps = 'CANCEL';
   static const String saveCaps = 'SAVE';
   static const String confirmCaps = 'CONFIRM';
+  static const String chooseMonthCaps = 'CHOOSE MONTH';
 
   static const String newExpense = 'New expense';
   static const String total = 'Total';
@@ -24,6 +25,7 @@ class Strings {
 
   // * INSTRUCTIONS
   static const String pickADate = 'Pick a date';
+  static const String pickAMonth = 'Pick a month';
 
   // * CATEGORIES
   static const String food = 'Food';

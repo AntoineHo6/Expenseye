@@ -1,5 +1,6 @@
 import 'package:expense_app/Components/expense_list_tile.dart';
 import 'package:expense_app/Models/Expense.dart';
+import 'package:expense_app/Pages/Monthly/monthly_table_calendar_page.dart';
 import 'package:expense_app/Providers/Global/expense_model.dart';
 import 'package:expense_app/Resources/Themes/Colors.dart';
 import 'package:expense_app/Utils/date_time_util.dart';
@@ -7,6 +8,17 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class MonthlyModel extends ChangeNotifier {
+  DateTime currentDate = DateTime.now();
+  String yearMonth = getYearMonthString(DateTime.now());
+
+
+  static String getYearMonthString(DateTime newMonth) {
+    String temp = newMonth.toIso8601String().split('T')[0];
+
+    return temp.substring(0, temp.length - 3);
+  }
+
+
   List<List<Expense>> splitExpensesByDay(List<Expense> expenses) {
     List<List<Expense>> expensesSplitByDay = new List();
 
@@ -24,9 +36,9 @@ class MonthlyModel extends ChangeNotifier {
         expensesSplitByDay[currentIndex].add(expense);
       }
     }
-
     return expensesSplitByDay;
   }
+
 
   List<Container> expensesSplitByDayToContainers(
       BuildContext context, List<List<Expense>> expensesSplitByDay) {
@@ -72,6 +84,7 @@ class MonthlyModel extends ChangeNotifier {
         .toList();
   }
 
+
   List<Card> _expensesToCardList(BuildContext context, List<Expense> expenses) {
     final _expenseModel = Provider.of<ExpenseModel>(context, listen: false);
 
@@ -87,5 +100,19 @@ class MonthlyModel extends ChangeNotifier {
           ),
         )
         .toList();
+  }
+
+  void openMonthlyTableCalendarPage(BuildContext context) async {
+    DateTime newDate = await Navigator.push(
+      context,
+      MaterialPageRoute(
+          builder: (context) => MonthlyTableCalendarPage(currentDate)),
+    );
+
+    if (newDate != null) {
+      currentDate = newDate;
+      yearMonth = getYearMonthString(currentDate);
+      notifyListeners();
+    }
   }
 }

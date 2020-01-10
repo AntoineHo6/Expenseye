@@ -44,7 +44,7 @@ class DailyStatsPage extends StatelessWidget {
                     color: Colors.amber,
                     child: Column(
                       children: <Widget>[
-                        Text(Strings.pieChart,
+                        Text(Strings.expenses,
                             style: Theme.of(context).textTheme.headline),
                         Container(
                           child: SizedBox(

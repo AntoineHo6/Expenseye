@@ -107,7 +107,7 @@ class MonthlyModel extends ChangeNotifier {
     if (newDate != null) {
       currentDate = newDate;
       yearMonth = getYearMonthString(currentDate);
-      notifyListeners();
+      //notifyListeners();
     }
   }
 }

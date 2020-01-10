@@ -15,7 +15,6 @@ class Strings {
   static const String icons = 'Icons';
   static const String dataIsNull = 'Data is null';
   static const String confirm = 'Confirm';
-  static const String pieChart = 'Pie Chart';
   static const String expenses = 'Expenses';
   static const String stats = 'Stats';
 

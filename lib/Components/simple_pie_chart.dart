@@ -31,7 +31,7 @@ class SimplePieChart extends StatelessWidget {
       new ExpenseGroup(ExpenseCategory.transportation, 0),
       new ExpenseGroup(ExpenseCategory.shopping, 8),
       new ExpenseGroup(ExpenseCategory.entertainment, 0),
-      new ExpenseGroup(ExpenseCategory.personal, 0),
+      new ExpenseGroup(ExpenseCategory.activity, 0),
       new ExpenseGroup(ExpenseCategory.medical, 1),
       new ExpenseGroup(ExpenseCategory.home, 3),
       new ExpenseGroup(ExpenseCategory.travel, 7),

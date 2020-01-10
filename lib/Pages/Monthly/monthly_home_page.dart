@@ -1,5 +1,6 @@
 import 'package:expense_app/Components/my_drawer.dart';
 import 'package:expense_app/Pages/Monthly/monthly_page.dart';
+import 'package:expense_app/Pages/Monthly/monthly_stats_page.dart';
 import 'package:expense_app/Providers/monthly_model.dart';
 import 'package:expense_app/Resources/Strings.dart';
 import 'package:expense_app/Resources/Themes/Colors.dart';
@@ -28,7 +29,7 @@ class _MonthlyHomePageState extends State<MonthlyHomePage> {
               index: _currentIndex,
               children: <Widget>[
                 MonthlyPage(),
-                Text('wanli'), // TODO: change
+                MonthlyStatsPage(),
               ],
             ),
           ),

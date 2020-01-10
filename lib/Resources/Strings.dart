@@ -1,5 +1,5 @@
 class Strings {
-  static const String appName = 'Expense Eye';
+  static const String appName = 'Expenseye';
 
   // * BUTTON messages
   static const String submitCaps = 'SUBMIT';
@@ -32,7 +32,7 @@ class Strings {
   static const String transportation = 'Transportation';
   static const String shopping = 'Shopping';
   static const String entertainment = 'Entertainment';
-  static const String personal = 'Personal';
+  static const String activity = 'Activity';
   static const String medical = 'Medical';
   static const String home = 'Home';
   static const String travel = 'Travel';

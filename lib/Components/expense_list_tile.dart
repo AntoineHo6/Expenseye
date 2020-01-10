@@ -21,15 +21,15 @@ class ExpenseListTile extends StatelessWidget {
       //   expense.price.toString(),
       //   style: Theme.of(context).textTheme.subtitle,
       // ),
-      // trailing: Text(
-      //   '${expense.price.toString()} \$',
-      //   style: Theme.of(context).textTheme.subtitle,
-      // ),
       trailing: Text(
-        //DateTimeUtil.formattedDate(expense.date),
-        expense.date.toIso8601String(),
+        '${expense.price.toString()} \$',
         style: Theme.of(context).textTheme.subtitle,
       ),
+      // trailing: Text(
+      //   //DateTimeUtil.formattedDate(expense.date),
+      //   expense.date.toIso8601String(),
+      //   style: Theme.of(context).textTheme.subtitle,
+      // ),
       onTap: onTap,
     );
   }

@@ -6,7 +6,7 @@ enum ExpenseCategory {
   transportation,
   shopping,
   entertainment,
-  personal,
+  activity,
   medical,
   home,
   travel,
@@ -20,27 +20,27 @@ class CategoryProperties {
     ExpenseCategory.food: {
       'string': Strings.food,
       'iconData': Icons.restaurant,
-      'color': Color(0xffff9933)
+      'color': Color(0xffff8533)
     },
     ExpenseCategory.transportation: {
       'string': Strings.transportation,
       'iconData': Icons.directions_car,
-      'color': Colors.amber
+      'color': Colors.yellow
     },
     ExpenseCategory.shopping: {
       'string': Strings.shopping,
       'iconData': Icons.shopping_cart,
-      'color': Color(0xff47d147)
+      'color': Color(0xff9999ff)
     },
     ExpenseCategory.entertainment: {
       'string': Strings.entertainment,
       'iconData': Icons.movie,
-      'color': Color(0xffcc66cc)
-    },
-    ExpenseCategory.personal: {
-      'string': Strings.personal,
-      'iconData': Icons.face,
       'color': Color(0xff66ccff)
+    },
+    ExpenseCategory.activity: {
+      'string': Strings.activity,
+      'iconData': Icons.insert_emoticon,
+      'color': Color(0xffff66cc)
     },
     ExpenseCategory.medical: {
       'string': Strings.medical,
@@ -50,7 +50,7 @@ class CategoryProperties {
     ExpenseCategory.home: {
       'string': Strings.home,
       'iconData': Icons.home,
-      'color': Color(0xffc68c53)
+      'color': Color(0xffcc9966)
     },
     ExpenseCategory.travel: {
       'string': Strings.travel,
@@ -65,7 +65,7 @@ class CategoryProperties {
     ExpenseCategory.others: {
       'string': Strings.others,
       'iconData': Icons.tab,
-      'color': Color(0xff669999)
+      'color': Colors.white
     }
   };
 }

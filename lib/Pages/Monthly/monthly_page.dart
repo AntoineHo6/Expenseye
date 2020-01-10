@@ -1,3 +1,4 @@
+import 'package:expense_app/Components/Buttons/FAB/add_expense_fab.dart';
 import 'package:expense_app/Components/my_drawer.dart';
 import 'package:expense_app/Models/Expense.dart';
 import 'package:expense_app/Providers/Global/expense_model.dart';
@@ -15,7 +16,7 @@ class MonthlyPage extends StatefulWidget {
 
 class _MonthlyPageState extends State<MonthlyPage> {
   DateTime _currentDate = DateTime.now();
-  String _yearMonth = '2020-01';
+  String _yearMonth = _getYearMonthString(DateTime.now());
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +34,7 @@ class _MonthlyPageState extends State<MonthlyPage> {
             textColor: Colors.white,
             onPressed: () => _chooseMonth(_currentDate),
             child: const Icon(Icons.calendar_today),
-            shape: CircleBorder(
+            shape: const CircleBorder(
               side: const BorderSide(color: Colors.transparent),
             ),
           ),
@@ -58,7 +59,7 @@ class _MonthlyPageState extends State<MonthlyPage> {
                             padding: const EdgeInsets.all(20),
                             margin: const EdgeInsets.symmetric(horizontal: 20),
                             child: Text(
-                              _expenseModel.totalString(snapshot.data),
+                              '${Strings.total}: ${_expenseModel.totalString(snapshot.data)}',
                               style: Theme.of(context).textTheme.display1,
                             ),
                           ),
@@ -82,10 +83,13 @@ class _MonthlyPageState extends State<MonthlyPage> {
           } else {
             return const Align(
               alignment: Alignment.center,
-              child: CircularProgressIndicator(),
+              child: const CircularProgressIndicator(),
             );
           }
         },
+      ),
+      floatingActionButton: AddExpenseFab(
+        onPressed: () => _expenseModel.showAddExpense(context, _currentDate),
       ),
     );
   }
@@ -102,7 +106,7 @@ class _MonthlyPageState extends State<MonthlyPage> {
     }
   }
 
-  String _getYearMonthString(DateTime newMonth) {
+  static String _getYearMonthString(DateTime newMonth) {
     String temp = newMonth.toIso8601String().split('T')[0];
 
     return temp.substring(0, temp.length - 3);

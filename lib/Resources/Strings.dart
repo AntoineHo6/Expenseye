@@ -8,9 +8,9 @@ class Strings {
   static const String confirmCaps = 'CONFIRM';
 
   static const String newExpense = 'New expense';
+  static const String total = 'Total';
   static const String name = 'Name';
   static const String price = 'Price';
-  static const String total = 'Total';
   static const String icons = 'Icons';
   static const String dataIsNull = 'Data is null';
   static const String confirm = 'Confirm';

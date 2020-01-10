@@ -38,38 +38,41 @@ class _TableCalendarPage extends State<TableCalendarPage>
             if (snapshot.data != null) {
               Map<DateTime, List> _events =
                   TableCalendarUtil.expensesToEvents(snapshot.data);
-
-              return TableCalendar(
-                headerStyle: HeaderStyle(
-                  leftChevronIcon:
-                      const Icon(Icons.chevron_left, color: Colors.white),
-                  rightChevronIcon:
-                      const Icon(Icons.chevron_right, color: Colors.white),
-                  formatButtonVisible: false,
-                ),
-                calendarStyle: CalendarStyle(
-                  todayColor: MyColors.black01dp,
-                  selectedColor: MyColors.black24dp,
-                  markersColor: Colors.white,
-                ),
-                calendarController: _calendarController,
-                events: _events,
-                initialSelectedDay: widget.initialDate,
-                onDaySelected: (date, list) => _changeDate(date),
-                builders: CalendarBuilders(
-                  singleMarkerBuilder: (context, date, expense) {
-                    return Container(
-                      width: 8.0,
-                      height: 8.0,
-                      margin: const EdgeInsets.symmetric(horizontal: 0.3),
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: CategoryProperties.properties[expense.category]
-                            ['color'],
-                      ),
-                    );
-                  },
-                ),
+              return Column(
+                children: <Widget>[
+                  TableCalendar(
+                    headerStyle: HeaderStyle(
+                      leftChevronIcon:
+                          const Icon(Icons.chevron_left, color: Colors.white),
+                      rightChevronIcon:
+                          const Icon(Icons.chevron_right, color: Colors.white),
+                      formatButtonVisible: false,
+                    ),
+                    calendarStyle: CalendarStyle(
+                      todayColor: MyColors.black01dp,
+                      selectedColor: MyColors.black24dp,
+                      markersColor: Colors.white,
+                    ),
+                    calendarController: _calendarController,
+                    events: _events,
+                    initialSelectedDay: widget.initialDate,
+                    onDaySelected: (date, list) => _changeDate(date),
+                    builders: CalendarBuilders(
+                      singleMarkerBuilder: (context, date, expense) {
+                        return Container(
+                          width: 8.0,
+                          height: 8.0,
+                          margin: const EdgeInsets.symmetric(horizontal: 0.3),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: CategoryProperties.properties[expense.category]
+                                ['color'],
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ],
               );
             } else {
               return null;

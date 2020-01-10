@@ -1,4 +1,6 @@
+import 'package:expense_app/Components/AlertDialogs/add_expense_dialog.dart';
 import 'package:expense_app/Models/Expense.dart';
+import 'package:expense_app/Pages/edit_expense_page.dart';
 import 'package:expense_app/Resources/Strings.dart';
 import 'package:expense_app/Utils/database_helper.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +23,41 @@ class ExpenseModel extends ChangeNotifier {
     dbHelper.delete(id);
     notifyListeners();
   }
+  
+
+  void showAddExpense(BuildContext context, DateTime initialDate) async {
+    bool confirmed = await showDialog(
+      context: context,
+      builder: (_) => AddExpenseDialog(initialDate),
+    );
+
+    if (confirmed) {
+      final snackBar = SnackBar(
+        content: Text(Strings.succAdded),
+        backgroundColor: Colors.grey.withOpacity(0.5),
+      );
+
+      Scaffold.of(context).showSnackBar(snackBar);
+    }
+  }
+
+
+  void openEditExpense(BuildContext context, Expense expense) async {
+    int action = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => EditExpensePage(expense)),
+    );
+
+    if (action != null) {
+      final snackBar = SnackBar(
+        content:
+            action == 1 ? Text(Strings.succEdited) : Text(Strings.succDeleted),
+        backgroundColor: Colors.grey.withOpacity(0.5),
+      );
+
+      Scaffold.of(context).showSnackBar(snackBar);
+    }
+  }
 
   double _calcTotal(List<Expense> expenses) {
     double total = 0;
@@ -30,9 +67,10 @@ class ExpenseModel extends ChangeNotifier {
     return total;
   }
 
+
   // * may move out of this provider
   String totalString(List<Expense> expenses) {
-    return '${Strings.total}: ${_calcTotal(expenses).toString()} \$';
+    return '${_calcTotal(expenses).toString()} \$';
   }
 
 }

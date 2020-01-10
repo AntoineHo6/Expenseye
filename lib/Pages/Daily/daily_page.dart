@@ -1,3 +1,4 @@
+import 'package:expense_app/Components/Buttons/FAB/add_expense_fab.dart';
 import 'package:expense_app/Components/Buttons/FlatButton/app_bar_calendar_btn.dart';
 import 'package:expense_app/Components/expense_list_tile.dart';
 import 'package:expense_app/Components/my_drawer.dart';
@@ -6,7 +7,6 @@ import 'package:expense_app/Providers/daily_model.dart';
 import 'package:expense_app/Resources/Strings.dart';
 import 'package:expense_app/Resources/Themes/Colors.dart';
 import 'package:expense_app/Utils/date_time_util.dart';
-import 'package:expense_app/Utils/expense_category.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:expense_app/Providers/Global/expense_model.dart';
@@ -45,7 +45,7 @@ class _TodayPageState extends State<DailyPage> {
                     padding: const EdgeInsets.all(20),
                     margin: const EdgeInsets.symmetric(horizontal: 20),
                     child: Text(
-                      _expenseModel.totalString(snapshot.data),
+                      '${Strings.total}: ${_expenseModel.totalString(snapshot.data)}',
                       style: Theme.of(context).textTheme.display1,
                     ),
                   ),
@@ -61,7 +61,7 @@ class _TodayPageState extends State<DailyPage> {
                           child: ExpenseListTile(
                             expense: expense,
                             onTap: () =>
-                                _dailyModel.openEditExpense(context, expense),
+                                _expenseModel.openEditExpense(context, expense),
                           ),
                         );
                       },
@@ -72,22 +72,20 @@ class _TodayPageState extends State<DailyPage> {
             } else {
               return const Align(
                 alignment: Alignment.center,
-                child: Text(Strings.dataIsNull),
+                child: const Text(Strings.dataIsNull),
               );
             }
           } else {
             return const Align(
               alignment: Alignment.center,
-              child: CircularProgressIndicator(),
+              child: const CircularProgressIndicator(),
             );
           }
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
-        onPressed: () => _dailyModel.showAddExpense(context),
-        elevation: 2,
-        backgroundColor: MyColors.secondary,
+      floatingActionButton: AddExpenseFab(
+        onPressed: () =>
+            _expenseModel.showAddExpense(context, _dailyModel.currentDate),
       ),
     );
   }

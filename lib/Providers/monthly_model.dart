@@ -1,8 +1,10 @@
 import 'package:expense_app/Components/expense_list_tile.dart';
 import 'package:expense_app/Models/Expense.dart';
+import 'package:expense_app/Providers/Global/expense_model.dart';
 import 'package:expense_app/Resources/Themes/Colors.dart';
 import 'package:expense_app/Utils/date_time_util.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class MonthlyModel extends ChangeNotifier {
   List<List<Expense>> splitExpensesByDay(List<Expense> expenses) {
@@ -28,16 +30,18 @@ class MonthlyModel extends ChangeNotifier {
 
   List<Container> expensesSplitByDayToContainers(
       BuildContext context, List<List<Expense>> expensesSplitByDay) {
+    final _expenseModel = Provider.of<ExpenseModel>(context, listen: false);
+
     return expensesSplitByDay
         .map(
           (expenseList) => Container(
             decoration: BoxDecoration(
-              color: MyColors.black12dp, // tODO: get a slightly darker shade
+              color: MyColors.black06dp,
               borderRadius: BorderRadius.circular(15),
             ),
             padding: const EdgeInsets.all(12),
             margin:
-                const EdgeInsets.only(top: 4, left: 20, right: 20, bottom: 20),
+                const EdgeInsets.only(top: 4, left: 15, right: 15, bottom: 20),
             child: Column(
               children: <Widget>[
                 Align(
@@ -51,7 +55,7 @@ class MonthlyModel extends ChangeNotifier {
                       SizedBox(
                         width: 20,
                       ),
-                      Text('total amount of that day'),
+                      Text(_expenseModel.totalString(expenseList)),
                     ],
                   ),
                 ),
@@ -59,7 +63,7 @@ class MonthlyModel extends ChangeNotifier {
                   height: 10,
                 ),
                 Column(
-                  children: _expensesToCardList(expenseList),
+                  children: _expensesToCardList(context, expenseList),
                 ),
               ],
             ),
@@ -68,14 +72,16 @@ class MonthlyModel extends ChangeNotifier {
         .toList();
   }
 
-  // TODO: turn private
-  List<Card> _expensesToCardList(List<Expense> expenses) {
+  List<Card> _expensesToCardList(BuildContext context, List<Expense> expenses) {
+    final _expenseModel = Provider.of<ExpenseModel>(context, listen: false);
+
     return expenses
         .map(
           (expense) => Card(
             margin: const EdgeInsets.only(top: 4, bottom: 4),
             color: MyColors.black02dp,
             child: ExpenseListTile(
+              onTap: () => _expenseModel.openEditExpense(context, expense),
               expense: expense,
             ),
           ),

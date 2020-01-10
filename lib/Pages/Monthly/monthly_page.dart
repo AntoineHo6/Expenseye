@@ -5,7 +5,6 @@ import 'package:expense_app/Providers/Global/expense_model.dart';
 import 'package:expense_app/Providers/monthly_model.dart';
 import 'package:expense_app/Resources/Strings.dart';
 import 'package:expense_app/Resources/Themes/Colors.dart';
-import 'package:expense_app/Utils/date_time_util.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -24,7 +23,7 @@ class _MonthlyPageState extends State<MonthlyPage> {
       backgroundColor: MyColors.black00dp,
       appBar: AppBar(
         title: Text(
-          '${DateTimeUtil.monthNames[_monthlyModel.currentDate.month]} ${_monthlyModel.currentDate.year}',
+          _monthlyModel.getMonthlyTitle(),
         ),
         actions: <Widget>[
           FlatButton(
@@ -47,6 +46,10 @@ class _MonthlyPageState extends State<MonthlyPage> {
             if (snapshot.data != null && snapshot.data.length > 0) {
               var expensesSplitByDay =
                   _monthlyModel.splitExpensesByDay(snapshot.data);
+
+              _monthlyModel.currentMonthsTotal =
+                  _expenseModel.calcTotal(snapshot.data);
+
               return Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[

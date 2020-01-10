@@ -59,7 +59,7 @@ class ExpenseModel extends ChangeNotifier {
     }
   }
 
-  double _calcTotal(List<Expense> expenses) {
+  double calcTotal(List<Expense> expenses) {
     double total = 0;
     for (Expense expense in expenses) {
       total += expense.price;
@@ -70,7 +70,7 @@ class ExpenseModel extends ChangeNotifier {
 
   // * may move out of this provider
   String totalString(List<Expense> expenses) {
-    return '${_calcTotal(expenses).toString()} \$';
+    return '${calcTotal(expenses).toString()} \$';
   }
 
 }

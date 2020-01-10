@@ -10,11 +10,16 @@ import 'package:provider/provider.dart';
 class MonthlyModel extends ChangeNotifier {
   DateTime currentDate = DateTime.now();
   String yearMonth = getYearMonthString(DateTime.now());
+  double currentMonthsTotal = 0;
 
   static String getYearMonthString(DateTime newMonth) {
     String temp = newMonth.toIso8601String().split('T')[0];
 
     return temp.substring(0, temp.length - 3);
+  }
+
+  String getMonthlyTitle() {
+    return '${DateTimeUtil.monthNames[currentDate.month]} ${currentDate.year}';
   }
 
   List<List<Expense>> splitExpensesByDay(List<Expense> expenses) {

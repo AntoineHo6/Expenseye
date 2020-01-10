@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class DailyModel extends ChangeNotifier {
   // don't include todays time for uniform data
-  DateTime currentDate = DateTimeUtil.timeToZeroInDate(DateTime.now());
+  DateTime currentDate = DateTime.now();
 
   void openDailyTableCalendarPage(BuildContext context) async {
     DateTime newDate = await Navigator.push(

@@ -75,16 +75,13 @@ class _AddExpense extends State<AddExpenseDialog> {
                           () => model.openIconsPage(context),
                         ),
                       ),
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: Container(
-                          margin: const EdgeInsets.only(right: 3),
-                          child: SizedBox(
-                            width: 125,
-                            child: DatePickerBtn(
-                              model.date,
-                              () => chooseDate(model),
-                            ),
+                      Container(
+                        margin: const EdgeInsets.only(right: 3),
+                        child: SizedBox(
+                          width: 125,
+                          child: DatePickerBtn(
+                            model.date,
+                            () => chooseDate(model),
                           ),
                         ),
                       ),
@@ -125,7 +122,9 @@ class _AddExpense extends State<AddExpenseDialog> {
   void _save(EditAddExpenseModel localProvider) {
     final String newName = _nameController.text;
     final String newPrice = _priceController.text;
-    final DateTime newDate = localProvider.date;
+    
+    // make sure to remove time
+    final DateTime newDate = DateTimeUtil.timeToZeroInDate(localProvider.date);
 
     bool areFieldsInvalid = localProvider.checkFieldsInvalid(
         name: newName, price: newPrice, date: newDate);

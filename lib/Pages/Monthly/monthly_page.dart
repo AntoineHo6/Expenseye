@@ -15,14 +15,6 @@ class MonthlyPage extends StatefulWidget {
 }
 
 class _MonthlyPageState extends State<MonthlyPage> {
-  // if (newMonth != null) {
-  //     _currentDate = newMonth;
-
-  //     setState(() {
-  //       _yearMonth = _getYearMonthString(newMonth);
-  //     });
-  //   }
-
   @override
   Widget build(BuildContext context) {
     final _expenseModel = Provider.of<ExpenseModel>(context);

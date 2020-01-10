@@ -31,7 +31,7 @@ class ExpenseModel extends ChangeNotifier {
       builder: (_) => AddExpenseDialog(initialDate),
     );
 
-    if (confirmed) {
+    if (confirmed != null && confirmed) {
       final snackBar = SnackBar(
         content: Text(Strings.succAdded),
         backgroundColor: Colors.grey.withOpacity(0.5),

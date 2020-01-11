@@ -72,7 +72,7 @@ class _AddExpense extends State<AddExpenseDialog> {
                         margin: const EdgeInsets.only(left: 3),
                         child: IconBtn(
                           model.category,
-                          () => model.openIconsPage(context),
+                          () => model.openCategoriesPage(context),
                         ),
                       ),
                       Container(
@@ -122,12 +122,11 @@ class _AddExpense extends State<AddExpenseDialog> {
   void _save(EditAddExpenseModel localProvider) {
     final String newName = _nameController.text;
     final String newPrice = _priceController.text;
-    
-    // make sure to remove time
+    // make sure to remove time before adding to db
     final DateTime newDate = DateTimeUtil.timeToZeroInDate(localProvider.date);
 
     bool areFieldsInvalid = localProvider.checkFieldsInvalid(
-        name: newName, price: newPrice, date: newDate);
+        name: newName, price: newPrice);
 
     // if all the fields are valid, add and quit
     if (!areFieldsInvalid) {

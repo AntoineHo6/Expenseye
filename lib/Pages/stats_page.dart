@@ -1,28 +1,34 @@
+import 'package:expense_app/Components/Global/my_drawer.dart';
 import 'package:expense_app/Components/Stats/category_stats_container.dart';
 import 'package:expense_app/Components/Stats/legend_container.dart';
-import 'package:expense_app/Components/Global/my_drawer.dart';
 import 'package:expense_app/Components/Stats/simple_pie_chart.dart';
 import 'package:expense_app/Models/Expense.dart';
 import 'package:expense_app/Providers/Global/expense_model.dart';
-import 'package:expense_app/Providers/monthly_model.dart';
 import 'package:expense_app/Resources/Strings.dart';
 import 'package:expense_app/Resources/Themes/Colors.dart';
 import 'package:expense_app/Utils/chart_util.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class MonthlyStatsPage extends StatelessWidget {
+typedef GetExpenses = Future<List<Expense>> Function();
+
+class StatsPage extends StatelessWidget {
+
+  final localModel;
+  final GetExpenses future;
+
+  StatsPage({@required this.localModel, @required this.future})
+      : assert(localModel != null);
+
   @override
   Widget build(BuildContext context) {
-    final _expenseModel = Provider.of<ExpenseModel>(context, listen: false);
-    final _monthlyModel = Provider.of<MonthlyModel>(context, listen: false);
 
     return Scaffold(
       backgroundColor: MyColors.black00dp,
       drawer: const MyDrawer(),
       body: FutureBuilder<List<Expense>>(
-        future: _expenseModel.dbHelper
-            .queryExpensesInMonth(_monthlyModel.yearMonth),
+        future: future(),
+            // _expenseModel.dbHelper.queryExpensesInMonth(localModel.yearMonth)
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data != null) {
@@ -71,7 +77,7 @@ class MonthlyStatsPage extends StatelessWidget {
                             margin: const EdgeInsets.all(15),
                             child: CategoryStatsContainer(
                               data: aggregatedExpenses[0].data,
-                              monthsTotal: _monthlyModel.currentMonthsTotal,
+                              totalCost: localModel.currentTotal,
                             ),
                           ),
                         ],

@@ -32,7 +32,7 @@ class _MonthlyExpensesPageState extends State<MonthlyExpensesPage> {
             if (snapshot.data != null && snapshot.data.length > 0) {
               var expensesSplitByDay =
                   _monthlyModel.splitExpensesByDay(snapshot.data);
-              _monthlyModel.currentMonthsTotal =
+              _monthlyModel.currentTotal =
                   _expenseModel.calcTotal(snapshot.data);
 
               return Column(

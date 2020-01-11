@@ -3,7 +3,7 @@ import 'package:expense_app/Resources/Themes/Colors.dart';
 import 'package:expense_app/Utils/expense_category.dart';
 import 'package:flutter/material.dart';
 
-class IconsPage extends StatelessWidget {
+class CategoriesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

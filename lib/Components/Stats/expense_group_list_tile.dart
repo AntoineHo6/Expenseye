@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 
 class ExpenseGroupListTile extends StatelessWidget {
   final ExpenseGroup expenseGroup;
-  final double monthsTotal;
+  final double totalCost;
 
   ExpenseGroupListTile(
-      {@required this.expenseGroup, @required this.monthsTotal});
+      {@required this.expenseGroup, @required this.totalCost});
 
   @override
   Widget build(BuildContext context) {
@@ -18,12 +18,12 @@ class ExpenseGroupListTile extends StatelessWidget {
       ),
       title:
           Text(CategoryProperties.properties[expenseGroup.category]['string']),
-      subtitle: Text('${_calcPercentage().round()}%'),
+      subtitle: Text('${_calcPercentage()}\%'),
       trailing: Text('${expenseGroup.total.toString()} \$'),
     );
   }
 
-  double _calcPercentage() {
-    return expenseGroup.total * 100 / monthsTotal;
+  int _calcPercentage() {
+    return (expenseGroup.total * 100 / totalCost).round();
   }
 }

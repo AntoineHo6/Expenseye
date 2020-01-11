@@ -2,7 +2,8 @@ import 'package:expense_app/Components/Global/calendar_flat_button.dart';
 import 'package:expense_app/Components/Global/my_bottom_nav_bar.dart';
 import 'package:expense_app/Components/Global/my_drawer.dart';
 import 'package:expense_app/Pages/Monthly/monthly_expenses_page.dart';
-import 'package:expense_app/Pages/Monthly/monthly_stats_page.dart';
+import 'package:expense_app/Pages/stats_page.dart';
+import 'package:expense_app/Providers/Global/expense_model.dart';
 import 'package:expense_app/Providers/monthly_model.dart';
 import 'package:expense_app/Resources/Themes/Colors.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,8 @@ class _MonthlyHomePageState extends State<MonthlyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final _expenseModel = Provider.of<ExpenseModel>(context);
+
     return ChangeNotifierProvider(
       create: (_) => MonthlyModel(),
       child: Consumer<MonthlyModel>(
@@ -38,7 +41,11 @@ class _MonthlyHomePageState extends State<MonthlyHomePage> {
               index: _currentIndex,
               children: <Widget>[
                 MonthlyExpensesPage(),
-                MonthlyStatsPage(),
+                StatsPage(
+                  localModel: model,
+                  future: () => _expenseModel.dbHelper
+                      .queryExpensesInMonth(model.yearMonth),
+                ),
               ],
             ),
           ),

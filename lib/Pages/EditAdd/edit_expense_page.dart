@@ -113,7 +113,7 @@ class _EditExpense extends State<EditExpensePage> {
                         margin: const EdgeInsets.only(left: 3),
                         child: IconBtn(
                           model.category,
-                          () => model.openIconsPage(context),
+                          () => model.openCategoriesPage(context),
                         ),
                       ),
                       Align(

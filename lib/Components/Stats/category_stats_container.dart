@@ -6,11 +6,11 @@ import 'package:flutter/material.dart';
 // rename to container
 class CategoryStatsContainer extends StatelessWidget {
   final List<ExpenseGroup> data;
-  final double monthsTotal;
+  final double totalCost;
 
-  CategoryStatsContainer({@required this.data, @required this.monthsTotal})
+  CategoryStatsContainer({@required this.data, @required this.totalCost})
       : assert(data != null),
-        assert(monthsTotal != null);
+        assert(totalCost != null);
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +28,7 @@ class CategoryStatsContainer extends StatelessWidget {
                 color: MyColors.black02dp,
                 child: ExpenseGroupListTile(
                   expenseGroup: expenseGroup,
-                  monthsTotal: monthsTotal,
+                  totalCost: totalCost,
                 ),
               );
             } else {

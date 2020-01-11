@@ -2,7 +2,8 @@ import 'package:expense_app/Components/Global/calendar_flat_button.dart';
 import 'package:expense_app/Components/Global/my_bottom_nav_bar.dart';
 import 'package:expense_app/Components/Global/my_drawer.dart';
 import 'package:expense_app/Pages/Daily/daily_expenses_page.dart';
-import 'package:expense_app/Pages/Daily/daily_stats_page.dart';
+import 'package:expense_app/Pages/stats_page.dart';
+import 'package:expense_app/Providers/Global/expense_model.dart';
 import 'package:expense_app/Providers/daily_model.dart';
 import 'package:expense_app/Resources/Themes/Colors.dart';
 import 'package:expense_app/Utils/date_time_util.dart';
@@ -19,6 +20,8 @@ class _DailyHomePageState extends State<DailyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final _expenseModel = Provider.of<ExpenseModel>(context);
+
     return ChangeNotifierProvider(
       create: (_) => DailyModel(),
       child: Consumer<DailyModel>(
@@ -39,7 +42,11 @@ class _DailyHomePageState extends State<DailyHomePage> {
               index: _currentIndex,
               children: <Widget>[
                 DailyExpensesPage(),
-                DailyStatsPage(),
+                StatsPage(
+                  localModel: model,
+                  future: () => _expenseModel.dbHelper
+                      .queryExpensesInDate(model.currentDate),
+                ),
               ],
             ),
           ),

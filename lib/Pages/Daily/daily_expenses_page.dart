@@ -29,6 +29,7 @@ class _DailyExpensesPageState extends State<DailyExpensesPage> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data != null) {
+              _dailyModel.currentTotal = _expenseModel.calcTotal(snapshot.data);
               return Column(
                 children: <Widget>[
                   Container(

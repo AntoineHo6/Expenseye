@@ -1,15 +1,14 @@
-import 'package:expense_app/Components/Buttons/FlatButton/app_bar_calendar_btn.dart';
-import 'package:expense_app/Components/ListTile/expense_group_list_tile.dart';
-import 'package:expense_app/Components/colored_dot_container.dart';
-import 'package:expense_app/Components/my_drawer.dart';
-import 'package:expense_app/Components/simple_pie_chart.dart';
+import 'package:expense_app/Components/Global/calendar_flat_button.dart';
+import 'package:expense_app/Components/Stats/category_stats_container.dart';
+import 'package:expense_app/Components/Stats/legend_container.dart';
+import 'package:expense_app/Components/Global/my_drawer.dart';
+import 'package:expense_app/Components/Stats/simple_pie_chart.dart';
 import 'package:expense_app/Models/Expense.dart';
 import 'package:expense_app/Providers/Global/expense_model.dart';
 import 'package:expense_app/Providers/monthly_model.dart';
 import 'package:expense_app/Resources/Strings.dart';
 import 'package:expense_app/Resources/Themes/Colors.dart';
 import 'package:expense_app/Utils/chart_util.dart';
-import 'package:expense_app/Utils/expense_category.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -24,13 +23,13 @@ class MonthlyStatsPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(_monthlyModel.getMonthlyTitle()),
         actions: <Widget>[
-          AppBarCalendarBtn(
+          CalendarFlatButton(
             onPressed: () =>
                 _monthlyModel.openMonthlyTableCalendarPage(context),
           ),
         ],
       ),
-      drawer: MyDrawer(),
+      drawer: const MyDrawer(),
       body: FutureBuilder<List<Expense>>(
         future: _expenseModel.dbHelper
             .queryExpensesInMonth(_monthlyModel.yearMonth),
@@ -62,7 +61,8 @@ class MonthlyStatsPage extends StatelessWidget {
                                         child: SizedBox(
                                           height: 250.0,
                                           child: SimplePieChart(
-                                              aggregatedExpenses),
+                                            aggregatedExpenses,
+                                          ),
                                         ),
                                       ),
                                     ],
@@ -70,66 +70,19 @@ class MonthlyStatsPage extends StatelessWidget {
                                 ),
                               ),
                               Container(
-                                margin: EdgeInsets.all(20),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: aggregatedExpenses[0].data.map(
-                                    (expenseGroup) {
-                                      if (expenseGroup.total > 0) {
-                                        return Container(
-                                          margin: EdgeInsets.only(bottom: 6),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: <Widget>[
-                                              ColoredDotContainer(
-                                                color: CategoryProperties
-                                                            .properties[
-                                                        expenseGroup.category]
-                                                    ['color'],
-                                              ),
-                                              SizedBox(width: 10),
-                                              Align(
-                                                alignment:
-                                                    Alignment.centerRight,
-                                                child: Text(
-                                                    CategoryProperties
-                                                                .properties[
-                                                            expenseGroup
-                                                                .category]
-                                                        ['string'],
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .subhead),
-                                              ),
-                                            ],
-                                          ),
-                                        );
-                                      } else {
-                                        return Container();
-                                      }
-                                    },
-                                  ).toList(),
+                                margin: const EdgeInsets.all(20),
+                                child: LegendContainer(
+                                  data: aggregatedExpenses[0].data,
                                 ),
                               ),
                             ],
                           ),
-                          Column(
-                            children: aggregatedExpenses[0].data.map(
-                              (expenseGroup) {
-                                if (expenseGroup.total > 0) {
-                                  return Card(
-                                    color: MyColors.black02dp,
-                                    child: ExpenseGroupListTile(
-                                      expenseGroup: expenseGroup,
-                                      monthsTotal:
-                                          _monthlyModel.currentMonthsTotal,
-                                    ),
-                                  );
-                                } else {
-                                  return Container();
-                                }
-                              },
-                            ).toList(),
+                          Container(
+                            margin: const EdgeInsets.all(15),
+                            child: CategoryStatsContainer(
+                              data: aggregatedExpenses[0].data,
+                              monthsTotal: _monthlyModel.currentMonthsTotal,
+                            ),
                           ),
                         ],
                       ),
@@ -146,7 +99,7 @@ class MonthlyStatsPage extends StatelessWidget {
           } else {
             return Align(
               alignment: Alignment.center,
-              child: new CircularProgressIndicator(),
+              child: const CircularProgressIndicator(),
             );
           }
         },

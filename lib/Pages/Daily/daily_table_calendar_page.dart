@@ -1,4 +1,4 @@
-import 'package:expense_app/Components/my_table_calendar.dart';
+import 'package:expense_app/Components/Global/my_table_calendar.dart';
 import 'package:expense_app/Models/Expense.dart';
 import 'package:expense_app/Providers/Global/expense_model.dart';
 import 'package:expense_app/Resources/Strings.dart';
@@ -45,7 +45,7 @@ class _DailyTableCalendarPage extends State<DailyTableCalendarPage>
                 onDaySelected: (date, list) => _quit(date),
               );
             } else {
-              return null;
+              return Container();
             }
           } else {
             return Align(

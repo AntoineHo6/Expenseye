@@ -1,5 +1,5 @@
-import 'package:expense_app/Components/my_drawer.dart';
-import 'package:expense_app/Pages/Daily/daily_page.dart';
+import 'package:expense_app/Components/Global/my_drawer.dart';
+import 'package:expense_app/Pages/Daily/daily_expenses_page.dart';
 import 'package:expense_app/Pages/Daily/daily_stats_page.dart';
 import 'package:expense_app/Providers/daily_model.dart';
 import 'package:expense_app/Resources/Strings.dart';
@@ -22,13 +22,13 @@ class _DailyHomePageState extends State<DailyHomePage> {
       child: Consumer<DailyModel>(
         builder: (context, model, child) => Scaffold(
           backgroundColor: MyColors.black00dp,
-          drawer: MyDrawer(),
+          drawer: const MyDrawer(),
           body: SafeArea(
             top: false,
             child: IndexedStack(
               index: _currentIndex,
               children: <Widget>[
-                DailyPage(),
+                DailyExpensesPage(),
                 DailyStatsPage(),
               ],
             ),

@@ -1,6 +1,6 @@
-import 'package:expense_app/Components/AlertDialogs/add_expense_dialog.dart';
+import 'package:expense_app/Components/EditAdd/add_expense_dialog.dart';
 import 'package:expense_app/Models/Expense.dart';
-import 'package:expense_app/Pages/edit_expense_page.dart';
+import 'package:expense_app/Pages/EditAdd/edit_expense_page.dart';
 import 'package:expense_app/Resources/Strings.dart';
 import 'package:expense_app/Utils/database_helper.dart';
 import 'package:flutter/material.dart';

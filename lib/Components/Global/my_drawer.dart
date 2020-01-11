@@ -5,6 +5,9 @@ import 'package:expense_app/Resources/Themes/Colors.dart';
 import 'package:flutter/material.dart';
 
 class MyDrawer extends Drawer {
+
+  const MyDrawer();
+
   @override
   Widget build(BuildContext context) {
     return Drawer(

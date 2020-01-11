@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class AppBarCalendarBtn extends StatelessWidget {
-  final onPressed;
+class CalendarFlatButton extends StatelessWidget {
+  final Function onPressed;
 
-  const AppBarCalendarBtn({this.onPressed});
+  CalendarFlatButton({this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +11,7 @@ class AppBarCalendarBtn extends StatelessWidget {
       textColor: Colors.white,
       onPressed: onPressed,
       child: const Icon(Icons.calendar_today),
-      shape: CircleBorder(
+      shape: const CircleBorder(
         side: const BorderSide(color: Colors.transparent),
       ),
     );

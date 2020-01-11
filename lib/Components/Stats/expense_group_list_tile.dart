@@ -18,12 +18,12 @@ class ExpenseGroupListTile extends StatelessWidget {
       ),
       title:
           Text(CategoryProperties.properties[expenseGroup.category]['string']),
-      subtitle: Text('${calcPercentage().round()}%'),
+      subtitle: Text('${_calcPercentage().round()}%'),
       trailing: Text('${expenseGroup.total.toString()} \$'),
     );
   }
 
-  double calcPercentage() {
+  double _calcPercentage() {
     return expenseGroup.total * 100 / monthsTotal;
   }
 }

@@ -1,6 +1,6 @@
-import 'package:expense_app/Components/Buttons/FlatButton/app_bar_calendar_btn.dart';
-import 'package:expense_app/Components/my_drawer.dart';
-import 'package:expense_app/Components/simple_pie_chart.dart';
+import 'package:expense_app/Components/Global/calendar_flat_button.dart';
+import 'package:expense_app/Components/Global/my_drawer.dart';
+import 'package:expense_app/Components/Stats/simple_pie_chart.dart';
 import 'package:expense_app/Models/Expense.dart';
 import 'package:expense_app/Providers/Global/expense_model.dart';
 import 'package:expense_app/Providers/daily_model.dart';
@@ -22,12 +22,12 @@ class DailyStatsPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(DateTimeUtil.formattedDate(_dailyModel.currentDate)),
         actions: <Widget>[
-          AppBarCalendarBtn(
+          CalendarFlatButton(
             onPressed: () => _dailyModel.openDailyTableCalendarPage(context),
           ),
         ],
       ),
-      drawer: MyDrawer(),
+      drawer: const MyDrawer(),
       body: FutureBuilder<List<Expense>>(
         future:
             _expenseModel.dbHelper.queryExpensesInDate(_dailyModel.currentDate),

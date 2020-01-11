@@ -1,5 +1,5 @@
-import 'package:expense_app/Components/my_drawer.dart';
-import 'package:expense_app/Pages/Monthly/monthly_page.dart';
+import 'package:expense_app/Components/Global/my_drawer.dart';
+import 'package:expense_app/Pages/Monthly/monthly_expenses_page.dart';
 import 'package:expense_app/Pages/Monthly/monthly_stats_page.dart';
 import 'package:expense_app/Providers/monthly_model.dart';
 import 'package:expense_app/Resources/Strings.dart';
@@ -22,13 +22,13 @@ class _MonthlyHomePageState extends State<MonthlyHomePage> {
       child: Consumer<MonthlyModel>(
         builder: (context, model, child) => Scaffold(
           backgroundColor: MyColors.black00dp,
-          drawer: MyDrawer(),
+          drawer: const MyDrawer(),
           body: SafeArea(
             top: false,
             child: IndexedStack(
               index: _currentIndex,
               children: <Widget>[
-                MonthlyPage(),
+                MonthlyExpensesPage(),
                 MonthlyStatsPage(),
               ],
             ),

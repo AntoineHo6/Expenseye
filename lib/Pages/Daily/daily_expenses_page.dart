@@ -1,7 +1,7 @@
-import 'package:expense_app/Components/Buttons/FAB/add_expense_fab.dart';
-import 'package:expense_app/Components/Buttons/FlatButton/app_bar_calendar_btn.dart';
-import 'package:expense_app/Components/expense_list_tile.dart';
-import 'package:expense_app/Components/my_drawer.dart';
+import 'package:expense_app/Components/Global/add_expense_fab.dart';
+import 'package:expense_app/Components/Global/calendar_flat_button.dart';
+import 'package:expense_app/Components/Expenses/expense_list_tile.dart';
+import 'package:expense_app/Components/Global/my_drawer.dart';
 import 'package:expense_app/Models/Expense.dart';
 import 'package:expense_app/Providers/daily_model.dart';
 import 'package:expense_app/Resources/Strings.dart';
@@ -11,12 +11,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:expense_app/Providers/Global/expense_model.dart';
 
-class DailyPage extends StatefulWidget {
+class DailyExpensesPage extends StatefulWidget {
   @override
-  _TodayPageState createState() => _TodayPageState();
+  _DailyExpensesPageState createState() => _DailyExpensesPageState();
 }
 
-class _TodayPageState extends State<DailyPage> {
+class _DailyExpensesPageState extends State<DailyExpensesPage> {
   @override
   Widget build(BuildContext context) {
     final _expenseModel = Provider.of<ExpenseModel>(context);
@@ -27,12 +27,12 @@ class _TodayPageState extends State<DailyPage> {
       appBar: AppBar(
         title: Text(DateTimeUtil.formattedDate(_dailyModel.currentDate)),
         actions: <Widget>[
-          AppBarCalendarBtn(
+          CalendarFlatButton(
             onPressed: () => _dailyModel.openDailyTableCalendarPage(context),
           ),
         ],
       ),
-      drawer: MyDrawer(),
+      drawer: const MyDrawer(),
       body: FutureBuilder<List<Expense>>(
         future:
             _expenseModel.dbHelper.queryExpensesInDate(_dailyModel.currentDate),
@@ -50,21 +50,21 @@ class _TodayPageState extends State<DailyPage> {
                     ),
                   ),
                   Expanded(
-                    child: ListView.builder(
-                      itemCount: snapshot.data.length,
-                      itemBuilder: (context, index) {
-                        Expense expense = snapshot.data[index];
-                        return Card(
-                          margin: const EdgeInsets.only(
-                              left: 15, right: 15, top: 4, bottom: 4),
-                          color: MyColors.black02dp,
-                          child: ExpenseListTile(
-                            expense: expense,
-                            onTap: () =>
-                                _expenseModel.openEditExpense(context, expense),
-                          ),
-                        );
-                      },
+                    child: ListView(
+                      children: snapshot.data
+                          .map(
+                            (expense) => Card(
+                              margin: const EdgeInsets.only(
+                                  left: 15, right: 15, top: 4, bottom: 4),
+                              color: MyColors.black02dp,
+                              child: ExpenseListTile(
+                                expense: expense,
+                                onTap: () => _expenseModel.openEditExpense(
+                                    context, expense),
+                              ),
+                            ),
+                          )
+                          .toList(),
                     ),
                   ),
                 ],

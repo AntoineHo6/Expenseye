@@ -24,6 +24,16 @@ class ExpenseGroupListTile extends StatelessWidget {
   }
 
   int _calcPercentage() {
-    return (expenseGroup.total * 100 / totalCost).round();
+    int percentage;
+
+    // avoid using .round() on infinity caused by totalCost being zero.
+    try {
+      percentage = (expenseGroup.total * 100 / totalCost).round();
+    }
+    catch(e) {
+      percentage = -1;
+    }
+
+    return percentage;
   }
 }

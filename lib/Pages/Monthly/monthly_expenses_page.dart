@@ -1,5 +1,4 @@
 import 'package:expense_app/Components/Global/add_expense_fab.dart';
-import 'package:expense_app/Components/Global/calendar_flat_button.dart';
 import 'package:expense_app/Components/Expenses/expense_list_tile.dart';
 import 'package:expense_app/Components/Global/my_drawer.dart';
 import 'package:expense_app/Models/Expense.dart';
@@ -24,17 +23,6 @@ class _MonthlyExpensesPageState extends State<MonthlyExpensesPage> {
 
     return Scaffold(
       backgroundColor: MyColors.black00dp,
-      appBar: AppBar(
-        title: Text(
-          _monthlyModel.getMonthlyTitle(),
-        ),
-        actions: <Widget>[
-          CalendarFlatButton(
-            onPressed: () =>
-                _monthlyModel.openMonthlyTableCalendarPage(context),
-          ),
-        ],
-      ),
       drawer: const MyDrawer(),
       body: FutureBuilder<List<Expense>>(
         future: _expenseModel.dbHelper
@@ -75,7 +63,7 @@ class _MonthlyExpensesPageState extends State<MonthlyExpensesPage> {
             } else {
               return const Align(
                 alignment: Alignment.center,
-                child: Text(Strings.dataIsNull),
+                child: const Text(Strings.dataIsNull),
               );
             }
           } else {
@@ -124,7 +112,7 @@ class _MonthlyExpensesPageState extends State<MonthlyExpensesPage> {
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 Column(

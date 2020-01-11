@@ -1,8 +1,9 @@
+import 'package:expense_app/Components/Global/calendar_flat_button.dart';
+import 'package:expense_app/Components/Global/my_bottom_nav_bar.dart';
 import 'package:expense_app/Components/Global/my_drawer.dart';
 import 'package:expense_app/Pages/Monthly/monthly_expenses_page.dart';
 import 'package:expense_app/Pages/Monthly/monthly_stats_page.dart';
 import 'package:expense_app/Providers/monthly_model.dart';
-import 'package:expense_app/Resources/Strings.dart';
 import 'package:expense_app/Resources/Themes/Colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -21,6 +22,14 @@ class _MonthlyHomePageState extends State<MonthlyHomePage> {
       create: (_) => MonthlyModel(),
       child: Consumer<MonthlyModel>(
         builder: (context, model, child) => Scaffold(
+          appBar: AppBar(
+            title: Text(model.getMonthlyTitle()),
+            actions: <Widget>[
+              CalendarFlatButton(
+                onPressed: () => model.openMonthlyTableCalendarPage(context),
+              ),
+            ],
+          ),
           backgroundColor: MyColors.black00dp,
           drawer: const MyDrawer(),
           body: SafeArea(
@@ -33,31 +42,13 @@ class _MonthlyHomePageState extends State<MonthlyHomePage> {
               ],
             ),
           ),
-          bottomNavigationBar: BottomNavigationBar(
-            selectedIconTheme: IconThemeData(color: MyColors.secondary),
-            backgroundColor: MyColors.black24dp,
+          bottomNavigationBar: MyBottomNavBar(
             currentIndex: _currentIndex,
             onTap: (int index) {
               setState(() {
                 _currentIndex = index;
               });
             },
-            items: [
-              BottomNavigationBarItem(
-                icon: const Icon(Icons.list),
-                title: Text(
-                  Strings.expenses,
-                  style: Theme.of(context).textTheme.body1,
-                ),
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.pie_chart),
-                title: Text(
-                  Strings.stats,
-                  style: Theme.of(context).textTheme.body1,
-                ),
-              )
-            ],
           ),
         ),
       ),

@@ -39,8 +39,8 @@ class _EditExpense extends State<EditExpensePage> {
               FlatButton(
                 textColor: Colors.white,
                 onPressed: () => _delete(),
-                child: Icon(Icons.delete_forever),
-                shape: CircleBorder(
+                child: const Icon(Icons.delete_forever),
+                shape: const CircleBorder(
                   side: BorderSide(color: Colors.transparent),
                 ),
               ),
@@ -132,7 +132,7 @@ class _EditExpense extends State<EditExpensePage> {
                 RaisedButton(
                   color: MyColors.black02dp,
                   textTheme: ButtonTextTheme.primary,
-                  child: Text(
+                  child: const Text(
                     Strings.saveCaps,
                   ),
                   onPressed: model.didInfoChange ? () => _save(model) : null,

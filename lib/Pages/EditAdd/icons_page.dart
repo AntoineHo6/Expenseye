@@ -34,7 +34,7 @@ class IconsPage extends StatelessWidget {
                         .properties[ExpenseCategory.values[index]]['color'],
                     size: 50,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10,
                   ),
                   FittedBox(

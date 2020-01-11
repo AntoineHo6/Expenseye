@@ -4,7 +4,7 @@ import 'package:expense_app/Resources/Strings.dart';
 import 'package:expense_app/Resources/Themes/Colors.dart';
 import 'package:flutter/material.dart';
 
-class MyDrawer extends Drawer {
+class MyDrawer extends StatelessWidget {
 
   const MyDrawer();
 
@@ -49,12 +49,6 @@ class MyDrawer extends Drawer {
                     ),
                     onTap: () => _openDailyHomePage(context),
                   ),
-                  // ListTile(
-                  //   title: Text(
-                  //     Strings.weekly,
-                  //     style: Theme.of(context).textTheme.subtitle,
-                  //   ),
-                  // ),
                   ListTile(
                     title: Text(
                       '\t\t\t${Strings.monthly}',
@@ -71,18 +65,18 @@ class MyDrawer extends Drawer {
                 ],
               ),
             ),
-            ListTile(
-              title: Text(
-                Strings.categories,
-                style: Theme.of(context).textTheme.subtitle,
-              ),
-              onTap: () {
-                // Update the state of the app
-                // ...
-                // Then close the drawer
-                Navigator.pop(context);
-              },
-            ),
+            // ListTile(
+            //   title: Text(
+            //     Strings.categories,
+            //     style: Theme.of(context).textTheme.subtitle,
+            //   ),
+            //   onTap: () {
+            //     // Update the state of the app
+            //     // ...
+            //     // Then close the drawer
+            //     Navigator.pop(context);
+            //   },
+            // ),
             ListTile(
               title: Text(
                 Strings.settings,

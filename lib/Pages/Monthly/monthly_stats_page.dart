@@ -1,4 +1,3 @@
-import 'package:expense_app/Components/Global/calendar_flat_button.dart';
 import 'package:expense_app/Components/Stats/category_stats_container.dart';
 import 'package:expense_app/Components/Stats/legend_container.dart';
 import 'package:expense_app/Components/Global/my_drawer.dart';
@@ -20,15 +19,6 @@ class MonthlyStatsPage extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: MyColors.black00dp,
-      appBar: AppBar(
-        title: Text(_monthlyModel.getMonthlyTitle()),
-        actions: <Widget>[
-          CalendarFlatButton(
-            onPressed: () =>
-                _monthlyModel.openMonthlyTableCalendarPage(context),
-          ),
-        ],
-      ),
       drawer: const MyDrawer(),
       body: FutureBuilder<List<Expense>>(
         future: _expenseModel.dbHelper
@@ -93,7 +83,7 @@ class MonthlyStatsPage extends StatelessWidget {
             } else {
               return Align(
                 alignment: Alignment.center,
-                child: Text(Strings.dataIsNull),
+                child: const Text(Strings.dataIsNull),
               );
             }
           } else {

@@ -25,7 +25,9 @@ class LegendContainer extends StatelessWidget {
                       color: CategoryProperties
                           .properties[expenseGroup.category]['color'],
                     ),
-                    SizedBox(width: 10),
+                    const SizedBox(
+                      width: 10,
+                    ),
                     Align(
                       alignment: Alignment.centerRight,
                       child: Text(

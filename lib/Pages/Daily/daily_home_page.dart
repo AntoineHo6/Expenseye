@@ -1,9 +1,11 @@
+import 'package:expense_app/Components/Global/calendar_flat_button.dart';
+import 'package:expense_app/Components/Global/my_bottom_nav_bar.dart';
 import 'package:expense_app/Components/Global/my_drawer.dart';
 import 'package:expense_app/Pages/Daily/daily_expenses_page.dart';
 import 'package:expense_app/Pages/Daily/daily_stats_page.dart';
 import 'package:expense_app/Providers/daily_model.dart';
-import 'package:expense_app/Resources/Strings.dart';
 import 'package:expense_app/Resources/Themes/Colors.dart';
+import 'package:expense_app/Utils/date_time_util.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -21,6 +23,14 @@ class _DailyHomePageState extends State<DailyHomePage> {
       create: (_) => DailyModel(),
       child: Consumer<DailyModel>(
         builder: (context, model, child) => Scaffold(
+          appBar: AppBar(
+            title: Text(DateTimeUtil.formattedDate(model.currentDate)),
+            actions: <Widget>[
+              CalendarFlatButton(
+                onPressed: () => model.openDailyTableCalendarPage(context),
+              ),
+            ],
+          ),
           backgroundColor: MyColors.black00dp,
           drawer: const MyDrawer(),
           body: SafeArea(
@@ -33,31 +43,13 @@ class _DailyHomePageState extends State<DailyHomePage> {
               ],
             ),
           ),
-          bottomNavigationBar: BottomNavigationBar(
-            selectedIconTheme: IconThemeData(color: MyColors.secondary),
-            backgroundColor: MyColors.black24dp,
+          bottomNavigationBar: MyBottomNavBar(
             currentIndex: _currentIndex,
             onTap: (int index) {
               setState(() {
                 _currentIndex = index;
               });
             },
-            items: [
-              BottomNavigationBarItem(
-                icon: const Icon(Icons.list),
-                title: Text(
-                  Strings.expenses,
-                  style: Theme.of(context).textTheme.body1,
-                ),
-              ),
-              BottomNavigationBarItem(
-                icon: const Icon(Icons.pie_chart),
-                title: Text(
-                  Strings.stats,
-                  style: Theme.of(context).textTheme.body1,
-                ),
-              )
-            ],
           ),
         ),
       ),

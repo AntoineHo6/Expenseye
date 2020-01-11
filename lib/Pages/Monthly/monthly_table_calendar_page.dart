@@ -45,7 +45,7 @@ class _MonthlyTableCalendarPage extends State<MonthlyTableCalendarPage>
                     events: _events,
                     calendarController: _calendarController,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 50,
                   ),
                   RaisedButton(

@@ -9,8 +9,11 @@ class MyTableCalendar extends StatefulWidget {
   final calendarController;
   final onDaySelected;
 
-  MyTableCalendar({this.events, this.initialDate, this.calendarController,
-  this.onDaySelected});
+  MyTableCalendar(
+      {this.events,
+      @required this.initialDate,
+      @required this.calendarController,
+      this.onDaySelected});
 
   @override
   _MyTableCalendarState createState() => _MyTableCalendarState();

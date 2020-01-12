@@ -23,7 +23,7 @@ class _MonthlyExpensesPageState extends State<MonthlyExpensesPage> {
 
     return Scaffold(
       backgroundColor: MyColors.black00dp,
-      drawer: const MyDrawer(),
+      drawer: MyDrawer(),
       body: FutureBuilder<List<Expense>>(
         future: _expenseModel.dbHelper
             .queryExpensesInMonth(_monthlyModel.yearMonth),

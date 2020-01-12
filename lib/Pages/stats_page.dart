@@ -3,12 +3,10 @@ import 'package:expense_app/Components/Stats/category_stats_container.dart';
 import 'package:expense_app/Components/Stats/legend_container.dart';
 import 'package:expense_app/Components/Stats/simple_pie_chart.dart';
 import 'package:expense_app/Models/Expense.dart';
-import 'package:expense_app/Providers/Global/expense_model.dart';
 import 'package:expense_app/Resources/Strings.dart';
 import 'package:expense_app/Resources/Themes/Colors.dart';
 import 'package:expense_app/Utils/chart_util.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 typedef GetExpenses = Future<List<Expense>> Function();
 
@@ -25,7 +23,7 @@ class StatsPage extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: MyColors.black00dp,
-      drawer: const MyDrawer(),
+      drawer: MyDrawer(),
       body: FutureBuilder<List<Expense>>(
         future: future(),
             // _expenseModel.dbHelper.queryExpensesInMonth(localModel.yearMonth)

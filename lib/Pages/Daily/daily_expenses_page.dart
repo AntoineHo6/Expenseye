@@ -22,7 +22,7 @@ class _DailyExpensesPageState extends State<DailyExpensesPage> {
 
     return Scaffold(
       backgroundColor: MyColors.black00dp,
-      drawer: const MyDrawer(),
+      drawer: MyDrawer(),
       body: FutureBuilder<List<Expense>>(
         future:
             _expenseModel.dbHelper.queryExpensesInDate(_dailyModel.currentDate),

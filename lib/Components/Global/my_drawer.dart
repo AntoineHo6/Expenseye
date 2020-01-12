@@ -2,11 +2,17 @@ import 'package:expense_app/Pages/Daily/daily_home_page.dart';
 import 'package:expense_app/Pages/Monthly/monthly_home_page.dart';
 import 'package:expense_app/Resources/Strings.dart';
 import 'package:expense_app/Resources/Themes/Colors.dart';
+import 'package:expense_app/google_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class MyDrawer extends StatelessWidget {
+class MyDrawer extends StatefulWidget {
+  @override
+  _MyDrawerState createState() => _MyDrawerState();
+}
 
-  const MyDrawer();
+class _MyDrawerState extends State<MyDrawer> {
+  final GoogleAuthService googleAuth = new GoogleAuthService();
 
   @override
   Widget build(BuildContext context) {
@@ -21,10 +27,40 @@ class MyDrawer extends StatelessWidget {
                 alignment: Alignment.centerLeft,
                 child: Column(
                   children: <Widget>[
-                    Icon(Icons.remove_red_eye, color: Colors.white),
-                    Text(
-                      Strings.appName,
-                      style: Theme.of(context).textTheme.headline,
+                    StreamBuilder(
+                      stream: FirebaseAuth.instance.onAuthStateChanged,
+                      builder: (context, AsyncSnapshot<FirebaseUser> snapshot) {
+                        if (snapshot.hasData && snapshot.data != null) {
+                          return Image.network(snapshot.data.photoUrl);
+                        }
+                        else {
+                          return Container();
+                        }
+                            
+                      },
+                    ),
+                    Row(
+                      children: <Widget>[
+                        RaisedButton(
+                          color: MyColors.black06dp,
+                          child: Text(
+                            'Sign in',
+                            style: Theme.of(context).textTheme.body1,
+                          ),
+                          onPressed: googleSignIn,
+                        ),
+                        SizedBox(
+                          width: 15,
+                        ),
+                        RaisedButton(
+                          color: MyColors.black06dp,
+                          child: Text(
+                            'Sign out',
+                            style: Theme.of(context).textTheme.body1,
+                          ),
+                          onPressed: googleSignOut,
+                        ),
+                      ],
                     ),
                   ],
                 ),
@@ -65,27 +101,12 @@ class MyDrawer extends StatelessWidget {
                 ],
               ),
             ),
-            // ListTile(
-            //   title: Text(
-            //     Strings.categories,
-            //     style: Theme.of(context).textTheme.subtitle,
-            //   ),
-            //   onTap: () {
-            //     // Update the state of the app
-            //     // ...
-            //     // Then close the drawer
-            //     Navigator.pop(context);
-            //   },
-            // ),
             ListTile(
               title: Text(
                 Strings.settings,
                 style: Theme.of(context).textTheme.subtitle,
               ),
               onTap: () {
-                // Update the state of the app
-                // ...
-                // Then close the drawer
                 Navigator.pop(context);
               },
             ),
@@ -107,5 +128,13 @@ class MyDrawer extends StatelessWidget {
       context,
       MaterialPageRoute(builder: (context) => MonthlyHomePage()),
     );
+  }
+
+  void googleSignIn() async {
+    googleAuth.loginWithGoogle();
+  }
+
+  void googleSignOut() {
+    googleAuth.logOut();
   }
 }

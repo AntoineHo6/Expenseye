@@ -34,7 +34,7 @@ class _MonthlyHomePageState extends State<MonthlyHomePage> {
             ],
           ),
           backgroundColor: MyColors.black00dp,
-          drawer: const MyDrawer(),
+          drawer: MyDrawer(),
           body: SafeArea(
             top: false,
             child: IndexedStack(

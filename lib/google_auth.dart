@@ -1,30 +1,49 @@
-import 'package:file_picker/file_picker.dart';
+import 'dart:io';
+import 'package:path/path.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:googleapis/drive/v3.dart';
-import 'package:http/http.dart';
-import 'package:http/io_client.dart';
+import 'package:path_provider/path_provider.dart';
 
 class GoogleAuthService {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  GoogleSignInAccount googleAcc;
+  static FirebaseAuth _auth = FirebaseAuth.instance;
+  static GoogleSignIn _googleSignIn = GoogleSignIn();
+  static FirebaseStorage _storage = FirebaseStorage.instance;
+  static FirebaseUser user;
+  String _storageFilePath;
 
   Future<bool> loginWithGoogle() async {
     try {
-      final GoogleSignIn _googleSignIn = GoogleSignIn();
-      googleAcc = await _googleSignIn.signIn();
+      GoogleSignInAccount googleAcc = await _googleSignIn.signIn();
 
-      FirebaseUser user;
+      AuthResult res;
       if (googleAcc != null) {
-        user =
-            await _auth.signInWithCredential(GoogleAuthProvider.getCredential(
+        res = await _auth.signInWithCredential(GoogleAuthProvider.getCredential(
           idToken: (await googleAcc.authentication).idToken,
           accessToken: (await googleAcc.authentication).accessToken,
         ));
       }
 
-      if (user != null) {
-        print('signed in as: ' + user.email);
+      if (res.user != null) {
+        user = res.user;
+        print('signed in as: ' + res.user.email);
+
+        _storageFilePath = 'dbFiles/${user.uid}/MyDatabase.db';
+
+        // copy db file
+        final ref = _storage.ref().child(_storageFilePath);
+        var url = await ref.getDownloadURL();
+
+        // TODO: dup code from
+        Directory documentsDirectory = await getApplicationDocumentsDirectory();
+        String path = join(documentsDirectory.path, "MyDatabase.db");
+
+        new HttpClient()
+            .getUrl(Uri.parse(url))
+            .then((HttpClientRequest request) => request.close())
+            .then((HttpClientResponse response) =>
+                response.pipe(new File(path).openWrite()));
+
         return true;
       }
       return false;
@@ -35,37 +54,29 @@ class GoogleAuthService {
 
   Future<void> logOut() async {
     try {
-      await _auth.signOut();
-      print('signed out');
+      await _auth.signOut().then((_) {
+        _googleSignIn.signOut();
+        user = null;
+        print('signed out');
+      });
     } catch (e) {
       print('error logging out');
     }
   }
 
-  uploadFileToGoogleDrive() async {
-    if (googleAcc != null) {
-      var client = GoogleHttpClient(await googleAcc.authHeaders);
-      var drive = DriveApi(client);
-      File fileToUpload = File();
-      var file = await FilePicker.getFile();
-      fileToUpload.parents = ["appDataFolder"];
-      fileToUpload.name = 'testing google drive upload';
-      var response = await drive.files.create(
-        fileToUpload,
-        uploadMedia: Media(file.openRead(), file.lengthSync()),
-      );
-      print(response);
+  static void uploadDbFile() async {
+    if (user != null) {
+      // dont find path everytime. use member var.
+      Directory documentsDirectory = await getApplicationDocumentsDirectory();
+      String path = join(documentsDirectory.path, "MyDatabase.db");
+      File dbFile = File(path);
+
+      final StorageUploadTask task = _storage
+          .ref()
+          .child('dbFiles/${user.uid}/MyDatabase.db')
+          .putFile(dbFile);
+
+      print('uploaded file');
     }
   }
-}
-
-class GoogleHttpClient extends IOClient {
-  Map<String, String> _headers;
-  GoogleHttpClient(this._headers) : super();
-  @override
-  Future<StreamedResponse> send(BaseRequest request) =>
-      super.send(request..headers.addAll(_headers));
-  @override
-  Future<Response> head(Object url, {Map<String, String> headers}) =>
-      super.head(url, headers: headers..addAll(_headers));
 }

@@ -1,10 +1,11 @@
 import 'package:expense_app/Pages/Daily/daily_home_page.dart';
 import 'package:expense_app/Pages/Monthly/monthly_home_page.dart';
+import 'package:expense_app/Providers/Global/expense_model.dart';
 import 'package:expense_app/Resources/Strings.dart';
 import 'package:expense_app/Resources/Themes/Colors.dart';
-import 'package:expense_app/google_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class MyDrawer extends StatefulWidget {
   @override
@@ -12,10 +13,10 @@ class MyDrawer extends StatefulWidget {
 }
 
 class _MyDrawerState extends State<MyDrawer> {
-  final GoogleAuthService googleAuth = new GoogleAuthService();
-
   @override
   Widget build(BuildContext context) {
+    final _expenseModel = Provider.of<ExpenseModel>(context);
+    
     return Drawer(
       child: Container(
         color: MyColors.black00dp,
@@ -33,25 +34,44 @@ class _MyDrawerState extends State<MyDrawer> {
                         if (snapshot.hasData && snapshot.data != null) {
                           return Row(
                             children: <Widget>[
-                              Image.network(snapshot.data.photoUrl),
+                              CircleAvatar(
+                                backgroundImage:
+                                    NetworkImage(snapshot.data.photoUrl),
+                                radius: 40,
+                              ),
+                              const SizedBox(
+                                width: 25,
+                              ),
                               RaisedButton(
                                 color: MyColors.black06dp,
                                 child: Text(
                                   'Sign out',
                                   style: Theme.of(context).textTheme.body1,
                                 ),
-                                onPressed: googleSignOut,
+                                onPressed: () => _expenseModel.logOutFromGoogle(),
                               ),
                             ],
                           );
                         } else {
-                          return RaisedButton(
-                            color: MyColors.black06dp,
-                            child: Text(
-                              'Sign in',
-                              style: Theme.of(context).textTheme.body1,
-                            ),
-                            onPressed: googleSignIn,
+                          return Row(
+                            children: <Widget>[
+                              CircleAvatar(
+                                backgroundColor: Colors.white,
+                                child: Icon(Icons.person),
+                                radius: 40,
+                              ),
+                              const SizedBox(
+                                width: 25,
+                              ),
+                              RaisedButton(
+                                color: MyColors.black06dp,
+                                child: Text(
+                                  'Sign in',
+                                  style: Theme.of(context).textTheme.body1,
+                                ),
+                                onPressed: () => _expenseModel.loginWithGoogle(),
+                              ),
+                            ],
                           );
                         }
                       },
@@ -122,15 +142,5 @@ class _MyDrawerState extends State<MyDrawer> {
       context,
       MaterialPageRoute(builder: (context) => MonthlyHomePage()),
     );
-  }
-
-  void googleSignIn() async {
-    googleAuth.loginWithGoogle();
-
-    googleAuth.uploadFileToGoogleDrive();
-  }
-
-  void googleSignOut() {
-    googleAuth.logOut();
   }
 }

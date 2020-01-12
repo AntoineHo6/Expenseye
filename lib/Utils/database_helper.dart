@@ -138,21 +138,21 @@ class DatabaseHelper {
         where: '${Strings.columnId} = ?', whereArgs: [id]);
   }
 
-  //Future close() async => db.close();
+  void deleteAll() async {
+    Database db = await database;
 
-  // void customQuery() async {
-  //   Database db = await database;
+    db.rawQuery('DELETE FROM ${Strings.tableExpenses}');
 
-  //   db.rawQuery('DROP TABLE ${Strings.tableExpenses}');
+    // db.rawQuery('DROP TABLE ${Strings.tableExpenses}');
 
-  //   await db.execute('''
-  //             CREATE TABLE ${Strings.tableExpenses} (
-  //               ${Strings.columnId} INTEGER PRIMARY KEY AUTOINCREMENT,
-  //               ${Strings.columnName} TEXT NOT NULL,
-  //               ${Strings.columnPrice} DOUBLE NOT NULL,
-  //               ${Strings.columnDate} TEXT NOT NULL,
-  //               ${Strings.columnCategory} INTEGER NOT NULL
-  //             )
-  //             ''');
-  // }
+    // await db.execute('''
+    //           CREATE TABLE ${Strings.tableExpenses} (
+    //             ${Strings.columnId} INTEGER PRIMARY KEY AUTOINCREMENT,
+    //             ${Strings.columnName} TEXT NOT NULL,
+    //             ${Strings.columnPrice} DOUBLE NOT NULL,
+    //             ${Strings.columnDate} TEXT NOT NULL,
+    //             ${Strings.columnCategory} INTEGER NOT NULL
+    //           )
+    //           ''');
+  }
 }

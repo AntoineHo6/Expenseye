@@ -108,7 +108,7 @@ class _MyDrawerState extends State<MyDrawer> {
                   ),
                   ListTile(
                     title: Text(
-                      '\t\t\t${Strings.yearly}',
+                      '\t\t\t${Strings.yearly} (Coming soon)',
                       style: Theme.of(context).textTheme.subtitle,
                     ),
                   ),

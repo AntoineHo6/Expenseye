@@ -12,8 +12,10 @@ class ExpenseModel extends ChangeNotifier {
   final GoogleAuthService googleAuth = GoogleAuthService();
 
   void loginWithGoogle() async {
-    await googleAuth.loginWithGoogle().then((_) {
-      notifyListeners();
+    await googleAuth.loginWithGoogle().then((isLoggedIn) {
+      if (isLoggedIn != null && isLoggedIn) {
+        notifyListeners();
+      }
     });
   }
 

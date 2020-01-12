@@ -38,7 +38,7 @@ class GoogleAuthService {
         Directory documentsDirectory = await getApplicationDocumentsDirectory();
         String path = join(documentsDirectory.path, "MyDatabase.db");
 
-        new HttpClient()
+        await HttpClient()
             .getUrl(Uri.parse(url))
             .then((HttpClientRequest request) => request.close())
             .then((HttpClientResponse response) =>

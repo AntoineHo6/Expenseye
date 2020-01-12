@@ -12,8 +12,15 @@ class ExpenseModel extends ChangeNotifier {
   final GoogleAuthService googleAuth = GoogleAuthService();
 
   void loginWithGoogle() async {
+    List<Expense> localExpenses = await dbHelper.queryAllExpenses();
+
     await googleAuth.loginWithGoogle().then((isLoggedIn) {
       if (isLoggedIn != null && isLoggedIn) {
+        for (Expense expense in localExpenses) {
+          dbHelper.insert(expense);
+        }
+        GoogleAuthService.uploadDbFile();
+
         notifyListeners();
       }
     });
@@ -42,7 +49,7 @@ class ExpenseModel extends ChangeNotifier {
     GoogleAuthService.uploadDbFile();
     notifyListeners();
   }
-  
+
   void showAddExpense(BuildContext context, DateTime initialDate) async {
     bool confirmed = await showDialog(
       context: context,
@@ -58,7 +65,6 @@ class ExpenseModel extends ChangeNotifier {
       Scaffold.of(context).showSnackBar(snackBar);
     }
   }
-
 
   void openEditExpense(BuildContext context, Expense expense) async {
     int action = await Navigator.push(
@@ -85,10 +91,8 @@ class ExpenseModel extends ChangeNotifier {
     return total;
   }
 
-
   // * may move out of this provider
   String totalString(List<Expense> expenses) {
     return '${calcTotal(expenses).toString()} \$';
   }
-
 }

@@ -8,7 +8,7 @@ import 'package:path_provider/path_provider.dart';
 // singleton class to manage the database
 class DatabaseHelper {
   // This is the actual database filename that is saved in the docs directory.
-  static final _databaseName = "MyDatabase.db";
+  static const _databaseName = "MyDatabase.db";
   // Increment this version when you need to change the schema.
   static final _databaseVersion = 4;
 
@@ -35,6 +35,7 @@ class DatabaseHelper {
   }
 
   Future _onCreate(Database db, int version) async {
+    print('Creating db expense table');
     await db.execute('''
               CREATE TABLE ${Strings.tableExpenses} (
                 ${Strings.columnId} INTEGER PRIMARY KEY AUTOINCREMENT,

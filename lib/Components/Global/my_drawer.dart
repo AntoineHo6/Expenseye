@@ -31,36 +31,30 @@ class _MyDrawerState extends State<MyDrawer> {
                       stream: FirebaseAuth.instance.onAuthStateChanged,
                       builder: (context, AsyncSnapshot<FirebaseUser> snapshot) {
                         if (snapshot.hasData && snapshot.data != null) {
-                          return Image.network(snapshot.data.photoUrl);
+                          return Row(
+                            children: <Widget>[
+                              Image.network(snapshot.data.photoUrl),
+                              RaisedButton(
+                                color: MyColors.black06dp,
+                                child: Text(
+                                  'Sign out',
+                                  style: Theme.of(context).textTheme.body1,
+                                ),
+                                onPressed: googleSignOut,
+                              ),
+                            ],
+                          );
+                        } else {
+                          return RaisedButton(
+                            color: MyColors.black06dp,
+                            child: Text(
+                              'Sign in',
+                              style: Theme.of(context).textTheme.body1,
+                            ),
+                            onPressed: googleSignIn,
+                          );
                         }
-                        else {
-                          return Container();
-                        }
-                            
                       },
-                    ),
-                    Row(
-                      children: <Widget>[
-                        RaisedButton(
-                          color: MyColors.black06dp,
-                          child: Text(
-                            'Sign in',
-                            style: Theme.of(context).textTheme.body1,
-                          ),
-                          onPressed: googleSignIn,
-                        ),
-                        SizedBox(
-                          width: 15,
-                        ),
-                        RaisedButton(
-                          color: MyColors.black06dp,
-                          child: Text(
-                            'Sign out',
-                            style: Theme.of(context).textTheme.body1,
-                          ),
-                          onPressed: googleSignOut,
-                        ),
-                      ],
                     ),
                   ],
                 ),
@@ -132,6 +126,8 @@ class _MyDrawerState extends State<MyDrawer> {
 
   void googleSignIn() async {
     googleAuth.loginWithGoogle();
+
+    googleAuth.uploadFileToGoogleDrive();
   }
 
   void googleSignOut() {

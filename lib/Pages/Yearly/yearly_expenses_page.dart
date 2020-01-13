@@ -10,12 +10,7 @@ import 'package:expense_app/Utils/expense_category.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class YearlyExpensesPage extends StatefulWidget {
-  @override
-  _YearlyExpensesPageState createState() => _YearlyExpensesPageState();
-}
-
-class _YearlyExpensesPageState extends State<YearlyExpensesPage> {
+class YearlyExpensesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _expenseModel = Provider.of<ExpenseModel>(context);
@@ -50,7 +45,7 @@ class _YearlyExpensesPageState extends State<YearlyExpensesPage> {
                           ),
                           Column(
                             children: _expensesSplitByMonthToContainers(
-                                expensesSplitByMonth),
+                                context, expensesSplitByMonth),
                           ),
                         ],
                       ),
@@ -76,14 +71,14 @@ class _YearlyExpensesPageState extends State<YearlyExpensesPage> {
   }
 
   List<InkWell> _expensesSplitByMonthToContainers(
-      List<List<Expense>> expensesSplitByMonth) {
+      BuildContext context, List<List<Expense>> expensesSplitByMonth) {
     // TODO: recheck if good idea to reinstantiate model. Also in month
     final _expenseModel = Provider.of<ExpenseModel>(context, listen: false);
 
     return expensesSplitByMonth
         .map(
           (expenseList) => InkWell(
-            onTap: () => openMonthsPage(expenseList[0].date),
+            onTap: () => openMonthsPage(context, expenseList[0].date),
             borderRadius: BorderRadius.circular(15),
             child: Container(
               decoration: BoxDecoration(
@@ -134,8 +129,7 @@ class _YearlyExpensesPageState extends State<YearlyExpensesPage> {
         .toList();
   }
 
-  void openMonthsPage(DateTime date) {
-    Navigator.pop(context);
+  void openMonthsPage(BuildContext context, DateTime date) {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => MonthlyHomePage(date)),

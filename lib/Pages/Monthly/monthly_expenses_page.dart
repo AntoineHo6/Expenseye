@@ -9,12 +9,7 @@ import 'package:expense_app/Utils/date_time_util.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class MonthlyExpensesPage extends StatefulWidget {
-  @override
-  _MonthlyExpensesPageState createState() => _MonthlyExpensesPageState();
-}
-
-class _MonthlyExpensesPageState extends State<MonthlyExpensesPage> {
+class MonthlyExpensesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _expenseModel = Provider.of<ExpenseModel>(context);
@@ -27,7 +22,6 @@ class _MonthlyExpensesPageState extends State<MonthlyExpensesPage> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data != null && snapshot.data.length > 0) {
-              print('Building monthly page');
               var expensesSplitByDay =
                   _monthlyModel.splitExpensesByDay(snapshot.data);
               _monthlyModel.currentTotal =
@@ -50,7 +44,7 @@ class _MonthlyExpensesPageState extends State<MonthlyExpensesPage> {
                           ),
                           Column(
                             children: _expensesSplitByDayToContainers(
-                                expensesSplitByDay),
+                                context, expensesSplitByDay),
                           ),
                         ],
                       ),
@@ -81,7 +75,7 @@ class _MonthlyExpensesPageState extends State<MonthlyExpensesPage> {
 
   // ? Move to components?
   List<Container> _expensesSplitByDayToContainers(
-      List<List<Expense>> expensesSplitByDay) {
+      BuildContext context, List<List<Expense>> expensesSplitByDay) {
     final _expenseModel = Provider.of<ExpenseModel>(context, listen: false);
 
     return expensesSplitByDay

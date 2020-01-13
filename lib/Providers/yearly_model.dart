@@ -28,15 +28,12 @@ class YearlyModel extends ChangeNotifier {
     for (Expense expense in expenses) {
       if (getYearMonthString(expense.date) == currentMonth) {
         expensesSplitByMonth[index].add(expense);
-        print('$currentMonth: ${expense.name}');
       }
       else {
-        print('-------------------------');
         index++;
         currentMonth = getYearMonthString(expense.date);
         expensesSplitByMonth.add(new List());
         expensesSplitByMonth[index].add(expense);
-        print('$currentMonth: ${expense.name}');
       }
     }
 

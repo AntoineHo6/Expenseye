@@ -1,7 +1,11 @@
+import 'package:expense_app/Components/Global/colored_dot_container.dart';
 import 'package:expense_app/Models/Expense.dart';
 import 'package:expense_app/Providers/Global/expense_model.dart';
 import 'package:expense_app/Providers/yearly_model.dart';
 import 'package:expense_app/Resources/Strings.dart';
+import 'package:expense_app/Resources/Themes/Colors.dart';
+import 'package:expense_app/Utils/date_time_util.dart';
+import 'package:expense_app/Utils/expense_category.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -22,13 +26,36 @@ class _YearlyExpensesPageState extends State<YearlyExpensesPage> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data != null && snapshot.data.length > 0) {
-              print('AM IN YEARLY');
-              //_yearlyModel.splitExpenseByMonth(snapshot.data);
+              var expensesSplitByMonth =
+                  _yearlyModel.splitExpenseByMonth(snapshot.data);
               _yearlyModel.currentTotal =
                   _expenseModel.calcTotal(snapshot.data);
 
-              return Container();
-
+              return Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: <Widget>[
+                          Container(
+                            padding: const EdgeInsets.all(20),
+                            margin: const EdgeInsets.symmetric(horizontal: 20),
+                            child: Text(
+                              '${Strings.total}: ${_expenseModel.totalString(snapshot.data)}',
+                              style: Theme.of(context).textTheme.display1,
+                            ),
+                          ),
+                          Column(
+                            children: _expensesSplitByMonthToContainers(
+                                expensesSplitByMonth),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              );
             } else {
               return const Align(
                 alignment: Alignment.center,
@@ -44,5 +71,60 @@ class _YearlyExpensesPageState extends State<YearlyExpensesPage> {
         },
       ),
     );
+  }
+
+  List<Container> _expensesSplitByMonthToContainers(
+      List<List<Expense>> expensesSplitByMonth) {
+    // TODO: recheck if good idea to reinstantiate model. Also in month
+    final _expenseModel = Provider.of<ExpenseModel>(context, listen: false);
+
+    return expensesSplitByMonth
+        .map(
+          (expenseList) => Container(
+            decoration: BoxDecoration(
+              color: MyColors.black06dp,
+              borderRadius: BorderRadius.circular(15),
+            ),
+            padding: const EdgeInsets.all(12),
+            margin:
+                const EdgeInsets.only(top: 4, left: 15, right: 15, bottom: 20),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisSize: MainAxisSize.max,
+                  children: <Widget>[
+                    Text(
+                      DateTimeUtil.monthNames[expenseList[0].date.month],
+                      style: Theme.of(context).textTheme.title,
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(right: 16),
+                      child: Text(_expenseModel.totalString(expenseList)),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Wrap(
+                    spacing: 5,
+                    runSpacing: 5,
+                    children: List.generate(expenseList.length, (index) {
+                      return ColoredDotContainer(
+                          color: CategoryProperties
+                                  .properties[expenseList[index].category]
+                              ['color']);
+                    }),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        )
+        .toList();
   }
 }

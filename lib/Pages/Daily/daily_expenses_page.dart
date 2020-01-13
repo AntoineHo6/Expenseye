@@ -35,7 +35,6 @@ class DailyExpensesPage extends StatelessWidget {
                   Expanded(
                     child: ListView(
                       children: snapshot.data.map((expense) {
-                        print('REBUILDING DAILY LIST VIEW');
                         return Card(
                           margin: const EdgeInsets.only(
                               left: 15, right: 15, top: 4, bottom: 4),

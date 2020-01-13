@@ -19,7 +19,6 @@ class StatsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       drawer: MyDrawer(),
       body: FutureBuilder<List<Expense>>(

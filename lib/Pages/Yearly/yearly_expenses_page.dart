@@ -22,7 +22,6 @@ class YearlyExpensesPage extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data != null && snapshot.data.length > 0) {
-              print('Building yearly page');
               var expensesSplitByMonth =
                   _yearlyModel.splitExpenseByMonth(snapshot.data);
               _yearlyModel.currentTotal =
@@ -78,7 +77,16 @@ class YearlyExpensesPage extends StatelessWidget {
     return expensesSplitByMonth
         .map(
           (expenseList) => InkWell(
-            onTap: () => openMonthsPage(context, expenseList[0].date),
+            onTap: () {
+              // TODO: move this to model
+              DateTime date = expenseList[0].date;
+              DateTime nowDate = DateTime.now();
+              if (date.year == nowDate.year && date.month == nowDate.month) {
+                openMonthsPage(context, nowDate);
+              } else {
+                openMonthsPage(context, DateTime(date.year, date.month));
+              }
+            },
             borderRadius: BorderRadius.circular(15),
             child: Container(
               decoration: BoxDecoration(

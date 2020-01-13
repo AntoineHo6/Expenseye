@@ -71,7 +71,7 @@ class _MonthlyTableCalendarPage extends State<MonthlyTableCalendarPage>
 
   void _quit() {
     Navigator.pop(
-        context, DateTimeUtil.timeToZeroInDate(_calendarController.focusedDay));
+        context, _calendarController.focusedDay);
   }
 
   @override

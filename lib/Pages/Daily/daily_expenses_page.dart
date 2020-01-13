@@ -28,7 +28,7 @@ class _DailyExpensesPageState extends State<DailyExpensesPage> {
             _expenseModel.dbHelper.queryExpensesInDate(_dailyModel.currentDate),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            if (snapshot.data != null) {
+            if (snapshot.data != null && snapshot.data.length > 0) {
               _dailyModel.currentTotal = _expenseModel.calcTotal(snapshot.data);
               return Column(
                 children: <Widget>[
@@ -63,7 +63,7 @@ class _DailyExpensesPageState extends State<DailyExpensesPage> {
             } else {
               return const Align(
                 alignment: Alignment.center,
-                child: const Text(Strings.dataIsNull),
+                child: const Text(Strings.addAnExpense),
               );
             }
           } else {

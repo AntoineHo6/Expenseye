@@ -24,11 +24,22 @@ class _MyDrawerState extends State<MyDrawer> {
           padding: EdgeInsets.zero,
           children: <Widget>[
             DrawerHeader(
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Column(
-                  children: <Widget>[
-                    StreamBuilder(
+              child: Column(
+                children: <Widget>[
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Column(
+                      children: <Widget>[
+                        Icon(Icons.remove_red_eye, color: Colors.white),
+                        Text(
+                          Strings.appName,
+                          style: Theme.of(context).textTheme.headline,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: StreamBuilder(
                       stream: FirebaseAuth.instance.onAuthStateChanged,
                       builder: (context, AsyncSnapshot<FirebaseUser> snapshot) {
                         if (snapshot.hasData && snapshot.data != null) {
@@ -37,7 +48,7 @@ class _MyDrawerState extends State<MyDrawer> {
                               CircleAvatar(
                                 backgroundImage:
                                     NetworkImage(snapshot.data.photoUrl),
-                                radius: 40,
+                                radius: 25,
                               ),
                               const SizedBox(
                                 width: 25,
@@ -59,7 +70,7 @@ class _MyDrawerState extends State<MyDrawer> {
                               CircleAvatar(
                                 backgroundColor: Colors.white,
                                 child: Icon(Icons.person),
-                                radius: 40,
+                                radius: 25,
                               ),
                               const SizedBox(
                                 width: 25,
@@ -78,8 +89,8 @@ class _MyDrawerState extends State<MyDrawer> {
                         }
                       },
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
               decoration: BoxDecoration(
                 color: MyColors.black02dp,

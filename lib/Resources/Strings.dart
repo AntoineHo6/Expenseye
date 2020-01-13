@@ -15,7 +15,7 @@ class Strings {
   static const String name = 'Name';
   static const String price = 'Price';
   static const String icons = 'Icons';
-  static const String dataIsNull = 'Data is null';
+  static const String noData = 'No data to show';
   static const String confirm = 'Confirm';
   static const String expenses = 'Expenses';
   static const String stats = 'Stats';
@@ -27,6 +27,7 @@ class Strings {
   // * INSTRUCTIONS
   static const String pickADate = 'Pick a date';
   static const String pickAMonth = 'Pick a month';
+  static const String addAnExpense = 'Add an expense!';
 
   // * CATEGORIES
   static const String food = 'Food';

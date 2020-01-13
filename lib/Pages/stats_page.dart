@@ -29,7 +29,7 @@ class StatsPage extends StatelessWidget {
             // _expenseModel.dbHelper.queryExpensesInMonth(localModel.yearMonth)
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            if (snapshot.data != null) {
+            if (snapshot.data != null && snapshot.data.length > 0) {
               var aggregatedExpenses =
                   ChartUtil.convertExpensesToChartSeries(snapshot.data);
               return Column(
@@ -87,7 +87,7 @@ class StatsPage extends StatelessWidget {
             } else {
               return Align(
                 alignment: Alignment.center,
-                child: const Text(Strings.dataIsNull),
+                child: const Text(Strings.noData),
               );
             }
           } else {

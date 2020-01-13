@@ -63,7 +63,7 @@ class _MonthlyExpensesPageState extends State<MonthlyExpensesPage> {
             } else {
               return const Align(
                 alignment: Alignment.center,
-                child: const Text(Strings.dataIsNull),
+                child: const Text(Strings.addAnExpense),
               );
             }
           } else {

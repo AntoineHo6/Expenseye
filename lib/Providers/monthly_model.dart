@@ -4,14 +4,20 @@ import 'package:expense_app/Utils/date_time_util.dart';
 import 'package:flutter/material.dart';
 
 class MonthlyModel extends ChangeNotifier {
-  DateTime currentDate = DateTime.now();
-  String yearMonth = getYearMonthString(DateTime.now());
-  double currentTotal = 0;
+  DateTime currentDate;
+  String yearMonth;
+  double currentTotal;
+
+  MonthlyModel(DateTime date) {
+    currentDate = date;
+    yearMonth = getYearMonthString(currentDate);
+    currentTotal = 0;
+  }
 
   /// Returns String format of DateTime containing strictly it's month & year,
   ///  E.g. : '2020-06'.
   /// Used to query expenses that contain said String in it's date column.
-  static String getYearMonthString(DateTime newMonth) {
+  String getYearMonthString(DateTime newMonth) {
     String temp = newMonth.toIso8601String().split('T')[0];
 
     return temp.substring(0, temp.length - 3);

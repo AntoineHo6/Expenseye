@@ -147,28 +147,27 @@ class _MyDrawerState extends State<MyDrawer> {
 
   void _openDailyHomePage(BuildContext context) {
     // pop twice to first pop the drawer then pop the current page.
-    Navigator.pop(context);
+    //Navigator.pop(context);
     Navigator.pop(context);
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => DailyHomePage()),
     );
-
   }
 
   void _openMonthlyHomePage(BuildContext context) {
     // pop twice to first pop the drawer then pop the current page.
-    Navigator.pop(context);
+    //Navigator.pop(context);
     Navigator.pop(context);
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => MonthlyHomePage()),
+      MaterialPageRoute(builder: (context) => MonthlyHomePage(DateTime.now())),
     );
   }
 
   void _openYearlyHomePage(BuildContext context) {
     // pop twice to first pop the drawer then pop the current page.
-    Navigator.pop(context);
+    //Navigator.pop(context);
     Navigator.pop(context);
     Navigator.push(
       context,

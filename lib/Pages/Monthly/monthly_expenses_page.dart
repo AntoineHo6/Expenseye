@@ -27,6 +27,7 @@ class _MonthlyExpensesPageState extends State<MonthlyExpensesPage> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data != null && snapshot.data.length > 0) {
+              print('Building monthly page');
               var expensesSplitByDay =
                   _monthlyModel.splitExpensesByDay(snapshot.data);
               _monthlyModel.currentTotal =

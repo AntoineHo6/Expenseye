@@ -1,5 +1,6 @@
 import 'package:expense_app/Components/Global/colored_dot_container.dart';
 import 'package:expense_app/Models/Expense.dart';
+import 'package:expense_app/Pages/Monthly/monthly_home_page.dart';
 import 'package:expense_app/Providers/Global/expense_model.dart';
 import 'package:expense_app/Providers/yearly_model.dart';
 import 'package:expense_app/Resources/Strings.dart';
@@ -26,6 +27,7 @@ class _YearlyExpensesPageState extends State<YearlyExpensesPage> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data != null && snapshot.data.length > 0) {
+              print('Building yearly page');
               var expensesSplitByMonth =
                   _yearlyModel.splitExpenseByMonth(snapshot.data);
               _yearlyModel.currentTotal =
@@ -81,7 +83,7 @@ class _YearlyExpensesPageState extends State<YearlyExpensesPage> {
     return expensesSplitByMonth
         .map(
           (expenseList) => InkWell(
-            onTap: () => print('chungyyy'),
+            onTap: () => openMonthsPage(expenseList[0].date),
             borderRadius: BorderRadius.circular(15),
             child: Container(
               decoration: BoxDecoration(
@@ -130,5 +132,13 @@ class _YearlyExpensesPageState extends State<YearlyExpensesPage> {
           ),
         )
         .toList();
+  }
+
+  void openMonthsPage(DateTime date) {
+    Navigator.pop(context);
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => MonthlyHomePage(date)),
+    );
   }
 }

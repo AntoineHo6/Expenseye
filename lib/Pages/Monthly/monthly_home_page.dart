@@ -9,6 +9,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class MonthlyHomePage extends StatefulWidget {
+  final DateTime date;
+
+  MonthlyHomePage(this.date);
+
   @override
   _MonthlyHomePageState createState() => _MonthlyHomePageState();
 }
@@ -21,7 +25,7 @@ class _MonthlyHomePageState extends State<MonthlyHomePage> {
     final _expenseModel = Provider.of<ExpenseModel>(context);
 
     return ChangeNotifierProvider(
-      create: (_) => MonthlyModel(),
+      create: (_) => MonthlyModel(widget.date),
       child: Consumer<MonthlyModel>(
         builder: (context, model, child) => Scaffold(
           appBar: AppBar(

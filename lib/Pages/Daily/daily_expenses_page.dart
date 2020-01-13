@@ -27,6 +27,7 @@ class _DailyExpensesPageState extends State<DailyExpensesPage> {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data != null && snapshot.data.length > 0) {
+              print('Building daily page');
               _dailyModel.currentTotal = _expenseModel.calcTotal(snapshot.data);
               return Column(
                 children: <Widget>[
@@ -40,20 +41,19 @@ class _DailyExpensesPageState extends State<DailyExpensesPage> {
                   ),
                   Expanded(
                     child: ListView(
-                      children: snapshot.data
-                          .map(
-                            (expense) => Card(
-                              margin: const EdgeInsets.only(
-                                  left: 15, right: 15, top: 4, bottom: 4),
-                              color: MyColors.black02dp,
-                              child: ExpenseListTile(
-                                expense: expense,
-                                onTap: () => _expenseModel.openEditExpense(
-                                    context, expense),
-                              ),
-                            ),
-                          )
-                          .toList(),
+                      children: snapshot.data.map((expense) {
+                        print('REBUILDING DAILY LIST VIEW');
+                        return Card(
+                          margin: const EdgeInsets.only(
+                              left: 15, right: 15, top: 4, bottom: 4),
+                          color: MyColors.black02dp,
+                          child: ExpenseListTile(
+                            expense: expense,
+                            onTap: () =>
+                                _expenseModel.openEditExpense(context, expense),
+                          ),
+                        );
+                      }).toList(),
                     ),
                   ),
                 ],

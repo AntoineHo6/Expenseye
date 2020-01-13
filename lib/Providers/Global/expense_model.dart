@@ -22,14 +22,13 @@ class ExpenseModel extends ChangeNotifier {
     List<Expense> localExpenses = await dbHelper.queryAllExpenses();
 
     await googleFirebaseHelper.loginWithGoogle().then((isLoggedIn) {
-      if (isLoggedIn) {
+      if (isLoggedIn && localExpenses.length > 0) {
         for (Expense expense in localExpenses) {
           dbHelper.insert(expense);
         }
         googleFirebaseHelper.uploadDbFile();
-
-        notifyListeners();
       }
+      notifyListeners();
     });
   }
 

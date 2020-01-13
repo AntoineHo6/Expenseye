@@ -7,6 +7,8 @@ class Strings {
   static const String saveCaps = 'SAVE';
   static const String confirmCaps = 'CONFIRM';
   static const String chooseMonthCaps = 'CHOOSE MONTH';
+  static const String signIn = 'Sign In';
+  static const String signOut = 'Sign Out';
 
   static const String newExpense = 'New expense';
   static const String total = 'Total';

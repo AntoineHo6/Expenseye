@@ -3,23 +3,23 @@ import 'package:expense_app/Models/Expense.dart';
 import 'package:expense_app/Pages/EditAdd/edit_expense_page.dart';
 import 'package:expense_app/Resources/Strings.dart';
 import 'package:expense_app/Utils/database_helper.dart';
-import 'package:expense_app/google_auth.dart';
+import 'package:expense_app/google_firebase_helper.dart';
 import 'package:flutter/material.dart';
 
 // rename to localDbModel
 class ExpenseModel extends ChangeNotifier {
   final DatabaseHelper dbHelper = DatabaseHelper.instance;
-  final GoogleAuthService googleAuth = GoogleAuthService();
+  final GoogleFirebaseHelper googleAuth = GoogleFirebaseHelper();
 
   void loginWithGoogle() async {
     List<Expense> localExpenses = await dbHelper.queryAllExpenses();
 
     await googleAuth.loginWithGoogle().then((isLoggedIn) {
-      if (isLoggedIn != null && isLoggedIn) {
+      if (isLoggedIn) {
         for (Expense expense in localExpenses) {
           dbHelper.insert(expense);
         }
-        GoogleAuthService.uploadDbFile();
+        googleAuth.uploadDbFile();
 
         notifyListeners();
       }
@@ -34,19 +34,19 @@ class ExpenseModel extends ChangeNotifier {
 
   void addExpense(Expense newExpense) {
     dbHelper.insert(newExpense);
-    GoogleAuthService.uploadDbFile();
+    googleAuth.uploadDbFile();
     notifyListeners();
   }
 
   void editExpense(Expense newExpense) {
     dbHelper.update(newExpense);
-    GoogleAuthService.uploadDbFile();
+    googleAuth.uploadDbFile();
     notifyListeners();
   }
 
   void deleteExpense(int id) {
     dbHelper.delete(id);
-    GoogleAuthService.uploadDbFile();
+    googleAuth.uploadDbFile();
     notifyListeners();
   }
 

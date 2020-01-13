@@ -5,12 +5,11 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:path_provider/path_provider.dart';
 
-class GoogleAuthService {
+class GoogleFirebaseHelper {
   static FirebaseAuth _auth = FirebaseAuth.instance;
   static GoogleSignIn _googleSignIn = GoogleSignIn();
   static FirebaseStorage _storage = FirebaseStorage.instance;
-  static FirebaseUser user;
-  String _storageFilePath;
+  FirebaseUser user;
 
   Future<bool> loginWithGoogle() async {
     try {
@@ -26,18 +25,15 @@ class GoogleAuthService {
 
       if (res.user != null) {
         user = res.user;
-        print('signed in as: ' + res.user.email);
-
-        _storageFilePath = 'dbFiles/${user.uid}/MyDatabase.db';
+        String _storageFilePath = 'dbFiles/${user.uid}/MyDatabase.db';
 
         // copy db file
         final ref = _storage.ref().child(_storageFilePath);
         var url = await ref.getDownloadURL();
 
-        // TODO: dup code from
         Directory documentsDirectory = await getApplicationDocumentsDirectory();
         String path = join(documentsDirectory.path, "MyDatabase.db");
-        
+
         await HttpClient()
             .getUrl(Uri.parse(url))
             .then((HttpClientRequest request) => request.close())
@@ -49,6 +45,7 @@ class GoogleAuthService {
       return false;
     } catch (e) {
       print('error logging in with google');
+      return false;
     }
   }
 
@@ -57,14 +54,13 @@ class GoogleAuthService {
       await _auth.signOut().then((_) {
         _googleSignIn.signOut();
         user = null;
-        print('signed out');
       });
     } catch (e) {
       print('error logging out');
     }
   }
 
-  static void uploadDbFile() async {
+  void uploadDbFile() async {
     if (user != null) {
       // dont find path everytime. use member var.
       Directory documentsDirectory = await getApplicationDocumentsDirectory();
@@ -75,8 +71,6 @@ class GoogleAuthService {
           .ref()
           .child('dbFiles/${user.uid}/MyDatabase.db')
           .putFile(dbFile);
-
-      print('uploaded file');
     }
   }
 }

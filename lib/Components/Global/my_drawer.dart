@@ -16,7 +16,7 @@ class _MyDrawerState extends State<MyDrawer> {
   @override
   Widget build(BuildContext context) {
     final _expenseModel = Provider.of<ExpenseModel>(context);
-    
+
     return Drawer(
       child: Container(
         color: MyColors.black00dp,
@@ -45,10 +45,11 @@ class _MyDrawerState extends State<MyDrawer> {
                               RaisedButton(
                                 color: MyColors.black06dp,
                                 child: Text(
-                                  'Sign out',
+                                  Strings.signOut,
                                   style: Theme.of(context).textTheme.body1,
                                 ),
-                                onPressed: () => _expenseModel.logOutFromGoogle(),
+                                onPressed: () =>
+                                    _expenseModel.logOutFromGoogle(),
                               ),
                             ],
                           );
@@ -66,10 +67,11 @@ class _MyDrawerState extends State<MyDrawer> {
                               RaisedButton(
                                 color: MyColors.black06dp,
                                 child: Text(
-                                  'Sign in',
+                                  Strings.signIn,
                                   style: Theme.of(context).textTheme.body1,
                                 ),
-                                onPressed: () => _expenseModel.loginWithGoogle(),
+                                onPressed: () =>
+                                    _expenseModel.loginWithGoogle(),
                               ),
                             ],
                           );
@@ -108,7 +110,7 @@ class _MyDrawerState extends State<MyDrawer> {
                   ),
                   ListTile(
                     title: Text(
-                      '\t\t\t${Strings.yearly} (Coming soon)',
+                      '\t\t\t${Strings.yearly} (Unavailable)',
                       style: Theme.of(context).textTheme.subtitle,
                     ),
                   ),
@@ -117,7 +119,7 @@ class _MyDrawerState extends State<MyDrawer> {
             ),
             ListTile(
               title: Text(
-                Strings.settings,
+                '${Strings.settings} (Unavailable)',
                 style: Theme.of(context).textTheme.subtitle,
               ),
               onTap: () {
@@ -144,3 +146,5 @@ class _MyDrawerState extends State<MyDrawer> {
     );
   }
 }
+
+// TODO: refactor this bs

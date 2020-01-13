@@ -6,47 +6,46 @@ import 'package:expense_app/Utils/database_helper.dart';
 import 'package:expense_app/google_firebase_helper.dart';
 import 'package:flutter/material.dart';
 
-// rename to localDbModel
 class ExpenseModel extends ChangeNotifier {
   final DatabaseHelper dbHelper = DatabaseHelper.instance;
-  final GoogleFirebaseHelper googleAuth = GoogleFirebaseHelper();
+  final GoogleFirebaseHelper googleFirebaseHelper = GoogleFirebaseHelper();
 
   void loginWithGoogle() async {
     List<Expense> localExpenses = await dbHelper.queryAllExpenses();
 
-    await googleAuth.loginWithGoogle().then((isLoggedIn) {
+    await googleFirebaseHelper.loginWithGoogle().then((isLoggedIn) {
       if (isLoggedIn) {
         for (Expense expense in localExpenses) {
           dbHelper.insert(expense);
         }
-        googleAuth.uploadDbFile();
+        googleFirebaseHelper.uploadDbFile();
 
         notifyListeners();
       }
     });
   }
 
-  void logOutFromGoogle() {
-    dbHelper.deleteAll();
-    googleAuth.logOut();
+  void logOutFromGoogle() async {
+    await dbHelper.deleteAll();
+    await googleFirebaseHelper.logOut();
     notifyListeners();
   }
 
-  void addExpense(Expense newExpense) {
-    dbHelper.insert(newExpense);
-    googleAuth.uploadDbFile();
+  void addExpense(Expense newExpense) async {
+    await dbHelper.insert(newExpense);
+    await googleFirebaseHelper.uploadDbFile();
     notifyListeners();
   }
 
-  void editExpense(Expense newExpense) {
-    dbHelper.update(newExpense);
-    googleAuth.uploadDbFile();
+  void editExpense(Expense newExpense) async {
+    await dbHelper.update(newExpense);
+    await googleFirebaseHelper.uploadDbFile();
     notifyListeners();
   }
 
-  void deleteExpense(int id) {
-    dbHelper.delete(id);
-    googleAuth.uploadDbFile();
+  void deleteExpense(int id) async {
+    await dbHelper.delete(id);
+    await googleFirebaseHelper.uploadDbFile();
     notifyListeners();
   }
 
@@ -96,3 +95,5 @@ class ExpenseModel extends ChangeNotifier {
     return '${calcTotal(expenses).toString()} \$';
   }
 }
+
+// TODO: refactor this bs. Rename the model and split the functions to other models

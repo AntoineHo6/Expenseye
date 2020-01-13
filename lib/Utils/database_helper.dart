@@ -78,14 +78,7 @@ class DatabaseHelper {
     List<Map> maps = await db.query(Strings.tableExpenses,
         where: '${Strings.columnDate} LIKE \'$dateStrToFind%\'');
 
-    List<Expense> expenses = new List();
-    if (maps.length > 0) {
-      for (Map row in maps) {
-        expenses.add(new Expense.fromMap(row));
-      }
-    }
-
-    return expenses;
+    return convertMapsToExpenses(maps);
   }
 
   // update
@@ -98,15 +91,7 @@ class DatabaseHelper {
       orderBy: '${Strings.columnDate} DESC',
     );
 
-    // ! TURN THIS INTO FUNC
-    List<Expense> expenses = new List();
-    if (maps.length > 0) {
-      for (Map row in maps) {
-        expenses.add(new Expense.fromMap(row));
-      }
-    }
-
-    return expenses;
+    return convertMapsToExpenses(maps);
   }
 
   Future<List<Expense>> queryAllExpenses() async {
@@ -114,14 +99,7 @@ class DatabaseHelper {
 
     List<Map> maps = await db.query(Strings.tableExpenses);
 
-    List<Expense> expenses = new List();
-    if (maps.length > 0) {
-      for (Map row in maps) {
-        expenses.add(new Expense.fromMap(row));
-      }
-    }
-
-    return expenses;
+    return convertMapsToExpenses(maps);
   }
 
   Future<int> update(Expense expense) async {
@@ -138,7 +116,7 @@ class DatabaseHelper {
         where: '${Strings.columnId} = ?', whereArgs: [id]);
   }
 
-  void deleteAll() async {
+  Future<void> deleteAll() async {
     Database db = await database;
 
     db.rawQuery('DELETE FROM ${Strings.tableExpenses}');
@@ -154,5 +132,16 @@ class DatabaseHelper {
     //             ${Strings.columnCategory} INTEGER NOT NULL
     //           )
     //           ''');
+  }
+
+  List<Expense> convertMapsToExpenses(List<Map> maps) {
+    List<Expense> expenses = new List();
+    if (maps.length > 0) {
+      for (Map row in maps) {
+        expenses.add(new Expense.fromMap(row));
+      }
+    }
+
+    return expenses;
   }
 }

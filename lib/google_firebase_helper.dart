@@ -60,7 +60,7 @@ class GoogleFirebaseHelper {
     }
   }
 
-  void uploadDbFile() async {
+  Future<void> uploadDbFile() async {
     if (user != null) {
       // dont find path everytime. use member var.
       Directory documentsDirectory = await getApplicationDocumentsDirectory();

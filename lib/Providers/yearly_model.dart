@@ -2,6 +2,7 @@ import 'package:expense_app/Models/Expense.dart';
 import 'package:flutter/material.dart';
 
 class YearlyModel extends ChangeNotifier {
+  DateTime currentDate = DateTime.now();  // to be changed in the year picker
   String year = getYearString(DateTime.now());
   double currentTotal = 0;
 
@@ -38,5 +39,12 @@ class YearlyModel extends ChangeNotifier {
     }
 
     return expensesSplitByMonth;
+  }
+
+  void updateCurrentDate(DateTime newDate) {
+    print('updatee');
+    currentDate = newDate;
+    year = getYearString(newDate);
+    notifyListeners();
   }
 }

@@ -73,55 +73,59 @@ class _YearlyExpensesPageState extends State<YearlyExpensesPage> {
     );
   }
 
-  List<Container> _expensesSplitByMonthToContainers(
+  List<InkWell> _expensesSplitByMonthToContainers(
       List<List<Expense>> expensesSplitByMonth) {
     // TODO: recheck if good idea to reinstantiate model. Also in month
     final _expenseModel = Provider.of<ExpenseModel>(context, listen: false);
 
     return expensesSplitByMonth
         .map(
-          (expenseList) => Container(
-            decoration: BoxDecoration(
-              color: MyColors.black06dp,
-              borderRadius: BorderRadius.circular(15),
-            ),
-            padding: const EdgeInsets.all(12),
-            margin:
-                const EdgeInsets.only(top: 4, left: 15, right: 15, bottom: 20),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  mainAxisSize: MainAxisSize.max,
-                  children: <Widget>[
-                    Text(
-                      DateTimeUtil.monthNames[expenseList[0].date.month],
-                      style: Theme.of(context).textTheme.title,
-                    ),
-                    Container(
-                      margin: EdgeInsets.only(right: 16),
-                      child: Text(_expenseModel.totalString(expenseList)),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: Wrap(
-                    spacing: 5,
-                    runSpacing: 5,
-                    children: List.generate(expenseList.length, (index) {
-                      return ColoredDotContainer(
-                          color: CategoryProperties
-                                  .properties[expenseList[index].category]
-                              ['color']);
-                    }),
+          (expenseList) => InkWell(
+            onTap: () => print('chungyyy'),
+            borderRadius: BorderRadius.circular(15),
+            child: Container(
+              decoration: BoxDecoration(
+                color: MyColors.black06dp,
+                borderRadius: BorderRadius.circular(15),
+              ),
+              padding: const EdgeInsets.all(12),
+              margin: const EdgeInsets.only(
+                  top: 4, left: 15, right: 15, bottom: 15),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisSize: MainAxisSize.max,
+                    children: <Widget>[
+                      Text(
+                        DateTimeUtil.monthNames[expenseList[0].date.month],
+                        style: Theme.of(context).textTheme.title,
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(right: 16),
+                        child: Text(_expenseModel.totalString(expenseList)),
+                      ),
+                    ],
                   ),
-                ),
-              ],
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Wrap(
+                      spacing: 5,
+                      runSpacing: 5,
+                      children: List.generate(expenseList.length, (index) {
+                        return ColoredDotContainer(
+                            color: CategoryProperties
+                                    .properties[expenseList[index].category]
+                                ['color']);
+                      }),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         )

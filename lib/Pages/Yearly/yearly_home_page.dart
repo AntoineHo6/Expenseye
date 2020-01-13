@@ -1,8 +1,6 @@
 import 'package:expense_app/Components/Global/calendar_flat_button.dart';
 import 'package:expense_app/Components/Global/my_bottom_nav_bar.dart';
 import 'package:expense_app/Components/Global/my_drawer.dart';
-import 'package:expense_app/Models/Expense.dart';
-import 'package:expense_app/Pages/Daily/daily_expenses_page.dart';
 import 'package:expense_app/Pages/Yearly/yearly_expenses_page.dart';
 import 'package:expense_app/Pages/stats_page.dart';
 import 'package:expense_app/Providers/Global/expense_model.dart';
@@ -27,10 +25,10 @@ class _YearlyHomePageState extends State<YearlyHomePage> {
       child: Consumer<YearlyModel>(
         builder: (context, model, child) => Scaffold(
           appBar: AppBar(
-            title: Text('John Wick'),
+            title: Text(model.year),
             actions: <Widget>[
               CalendarFlatButton(
-                onPressed: () => print('gueilo'),
+                onPressed: () => showYearPicker(model),
               ),
             ],
           ),
@@ -59,6 +57,25 @@ class _YearlyHomePageState extends State<YearlyHomePage> {
           ),
         ),
       ),
+    );
+  }
+
+  void showYearPicker(YearlyModel model) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          child: YearPicker(
+            selectedDate: model.currentDate,
+            firstDate: DateTime(2000),
+            lastDate: DateTime(2030),
+            onChanged: (date) {
+              model.updateCurrentDate(date);
+              Navigator.of(context).pop();
+            },
+          ),
+        );
+      },
     );
   }
 }

@@ -76,7 +76,7 @@ class GoogleFirebaseHelper {
           .child('dbFiles/${user.uid}/MyDatabase.db')
           .putFile(dbFile);
 
-      print('UPLOEADED');
+      print('uploaded db file');
     }
   }
 }

@@ -66,15 +66,11 @@ class GoogleFirebaseHelper {
 
   Future<void> uploadDbFile() async {
     if (user != null) {
-      // dont find path everytime. use member var.
       Directory documentsDirectory = await getApplicationDocumentsDirectory();
       String path = join(documentsDirectory.path, "MyDatabase.db");
       File dbFile = File(path);
 
-      final StorageUploadTask task = _storage
-          .ref()
-          .child('dbFiles/${user.uid}/MyDatabase.db')
-          .putFile(dbFile);
+      _storage.ref().child('dbFiles/${user.uid}/MyDatabase.db').putFile(dbFile);
 
       print('uploaded db file');
     }

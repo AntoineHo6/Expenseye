@@ -1,5 +1,4 @@
 import 'package:expense_app/Resources/Strings.dart';
-import 'package:expense_app/Resources/Themes/Colors.dart';
 import 'package:flutter/material.dart';
 
 class ConfirmationDialog extends StatelessWidget {

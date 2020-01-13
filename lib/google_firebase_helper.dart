@@ -9,7 +9,11 @@ class GoogleFirebaseHelper {
   static FirebaseAuth _auth = FirebaseAuth.instance;
   static GoogleSignIn _googleSignIn = GoogleSignIn();
   static FirebaseStorage _storage = FirebaseStorage.instance;
-  FirebaseUser user;
+  static FirebaseUser user;
+
+  Future<void> initConnectedUser() async {
+    user = await _auth.currentUser();
+  }
 
   Future<bool> loginWithGoogle() async {
     try {
@@ -71,6 +75,8 @@ class GoogleFirebaseHelper {
           .ref()
           .child('dbFiles/${user.uid}/MyDatabase.db')
           .putFile(dbFile);
+
+      print('UPLOEADED');
     }
   }
 }

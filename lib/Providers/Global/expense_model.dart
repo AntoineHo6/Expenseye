@@ -10,6 +10,14 @@ class ExpenseModel extends ChangeNotifier {
   final DatabaseHelper dbHelper = DatabaseHelper.instance;
   final GoogleFirebaseHelper googleFirebaseHelper = GoogleFirebaseHelper();
 
+  ExpenseModel() {
+    initConnectedUser();
+  }
+
+  void initConnectedUser() async {
+    await googleFirebaseHelper.initConnectedUser();
+  }
+
   void loginWithGoogle() async {
     List<Expense> localExpenses = await dbHelper.queryAllExpenses();
 

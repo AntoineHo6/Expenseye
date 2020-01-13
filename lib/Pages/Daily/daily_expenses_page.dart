@@ -21,8 +21,6 @@ class _DailyExpensesPageState extends State<DailyExpensesPage> {
     final _dailyModel = Provider.of<DailyModel>(context);
 
     return Scaffold(
-      backgroundColor: MyColors.black00dp,
-      drawer: MyDrawer(),
       body: FutureBuilder<List<Expense>>(
         future:
             _expenseModel.dbHelper.queryExpensesInDate(_dailyModel.currentDate),

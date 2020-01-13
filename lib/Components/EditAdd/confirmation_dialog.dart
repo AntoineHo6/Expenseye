@@ -8,7 +8,6 @@ class ConfirmationDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      backgroundColor: MyColors.black00dp,
       title: const Text(Strings.confirm),
       content: const Text(Strings.confirmMsg),
       actions: <Widget>[

@@ -81,13 +81,24 @@ class DatabaseHelper {
     return convertMapsToExpenses(maps);
   }
 
-  // update
   Future<List<Expense>> queryExpensesInMonth(String yearMonth) async {
     Database db = await database;
 
     List<Map> maps = await db.query(
       Strings.tableExpenses,
       where: '${Strings.columnDate} LIKE \'$yearMonth%\'',
+      orderBy: '${Strings.columnDate} DESC',
+    );
+
+    return convertMapsToExpenses(maps);
+  }
+
+  Future<List<Expense>> queryExpensesInYear(String year) async {
+    Database db = await database;
+
+    List<Map> maps = await db.query(
+      Strings.tableExpenses,
+      where: '${Strings.columnDate} LIKE \'$year%\'',
       orderBy: '${Strings.columnDate} DESC',
     );
 

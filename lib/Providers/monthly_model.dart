@@ -30,17 +30,17 @@ class MonthlyModel extends ChangeNotifier {
     List<List<Expense>> expensesSplitByDay = new List();
 
     DateTime currentDate = expenses[0].date;
-    int currentIndex = 0;
-    expensesSplitByDay.add(List());
+    int index = 0;
+    expensesSplitByDay.add(new List());
 
     for (Expense expense in expenses) {
       if (expense.date == currentDate) {
-        expensesSplitByDay[currentIndex].add(expense);
+        expensesSplitByDay[index].add(expense);
       } else {
-        currentIndex++;
+        index++;
         currentDate = expense.date;
-        expensesSplitByDay.add(List());
-        expensesSplitByDay[currentIndex].add(expense);
+        expensesSplitByDay.add(new List());
+        expensesSplitByDay[index].add(expense);
       }
     }
     return expensesSplitByDay;

@@ -23,6 +23,7 @@ class MyApp extends StatelessWidget {
           accentColor: MyColors.black02dp,
           backgroundColor: MyColors.black00dp,
           dialogBackgroundColor: MyColors.black00dp,
+          scaffoldBackgroundColor: MyColors.black00dp,
 
           textTheme: const TextTheme(
             display1: const TextStyle(color: Colors.white),

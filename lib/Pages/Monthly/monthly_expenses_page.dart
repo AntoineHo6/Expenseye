@@ -22,8 +22,6 @@ class _MonthlyExpensesPageState extends State<MonthlyExpensesPage> {
     final _monthlyModel = Provider.of<MonthlyModel>(context);
 
     return Scaffold(
-      backgroundColor: MyColors.black00dp,
-      drawer: MyDrawer(),
       body: FutureBuilder<List<Expense>>(
         future: _expenseModel.dbHelper
             .queryExpensesInMonth(_monthlyModel.yearMonth),

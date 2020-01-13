@@ -32,7 +32,6 @@ class _EditExpense extends State<EditExpensePage> {
           EditAddExpenseModel(widget.expense.date, widget.expense.category),
       child: Consumer<EditAddExpenseModel>(
         builder: (context, model, child) => Scaffold(
-          backgroundColor: MyColors.black00dp,
           appBar: AppBar(
             title: Text(widget.expense.name),
             actions: <Widget>[

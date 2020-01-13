@@ -1,19 +1,21 @@
 import 'package:expense_app/Components/Global/calendar_flat_button.dart';
 import 'package:expense_app/Components/Global/my_bottom_nav_bar.dart';
 import 'package:expense_app/Components/Global/my_drawer.dart';
-import 'package:expense_app/Pages/Monthly/monthly_expenses_page.dart';
+import 'package:expense_app/Models/Expense.dart';
+import 'package:expense_app/Pages/Daily/daily_expenses_page.dart';
+import 'package:expense_app/Pages/Yearly/yearly_expenses_page.dart';
 import 'package:expense_app/Pages/stats_page.dart';
 import 'package:expense_app/Providers/Global/expense_model.dart';
-import 'package:expense_app/Providers/monthly_model.dart';
+import 'package:expense_app/Providers/yearly_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class MonthlyHomePage extends StatefulWidget {
+class YearlyHomePage extends StatefulWidget {
   @override
-  _MonthlyHomePageState createState() => _MonthlyHomePageState();
+  _YearlyHomePageState createState() => _YearlyHomePageState();
 }
 
-class _MonthlyHomePageState extends State<MonthlyHomePage> {
+class _YearlyHomePageState extends State<YearlyHomePage> {
   int _currentIndex = 0;
 
   @override
@@ -21,14 +23,14 @@ class _MonthlyHomePageState extends State<MonthlyHomePage> {
     final _expenseModel = Provider.of<ExpenseModel>(context);
 
     return ChangeNotifierProvider(
-      create: (_) => MonthlyModel(),
-      child: Consumer<MonthlyModel>(
+      create: (_) => YearlyModel(),
+      child: Consumer<YearlyModel>(
         builder: (context, model, child) => Scaffold(
           appBar: AppBar(
-            title: Text(model.getMonthlyTitle()),
+            title: Text('John Wick'),
             actions: <Widget>[
               CalendarFlatButton(
-                onPressed: () => model.openMonthlyTableCalendarPage(context),
+                onPressed: () => print('gueilo'),
               ),
             ],
           ),
@@ -38,11 +40,11 @@ class _MonthlyHomePageState extends State<MonthlyHomePage> {
             child: IndexedStack(
               index: _currentIndex,
               children: <Widget>[
-                MonthlyExpensesPage(),
+                YearlyExpensesPage(),
                 StatsPage(
                   localModel: model,
-                  future: () => _expenseModel.dbHelper
-                      .queryExpensesInMonth(model.yearMonth),
+                  future: () =>
+                      _expenseModel.dbHelper.queryExpensesInYear(model.year),
                 ),
               ],
             ),

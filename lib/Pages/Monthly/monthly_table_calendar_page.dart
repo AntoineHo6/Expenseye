@@ -27,7 +27,6 @@ class _MonthlyTableCalendarPage extends State<MonthlyTableCalendarPage>
     final _expenseModel = Provider.of<ExpenseModel>(context, listen: false);
 
     return Scaffold(
-      backgroundColor: MyColors.black00dp,
       appBar: AppBar(
         title: Text(Strings.pickAMonth),
       ),

@@ -1,5 +1,6 @@
 import 'package:expense_app/Pages/Daily/daily_home_page.dart';
 import 'package:expense_app/Pages/Monthly/monthly_home_page.dart';
+import 'package:expense_app/Pages/Yearly/yearly_home_page.dart';
 import 'package:expense_app/Providers/Global/expense_model.dart';
 import 'package:expense_app/Resources/Strings.dart';
 import 'package:expense_app/Resources/Themes/Colors.dart';
@@ -121,9 +122,10 @@ class _MyDrawerState extends State<MyDrawer> {
                   ),
                   ListTile(
                     title: Text(
-                      '\t\t\t${Strings.yearly} (Unavailable)',
+                      '\t\t\t${Strings.yearly}',
                       style: Theme.of(context).textTheme.subtitle,
                     ),
+                    onTap: () => _openYearlyHomePage(context),
                   ),
                 ],
               ),
@@ -144,16 +146,30 @@ class _MyDrawerState extends State<MyDrawer> {
   }
 
   void _openDailyHomePage(BuildContext context) {
+    Navigator.pop(context);
+    Navigator.pop(context);
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => DailyHomePage()),
     );
+
   }
 
   void _openMonthlyHomePage(BuildContext context) {
+    Navigator.pop(context);
+    Navigator.pop(context);
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => MonthlyHomePage()),
+    );
+  }
+
+  void _openYearlyHomePage(BuildContext context) {
+    Navigator.pop(context);
+    Navigator.pop(context);
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => YearlyHomePage()),
     );
   }
 }

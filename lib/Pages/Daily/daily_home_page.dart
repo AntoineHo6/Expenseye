@@ -5,7 +5,6 @@ import 'package:expense_app/Pages/Daily/daily_expenses_page.dart';
 import 'package:expense_app/Pages/stats_page.dart';
 import 'package:expense_app/Providers/Global/expense_model.dart';
 import 'package:expense_app/Providers/daily_model.dart';
-import 'package:expense_app/Resources/Themes/Colors.dart';
 import 'package:expense_app/Utils/date_time_util.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -34,7 +33,6 @@ class _DailyHomePageState extends State<DailyHomePage> {
               ),
             ],
           ),
-          backgroundColor: MyColors.black00dp,
           drawer: MyDrawer(),
           body: SafeArea(
             top: false,

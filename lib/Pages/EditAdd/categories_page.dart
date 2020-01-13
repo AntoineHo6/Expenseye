@@ -7,7 +7,6 @@ class CategoriesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: MyColors.black00dp,
       appBar: AppBar(
         title: Text(Strings.icons),
       ),

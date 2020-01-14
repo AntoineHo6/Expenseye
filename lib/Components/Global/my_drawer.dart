@@ -25,6 +25,9 @@ class _MyDrawerState extends State<MyDrawer> {
           padding: EdgeInsets.zero,
           children: <Widget>[
             DrawerHeader(
+              decoration: BoxDecoration(
+                color: MyColors.black02dp,
+              ),
               child: Column(
                 children: <Widget>[
                   Align(
@@ -93,51 +96,24 @@ class _MyDrawerState extends State<MyDrawer> {
                   ),
                 ],
               ),
-              decoration: BoxDecoration(
-                color: MyColors.black02dp,
-              ),
-            ),
-            Theme(
-              data: ThemeData(
-                textTheme: Theme.of(context).textTheme,
-                unselectedWidgetColor: Colors.white,
-                accentColor: MyColors.secondary,
-              ),
-              child: ExpansionTile(
-                title: Text(Strings.viewBy),
-                children: <Widget>[
-                  ListTile(
-                    title: Text(
-                      '\t\t\t${Strings.daily}',
-                      style: Theme.of(context).textTheme.subtitle,
-                    ),
-                    onTap: () => _openDailyHomePage(context, _expenseModel),
-                  ),
-                  ListTile(
-                    title: Text(
-                      '\t\t\t${Strings.monthly}',
-                      style: Theme.of(context).textTheme.subtitle,
-                    ),
-                    onTap: () => _openMonthlyHomePage(context),
-                  ),
-                  ListTile(
-                    title: Text(
-                      '\t\t\t${Strings.yearly}',
-                      style: Theme.of(context).textTheme.subtitle,
-                    ),
-                    onTap: () => _openYearlyHomePage(context),
-                  ),
-                ],
-              ),
             ),
             ListTile(
-              title: Text(
-                '${Strings.settings} (Unavailable)',
-                style: Theme.of(context).textTheme.subtitle,
+              title: const Text(
+                Strings.daily,
               ),
-              onTap: () {
-                Navigator.pop(context);
-              },
+              onTap: () => _openDailyHomePage(context, _expenseModel),
+            ),
+            ListTile(
+              title: const Text(
+                Strings.monthly,
+              ),
+              onTap: () => _openMonthlyHomePage(context),
+            ),
+            ListTile(
+              title: const Text(
+                Strings.yearly,
+              ),
+              onTap: () => _openYearlyHomePage(context),
             ),
           ],
         ),

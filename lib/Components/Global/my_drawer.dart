@@ -1,9 +1,6 @@
-import 'package:expense_app/Pages/Daily/daily_home_page.dart';
-import 'package:expense_app/Pages/Monthly/monthly_home_page.dart';
-import 'package:expense_app/Pages/Yearly/yearly_home_page.dart';
-import 'package:expense_app/Providers/Global/expense_model.dart';
-import 'package:expense_app/Resources/Strings.dart';
-import 'package:expense_app/Resources/Themes/Colors.dart';
+import 'package:Expenseye/Providers/Global/expense_model.dart';
+import 'package:Expenseye/Resources/Strings.dart';
+import 'package:Expenseye/Resources/Themes/Colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

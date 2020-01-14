@@ -1,5 +1,5 @@
-import 'package:expense_app/Models/Expense.dart';
-import 'package:expense_app/Utils/expense_category.dart';
+import 'package:Expenseye/Models/Expense.dart';
+import 'package:Expenseye/Utils/expense_category.dart';
 import 'package:flutter/material.dart';
 
 class ExpenseListTile extends StatelessWidget {

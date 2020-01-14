@@ -1,5 +1,5 @@
-import 'package:expense_app/Utils/chart_util.dart';
-import 'package:expense_app/Utils/expense_category.dart';
+import 'package:Expenseye/Utils/chart_util.dart';
+import 'package:Expenseye/Utils/expense_category.dart';
 import 'package:flutter/material.dart';
 
 class ExpenseGroupListTile extends StatelessWidget {

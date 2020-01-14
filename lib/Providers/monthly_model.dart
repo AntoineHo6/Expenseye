@@ -1,6 +1,6 @@
-import 'package:expense_app/Models/Expense.dart';
-import 'package:expense_app/Pages/Monthly/monthly_table_calendar_page.dart';
-import 'package:expense_app/Utils/date_time_util.dart';
+import 'package:Expenseye/Models/Expense.dart';
+import 'package:Expenseye/Pages/Monthly/monthly_table_calendar_page.dart';
+import 'package:Expenseye/Utils/date_time_util.dart';
 import 'package:flutter/material.dart';
 
 class MonthlyModel extends ChangeNotifier {

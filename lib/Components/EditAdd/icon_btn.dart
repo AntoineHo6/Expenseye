@@ -1,4 +1,4 @@
-import 'package:expense_app/Utils/expense_category.dart';
+import 'package:Expenseye/Utils/expense_category.dart';
 import 'package:flutter/material.dart';
 
 class IconBtn extends StatelessWidget {

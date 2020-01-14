@@ -1,12 +1,12 @@
-import 'package:expense_app/Components/Global/add_expense_fab.dart';
-import 'package:expense_app/Components/Expenses/expense_list_tile.dart';
-import 'package:expense_app/Models/Expense.dart';
-import 'package:expense_app/Providers/daily_model.dart';
-import 'package:expense_app/Resources/Strings.dart';
-import 'package:expense_app/Resources/Themes/Colors.dart';
+import 'package:Expenseye/Components/Global/add_expense_fab.dart';
+import 'package:Expenseye/Components/Expenses/expense_list_tile.dart';
+import 'package:Expenseye/Models/Expense.dart';
+import 'package:Expenseye/Providers/daily_model.dart';
+import 'package:Expenseye/Resources/Strings.dart';
+import 'package:Expenseye/Resources/Themes/Colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:expense_app/Providers/Global/expense_model.dart';
+import 'package:Expenseye/Providers/Global/expense_model.dart';
 
 class DailyExpensesPage extends StatelessWidget {
   @override

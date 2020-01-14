@@ -1,6 +1,6 @@
-import 'package:expense_app/Components/Stats/expense_group_list_tile.dart';
-import 'package:expense_app/Resources/Themes/Colors.dart';
-import 'package:expense_app/Utils/chart_util.dart';
+import 'package:Expenseye/Components/Stats/expense_group_list_tile.dart';
+import 'package:Expenseye/Resources/Themes/Colors.dart';
+import 'package:Expenseye/Utils/chart_util.dart';
 import 'package:flutter/material.dart';
 
 class CategoryStatsContainer extends StatelessWidget {

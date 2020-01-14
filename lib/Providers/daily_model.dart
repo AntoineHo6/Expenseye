@@ -1,4 +1,4 @@
-import 'package:expense_app/Pages/Daily/daily_table_calendar_page.dart';
+import 'package:Expenseye/Pages/Daily/daily_table_calendar_page.dart';
 import 'package:flutter/material.dart';
 
 class DailyModel extends ChangeNotifier {

@@ -1,4 +1,4 @@
-import 'package:expense_app/Resources/Strings.dart';
+import 'package:Expenseye/Resources/Strings.dart';
 import 'package:flutter/material.dart';
 
 enum ExpenseCategory {

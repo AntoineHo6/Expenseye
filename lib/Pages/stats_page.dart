@@ -1,10 +1,10 @@
-import 'package:expense_app/Components/Global/my_drawer.dart';
-import 'package:expense_app/Components/Stats/category_stats_container.dart';
-import 'package:expense_app/Components/Stats/legend_container.dart';
-import 'package:expense_app/Components/Stats/simple_pie_chart.dart';
-import 'package:expense_app/Models/Expense.dart';
-import 'package:expense_app/Resources/Strings.dart';
-import 'package:expense_app/Utils/chart_util.dart';
+import 'package:Expenseye/Components/Global/my_drawer.dart';
+import 'package:Expenseye/Components/Stats/category_stats_container.dart';
+import 'package:Expenseye/Components/Stats/legend_container.dart';
+import 'package:Expenseye/Components/Stats/simple_pie_chart.dart';
+import 'package:Expenseye/Models/Expense.dart';
+import 'package:Expenseye/Resources/Strings.dart';
+import 'package:Expenseye/Utils/chart_util.dart';
 import 'package:flutter/material.dart';
 
 typedef GetExpenses = Future<List<Expense>> Function();

@@ -1,9 +1,9 @@
-import 'package:expense_app/Components/Global/my_table_calendar.dart';
-import 'package:expense_app/Models/Expense.dart';
-import 'package:expense_app/Providers/Global/expense_model.dart';
-import 'package:expense_app/Resources/Strings.dart';
-import 'package:expense_app/Utils/date_time_util.dart';
-import 'package:expense_app/Utils/table_calendar_util.dart';
+import 'package:Expenseye/Components/Global/my_table_calendar.dart';
+import 'package:Expenseye/Models/Expense.dart';
+import 'package:Expenseye/Providers/Global/expense_model.dart';
+import 'package:Expenseye/Resources/Strings.dart';
+import 'package:Expenseye/Utils/date_time_util.dart';
+import 'package:Expenseye/Utils/table_calendar_util.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';

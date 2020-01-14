@@ -1,13 +1,13 @@
-import 'package:expense_app/Components/Global/colored_dot.dart';
-import 'package:expense_app/Models/Expense.dart';
-import 'package:expense_app/Pages/Monthly/monthly_home_page.dart';
-import 'package:expense_app/Providers/Global/expense_model.dart';
-import 'package:expense_app/Providers/monthly_model.dart';
-import 'package:expense_app/Providers/yearly_model.dart';
-import 'package:expense_app/Resources/Strings.dart';
-import 'package:expense_app/Resources/Themes/Colors.dart';
-import 'package:expense_app/Utils/date_time_util.dart';
-import 'package:expense_app/Utils/expense_category.dart';
+import 'package:Expenseye/Components/Global/colored_dot.dart';
+import 'package:Expenseye/Models/Expense.dart';
+import 'package:Expenseye/Pages/Monthly/monthly_home_page.dart';
+import 'package:Expenseye/Providers/Global/expense_model.dart';
+import 'package:Expenseye/Providers/monthly_model.dart';
+import 'package:Expenseye/Providers/yearly_model.dart';
+import 'package:Expenseye/Resources/Strings.dart';
+import 'package:Expenseye/Resources/Themes/Colors.dart';
+import 'package:Expenseye/Utils/date_time_util.dart';
+import 'package:Expenseye/Utils/expense_category.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

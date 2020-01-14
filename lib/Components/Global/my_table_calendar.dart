@@ -1,5 +1,5 @@
-import 'package:expense_app/Resources/Themes/Colors.dart';
-import 'package:expense_app/Utils/expense_category.dart';
+import 'package:Expenseye/Resources/Themes/Colors.dart';
+import 'package:Expenseye/Utils/expense_category.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 

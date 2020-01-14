@@ -1,4 +1,4 @@
-import 'package:expense_app/Models/Expense.dart';
+import 'package:Expenseye/Models/Expense.dart';
 import 'package:flutter/material.dart';
 
 class YearlyModel extends ChangeNotifier {

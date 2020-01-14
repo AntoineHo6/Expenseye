@@ -1,10 +1,10 @@
-import 'package:expense_app/Components/EditAdd/icon_btn.dart';
-import 'package:expense_app/Components/EditAdd/name_text_field.dart';
-import 'package:expense_app/Components/EditAdd/price_text_field.dart';
-import 'package:expense_app/Components/EditAdd/date_picker_btn.dart';
-import 'package:expense_app/Models/Expense.dart';
-import 'package:expense_app/Providers/EditAdd/edit_expense_model.dart';
-import 'package:expense_app/Resources/Strings.dart';
+import 'package:Expenseye/Components/EditAdd/icon_btn.dart';
+import 'package:Expenseye/Components/EditAdd/name_text_field.dart';
+import 'package:Expenseye/Components/EditAdd/price_text_field.dart';
+import 'package:Expenseye/Components/EditAdd/date_picker_btn.dart';
+import 'package:Expenseye/Models/Expense.dart';
+import 'package:Expenseye/Providers/EditAdd/edit_expense_model.dart';
+import 'package:Expenseye/Resources/Strings.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

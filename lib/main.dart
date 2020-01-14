@@ -1,5 +1,5 @@
-import 'package:expense_app/Providers/Global/expense_model.dart';
-import 'package:expense_app/Resources/Themes/Colors.dart';
+import 'package:Expenseye/Providers/Global/expense_model.dart';
+import 'package:Expenseye/Resources/Themes/Colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';

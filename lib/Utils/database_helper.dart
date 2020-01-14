@@ -1,6 +1,6 @@
 import 'dart:io';
-import 'package:expense_app/Models/Expense.dart';
-import 'package:expense_app/Resources/Strings.dart';
+import 'package:Expenseye/Models/Expense.dart';
+import 'package:Expenseye/Resources/Strings.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';

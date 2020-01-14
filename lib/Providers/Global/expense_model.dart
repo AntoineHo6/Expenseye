@@ -1,9 +1,9 @@
-import 'package:expense_app/Components/EditAdd/add_expense_dialog.dart';
-import 'package:expense_app/Models/Expense.dart';
-import 'package:expense_app/Pages/EditAdd/edit_expense_page.dart';
-import 'package:expense_app/Resources/Strings.dart';
-import 'package:expense_app/Utils/database_helper.dart';
-import 'package:expense_app/google_firebase_helper.dart';
+import 'package:Expenseye/Components/EditAdd/add_expense_dialog.dart';
+import 'package:Expenseye/Models/Expense.dart';
+import 'package:Expenseye/Pages/EditAdd/edit_expense_page.dart';
+import 'package:Expenseye/Resources/Strings.dart';
+import 'package:Expenseye/Utils/database_helper.dart';
+import 'package:Expenseye/google_firebase_helper.dart';
 import 'package:flutter/material.dart';
 
 class ExpenseModel extends ChangeNotifier {

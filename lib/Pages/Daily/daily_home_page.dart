@@ -1,11 +1,11 @@
-import 'package:expense_app/Components/Global/calendar_flat_button.dart';
-import 'package:expense_app/Components/Global/my_bottom_nav_bar.dart';
-import 'package:expense_app/Components/Global/my_drawer.dart';
-import 'package:expense_app/Pages/Daily/daily_expenses_page.dart';
-import 'package:expense_app/Pages/stats_page.dart';
-import 'package:expense_app/Providers/Global/expense_model.dart';
-import 'package:expense_app/Providers/daily_model.dart';
-import 'package:expense_app/Utils/date_time_util.dart';
+import 'package:Expenseye/Components/Global/calendar_flat_button.dart';
+import 'package:Expenseye/Components/Global/my_bottom_nav_bar.dart';
+import 'package:Expenseye/Components/Global/my_drawer.dart';
+import 'package:Expenseye/Pages/Daily/daily_expenses_page.dart';
+import 'package:Expenseye/Pages/stats_page.dart';
+import 'package:Expenseye/Providers/Global/expense_model.dart';
+import 'package:Expenseye/Providers/daily_model.dart';
+import 'package:Expenseye/Utils/date_time_util.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

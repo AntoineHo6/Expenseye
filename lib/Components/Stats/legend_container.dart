@@ -1,6 +1,6 @@
-import 'package:expense_app/Components/Global/colored_dot.dart';
-import 'package:expense_app/Utils/chart_util.dart';
-import 'package:expense_app/Utils/expense_category.dart';
+import 'package:Expenseye/Components/Global/colored_dot.dart';
+import 'package:Expenseye/Utils/chart_util.dart';
+import 'package:Expenseye/Utils/expense_category.dart';
 import 'package:flutter/material.dart';
 
 class LegendContainer extends StatelessWidget {

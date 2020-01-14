@@ -10,9 +10,8 @@ void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
-  Widget build(BuildContext context) { 
-    const mySystemTheme = SystemUiOverlayStyle.dark;
-    SystemChrome.setSystemUIOverlayStyle(mySystemTheme);
+  Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
 
     return ChangeNotifierProvider(
       create: (_) => new ExpenseModel(),
@@ -24,19 +23,9 @@ class MyApp extends StatelessWidget {
           backgroundColor: MyColors.black00dp,
           dialogBackgroundColor: MyColors.black00dp,
           scaffoldBackgroundColor: MyColors.black00dp,
-
-          textTheme: const TextTheme(
-            display1: const TextStyle(color: Colors.white),
-            headline: const TextStyle(color: Colors.white),
-            title: const TextStyle(color: Colors.white),
-            subhead: const TextStyle(color: Colors.white),
-            body2: const TextStyle(color: Colors.white),
-            body1: const TextStyle(color: Colors.white),
-            caption: const TextStyle(color: Colors.white),
-            button: const TextStyle(color: Colors.white),
-            subtitle: const TextStyle(color: Colors.white),
-            overline: const TextStyle(color: Colors.white),
-          ),
+          textTheme: Theme.of(context)
+              .textTheme
+              .apply(bodyColor: Colors.white, displayColor: Colors.white),
         ),
       ),
     );

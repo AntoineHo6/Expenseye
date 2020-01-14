@@ -21,39 +21,39 @@ class ExpenseModel extends ChangeNotifier {
   void loginWithGoogle() async {
     List<Expense> localExpenses = await dbHelper.queryAllExpenses();
 
-    await googleFirebaseHelper.loginWithGoogle().then((isLoggedIn) {
-      if (isLoggedIn && localExpenses.length > 0) {
-        for (Expense expense in localExpenses) {
-          dbHelper.insert(expense);
-        }
-        googleFirebaseHelper.uploadDbFile();
+    bool isLoggedIn = await googleFirebaseHelper.loginWithGoogle();
+
+    if (isLoggedIn && localExpenses.length > 0) {
+      for (Expense expense in localExpenses) {
+        dbHelper.insert(expense);
       }
-      notifyListeners();
-    });
+      // ????
+      await GoogleFirebaseHelper.uploadDbFile();
+    }
+
+    notifyListeners();
   }
 
   void logOutFromGoogle() async {
-    await dbHelper.deleteAll();
-    await googleFirebaseHelper.logOut();
+    await GoogleFirebaseHelper.uploadDbFile();
+    dbHelper.deleteAll();
+    googleFirebaseHelper.logOut();
     notifyListeners();
   }
 
   void addExpense(Expense newExpense) async {
     await dbHelper.insert(newExpense);
-    await googleFirebaseHelper.uploadDbFile();
-    notifyListeners();
+    if (GoogleFirebaseHelper.user != null) notifyListeners();
   }
 
   void editExpense(Expense newExpense) async {
     await dbHelper.update(newExpense);
-    await googleFirebaseHelper.uploadDbFile();
-    notifyListeners();
+    if (GoogleFirebaseHelper.user != null) notifyListeners();
   }
 
   void deleteExpense(int id) async {
     await dbHelper.delete(id);
-    await googleFirebaseHelper.uploadDbFile();
-    notifyListeners();
+    if (GoogleFirebaseHelper.user != null) notifyListeners();
   }
 
   void showAddExpense(BuildContext context, DateTime initialDate) async {

@@ -64,15 +64,21 @@ class GoogleFirebaseHelper {
     }
   }
 
-  Future<void> uploadDbFile() async {
+  static Future<void> uploadDbFile() async {
     if (user != null) {
       Directory documentsDirectory = await getApplicationDocumentsDirectory();
       String path = join(documentsDirectory.path, "MyDatabase.db");
       File dbFile = File(path);
 
-      _storage.ref().child('dbFiles/${user.uid}/MyDatabase.db').putFile(dbFile);
+      StorageUploadTask uploadTask = _storage
+          .ref()
+          .child('dbFiles/${user.uid}/MyDatabase.db')
+          .putFile(dbFile);
 
-      print('uploaded db file');
+      StorageTaskSnapshot storageTaskSnapshot = await uploadTask.onComplete;
+      String downloadUrl = await storageTaskSnapshot.ref.getDownloadURL();
+
+      print('uploaded db file: $downloadUrl');
     }
   }
 }

@@ -111,7 +111,7 @@ class _MyDrawerState extends State<MyDrawer> {
                       '\t\t\t${Strings.daily}',
                       style: Theme.of(context).textTheme.subtitle,
                     ),
-                    onTap: () => _openDailyHomePage(context),
+                    onTap: () => _openDailyHomePage(context, _expenseModel),
                   ),
                   ListTile(
                     title: Text(
@@ -145,7 +145,7 @@ class _MyDrawerState extends State<MyDrawer> {
     );
   }
 
-  void _openDailyHomePage(BuildContext context) {
+  void _openDailyHomePage(BuildContext context, ExpenseModel model) {
     Navigator.pop(context);
     Navigator.push(
       context,

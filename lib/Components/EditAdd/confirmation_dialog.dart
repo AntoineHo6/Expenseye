@@ -1,8 +1,9 @@
 import 'package:expense_app/Resources/Strings.dart';
 import 'package:flutter/material.dart';
 
-class ConfirmationDialog extends StatelessWidget {
-  const ConfirmationDialog();
+class DeleteConfirmDialog extends StatelessWidget {
+  
+  const DeleteConfirmDialog();
 
   @override
   Widget build(BuildContext context) {

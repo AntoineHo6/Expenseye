@@ -27,7 +27,7 @@ class _MonthlyTableCalendarPage extends State<MonthlyTableCalendarPage>
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(Strings.pickAMonth),
+        title: const Text(Strings.pickAMonth),
       ),
       body: FutureBuilder<List<Expense>>(
         future: _expenseModel.dbHelper.queryAllExpenses(),
@@ -60,7 +60,7 @@ class _MonthlyTableCalendarPage extends State<MonthlyTableCalendarPage>
           } else {
             return Align(
               alignment: Alignment.center,
-              child: new CircularProgressIndicator(),
+              child: const CircularProgressIndicator(),
             );
           }
         },
@@ -69,8 +69,7 @@ class _MonthlyTableCalendarPage extends State<MonthlyTableCalendarPage>
   }
 
   void _quit() {
-    Navigator.pop(
-        context, _calendarController.focusedDay);
+    Navigator.pop(context, _calendarController.focusedDay);
   }
 
   @override

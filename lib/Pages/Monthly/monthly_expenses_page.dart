@@ -87,7 +87,7 @@ class MonthlyExpensesPage extends StatelessWidget {
             ),
             padding: const EdgeInsets.all(12),
             margin:
-                const EdgeInsets.only(top: 4, left: 15, right: 15, bottom: 20),
+                const EdgeInsets.symmetric(horizontal: 15, vertical: 12),
             child: Column(
               children: <Widget>[
                 Row(
@@ -99,7 +99,7 @@ class MonthlyExpensesPage extends StatelessWidget {
                       style: Theme.of(context).textTheme.title,
                     ),
                     Container(
-                      margin: EdgeInsets.only(right: 16),
+                      margin: const EdgeInsets.only(right: 16),
                       child: Text(_expenseModel.totalString(expenseList)),
                     ),
                   ],
@@ -111,12 +111,12 @@ class MonthlyExpensesPage extends StatelessWidget {
                   children: expenseList
                       .map(
                         (expense) => Card(
-                          margin: const EdgeInsets.only(top: 4, bottom: 4),
+                          margin: const EdgeInsets.symmetric(vertical: 4),
                           color: MyColors.black02dp,
                           child: ExpenseListTile(
+                            expense,
                             onTap: () =>
                                 _expenseModel.openEditExpense(context, expense),
-                            expense: expense,
                           ),
                         ),
                       )

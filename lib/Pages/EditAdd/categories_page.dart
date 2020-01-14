@@ -1,5 +1,4 @@
 import 'package:expense_app/Resources/Strings.dart';
-import 'package:expense_app/Resources/Themes/Colors.dart';
 import 'package:expense_app/Utils/expense_category.dart';
 import 'package:flutter/material.dart';
 
@@ -20,7 +19,6 @@ class CategoriesPage extends StatelessWidget {
           ExpenseCategory.values.length,
           (index) {
             return RaisedButton(
-              color: MyColors.black02dp,
               onPressed: () =>
                   Navigator.pop(context, ExpenseCategory.values[index]),
               child: Column(

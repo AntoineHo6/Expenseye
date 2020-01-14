@@ -22,6 +22,10 @@ class MyApp extends StatelessWidget {
           backgroundColor: MyColors.black00dp,
           dialogBackgroundColor: MyColors.black00dp,
           scaffoldBackgroundColor: MyColors.black00dp,
+          buttonColor: MyColors.black02dp,
+          floatingActionButtonTheme: FloatingActionButtonThemeData(
+            backgroundColor: MyColors.secondary,
+          ),
           textTheme: Theme.of(context)
               .textTheme
               .apply(bodyColor: Colors.white, displayColor: Colors.white),

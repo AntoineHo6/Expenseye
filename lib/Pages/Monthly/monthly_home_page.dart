@@ -22,8 +22,8 @@ class MonthlyHomePage extends StatefulWidget {
 class _MonthlyHomePageState extends State<MonthlyHomePage> {
   @override
   Widget build(BuildContext context) {
-    final _expenseModel = Provider.of<ExpenseModel>(context);
-    final _monthlyModel = Provider.of<MonthlyModel>(context);
+    final _expenseModel = Provider.of<ExpenseModel>(context, listen: false);
+    final _monthlyModel = Provider.of<MonthlyModel>(context, listen: false);
     
     return Scaffold(
       appBar: AppBar(

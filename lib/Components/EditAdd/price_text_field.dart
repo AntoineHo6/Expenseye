@@ -3,26 +3,35 @@ import 'package:expense_app/Resources/Themes/Colors.dart';
 import 'package:flutter/material.dart';
 
 class PriceTextField extends StatelessWidget {
-  final controller;
-  final isPriceInvalid;
-  final onChanged;
+  final TextEditingController controller;
+  final bool isPriceInvalid;
+  final Function onChanged;
 
-  const PriceTextField({this.controller, this.isPriceInvalid, this.onChanged});
+  const PriceTextField(
+      {@required this.controller,
+      @required this.isPriceInvalid,
+      this.onChanged});
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      maxLength: 10,
-      controller: controller,
-      onChanged: onChanged,
-      decoration: InputDecoration(
-        border: InputBorder.none,
-        hintText: Strings.price,
-        hintStyle: TextStyle(color: MyColors.black24dp),
-        errorText:
-            isPriceInvalid ? Strings.price + ' ' + Strings.isInvalid : null,
+    return Theme(
+      data: ThemeData(
+        textTheme: Theme.of(context).textTheme,
+        hintColor: Colors.white,
       ),
-      keyboardType: TextInputType.number,
+      child: TextField(
+        maxLength: 10,
+        controller: controller,
+        onChanged: onChanged,
+        decoration: InputDecoration(
+          border: InputBorder.none,
+          hintText: Strings.price,
+          hintStyle: TextStyle(color: MyColors.black24dp),
+          errorText:
+              isPriceInvalid ? Strings.price + ' ' + Strings.isInvalid : null,
+        ),
+        keyboardType: TextInputType.number,
+      ),
     );
   }
 }

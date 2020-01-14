@@ -1,14 +1,10 @@
 import 'package:expense_app/Components/EditAdd/icon_btn.dart';
-import 'package:expense_app/Components/EditAdd/confirmation_dialog.dart';
 import 'package:expense_app/Components/EditAdd/name_text_field.dart';
 import 'package:expense_app/Components/EditAdd/price_text_field.dart';
-import 'package:expense_app/Providers/Global/expense_model.dart';
-import 'package:expense_app/Providers/edit_add_expense_model.dart';
 import 'package:expense_app/Components/EditAdd/date_picker_btn.dart';
 import 'package:expense_app/Models/Expense.dart';
+import 'package:expense_app/Providers/EditAdd/edit_expense_model.dart';
 import 'package:expense_app/Resources/Strings.dart';
-import 'package:expense_app/Resources/Themes/Colors.dart';
-import 'package:expense_app/Utils/date_time_util.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -29,18 +25,18 @@ class _EditExpense extends State<EditExpensePage> {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) =>
-          EditAddExpenseModel(widget.expense.date, widget.expense.category),
-      child: Consumer<EditAddExpenseModel>(
+          EditExpenseModel(widget.expense.date, widget.expense.category),
+      child: Consumer<EditExpenseModel>(
         builder: (context, model, child) => Scaffold(
           appBar: AppBar(
             title: Text(widget.expense.name),
             actions: <Widget>[
               FlatButton(
                 textColor: Colors.white,
-                onPressed: () => _delete(),
+                onPressed: () => model.delete(context, widget.expense.id),
                 child: const Icon(Icons.delete_forever),
                 shape: const CircleBorder(
-                  side: BorderSide(color: Colors.transparent),
+                  side: const BorderSide(color: Colors.transparent),
                 ),
               ),
             ],
@@ -56,21 +52,15 @@ class _EditExpense extends State<EditExpensePage> {
                       SizedBox(
                         width: double.infinity,
                         child: Text(
-                          Strings.name + ' :',
+                          '${Strings.name} :',
                           textAlign: TextAlign.left,
                           style: Theme.of(context).textTheme.title,
                         ),
                       ),
-                      Theme(
-                        data: ThemeData(
-                          textTheme: Theme.of(context).textTheme,
-                          hintColor: Colors.white,
-                        ),
-                        child: NameTextField(
-                          controller: _nameController,
-                          isNameInvalid: model.isNameInvalid,
-                          onChanged: model.infoChanged,
-                        ),
+                      NameTextField(
+                        controller: _nameController,
+                        isNameInvalid: model.isNameInvalid,
+                        onChanged: model.infoChanged,
                       ),
                     ],
                   ),
@@ -83,21 +73,15 @@ class _EditExpense extends State<EditExpensePage> {
                       SizedBox(
                         width: double.infinity,
                         child: Text(
-                          Strings.price + ' :',
+                          '${Strings.price} :',
                           textAlign: TextAlign.left,
                           style: Theme.of(context).textTheme.title,
                         ),
                       ),
-                      Theme(
-                        data: ThemeData(
-                          textTheme: Theme.of(context).textTheme,
-                          hintColor: Colors.white,
-                        ),
-                        child: PriceTextField(
-                          controller: _priceController,
-                          isPriceInvalid: model.isPriceInvalid,
-                          onChanged: model.infoChanged,
-                        ),
+                      PriceTextField(
+                        controller: _priceController,
+                        isPriceInvalid: model.isPriceInvalid,
+                        onChanged: model.infoChanged,
                       ),
                     ],
                   ),
@@ -108,33 +92,30 @@ class _EditExpense extends State<EditExpensePage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     mainAxisSize: MainAxisSize.max,
                     children: <Widget>[
-                      Container(
-                        margin: const EdgeInsets.only(left: 3),
-                        child: IconBtn(
-                          model.category,
-                          () => model.openCategoriesPage(context),
-                        ),
+                      IconBtn(
+                        model.category,
+                        () => model.openCategoriesPage(context),
                       ),
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: Container(
-                          margin: const EdgeInsets.only(right: 3),
-                          child: DatePickerBtn(
-                            model.date,
-                            () => chooseDate(model),
-                          ),
-                        ),
+                      DatePickerBtn(
+                        model.date,
+                        function: () => model.chooseDate(context, model.date),
                       ),
                     ],
                   ),
                 ),
                 RaisedButton(
-                  color: MyColors.black02dp,
                   textTheme: ButtonTextTheme.primary,
                   child: const Text(
                     Strings.saveCaps,
                   ),
-                  onPressed: model.didInfoChange ? () => _save(model) : null,
+                  onPressed: model.didInfoChange
+                      ? () => model.editExpense(
+                            context,
+                            widget.expense.id,
+                            _nameController.text,
+                            _priceController.text,
+                          )
+                      : null,
                 ),
               ],
             ),
@@ -142,44 +123,6 @@ class _EditExpense extends State<EditExpensePage> {
         ),
       ),
     );
-  }
-
-  void chooseDate(EditAddExpenseModel localProvider) async {
-    DateTime newDate =
-        await DateTimeUtil.chooseDate(context, localProvider.date);
-
-    localProvider.updateDate(newDate);
-  }
-
-  void _save(EditAddExpenseModel localProvider) {
-    final String newName = _nameController.text;
-    final String newPrice = _priceController.text;
-
-    bool areFieldsInvalid =
-        localProvider.checkFieldsInvalid(name: newName, price: newPrice);
-
-    // if all the fields are valid, update and quit
-    if (!areFieldsInvalid) {
-      Expense newExpense = new Expense.withId(widget.expense.id, newName,
-          double.parse(newPrice), localProvider.date, localProvider.category);
-
-      Provider.of<ExpenseModel>(context, listen: false).editExpense(newExpense);
-
-      Navigator.pop(context, 1);
-    }
-  }
-
-  void _delete() async {
-    bool confirmed = await showDialog(
-      context: context,
-      builder: (_) => ConfirmationDialog(),
-    );
-
-    if (confirmed) {
-      Provider.of<ExpenseModel>(context, listen: false)
-          .deleteExpense(widget.expense.id);
-      Navigator.pop(context, 2);
-    }
   }
 
   @override

@@ -6,8 +6,7 @@ class MyBottomNavBar extends StatefulWidget {
   final int currentIndex;
   final Function onTap;
 
-  MyBottomNavBar({@required this.currentIndex, this.onTap})
-      : assert(currentIndex != null);
+  MyBottomNavBar({@required this.currentIndex, this.onTap});
 
   @override
   _MyBottomNavBarState createState() => _MyBottomNavBarState();

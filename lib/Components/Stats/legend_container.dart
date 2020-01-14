@@ -1,4 +1,4 @@
-import 'package:expense_app/Components/Global/colored_dot_container.dart';
+import 'package:expense_app/Components/Global/colored_dot.dart';
 import 'package:expense_app/Utils/chart_util.dart';
 import 'package:expense_app/Utils/expense_category.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 class LegendContainer extends StatelessWidget {
   final List<ExpenseGroup> data;
 
-  LegendContainer({this.data});
+  LegendContainer(this.data);
 
   @override
   Widget build(BuildContext context) {
@@ -17,11 +17,11 @@ class LegendContainer extends StatelessWidget {
           (expenseGroup) {
             if (expenseGroup.total > 0) {
               return Container(
-                margin: EdgeInsets.only(bottom: 6),
+                margin: const EdgeInsets.only(bottom: 6),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   children: <Widget>[
-                    ColoredDotContainer(
+                    ColoredDot(
                       color: CategoryProperties
                           .properties[expenseGroup.category]['color'],
                     ),
@@ -31,9 +31,10 @@ class LegendContainer extends StatelessWidget {
                     Align(
                       alignment: Alignment.centerRight,
                       child: Text(
-                          CategoryProperties.properties[expenseGroup.category]
-                              ['string'],
-                          style: Theme.of(context).textTheme.subhead),
+                        CategoryProperties.properties[expenseGroup.category]
+                            ['string'],
+                        //style: Theme.of(context).textTheme.subhead,
+                      ),
                     ),
                   ],
                 ),

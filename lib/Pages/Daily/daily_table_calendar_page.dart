@@ -48,7 +48,7 @@ class _DailyTableCalendarPage extends State<DailyTableCalendarPage>
           } else {
             return Align(
               alignment: Alignment.center,
-              child: new CircularProgressIndicator(),
+              child: const CircularProgressIndicator(),
             );
           }
         },

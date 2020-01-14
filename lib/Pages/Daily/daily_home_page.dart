@@ -17,8 +17,8 @@ class DailyHomePage extends StatefulWidget {
 class _DailyHomePageState extends State<DailyHomePage> {
   @override
   Widget build(BuildContext context) {
-    final _expenseModel = Provider.of<ExpenseModel>(context);
-    final _dailyModel = Provider.of<DailyModel>(context);
+    final _expenseModel = Provider.of<ExpenseModel>(context, listen: false);
+    final _dailyModel = Provider.of<DailyModel>(context, listen: false);
 
     return Scaffold(
       appBar: AppBar(

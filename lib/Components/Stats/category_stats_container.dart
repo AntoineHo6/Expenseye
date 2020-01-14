@@ -3,14 +3,11 @@ import 'package:expense_app/Resources/Themes/Colors.dart';
 import 'package:expense_app/Utils/chart_util.dart';
 import 'package:flutter/material.dart';
 
-// rename to container
 class CategoryStatsContainer extends StatelessWidget {
   final List<ExpenseGroup> data;
   final double totalCost;
 
-  CategoryStatsContainer({@required this.data, @required this.totalCost})
-      : assert(data != null),
-        assert(totalCost != null);
+  CategoryStatsContainer({@required this.data, @required this.totalCost});
 
   @override
   Widget build(BuildContext context) {

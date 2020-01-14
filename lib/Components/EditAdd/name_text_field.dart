@@ -3,24 +3,33 @@ import 'package:expense_app/Resources/Themes/Colors.dart';
 import 'package:flutter/material.dart';
 
 class NameTextField extends StatelessWidget {
-  final controller;
-  final isNameInvalid;
-  final onChanged;
+  final TextEditingController controller;
+  final bool isNameInvalid;
+  final Function onChanged;
 
-  const NameTextField({this.controller, this.isNameInvalid, this.onChanged});
+  const NameTextField(
+      {@required this.controller,
+      @required this.isNameInvalid,
+      this.onChanged});
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      maxLength: 50,
-      controller: controller,
-      onChanged: onChanged,
-      decoration: InputDecoration(
-        border: InputBorder.none,
-        hintText: Strings.name,
-        hintStyle: TextStyle(color: MyColors.black24dp),
-        errorText:
-            isNameInvalid ? Strings.name + ' ' + Strings.isInvalid : null,
+    return Theme(
+      data: ThemeData(
+        textTheme: Theme.of(context).textTheme,
+        hintColor: Colors.white,  // for the char counter
+      ),
+      child: TextField(
+        maxLength: 50,
+        controller: controller,
+        onChanged: onChanged, // required for editExpensePage for save button
+        decoration: InputDecoration(
+          border: InputBorder.none,
+          hintText: Strings.name,
+          hintStyle: TextStyle(color: MyColors.black24dp),
+          errorText:
+              isNameInvalid ? Strings.name + ' ' + Strings.isInvalid : null,
+        ),
       ),
     );
   }

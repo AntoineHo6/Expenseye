@@ -31,8 +31,8 @@ class DateTimeUtil {
     12: 'December'
   };
 
-  // Keep DateTimes throughout the app uniform.
-  // Only dates. No time. Local.
+  /// Keep DateTimes throughout the app uniform, that is without time.
+  /// prevents app from freaking out when comparing DateTime.
   static DateTime timeToZeroInDate(DateTime date) {
     return DateTime(date.year, date.month, date.day);
   }

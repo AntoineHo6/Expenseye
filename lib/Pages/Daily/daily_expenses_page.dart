@@ -11,8 +11,8 @@ import 'package:expense_app/Providers/Global/expense_model.dart';
 class DailyExpensesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final _expenseModel = Provider.of<ExpenseModel>(context);
-    final _dailyModel = Provider.of<DailyModel>(context);
+    final _expenseModel = Provider.of<ExpenseModel>(context, listen: false);
+    final _dailyModel = Provider.of<DailyModel>(context, listen: false);
 
     return Scaffold(
       body: FutureBuilder<List<Expense>>(
@@ -34,18 +34,20 @@ class DailyExpensesPage extends StatelessWidget {
                   ),
                   Expanded(
                     child: ListView(
-                      children: snapshot.data.map((expense) {
-                        return Card(
-                          margin: const EdgeInsets.only(
-                              left: 15, right: 15, top: 4, bottom: 4),
-                          color: MyColors.black02dp,
-                          child: ExpenseListTile(
-                            expense: expense,
-                            onTap: () =>
-                                _expenseModel.openEditExpense(context, expense),
-                          ),
-                        );
-                      }).toList(),
+                      children: snapshot.data.map(
+                        (expense) {
+                          return Card(
+                            margin: const EdgeInsets.symmetric(
+                                horizontal: 15, vertical: 5),
+                            color: MyColors.black02dp,
+                            child: ExpenseListTile(
+                              expense,
+                              onTap: () => _expenseModel.openEditExpense(
+                                  context, expense),
+                            ),
+                          );
+                        },
+                      ).toList(),
                     ),
                   ),
                 ],

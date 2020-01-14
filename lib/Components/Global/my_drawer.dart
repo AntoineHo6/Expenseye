@@ -101,53 +101,20 @@ class _MyDrawerState extends State<MyDrawer> {
               title: const Text(
                 Strings.daily,
               ),
-              onTap: () => _openDailyHomePage(context, _expenseModel),
+              //onTap: () => _openDailyHomePage(context, _expenseModel),
             ),
             ListTile(
               title: const Text(
                 Strings.monthly,
               ),
-              onTap: () => _openMonthlyHomePage(context),
+              //onTap: () => _openMonthlyHomePage(context),
             ),
             ListTile(
               title: const Text(
                 Strings.yearly,
               ),
-              onTap: () => _openYearlyHomePage(context),
+              //onTap: () => _openYearlyHomePage(context),
             ),
-            // Theme(
-            //   data: ThemeData(
-            //     textTheme: Theme.of(context).textTheme,
-            //     unselectedWidgetColor: Colors.white,
-            //     accentColor: MyColors.secondary,
-            //   ),
-            //   child: ExpansionTile(
-            //     title: Text(Strings.viewBy),
-            //     children: <Widget>[
-            //       ListTile(
-            //         title: Text(
-            //           '\t\t\t${Strings.daily}',
-            //           style: Theme.of(context).textTheme.subtitle,
-            //         ),
-            //         //onTap: () => _openDailyHomePage(context, _expenseModel),
-            //       ),
-            //       ListTile(
-            //         title: Text(
-            //           '\t\t\t${Strings.monthly}',
-            //           style: Theme.of(context).textTheme.subtitle,
-            //         ),
-            //         //onTap: () => _openMonthlyHomePage(context),
-            //       ),
-            //       ListTile(
-            //         title: Text(
-            //           '\t\t\t${Strings.yearly}',
-            //           style: Theme.of(context).textTheme.subtitle,
-            //         ),
-            //         //onTap: () => _openYearlyHomePage(context),
-            //       ),
-            //     ],
-            //   ),
-            // ),
           ],
         ),
       ),

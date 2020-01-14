@@ -1,4 +1,4 @@
-import 'package:expense_app/Components/Global/colored_dot_container.dart';
+import 'package:expense_app/Components/Global/colored_dot.dart';
 import 'package:expense_app/Models/Expense.dart';
 import 'package:expense_app/Pages/Monthly/monthly_home_page.dart';
 import 'package:expense_app/Providers/Global/expense_model.dart';
@@ -18,8 +18,8 @@ class YearlyExpensesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _expenseModel = Provider.of<ExpenseModel>(context);
-    final _yearlyModel = Provider.of<YearlyModel>(context);
+    final _expenseModel = Provider.of<ExpenseModel>(context, listen: false);
+    final _yearlyModel = Provider.of<YearlyModel>(context, listen: false);
 
     return Scaffold(
       body: FutureBuilder<List<Expense>>(
@@ -49,7 +49,7 @@ class YearlyExpensesPage extends StatelessWidget {
                           ),
                           Column(
                             children: _expensesSplitByMonthToContainers(
-                                context, expensesSplitByMonth),
+                                context, expensesSplitByMonth, _expenseModel),
                           ),
                         ],
                       ),
@@ -74,10 +74,9 @@ class YearlyExpensesPage extends StatelessWidget {
     );
   }
 
-  List<InkWell> _expensesSplitByMonthToContainers(
-      BuildContext context, List<List<Expense>> expensesSplitByMonth) {
+  List<InkWell> _expensesSplitByMonthToContainers(BuildContext context,
+      List<List<Expense>> expensesSplitByMonth, ExpenseModel expenseModel) {
     // TODO: recheck if good idea to reinstantiate model. Also in month
-    final _expenseModel = Provider.of<ExpenseModel>(context, listen: false);
 
     return expensesSplitByMonth
         .map(
@@ -120,7 +119,7 @@ class YearlyExpensesPage extends StatelessWidget {
                       ),
                       Container(
                         margin: EdgeInsets.only(right: 16),
-                        child: Text(_expenseModel.totalString(expenseList)),
+                        child: Text(expenseModel.totalString(expenseList)),
                       ),
                     ],
                   ),
@@ -133,7 +132,7 @@ class YearlyExpensesPage extends StatelessWidget {
                       spacing: 5,
                       runSpacing: 5,
                       children: List.generate(expenseList.length, (index) {
-                        return ColoredDotContainer(
+                        return ColoredDot(
                             color: CategoryProperties
                                     .properties[expenseList[index].category]
                                 ['color']);

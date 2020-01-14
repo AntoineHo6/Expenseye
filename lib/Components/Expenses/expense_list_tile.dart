@@ -1,11 +1,12 @@
+import 'package:expense_app/Models/Expense.dart';
 import 'package:expense_app/Utils/expense_category.dart';
 import 'package:flutter/material.dart';
 
 class ExpenseListTile extends StatelessWidget {
-  final expense;
-  final onTap;
+  final Expense expense;
+  final Function onTap;
 
-  ExpenseListTile({this.expense, this.onTap});
+  ExpenseListTile(this.expense, {this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -14,17 +15,10 @@ class ExpenseListTile extends StatelessWidget {
           color: CategoryProperties.properties[expense.category]['color']),
       title: Text(
         expense.name,
-        style: Theme.of(context).textTheme.subhead,
       ),
       trailing: Text(
         '${expense.price.toString()} \$',
-        style: Theme.of(context).textTheme.subtitle,
       ),
-      // trailing: Text(
-      //   //DateTimeUtil.formattedDate(expense.date),
-      //   expense.date.toIso8601String(),
-      //   style: Theme.of(context).textTheme.subtitle,
-      // ),
       onTap: onTap,
     );
   }

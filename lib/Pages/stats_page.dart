@@ -63,7 +63,7 @@ class StatsPage extends StatelessWidget {
                               Container(
                                 margin: const EdgeInsets.all(20),
                                 child: LegendContainer(
-                                  data: aggregatedExpenses[0].data,
+                                  aggregatedExpenses[0].data,
                                 ),
                               ),
                             ],

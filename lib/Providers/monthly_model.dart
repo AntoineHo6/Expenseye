@@ -1,9 +1,7 @@
 import 'package:Expenseye/Models/Expense.dart';
 import 'package:Expenseye/Pages/Monthly/monthly_table_calendar_page.dart';
-import 'package:Expenseye/Providers/home_page_model.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class MonthlyModel extends ChangeNotifier {
   DateTime currentDate;
@@ -15,11 +13,6 @@ class MonthlyModel extends ChangeNotifier {
     currentDate = date;
     yearMonth = getYearMonthString(currentDate);
     currentTotal = 0;
-  }
-
-  void updateDate(DateTime newDate) {
-    currentDate = newDate;
-    yearMonth = getYearMonthString(currentDate);
   }
 
   /// Returns String format of DateTime containing strictly it's month & year,
@@ -70,13 +63,14 @@ class MonthlyModel extends ChangeNotifier {
       ),
     );
 
-    // TODO: make this a seperate function
-    if (newDate != null) {
-      updateDate(newDate);
+    updateDate(context, newDate);
+  }
 
-      Provider.of<HomePageModel>(context, listen: false).updateAppBar(
-        newAppBarTitle: getTitle(),
-      );
+  void updateDate(BuildContext context, DateTime newDate) {
+    if (newDate != null) {
+      currentDate = newDate;
+      yearMonth = getYearMonthString(currentDate);
+      notifyListeners();
     }
   }
 }

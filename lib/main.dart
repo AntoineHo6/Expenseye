@@ -1,6 +1,5 @@
 import 'package:Expenseye/Providers/Global/expense_model.dart';
 import 'package:Expenseye/Providers/daily_model.dart';
-import 'package:Expenseye/Providers/home_page_model.dart';
 import 'package:Expenseye/Providers/monthly_model.dart';
 import 'package:Expenseye/Providers/yearly_model.dart';
 import 'package:Expenseye/Resources/Themes/Colors.dart';
@@ -19,7 +18,6 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<ExpenseModel>(create: (_) => ExpenseModel()),
-        ChangeNotifierProvider<HomePageModel>(create: (_) => HomePageModel()),
         ChangeNotifierProvider<DailyModel>(create: (_) => DailyModel()),
         ChangeNotifierProvider<MonthlyModel>(
             create: (_) => MonthlyModel(DateTime.now())),

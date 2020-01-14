@@ -1,8 +1,6 @@
 import 'package:Expenseye/Models/Expense.dart';
-import 'package:Expenseye/Providers/home_page_model.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class YearlyModel extends ChangeNotifier {
   DateTime currentDate = DateTime.now(); // to be changed in the year picker
@@ -47,11 +45,6 @@ class YearlyModel extends ChangeNotifier {
   void updateCurrentDate(BuildContext context, DateTime newDate) {
     currentDate = newDate;
     year = getYearString(newDate);
-
-    Provider.of<HomePageModel>(context, listen: false).updateAppBar(
-      newAppBarTitle: year,
-    );
-
     notifyListeners();
   }
 

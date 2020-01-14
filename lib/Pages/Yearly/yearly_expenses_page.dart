@@ -5,7 +5,6 @@ import 'package:Expenseye/Pages/Monthly/monthly_home_page.dart';
 import 'package:Expenseye/Providers/Global/expense_model.dart';
 import 'package:Expenseye/Providers/monthly_model.dart';
 import 'package:Expenseye/Providers/yearly_model.dart';
-import 'package:Expenseye/Resources/Strings.dart';
 import 'package:Expenseye/Resources/Themes/Colors.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
 import 'package:Expenseye/Utils/expense_category.dart';
@@ -76,8 +75,6 @@ class YearlyExpensesPage extends StatelessWidget {
 
   List<InkWell> _expensesSplitByMonthToContainers(BuildContext context,
       List<List<Expense>> expensesSplitByMonth, ExpenseModel expenseModel) {
-    // TODO: recheck if good idea to reinstantiate model. Also in month
-
     return expensesSplitByMonth
         .map(
           (expenseList) => InkWell(
@@ -87,12 +84,12 @@ class YearlyExpensesPage extends StatelessWidget {
               DateTime nowDate = DateTime.now();
               if (date.year == nowDate.year && date.month == nowDate.month) {
                 Provider.of<MonthlyModel>(context, listen: false)
-                    .updateDate(nowDate);
+                    .updateDate(context, nowDate);
                 goToMonthPage();
                 //openMonthsPage(context, nowDate);
               } else {
                 Provider.of<MonthlyModel>(context, listen: false)
-                    .updateDate(DateTime(date.year, date.month));
+                    .updateDate(context, DateTime(date.year, date.month));
                 goToMonthPage();
                 //openMonthsPage(context, DateTime(date.year, date.month));
               }

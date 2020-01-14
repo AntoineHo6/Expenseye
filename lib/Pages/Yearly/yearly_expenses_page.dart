@@ -12,9 +12,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class YearlyExpensesPage extends StatelessWidget {
-  final PageController pageController;
+  final Function goToMonthPage;
 
-  YearlyExpensesPage({this.pageController});
+  YearlyExpensesPage({this.goToMonthPage});
 
   @override
   Widget build(BuildContext context) {
@@ -88,12 +88,12 @@ class YearlyExpensesPage extends StatelessWidget {
               if (date.year == nowDate.year && date.month == nowDate.month) {
                 Provider.of<MonthlyModel>(context, listen: false)
                     .updateDate(nowDate);
-                _goToMonthPage();
+                goToMonthPage();
                 //openMonthsPage(context, nowDate);
               } else {
                 Provider.of<MonthlyModel>(context, listen: false)
                     .updateDate(DateTime(date.year, date.month));
-                _goToMonthPage();
+                goToMonthPage();
                 //openMonthsPage(context, DateTime(date.year, date.month));
               }
             },
@@ -151,14 +151,6 @@ class YearlyExpensesPage extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => MonthlyHomePage()),
-    );
-  }
-
-  void _goToMonthPage() {
-    pageController.animateToPage(
-      1,
-      duration: Duration(milliseconds: 500),
-      curve: Curves.ease,
     );
   }
 }

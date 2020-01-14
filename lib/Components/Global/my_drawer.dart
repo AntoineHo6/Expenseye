@@ -6,10 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class MyDrawer extends StatefulWidget {
-  final PageController pageController;
-
-  MyDrawer({this.pageController});
-
   @override
   _MyDrawerState createState() => _MyDrawerState();
 }
@@ -98,54 +94,9 @@ class _MyDrawerState extends State<MyDrawer> {
                 ],
               ),
             ),
-            ListTile(
-              title: const Text(
-                Strings.daily,
-              ),
-              onTap: () => _openDailyHomePage(context),
-            ),
-            ListTile(
-              title: const Text(
-                Strings.monthly,
-              ),
-              onTap: () => _openMonthlyHomePage(context),
-            ),
-            ListTile(
-              title: const Text(
-                Strings.yearly,
-              ),
-              onTap: () => _openYearlyHomePage(context),
-            ),
           ],
         ),
       ),
-    );
-  }
-
-  void _openDailyHomePage(BuildContext context) {
-    Navigator.pop(context);
-    widget.pageController.animateToPage(
-      0,
-      duration: Duration(milliseconds: 500),
-      curve: Curves.ease,
-    );
-  }
-
-  void _openMonthlyHomePage(BuildContext context) {
-    Navigator.pop(context);
-    widget.pageController.animateToPage(
-      1,
-      duration: Duration(milliseconds: 500),
-      curve: Curves.ease,
-    );
-  }
-
-  void _openYearlyHomePage(BuildContext context) {
-    Navigator.pop(context);
-    widget.pageController.animateToPage(
-      2,
-      duration: Duration(milliseconds: 500),
-      curve: Curves.ease,
     );
   }
 }

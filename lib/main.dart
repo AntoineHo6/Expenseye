@@ -1,4 +1,8 @@
 import 'package:Expenseye/Providers/Global/expense_model.dart';
+import 'package:Expenseye/Providers/daily_model.dart';
+import 'package:Expenseye/Providers/home_page_model.dart';
+import 'package:Expenseye/Providers/monthly_model.dart';
+import 'package:Expenseye/Providers/yearly_model.dart';
 import 'package:Expenseye/Resources/Themes/Colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -12,8 +16,15 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
 
-    return ChangeNotifierProvider(
-      create: (_) => new ExpenseModel(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<ExpenseModel>(create: (_) => ExpenseModel()),
+        ChangeNotifierProvider<HomePageModel>(create: (_) => HomePageModel()),
+        ChangeNotifierProvider<DailyModel>(create: (_) => DailyModel()),
+        ChangeNotifierProvider<MonthlyModel>(
+            create: (_) => MonthlyModel(DateTime.now())),
+        ChangeNotifierProvider<YearlyModel>(create: (_) => YearlyModel()),
+      ],
       child: MaterialApp(
         home: HomePage(),
         theme: ThemeData(

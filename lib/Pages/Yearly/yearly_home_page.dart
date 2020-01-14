@@ -1,6 +1,4 @@
-import 'package:Expenseye/Components/Global/calendar_flat_button.dart';
 import 'package:Expenseye/Components/Global/my_bottom_nav_bar.dart';
-import 'package:Expenseye/Components/Global/my_drawer.dart';
 import 'package:Expenseye/Pages/Yearly/yearly_expenses_page.dart';
 import 'package:Expenseye/Pages/stats_page.dart';
 import 'package:Expenseye/Providers/Global/expense_model.dart';
@@ -9,9 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class YearlyHomePage extends StatefulWidget {
-  final PageController pageController;
+  final Function goToMonthPage;
 
-  YearlyHomePage({this.pageController});
+  YearlyHomePage({this.goToMonthPage});
 
   @override
   _YearlyHomePageState createState() => _YearlyHomePageState();
@@ -24,21 +22,12 @@ class _YearlyHomePageState extends State<YearlyHomePage> {
     final _yearlyModel = Provider.of<YearlyModel>(context);
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(_yearlyModel.year),
-        actions: <Widget>[
-          CalendarFlatButton(
-            onPressed: () => showYearPicker(_yearlyModel),
-          ),
-        ],
-      ),
-      drawer: MyDrawer(pageController: widget.pageController),
       body: SafeArea(
         top: false,
         child: IndexedStack(
           index: _yearlyModel.pageIndex,
           children: <Widget>[
-            YearlyExpensesPage(pageController: widget.pageController),
+            YearlyExpensesPage(goToMonthPage: widget.goToMonthPage),
             StatsPage(
               localModel: _yearlyModel,
               future: () =>
@@ -55,25 +44,6 @@ class _YearlyHomePageState extends State<YearlyHomePage> {
           });
         },
       ),
-    );
-  }
-
-  void showYearPicker(YearlyModel model) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return Dialog(
-          child: YearPicker(
-            selectedDate: model.currentDate,
-            firstDate: DateTime(2000),
-            lastDate: DateTime(2030),
-            onChanged: (date) {
-              model.updateCurrentDate(date);
-              Navigator.of(context).pop();
-            },
-          ),
-        );
-      },
     );
   }
 }

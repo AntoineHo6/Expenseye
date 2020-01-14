@@ -1,8 +1,13 @@
+import 'package:Expenseye/Components/Global/calendar_flat_button.dart';
+import 'package:Expenseye/Components/Global/my_drawer.dart';
 import 'package:Expenseye/Pages/Monthly/monthly_home_page.dart';
 import 'package:Expenseye/Pages/Yearly/yearly_home_page.dart';
 import 'package:Expenseye/Providers/daily_model.dart';
+import 'package:Expenseye/Providers/home_page_model.dart';
 import 'package:Expenseye/Providers/monthly_model.dart';
 import 'package:Expenseye/Providers/yearly_model.dart';
+import 'package:Expenseye/Resources/Strings.dart';
+import 'package:Expenseye/Utils/date_time_util.dart';
 import 'package:Expenseye/google_firebase_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -14,11 +19,20 @@ class HomePage extends StatefulWidget {
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
+class _HomePageState extends State<HomePage>
+    with WidgetsBindingObserver, SingleTickerProviderStateMixin {
+  TabController _tabController;
+
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
+
+    _tabController = TabController(
+      length: 3,
+      vsync: this,
+      initialIndex: 1,
+    );
   }
 
   @override
@@ -35,27 +49,66 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
     }
   }
 
-  final controller = PageController(
-    initialPage: 1,
-  );
-
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider<DailyModel>(create: (_) => DailyModel()),
-        ChangeNotifierProvider<MonthlyModel>(
-            create: (_) => MonthlyModel(DateTime.now())),
-        ChangeNotifierProvider<YearlyModel>(create: (_) => YearlyModel()),
-      ],
-      child: PageView(
-        controller: controller,
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Expenses'),
+        actions: <Widget>[],
+        bottom: TabBar(
+          controller: _tabController,
+          tabs: <Widget>[
+            const Text(Strings.daily),
+            const Text(Strings.monthly),
+            const Text(Strings.yearly),
+          ],
+        ),
+      ),
+      drawer: MyDrawer(),
+      body: TabBarView(
+        controller: _tabController,
         children: <Widget>[
-          DailyHomePage(pageController: controller),
-          MonthlyHomePage(pageController: controller,),
-          YearlyHomePage(pageController: controller),
+          DailyHomePage(),
+          MonthlyHomePage(),
+          YearlyHomePage(goToMonthPage: goToMonthPage),
         ],
       ),
     );
   }
+
+  void goToMonthPage() {
+    _tabController.animateTo(1);
+  }
+
+  // void _updateHomePageAppBar(int pageIndex, HomePageModel homePageModel) {
+  //   String newAppBarTitle;
+  //   Function newAppBarCalendarFunc;
+
+  //   switch (pageIndex) {
+  //     case 0:
+  //       final _dailyModel = Provider.of<DailyModel>(context, listen: false);
+  //       // TODO: refactor to getDailyTitle in dailyModel
+  //       newAppBarTitle = DateTimeUtil.formattedDate(_dailyModel.currentDate);
+  //       newAppBarCalendarFunc =
+  //           () => _dailyModel.openDailyTableCalendarPage(context);
+  //       break;
+  //     case 1:
+  //       final _monthlyModel = Provider.of<MonthlyModel>(context, listen: false);
+  //       newAppBarTitle = _monthlyModel.getMonthlyTitle();
+  //       newAppBarCalendarFunc =
+  //           () => _monthlyModel.openMonthlyTableCalendarPage(context);
+  //       break;
+  //     case 2:
+  //       final _yearlyModel = Provider.of<YearlyModel>(context, listen: false);
+  //       newAppBarTitle = _yearlyModel.year;
+  //       newAppBarCalendarFunc =
+  //           () => DateTimeUtil.showYearPicker(context, _yearlyModel);
+  //       break;
+  //   }
+
+  //   homePageModel.updateAppBar(
+  //     newAppBarTitle: newAppBarTitle,
+  //     newAppBarCalendarFunc: newAppBarCalendarFunc,
+  //   );
+  // }
 }

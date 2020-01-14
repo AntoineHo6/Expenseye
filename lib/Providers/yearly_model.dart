@@ -1,10 +1,11 @@
 import 'package:Expenseye/Models/Expense.dart';
 import 'package:Expenseye/Providers/home_page_model.dart';
+import 'package:Expenseye/Utils/date_time_util.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class YearlyModel extends ChangeNotifier {
-  DateTime currentDate = DateTime.now();  // to be changed in the year picker
+  DateTime currentDate = DateTime.now(); // to be changed in the year picker
   String year = getYearString(DateTime.now());
   double currentTotal = 0;
   int pageIndex = 0;
@@ -32,8 +33,7 @@ class YearlyModel extends ChangeNotifier {
     for (Expense expense in expenses) {
       if (getYearMonthString(expense.date) == currentMonth) {
         expensesSplitByMonth[index].add(expense);
-      }
-      else {
+      } else {
         index++;
         currentMonth = getYearMonthString(expense.date);
         expensesSplitByMonth.add(new List());
@@ -49,8 +49,8 @@ class YearlyModel extends ChangeNotifier {
     year = getYearString(newDate);
 
     Provider.of<HomePageModel>(context, listen: false).updateAppBar(
-        newAppBarTitle: year,
-      );
+      newAppBarTitle: year,
+    );
 
     notifyListeners();
   }
@@ -59,22 +59,10 @@ class YearlyModel extends ChangeNotifier {
     return year;
   }
 
-  void calendarFunc(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return Dialog(
-          child: YearPicker(
-            selectedDate: currentDate,
-            firstDate: DateTime(2000),
-            lastDate: DateTime(2030),
-            onChanged: (date) {
-              updateCurrentDate(context, date);
-              Navigator.of(context).pop();
-            },
-          ),
-        );
-      },
-    );
+  Future<void> calendarFunc(BuildContext context) async {
+    final DateTime newDate =
+        await DateTimeUtil.chooseYear(context, currentDate);
+    
+    updateCurrentDate(context, newDate);
   }
 }

@@ -3,7 +3,6 @@ import 'package:Expenseye/Components/Global/add_expense_fab.dart';
 import 'package:Expenseye/Components/Expenses/expense_list_tile.dart';
 import 'package:Expenseye/Models/Expense.dart';
 import 'package:Expenseye/Providers/daily_model.dart';
-import 'package:Expenseye/Resources/Strings.dart';
 import 'package:Expenseye/Resources/Themes/Colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -50,9 +49,12 @@ class DailyExpensesPage extends StatelessWidget {
                 ],
               );
             } else {
-              return ExpensesHeader(
-                total: _expenseModel.totalString(snapshot.data),
-                pageModel: _dailyModel,
+              return Align(
+                alignment: Alignment.topCenter,
+                child: ExpensesHeader(
+                  total: _expenseModel.totalString(snapshot.data),
+                  pageModel: _dailyModel,
+                ),
               );
             }
           } else {

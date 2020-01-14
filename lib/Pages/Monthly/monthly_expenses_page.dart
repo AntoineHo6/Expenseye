@@ -50,9 +50,12 @@ class MonthlyExpensesPage extends StatelessWidget {
                 ],
               );
             } else {
-              return ExpensesHeader(
-                total: _expenseModel.totalString(snapshot.data),
-                pageModel: _monthlyModel,
+              return Align(
+                alignment: Alignment.topCenter,
+                child: ExpensesHeader(
+                  total: _expenseModel.totalString(snapshot.data),
+                  pageModel: _monthlyModel,
+                ),
               );
             }
           } else {

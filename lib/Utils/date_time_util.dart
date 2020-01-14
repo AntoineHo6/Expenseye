@@ -1,4 +1,3 @@
-import 'package:Expenseye/Providers/yearly_model.dart';
 import 'package:flutter/material.dart';
 
 class DateTimeUtil {
@@ -49,6 +48,29 @@ class DateTimeUtil {
         return Theme(
           data: ThemeData.dark(),
           child: child,
+        );
+      },
+    );
+
+    return newDate;
+  }
+
+  static Future<DateTime> chooseYear(BuildContext context, DateTime initialDate) async {
+    DateTime newDate;
+
+    await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          child: YearPicker(
+            selectedDate: initialDate,
+            firstDate: DateTime(2000),
+            lastDate: DateTime(2030),
+            onChanged: (date) {
+              newDate = date;
+              Navigator.of(context).pop();
+            },
+          ),
         );
       },
     );

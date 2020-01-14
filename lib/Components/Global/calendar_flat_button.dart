@@ -7,13 +7,10 @@ class CalendarFlatButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FlatButton(
+    return RaisedButton(
       textColor: Colors.white,
       onPressed: onPressed,
       child: const Icon(Icons.calendar_today),
-      shape: const CircleBorder(
-        side: const BorderSide(color: Colors.transparent),
-      ),
     );
   }
 }

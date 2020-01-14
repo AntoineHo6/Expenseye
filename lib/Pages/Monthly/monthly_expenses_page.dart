@@ -1,3 +1,4 @@
+import 'package:Expenseye/Components/Expenses/expenses_header.dart';
 import 'package:Expenseye/Components/Global/add_expense_fab.dart';
 import 'package:Expenseye/Components/Expenses/expense_list_tile.dart';
 import 'package:Expenseye/Models/Expense.dart';
@@ -34,13 +35,9 @@ class MonthlyExpensesPage extends StatelessWidget {
                     child: SingleChildScrollView(
                       child: Column(
                         children: <Widget>[
-                          Container(
-                            padding: const EdgeInsets.all(20),
-                            margin: const EdgeInsets.symmetric(horizontal: 20),
-                            child: Text(
-                              '${Strings.total}: ${_expenseModel.totalString(snapshot.data)}',
-                              style: Theme.of(context).textTheme.display1,
-                            ),
+                          ExpensesHeader(
+                            total: _expenseModel.totalString(snapshot.data),
+                            pageModel: _monthlyModel,
                           ),
                           Column(
                             children: _expensesSplitByDayToContainers(
@@ -53,9 +50,9 @@ class MonthlyExpensesPage extends StatelessWidget {
                 ],
               );
             } else {
-              return const Align(
-                alignment: Alignment.center,
-                child: const Text(Strings.addAnExpense),
+              return ExpensesHeader(
+                total: _expenseModel.totalString(snapshot.data),
+                pageModel: _monthlyModel,
               );
             }
           } else {
@@ -86,8 +83,7 @@ class MonthlyExpensesPage extends StatelessWidget {
               borderRadius: BorderRadius.circular(15),
             ),
             padding: const EdgeInsets.all(12),
-            margin:
-                const EdgeInsets.symmetric(horizontal: 15, vertical: 12),
+            margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 12),
             child: Column(
               children: <Widget>[
                 Row(

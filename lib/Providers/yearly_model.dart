@@ -54,4 +54,27 @@ class YearlyModel extends ChangeNotifier {
 
     notifyListeners();
   }
+
+  String getTitle() {
+    return year;
+  }
+
+  void calendarFunc(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          child: YearPicker(
+            selectedDate: currentDate,
+            firstDate: DateTime(2000),
+            lastDate: DateTime(2030),
+            onChanged: (date) {
+              updateCurrentDate(context, date);
+              Navigator.of(context).pop();
+            },
+          ),
+        );
+      },
+    );
+  }
 }

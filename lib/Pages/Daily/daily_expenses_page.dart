@@ -1,3 +1,4 @@
+import 'package:Expenseye/Components/Expenses/expenses_header.dart';
 import 'package:Expenseye/Components/Global/add_expense_fab.dart';
 import 'package:Expenseye/Components/Expenses/expense_list_tile.dart';
 import 'package:Expenseye/Models/Expense.dart';
@@ -24,13 +25,9 @@ class DailyExpensesPage extends StatelessWidget {
               _dailyModel.currentTotal = _expenseModel.calcTotal(snapshot.data);
               return Column(
                 children: <Widget>[
-                  Container(
-                    padding: const EdgeInsets.all(20),
-                    margin: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Text(
-                      '${Strings.total}: ${_expenseModel.totalString(snapshot.data)}',
-                      style: Theme.of(context).textTheme.display1,
-                    ),
+                  ExpensesHeader(
+                    total: _expenseModel.totalString(snapshot.data),
+                    pageModel: _dailyModel,
                   ),
                   Expanded(
                     child: ListView(
@@ -53,9 +50,9 @@ class DailyExpensesPage extends StatelessWidget {
                 ],
               );
             } else {
-              return const Align(
-                alignment: Alignment.center,
-                child: const Text(Strings.addAnExpense),
+              return ExpensesHeader(
+                total: _expenseModel.totalString(snapshot.data),
+                pageModel: _dailyModel,
               );
             }
           } else {

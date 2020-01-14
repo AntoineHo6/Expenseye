@@ -9,7 +9,11 @@ class DailyModel extends ChangeNotifier {
   double currentTotal = 0;
   int pageIndex = 0;
 
-  void openDailyTableCalendarPage(BuildContext context) async {
+  String getTitle() {
+    return DateTimeUtil.formattedDate(currentDate);
+  }
+
+  void calendarFunc(BuildContext context) async {
     DateTime newDate = await Navigator.push(
       context,
       MaterialPageRoute(

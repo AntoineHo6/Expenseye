@@ -33,7 +33,7 @@ class MonthlyModel extends ChangeNotifier {
 
   /// Returns the current date's month's full name and it's year in string
   /// format. E.g: 'January 2020'.
-  String getMonthlyTitle() {
+  String getTitle() {
     return '${DateTimeUtil.monthNames[currentDate.month]} ${currentDate.year}';
   }
 
@@ -62,7 +62,7 @@ class MonthlyModel extends ChangeNotifier {
 
   /// On month chosen in the monthlyTableCalendarPage, update the current
   /// selected month.
-  void openMonthlyTableCalendarPage(BuildContext context) async {
+  void calendarFunc(BuildContext context) async {
     DateTime newDate = await Navigator.push(
       context,
       MaterialPageRoute(
@@ -75,7 +75,7 @@ class MonthlyModel extends ChangeNotifier {
       updateDate(newDate);
 
       Provider.of<HomePageModel>(context, listen: false).updateAppBar(
-        newAppBarTitle: getMonthlyTitle(),
+        newAppBarTitle: getTitle(),
       );
     }
   }

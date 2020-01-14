@@ -56,26 +56,6 @@ class DateTimeUtil {
     return newDate;
   }
 
-  // TODO: refactor this to not take model and spit out year
-  static void showYearPicker(BuildContext context, YearlyModel model) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return Dialog(
-          child: YearPicker(
-            selectedDate: model.currentDate,
-            firstDate: DateTime(2000),
-            lastDate: DateTime(2030),
-            onChanged: (date) {
-              model.updateCurrentDate(context, date);
-              Navigator.of(context).pop();
-            },
-          ),
-        );
-      },
-    );
-  }
-
   static String formattedDate(DateTime date) {
     return '${DateTimeUtil.monthAbb[date.month]} ${date.day} ${date.year}';
   }

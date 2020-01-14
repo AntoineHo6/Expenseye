@@ -1,3 +1,4 @@
+import 'package:Expenseye/Components/Expenses/expenses_header.dart';
 import 'package:Expenseye/Components/Global/colored_dot.dart';
 import 'package:Expenseye/Models/Expense.dart';
 import 'package:Expenseye/Pages/Monthly/monthly_home_page.dart';
@@ -39,13 +40,9 @@ class YearlyExpensesPage extends StatelessWidget {
                     child: SingleChildScrollView(
                       child: Column(
                         children: <Widget>[
-                          Container(
-                            padding: const EdgeInsets.all(20),
-                            margin: const EdgeInsets.symmetric(horizontal: 20),
-                            child: Text(
-                              '${Strings.total}: ${_expenseModel.totalString(snapshot.data)}',
-                              style: Theme.of(context).textTheme.display1,
-                            ),
+                          ExpensesHeader(
+                            total: _expenseModel.totalString(snapshot.data),
+                            pageModel: _yearlyModel,
                           ),
                           Column(
                             children: _expensesSplitByMonthToContainers(
@@ -58,9 +55,9 @@ class YearlyExpensesPage extends StatelessWidget {
                 ],
               );
             } else {
-              return const Align(
-                alignment: Alignment.center,
-                child: const Text(Strings.addAnExpense),
+              return ExpensesHeader(
+                total: _expenseModel.totalString(snapshot.data),
+                pageModel: _yearlyModel,
               );
             }
           } else {

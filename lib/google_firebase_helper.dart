@@ -11,11 +11,11 @@ class GoogleFirebaseHelper {
   static FirebaseStorage _storage = FirebaseStorage.instance;
   static FirebaseUser user;
 
-  Future<void> initConnectedUser() async {
+  static Future<void> initConnectedUser() async {
     user = await _auth.currentUser();
   }
 
-  Future<bool> loginWithGoogle() async {
+  static Future<bool> loginWithGoogle() async {
     try {
       GoogleSignInAccount googleAcc = await _googleSignIn.signIn();
 
@@ -53,7 +53,7 @@ class GoogleFirebaseHelper {
     }
   }
 
-  Future<void> logOut() async {
+  static Future<void> logOut() async {
     try {
       await _auth.signOut().then((_) {
         _googleSignIn.signOut();
@@ -76,9 +76,7 @@ class GoogleFirebaseHelper {
           .putFile(dbFile);
 
       StorageTaskSnapshot storageTaskSnapshot = await uploadTask.onComplete;
-      String downloadUrl = await storageTaskSnapshot.ref.getDownloadURL();
-
-      print('uploaded db file: $downloadUrl');
+      await storageTaskSnapshot.ref.getDownloadURL();
     }
   }
 }

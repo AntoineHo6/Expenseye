@@ -8,20 +8,19 @@ import 'package:flutter/material.dart';
 
 class ExpenseModel extends ChangeNotifier {
   final DatabaseHelper dbHelper = DatabaseHelper.instance;
-  final GoogleFirebaseHelper googleFirebaseHelper = GoogleFirebaseHelper();
 
   ExpenseModel() {
     initConnectedUser();
   }
 
   void initConnectedUser() async {
-    await googleFirebaseHelper.initConnectedUser();
+    await GoogleFirebaseHelper.initConnectedUser();
   }
 
   void loginWithGoogle() async {
     List<Expense> localExpenses = await dbHelper.queryAllExpenses();
 
-    bool isLoggedIn = await googleFirebaseHelper.loginWithGoogle();
+    bool isLoggedIn = await GoogleFirebaseHelper.loginWithGoogle();
 
     if (isLoggedIn && localExpenses.length > 0) {
       for (Expense expense in localExpenses) {
@@ -37,7 +36,7 @@ class ExpenseModel extends ChangeNotifier {
   void logOutFromGoogle() async {
     await GoogleFirebaseHelper.uploadDbFile();
     dbHelper.deleteAll();
-    googleFirebaseHelper.logOut();
+    await GoogleFirebaseHelper.logOut();
     notifyListeners();
   }
 

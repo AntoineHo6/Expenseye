@@ -97,39 +97,39 @@ class _MyDrawerState extends State<MyDrawer> {
                 color: MyColors.black02dp,
               ),
             ),
-            Theme(
-              data: ThemeData(
-                textTheme: Theme.of(context).textTheme,
-                unselectedWidgetColor: Colors.white,
-                accentColor: MyColors.secondary,
-              ),
-              child: ExpansionTile(
-                title: Text(Strings.viewBy),
-                children: <Widget>[
-                  ListTile(
-                    title: Text(
-                      '\t\t\t${Strings.daily}',
-                      style: Theme.of(context).textTheme.subtitle,
-                    ),
-                    //onTap: () => _openDailyHomePage(context, _expenseModel),
-                  ),
-                  ListTile(
-                    title: Text(
-                      '\t\t\t${Strings.monthly}',
-                      style: Theme.of(context).textTheme.subtitle,
-                    ),
-                    //onTap: () => _openMonthlyHomePage(context),
-                  ),
-                  ListTile(
-                    title: Text(
-                      '\t\t\t${Strings.yearly}',
-                      style: Theme.of(context).textTheme.subtitle,
-                    ),
-                    //onTap: () => _openYearlyHomePage(context),
-                  ),
-                ],
-              ),
-            ),
+            // Theme(
+            //   data: ThemeData(
+            //     textTheme: Theme.of(context).textTheme,
+            //     unselectedWidgetColor: Colors.white,
+            //     accentColor: MyColors.secondary,
+            //   ),
+            //   child: ExpansionTile(
+            //     title: Text(Strings.viewBy),
+            //     children: <Widget>[
+            //       ListTile(
+            //         title: Text(
+            //           '\t\t\t${Strings.daily}',
+            //           style: Theme.of(context).textTheme.subtitle,
+            //         ),
+            //         //onTap: () => _openDailyHomePage(context, _expenseModel),
+            //       ),
+            //       ListTile(
+            //         title: Text(
+            //           '\t\t\t${Strings.monthly}',
+            //           style: Theme.of(context).textTheme.subtitle,
+            //         ),
+            //         //onTap: () => _openMonthlyHomePage(context),
+            //       ),
+            //       ListTile(
+            //         title: Text(
+            //           '\t\t\t${Strings.yearly}',
+            //           style: Theme.of(context).textTheme.subtitle,
+            //         ),
+            //         //onTap: () => _openYearlyHomePage(context),
+            //       ),
+            //     ],
+            //   ),
+            // ),
             ListTile(
               title: Text(
                 '${Strings.settings} (Unavailable)',

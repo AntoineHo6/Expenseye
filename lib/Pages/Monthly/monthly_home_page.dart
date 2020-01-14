@@ -9,59 +9,54 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class MonthlyHomePage extends StatefulWidget {
-  final DateTime date;
+  // final DateTime date;
 
-  MonthlyHomePage(this.date) {
-    print('new monthly page instance');
-  }
+  // MonthlyHomePage(this.date) {
+  //   print('new monthly page instance');
+  // }
 
   @override
   _MonthlyHomePageState createState() => _MonthlyHomePageState();
 }
 
 class _MonthlyHomePageState extends State<MonthlyHomePage> {
-  int _currentIndex = 0;
-
   @override
   Widget build(BuildContext context) {
     final _expenseModel = Provider.of<ExpenseModel>(context);
-
-    return ChangeNotifierProvider(
-      create: (_) => MonthlyModel(widget.date),
-      child: Consumer<MonthlyModel>(
-        builder: (context, model, child) => Scaffold(
-          appBar: AppBar(
-            title: Text(model.getMonthlyTitle()),
-            actions: <Widget>[
-              CalendarFlatButton(
-                onPressed: () => model.openMonthlyTableCalendarPage(context),
-              ),
-            ],
+    final _monthlyModel = Provider.of<MonthlyModel>(context);
+    
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(_monthlyModel.getMonthlyTitle()),
+        actions: <Widget>[
+          CalendarFlatButton(
+            onPressed: () =>
+                _monthlyModel.openMonthlyTableCalendarPage(context),
           ),
-          drawer: MyDrawer(),
-          body: SafeArea(
-            top: false,
-            child: IndexedStack(
-              index: _currentIndex,
-              children: <Widget>[
-                MonthlyExpensesPage(),
-                StatsPage(
-                  localModel: model,
-                  future: () => _expenseModel.dbHelper
-                      .queryExpensesInMonth(model.yearMonth),
-                ),
-              ],
+        ],
+      ),
+      drawer: MyDrawer(),
+      body: SafeArea(
+        top: false,
+        child: IndexedStack(
+          index: _monthlyModel.pageIndex,
+          children: <Widget>[
+            MonthlyExpensesPage(),
+            StatsPage(
+              localModel: _monthlyModel,
+              future: () => _expenseModel.dbHelper
+                  .queryExpensesInMonth(_monthlyModel.yearMonth),
             ),
-          ),
-          bottomNavigationBar: MyBottomNavBar(
-            currentIndex: _currentIndex,
-            onTap: (int index) {
-              setState(() {
-                _currentIndex = index;
-              });
-            },
-          ),
+          ],
         ),
+      ),
+      bottomNavigationBar: MyBottomNavBar(
+        currentIndex: _monthlyModel.pageIndex,
+        onTap: (int index) {
+          setState(() {
+            _monthlyModel.pageIndex = index;
+          });
+        },
       ),
     );
   }

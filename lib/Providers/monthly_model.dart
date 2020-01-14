@@ -7,11 +7,17 @@ class MonthlyModel extends ChangeNotifier {
   DateTime currentDate;
   String yearMonth;
   double currentTotal;
+  int pageIndex = 0;
 
   MonthlyModel(DateTime date) {
     currentDate = date;
     yearMonth = getYearMonthString(currentDate);
     currentTotal = 0;
+  }
+
+  void updateDate(DateTime newDate) {
+    currentDate = newDate;
+    yearMonth = getYearMonthString(currentDate);
   }
 
   /// Returns String format of DateTime containing strictly it's month & year,
@@ -64,9 +70,7 @@ class MonthlyModel extends ChangeNotifier {
 
     // TODO: make this a seperate function
     if (newDate != null) {
-      currentDate = newDate;
-      yearMonth = getYearMonthString(currentDate);
-      //notifyListeners();
+      updateDate(newDate);
     }
   }
 }

@@ -2,6 +2,7 @@ import 'package:expense_app/Components/Global/colored_dot_container.dart';
 import 'package:expense_app/Models/Expense.dart';
 import 'package:expense_app/Pages/Monthly/monthly_home_page.dart';
 import 'package:expense_app/Providers/Global/expense_model.dart';
+import 'package:expense_app/Providers/monthly_model.dart';
 import 'package:expense_app/Providers/yearly_model.dart';
 import 'package:expense_app/Resources/Strings.dart';
 import 'package:expense_app/Resources/Themes/Colors.dart';
@@ -11,6 +12,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class YearlyExpensesPage extends StatelessWidget {
+  final Function goToMonthPage;
+
+  YearlyExpensesPage({this.goToMonthPage});
+
   @override
   Widget build(BuildContext context) {
     final _expenseModel = Provider.of<ExpenseModel>(context);
@@ -82,9 +87,15 @@ class YearlyExpensesPage extends StatelessWidget {
               DateTime date = expenseList[0].date;
               DateTime nowDate = DateTime.now();
               if (date.year == nowDate.year && date.month == nowDate.month) {
-                openMonthsPage(context, nowDate);
+                Provider.of<MonthlyModel>(context, listen: false)
+                    .updateDate(nowDate);
+                goToMonthPage();
+                //openMonthsPage(context, nowDate);
               } else {
-                openMonthsPage(context, DateTime(date.year, date.month));
+                Provider.of<MonthlyModel>(context, listen: false)
+                    .updateDate(DateTime(date.year, date.month));
+                goToMonthPage();
+                //openMonthsPage(context, DateTime(date.year, date.month));
               }
             },
             borderRadius: BorderRadius.circular(15),
@@ -140,7 +151,7 @@ class YearlyExpensesPage extends StatelessWidget {
   void openMonthsPage(BuildContext context, DateTime date) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => MonthlyHomePage(date)),
+      MaterialPageRoute(builder: (context) => MonthlyHomePage()),
     );
   }
 }

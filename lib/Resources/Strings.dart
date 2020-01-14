@@ -42,12 +42,11 @@ class Strings {
   static const String others = 'Others';
 
   // * DRAWER options
+  // * potentially deprecated strings
   static const String viewBy = 'View by';
   static const String daily = 'Daily';
-  static const String weekly = 'Weekly';
   static const String monthly = 'Monthly';
   static const String yearly = 'Yearly';
-  static const String categories = 'Categories';
   static const String settings = 'Settings';
 
   // * ERROR messages

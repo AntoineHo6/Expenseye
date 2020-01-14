@@ -25,6 +25,9 @@ class _MyDrawerState extends State<MyDrawer> {
           padding: EdgeInsets.zero,
           children: <Widget>[
             DrawerHeader(
+              decoration: BoxDecoration(
+                color: MyColors.black02dp,
+              ),
               child: Column(
                 children: <Widget>[
                   Align(
@@ -93,9 +96,6 @@ class _MyDrawerState extends State<MyDrawer> {
                   ),
                 ],
               ),
-              decoration: BoxDecoration(
-                color: MyColors.black02dp,
-              ),
             ),
             // Theme(
             //   data: ThemeData(
@@ -130,15 +130,6 @@ class _MyDrawerState extends State<MyDrawer> {
             //     ],
             //   ),
             // ),
-            ListTile(
-              title: Text(
-                '${Strings.settings} (Unavailable)',
-                style: Theme.of(context).textTheme.subtitle,
-              ),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
           ],
         ),
       ),

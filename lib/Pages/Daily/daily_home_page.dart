@@ -35,6 +35,7 @@ class _DailyHomePageState extends State<DailyHomePage> with WidgetsBindingObserv
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
     if (state == AppLifecycleState.paused) {
+      // ! uploaded for every instance of this class in the Navigator stack
       GoogleFirebaseHelper.uploadDbFile();
     }
   }

@@ -58,9 +58,18 @@ class _HomePageState extends State<HomePage>
         bottom: TabBar(
           controller: _tabController,
           tabs: <Widget>[
-            const Text(Strings.daily),
-            const Text(Strings.monthly),
-            const Text(Strings.yearly),
+            Container(
+              margin: const EdgeInsets.only(bottom: 15),
+              child: const Text(Strings.daily),
+            ),
+            Container(
+              margin: const EdgeInsets.only(bottom: 15),
+              child: const Text(Strings.monthly),
+            ),
+            Container(
+              margin: const EdgeInsets.only(bottom: 15),
+              child: const Text(Strings.yearly),
+            ),
           ],
         ),
       ),

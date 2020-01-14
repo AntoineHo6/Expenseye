@@ -12,29 +12,30 @@ class ExpensesHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
+        Container(
+          padding: const EdgeInsets.only(top: 15, left: 20),
+          child: Row(
+            children: <Widget>[
+              Text(
+                pageModel.getTitle(),
+                textAlign: TextAlign.left,
+                style: Theme.of(context).textTheme.headline,
+              ),
+              CalendarFlatButton(
+                onPressed: () => pageModel.calendarFunc(context),
+              ),
+            ],
+          ),
+        ),
         SizedBox(
           width: double.infinity,
           child: Container(
-            padding: const EdgeInsets.all(20),
+            margin: const EdgeInsets.all(20),
             child: Text(
-              pageModel.getTitle(),
-              textAlign: TextAlign.left,
+              '${Strings.total}: $total',
+              style: Theme.of(context).textTheme.display1,
             ),
           ),
-        ),
-        Row(
-          children: <Widget>[
-            Container(
-              padding: const EdgeInsets.all(20),
-              child: Text(
-                '${Strings.total}: $total',
-                style: Theme.of(context).textTheme.display1,
-              ),
-            ),
-            CalendarFlatButton(
-              onPressed: () => pageModel.calendarFunc(context),
-            ),
-          ],
         ),
       ],
     );

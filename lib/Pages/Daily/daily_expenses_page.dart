@@ -11,8 +11,8 @@ import 'package:Expenseye/Providers/Global/expense_model.dart';
 class DailyExpensesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final _expenseModel = Provider.of<ExpenseModel>(context, listen: false);
-    final _dailyModel = Provider.of<DailyModel>(context, listen: false);
+    final _expenseModel = Provider.of<ExpenseModel>(context);
+    final _dailyModel = Provider.of<DailyModel>(context);
 
     return Scaffold(
       body: FutureBuilder<List<Expense>>(

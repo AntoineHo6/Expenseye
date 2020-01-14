@@ -35,8 +35,8 @@ class ExpenseModel extends ChangeNotifier {
 
   void logOutFromGoogle() async {
     await GoogleFirebaseHelper.uploadDbFile();
-    dbHelper.deleteAll();
     await GoogleFirebaseHelper.logOut();
+    dbHelper.deleteAll();
     notifyListeners();
   }
 

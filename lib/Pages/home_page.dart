@@ -1,10 +1,13 @@
 import 'package:Expenseye/Components/Global/my_drawer.dart';
 import 'package:Expenseye/Pages/Monthly/monthly_home_page.dart';
 import 'package:Expenseye/Pages/Yearly/yearly_home_page.dart';
+import 'package:Expenseye/Providers/daily_model.dart';
+import 'package:Expenseye/Providers/monthly_model.dart';
+import 'package:Expenseye/Providers/yearly_model.dart';
 import 'package:Expenseye/Resources/Strings.dart';
 import 'package:Expenseye/google_firebase_helper.dart';
 import 'package:flutter/material.dart';
-
+import 'package:provider/provider.dart';
 import 'Daily/daily_home_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -44,36 +47,44 @@ class _HomePageState extends State<HomePage>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Expenses'),
-        actions: <Widget>[],
-        bottom: TabBar(
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<DailyModel>(create: (_) => DailyModel()),
+        ChangeNotifierProvider<MonthlyModel>(
+            create: (_) => MonthlyModel(DateTime.now())),
+        ChangeNotifierProvider<YearlyModel>(create: (_) => YearlyModel()),
+      ],
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('Expenses'),
+          actions: <Widget>[],
+          bottom: TabBar(
+            controller: _tabController,
+            tabs: <Widget>[
+              Container(
+                margin: const EdgeInsets.only(bottom: 15),
+                child: const Text(Strings.daily),
+              ),
+              Container(
+                margin: const EdgeInsets.only(bottom: 15),
+                child: const Text(Strings.monthly),
+              ),
+              Container(
+                margin: const EdgeInsets.only(bottom: 15),
+                child: const Text(Strings.yearly),
+              ),
+            ],
+          ),
+        ),
+        drawer: MyDrawer(),
+        body: TabBarView(
           controller: _tabController,
-          tabs: <Widget>[
-            Container(
-              margin: const EdgeInsets.only(bottom: 15),
-              child: const Text(Strings.daily),
-            ),
-            Container(
-              margin: const EdgeInsets.only(bottom: 15),
-              child: const Text(Strings.monthly),
-            ),
-            Container(
-              margin: const EdgeInsets.only(bottom: 15),
-              child: const Text(Strings.yearly),
-            ),
+          children: <Widget>[
+            DailyHomePage(),
+            MonthlyHomePage(),
+            YearlyHomePage(goToMonthPage: goToMonthPage),
           ],
         ),
-      ),
-      drawer: MyDrawer(),
-      body: TabBarView(
-        controller: _tabController,
-        children: <Widget>[
-          DailyHomePage(),
-          MonthlyHomePage(),
-          YearlyHomePage(goToMonthPage: goToMonthPage),
-        ],
       ),
     );
   }

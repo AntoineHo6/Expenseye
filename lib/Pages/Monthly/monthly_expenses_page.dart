@@ -4,7 +4,6 @@ import 'package:Expenseye/Components/Expenses/expense_list_tile.dart';
 import 'package:Expenseye/Models/Expense.dart';
 import 'package:Expenseye/Providers/Global/expense_model.dart';
 import 'package:Expenseye/Providers/monthly_model.dart';
-import 'package:Expenseye/Resources/Strings.dart';
 import 'package:Expenseye/Resources/Themes/Colors.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
 import 'package:flutter/material.dart';

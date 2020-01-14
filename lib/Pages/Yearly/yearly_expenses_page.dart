@@ -18,8 +18,8 @@ class YearlyExpensesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _expenseModel = Provider.of<ExpenseModel>(context, listen: false);
-    final _yearlyModel = Provider.of<YearlyModel>(context, listen: false);
+    final _expenseModel = Provider.of<ExpenseModel>(context);
+    final _yearlyModel = Provider.of<YearlyModel>(context);
 
     return Scaffold(
       body: FutureBuilder<List<Expense>>(
@@ -86,12 +86,10 @@ class YearlyExpensesPage extends StatelessWidget {
                 Provider.of<MonthlyModel>(context, listen: false)
                     .updateDate(context, nowDate);
                 goToMonthPage();
-                //openMonthsPage(context, nowDate);
               } else {
                 Provider.of<MonthlyModel>(context, listen: false)
                     .updateDate(context, DateTime(date.year, date.month));
                 goToMonthPage();
-                //openMonthsPage(context, DateTime(date.year, date.month));
               }
             },
             borderRadius: BorderRadius.circular(15),

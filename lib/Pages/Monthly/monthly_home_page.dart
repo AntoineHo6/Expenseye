@@ -9,11 +9,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class MonthlyHomePage extends StatefulWidget {
-  // final DateTime date;
+  final PageController pageController;
 
-  // MonthlyHomePage(this.date) {
-  //   print('new monthly page instance');
-  // }
+  MonthlyHomePage({this.pageController});
 
   @override
   _MonthlyHomePageState createState() => _MonthlyHomePageState();
@@ -35,7 +33,7 @@ class _MonthlyHomePageState extends State<MonthlyHomePage> {
           ),
         ],
       ),
-      drawer: MyDrawer(),
+      drawer: MyDrawer(pageController: widget.pageController),
       body: SafeArea(
         top: false,
         child: IndexedStack(

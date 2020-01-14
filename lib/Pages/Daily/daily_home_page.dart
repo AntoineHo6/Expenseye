@@ -10,6 +10,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class DailyHomePage extends StatefulWidget {
+  final PageController pageController;
+
+  DailyHomePage({this.pageController});
+
   @override
   _DailyHomePageState createState() => _DailyHomePageState();
 }
@@ -29,7 +33,7 @@ class _DailyHomePageState extends State<DailyHomePage> {
           ),
         ],
       ),
-      drawer: MyDrawer(),
+      drawer: MyDrawer(pageController: widget.pageController,),
       body: SafeArea(
         top: false,
         child: IndexedStack(

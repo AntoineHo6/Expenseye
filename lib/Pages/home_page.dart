@@ -51,19 +51,11 @@ class _HomePageState extends State<HomePage> with WidgetsBindingObserver {
       child: PageView(
         controller: controller,
         children: <Widget>[
-          DailyHomePage(),
-          MonthlyHomePage(),
-          YearlyHomePage(goToMonthPage: onYearlyMonthSelected),
+          DailyHomePage(pageController: controller),
+          MonthlyHomePage(pageController: controller,),
+          YearlyHomePage(pageController: controller),
         ],
       ),
-    );
-  }
-
-  void onYearlyMonthSelected() {
-    controller.animateToPage(
-      1,
-      duration: Duration(seconds: 1),
-      curve: Curves.ease,
     );
   }
 }

@@ -9,9 +9,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class YearlyHomePage extends StatefulWidget {
-  final Function goToMonthPage;
+  final PageController pageController;
 
-  YearlyHomePage({this.goToMonthPage});
+  YearlyHomePage({this.pageController});
 
   @override
   _YearlyHomePageState createState() => _YearlyHomePageState();
@@ -32,13 +32,13 @@ class _YearlyHomePageState extends State<YearlyHomePage> {
           ),
         ],
       ),
-      drawer: MyDrawer(),
+      drawer: MyDrawer(pageController: widget.pageController),
       body: SafeArea(
         top: false,
         child: IndexedStack(
           index: _yearlyModel.pageIndex,
           children: <Widget>[
-            YearlyExpensesPage(goToMonthPage: widget.goToMonthPage),
+            YearlyExpensesPage(pageController: widget.pageController),
             StatsPage(
               localModel: _yearlyModel,
               future: () =>

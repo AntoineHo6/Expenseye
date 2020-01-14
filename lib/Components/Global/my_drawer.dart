@@ -6,6 +6,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class MyDrawer extends StatefulWidget {
+  final PageController pageController;
+
+  MyDrawer({this.pageController});
+
   @override
   _MyDrawerState createState() => _MyDrawerState();
 }
@@ -98,19 +102,19 @@ class _MyDrawerState extends State<MyDrawer> {
               title: const Text(
                 Strings.daily,
               ),
-              //onTap: () => _openDailyHomePage(context, _expenseModel),
+              onTap: () => _openDailyHomePage(context),
             ),
             ListTile(
               title: const Text(
                 Strings.monthly,
               ),
-              //onTap: () => _openMonthlyHomePage(context),
+              onTap: () => _openMonthlyHomePage(context),
             ),
             ListTile(
               title: const Text(
                 Strings.yearly,
               ),
-              //onTap: () => _openYearlyHomePage(context),
+              onTap: () => _openYearlyHomePage(context),
             ),
           ],
         ),
@@ -118,29 +122,32 @@ class _MyDrawerState extends State<MyDrawer> {
     );
   }
 
-  // void _openDailyHomePage(BuildContext context, ExpenseModel model) {
-  //   Navigator.pop(context);
-  //   Navigator.push(
-  //     context,
-  //     MaterialPageRoute(builder: (context) => DailyHomePage()),
-  //   );
-  // }
+  void _openDailyHomePage(BuildContext context) {
+    Navigator.pop(context);
+    widget.pageController.animateToPage(
+      0,
+      duration: Duration(milliseconds: 500),
+      curve: Curves.ease,
+    );
+  }
 
-  // void _openMonthlyHomePage(BuildContext context) {
-  //   Navigator.pop(context);
-  //   Navigator.push(
-  //     context,
-  //     MaterialPageRoute(builder: (context) => MonthlyHomePage(DateTime.now())),
-  //   );
-  // }
+  void _openMonthlyHomePage(BuildContext context) {
+    Navigator.pop(context);
+    widget.pageController.animateToPage(
+      1,
+      duration: Duration(milliseconds: 500),
+      curve: Curves.ease,
+    );
+  }
 
-  // void _openYearlyHomePage(BuildContext context) {
-  //   Navigator.pop(context);
-  //   Navigator.push(
-  //     context,
-  //     MaterialPageRoute(builder: (context) => YearlyHomePage()),
-  //   );
-  // }
+  void _openYearlyHomePage(BuildContext context) {
+    Navigator.pop(context);
+    widget.pageController.animateToPage(
+      2,
+      duration: Duration(milliseconds: 500),
+      curve: Curves.ease,
+    );
+  }
 }
 
 // TODO: refactor this bs

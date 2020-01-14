@@ -11,7 +11,9 @@ import 'package:provider/provider.dart';
 class MonthlyHomePage extends StatefulWidget {
   final DateTime date;
 
-  MonthlyHomePage(this.date);
+  MonthlyHomePage(this.date) {
+    print('new monthly page instance');
+  }
 
   @override
   _MonthlyHomePageState createState() => _MonthlyHomePageState();

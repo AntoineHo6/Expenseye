@@ -111,21 +111,21 @@ class _MyDrawerState extends State<MyDrawer> {
                       '\t\t\t${Strings.daily}',
                       style: Theme.of(context).textTheme.subtitle,
                     ),
-                    onTap: () => _openDailyHomePage(context, _expenseModel),
+                    //onTap: () => _openDailyHomePage(context, _expenseModel),
                   ),
                   ListTile(
                     title: Text(
                       '\t\t\t${Strings.monthly}',
                       style: Theme.of(context).textTheme.subtitle,
                     ),
-                    onTap: () => _openMonthlyHomePage(context),
+                    //onTap: () => _openMonthlyHomePage(context),
                   ),
                   ListTile(
                     title: Text(
                       '\t\t\t${Strings.yearly}',
                       style: Theme.of(context).textTheme.subtitle,
                     ),
-                    onTap: () => _openYearlyHomePage(context),
+                    //onTap: () => _openYearlyHomePage(context),
                   ),
                 ],
               ),
@@ -145,29 +145,29 @@ class _MyDrawerState extends State<MyDrawer> {
     );
   }
 
-  void _openDailyHomePage(BuildContext context, ExpenseModel model) {
-    Navigator.pop(context);
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => DailyHomePage()),
-    );
-  }
+  // void _openDailyHomePage(BuildContext context, ExpenseModel model) {
+  //   Navigator.pop(context);
+  //   Navigator.push(
+  //     context,
+  //     MaterialPageRoute(builder: (context) => DailyHomePage()),
+  //   );
+  // }
 
-  void _openMonthlyHomePage(BuildContext context) {
-    Navigator.pop(context);
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => MonthlyHomePage(DateTime.now())),
-    );
-  }
+  // void _openMonthlyHomePage(BuildContext context) {
+  //   Navigator.pop(context);
+  //   Navigator.push(
+  //     context,
+  //     MaterialPageRoute(builder: (context) => MonthlyHomePage(DateTime.now())),
+  //   );
+  // }
 
-  void _openYearlyHomePage(BuildContext context) {
-    Navigator.pop(context);
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => YearlyHomePage()),
-    );
-  }
+  // void _openYearlyHomePage(BuildContext context) {
+  //   Navigator.pop(context);
+  //   Navigator.push(
+  //     context,
+  //     MaterialPageRoute(builder: (context) => YearlyHomePage()),
+  //   );
+  // }
 }
 
 // TODO: refactor this bs

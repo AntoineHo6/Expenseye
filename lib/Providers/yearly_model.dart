@@ -42,9 +42,11 @@ class YearlyModel extends ChangeNotifier {
   }
 
   void updateCurrentDate(BuildContext context, DateTime newDate) {
-    currentDate = newDate;
-    year = getYearString(newDate);
-    notifyListeners();
+    if (newDate != null) {
+      currentDate = newDate;
+      year = getYearString(newDate);
+      notifyListeners();
+    }
   }
 
   String getTitle() {

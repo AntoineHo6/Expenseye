@@ -56,21 +56,21 @@ class _HomePageState extends State<HomePage>
       ],
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Expenses'),
+          title: Text(Strings.expenses),
           actions: <Widget>[],
           bottom: TabBar(
             controller: _tabController,
             tabs: <Widget>[
               Container(
-                margin: const EdgeInsets.only(bottom: 15),
+                margin: const EdgeInsets.only(bottom: 15, top: 8),
                 child: const Text(Strings.daily),
               ),
               Container(
-                margin: const EdgeInsets.only(bottom: 15),
+                margin: const EdgeInsets.only(bottom: 15, top: 8),
                 child: const Text(Strings.monthly),
               ),
               Container(
-                margin: const EdgeInsets.only(bottom: 15),
+                margin: const EdgeInsets.only(bottom: 15, top: 8),
                 child: const Text(Strings.yearly),
               ),
             ],

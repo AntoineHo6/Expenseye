@@ -123,7 +123,13 @@ class _MyDrawerState extends State<MyDrawer> {
               ),
             ),
             ListTile(
-              title: Text(Strings.about),
+              title: Row(
+                children: <Widget>[
+                  Icon(Icons.info_outline, color: Colors.white),
+                  const SizedBox(width: 6),
+                  const Text(Strings.about),
+                ],
+              ),
               onTap: () => openAboutPage(context),
             ),
           ],

@@ -1,6 +1,8 @@
 import 'package:Expenseye/Models/Expense.dart';
+import 'package:Expenseye/Providers/monthly_model.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class YearlyModel extends ChangeNotifier {
   DateTime currentDate = DateTime.now(); // to be changed in the year picker
@@ -10,14 +12,11 @@ class YearlyModel extends ChangeNotifier {
 
   static String getYearString(DateTime newYear) {
     String temp = newYear.toIso8601String().split('T')[0];
-
     return temp.substring(0, temp.length - 6);
   }
 
-  // TODO: this is a dup from monthly_model crap
   String getYearMonthString(DateTime newMonth) {
     String temp = newMonth.toIso8601String().split('T')[0];
-
     return temp.substring(0, temp.length - 3);
   }
 
@@ -55,7 +54,18 @@ class YearlyModel extends ChangeNotifier {
   Future<void> calendarFunc(BuildContext context) async {
     final DateTime newDate =
         await DateTimeUtil.chooseYear(context, currentDate);
-    
+
     updateCurrentDate(context, newDate);
+  }
+
+  void prepMonthPage(BuildContext context, DateTime date) {
+    DateTime nowDate = DateTime.now();
+    if (date.year == nowDate.year && date.month == nowDate.month) {
+      Provider.of<MonthlyModel>(context, listen: false)
+          .updateDate(context, nowDate);
+    } else {
+      Provider.of<MonthlyModel>(context, listen: false)
+          .updateDate(context, DateTime(date.year, date.month));
+    }
   }
 }

@@ -3,7 +3,6 @@ import 'package:Expenseye/Components/Global/colored_dot.dart';
 import 'package:Expenseye/Models/Expense.dart';
 import 'package:Expenseye/Pages/Monthly/monthly_home_page.dart';
 import 'package:Expenseye/Providers/Global/expense_model.dart';
-import 'package:Expenseye/Providers/monthly_model.dart';
 import 'package:Expenseye/Providers/yearly_model.dart';
 import 'package:Expenseye/Resources/Themes/Colors.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
@@ -45,7 +44,11 @@ class YearlyExpensesPage extends StatelessWidget {
                           ),
                           Column(
                             children: _expensesSplitByMonthToContainers(
-                                context, expensesSplitByMonth, _expenseModel),
+                              context,
+                              expensesSplitByMonth,
+                              _expenseModel,
+                              _yearlyModel,
+                            ),
                           ),
                         ],
                       ),
@@ -73,24 +76,17 @@ class YearlyExpensesPage extends StatelessWidget {
     );
   }
 
-  List<InkWell> _expensesSplitByMonthToContainers(BuildContext context,
-      List<List<Expense>> expensesSplitByMonth, ExpenseModel expenseModel) {
+  List<InkWell> _expensesSplitByMonthToContainers(
+      BuildContext context,
+      List<List<Expense>> expensesSplitByMonth,
+      ExpenseModel expenseModel,
+      YearlyModel yearlyModel) {
     return expensesSplitByMonth
         .map(
           (expenseList) => InkWell(
             onTap: () {
-              // TODO: move this to model
-              DateTime date = expenseList[0].date;
-              DateTime nowDate = DateTime.now();
-              if (date.year == nowDate.year && date.month == nowDate.month) {
-                Provider.of<MonthlyModel>(context, listen: false)
-                    .updateDate(context, nowDate);
-                goToMonthPage();
-              } else {
-                Provider.of<MonthlyModel>(context, listen: false)
-                    .updateDate(context, DateTime(date.year, date.month));
-                goToMonthPage();
-              }
+              yearlyModel.prepMonthPage(context, expenseList[0].date);
+              goToMonthPage();
             },
             borderRadius: BorderRadius.circular(15),
             child: Container(

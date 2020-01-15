@@ -55,10 +55,9 @@ class GoogleFirebaseHelper {
 
   static Future<void> logOut() async {
     try {
-      await _auth.signOut().then((_) {
-        _googleSignIn.signOut();
-        user = null;
-      });
+      await _auth.signOut();
+      await _googleSignIn.signOut();
+      user = null;
     } catch (e) {
       print('error logging out');
     }

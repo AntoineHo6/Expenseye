@@ -14,7 +14,6 @@ enum ExpenseCategory {
   others
 }
 
-// temp. move elsewhere later maybe
 class CategoryProperties {
   static const Map<ExpenseCategory, Map<String, Object>> properties = {
     ExpenseCategory.food: {

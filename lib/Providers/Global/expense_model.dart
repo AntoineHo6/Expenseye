@@ -26,8 +26,6 @@ class ExpenseModel extends ChangeNotifier {
       for (Expense expense in localExpenses) {
         dbHelper.insert(expense);
       }
-      // ????
-      await GoogleFirebaseHelper.uploadDbFile();
     }
 
     notifyListeners();

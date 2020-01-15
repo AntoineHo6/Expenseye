@@ -22,14 +22,14 @@ class DailyExpensesPage extends StatelessWidget {
           if (snapshot.hasData) {
             if (snapshot.data != null && snapshot.data.length > 0) {
               _dailyModel.currentTotal = _expenseModel.calcTotal(snapshot.data);
-              return Column(
-                children: <Widget>[
-                  ExpensesHeader(
-                    total: _expenseModel.totalString(snapshot.data),
-                    pageModel: _dailyModel,
-                  ),
-                  Expanded(
-                    child: ListView(
+              return SingleChildScrollView(
+                child: Column(
+                  children: <Widget>[
+                    ExpensesHeader(
+                      total: _expenseModel.totalString(snapshot.data),
+                      pageModel: _dailyModel,
+                    ),
+                    Column(
                       children: snapshot.data.map(
                         (expense) {
                           return Card(
@@ -45,8 +45,8 @@ class DailyExpensesPage extends StatelessWidget {
                         },
                       ).toList(),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               );
             } else {
               return Align(

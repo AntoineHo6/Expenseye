@@ -29,14 +29,14 @@ class GoogleFirebaseHelper {
 
       if (res.user != null) {
         user = res.user;
-        String _storageFilePath = 'dbFiles/${user.uid}/MyDatabase.db';
+        String _storageFilePath = 'dbFiles/${user.uid}/ExpensesDb.db';
 
         // copy db file
         final ref = _storage.ref().child(_storageFilePath);
         var url = await ref.getDownloadURL();
 
         Directory documentsDirectory = await getApplicationDocumentsDirectory();
-        String path = join(documentsDirectory.path, "MyDatabase.db");
+        String path = join(documentsDirectory.path, "ExpensesDb.db");
 
         await HttpClient()
             .getUrl(Uri.parse(url))
@@ -67,12 +67,12 @@ class GoogleFirebaseHelper {
   static Future<void> uploadDbFile() async {
     if (user != null) {
       Directory documentsDirectory = await getApplicationDocumentsDirectory();
-      String path = join(documentsDirectory.path, "MyDatabase.db");
+      String path = join(documentsDirectory.path, "ExpensesDb.db");
       File dbFile = File(path);
 
       StorageUploadTask uploadTask = _storage
           .ref()
-          .child('dbFiles/${user.uid}/MyDatabase.db')
+          .child('dbFiles/${user.uid}/ExpensesDb.db')
           .putFile(dbFile);
 
       StorageTaskSnapshot storageTaskSnapshot = await uploadTask.onComplete;

@@ -1,16 +1,19 @@
+import 'package:Expenseye/Components/Expenses/expenses_header.dart';
+import 'package:Expenseye/Components/Global/calendar_flat_button.dart';
 import 'package:Expenseye/Components/Global/my_drawer.dart';
 import 'package:Expenseye/Components/Stats/category_stats_container.dart';
 import 'package:Expenseye/Components/Stats/legend_container.dart';
 import 'package:Expenseye/Components/Stats/simple_pie_chart.dart';
 import 'package:Expenseye/Models/Expense.dart';
+import 'package:Expenseye/Providers/Global/expense_model.dart';
 import 'package:Expenseye/Resources/Strings.dart';
 import 'package:Expenseye/Utils/chart_util.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 typedef GetExpenses = Future<List<Expense>> Function();
 
 class StatsPage extends StatelessWidget {
-
   final localModel;
   final GetExpenses future;
 
@@ -19,11 +22,12 @@ class StatsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _expenseModel = Provider.of<ExpenseModel>(context);
+
     return Scaffold(
       drawer: MyDrawer(),
       body: FutureBuilder<List<Expense>>(
         future: future(),
-            // _expenseModel.dbHelper.queryExpensesInMonth(localModel.yearMonth)
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data != null && snapshot.data.length > 0) {

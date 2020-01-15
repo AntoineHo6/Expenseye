@@ -1,3 +1,4 @@
+import 'package:Expenseye/Pages/about_page.dart';
 import 'package:Expenseye/Providers/Global/expense_model.dart';
 import 'package:Expenseye/Resources/Strings.dart';
 import 'package:Expenseye/Resources/Themes/Colors.dart';
@@ -27,16 +28,22 @@ class _MyDrawerState extends State<MyDrawer> {
               ),
               child: Column(
                 children: <Widget>[
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: Column(
-                      children: <Widget>[
-                        Icon(Icons.remove_red_eye, color: Colors.white),
-                        Text(
-                          Strings.appName,
-                          style: Theme.of(context).textTheme.headline,
-                        ),
-                      ],
+                  Container(
+                    margin: const EdgeInsets.only(bottom: 25),
+                    child: Align(
+                      alignment: Alignment.topLeft,
+                      child: Row(
+                        children: <Widget>[
+                          Icon(Icons.remove_red_eye, color: Colors.white),
+                          const SizedBox(
+                            width: 15,
+                          ),
+                          Text(
+                            Strings.appName,
+                            style: Theme.of(context).textTheme.headline,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                   Expanded(
@@ -66,24 +73,45 @@ class _MyDrawerState extends State<MyDrawer> {
                             ],
                           );
                         } else {
-                          return Row(
+                          return Column(
                             children: <Widget>[
-                              CircleAvatar(
-                                backgroundColor: Colors.white,
-                                child: Icon(Icons.person),
-                                radius: 25,
+                              SizedBox(
+                                width: double.infinity,
+                                child: Text(
+                                  Strings.signInToAvoidLosingData,
+                                  style: TextStyle(color: Colors.red),
+                                ),
                               ),
                               const SizedBox(
-                                width: 25,
+                                height: 10,
                               ),
-                              RaisedButton(
-                                color: MyColors.black06dp,
-                                child: Text(
-                                  Strings.signIn,
-                                  style: Theme.of(context).textTheme.body1,
-                                ),
-                                onPressed: () =>
-                                    _expenseModel.loginWithGoogle(),
+                              Row(
+                                children: <Widget>[
+                                  CircleAvatar(
+                                    backgroundColor: Colors.white,
+                                    child: Icon(Icons.person),
+                                    radius: 25,
+                                  ),
+                                  const SizedBox(
+                                    width: 25,
+                                  ),
+                                  RaisedButton(
+                                    padding: const EdgeInsets.all(0),
+                                    color: MyColors.black06dp,
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: <Widget>[
+                                        Image.asset(
+                                          'assets/btn_google_img.png',
+                                          width: 180,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ],
+                                    ),
+                                    onPressed: () =>
+                                        _expenseModel.loginWithGoogle(),
+                                  ),
+                                ],
                               ),
                             ],
                           );
@@ -94,9 +122,20 @@ class _MyDrawerState extends State<MyDrawer> {
                 ],
               ),
             ),
+            ListTile(
+              title: Text(Strings.about),
+              onTap: () => openAboutPage(context),
+            ),
           ],
         ),
       ),
+    );
+  }
+
+  void openAboutPage(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => AboutPage()),
     );
   }
 }

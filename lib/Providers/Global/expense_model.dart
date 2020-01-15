@@ -42,17 +42,17 @@ class ExpenseModel extends ChangeNotifier {
 
   void addExpense(Expense newExpense) async {
     await dbHelper.insert(newExpense);
-    if (GoogleFirebaseHelper.user != null) notifyListeners();
+    notifyListeners();
   }
 
   void editExpense(Expense newExpense) async {
     await dbHelper.update(newExpense);
-    if (GoogleFirebaseHelper.user != null) notifyListeners();
+    notifyListeners();
   }
 
   void deleteExpense(int id) async {
     await dbHelper.delete(id);
-    if (GoogleFirebaseHelper.user != null) notifyListeners();
+    notifyListeners();
   }
 
   void showAddExpense(BuildContext context, DateTime initialDate) async {

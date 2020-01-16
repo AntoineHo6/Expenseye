@@ -40,7 +40,7 @@ class MyTableCalendar extends StatelessWidget {
             margin: const EdgeInsets.symmetric(horizontal: 0.3),
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: CategoryProperties.properties[expense.category]['color'],
+              color: ExpenseCatProperties.properties[expense.category]['color'],
             ),
           );
         },

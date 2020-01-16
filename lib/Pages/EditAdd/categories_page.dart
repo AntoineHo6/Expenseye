@@ -25,9 +25,9 @@ class CategoriesPage extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   Icon(
-                    CategoryProperties.properties[ExpenseCategory.values[index]]
+                    ExpenseCatProperties.properties[ExpenseCategory.values[index]]
                         ['iconData'],
-                    color: CategoryProperties
+                    color: ExpenseCatProperties
                         .properties[ExpenseCategory.values[index]]['color'],
                     size: 50,
                   ),
@@ -37,7 +37,7 @@ class CategoriesPage extends StatelessWidget {
                   FittedBox(
                     fit: BoxFit.fitWidth,
                     child: Text(
-                      CategoryProperties
+                      ExpenseCatProperties
                           .properties[ExpenseCategory.values[index]]['string'],
                       style: Theme.of(context).textTheme.subhead,
                     ),

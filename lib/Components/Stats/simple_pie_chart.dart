@@ -44,7 +44,7 @@ class SimplePieChart extends StatelessWidget {
           domainFn: (ExpenseGroup group, _) => group.category,
           measureFn: (ExpenseGroup group, _) => group.total,
           colorFn: (ExpenseGroup group, _) => charts.ColorUtil.fromDartColor(
-              CategoryProperties.properties[group.category]['color']),
+              ExpenseCatProperties.properties[group.category]['color']),
           data: aggregatedExpenses)
     ];
   }

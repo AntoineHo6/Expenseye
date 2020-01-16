@@ -11,8 +11,8 @@ class ExpenseListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: Icon(CategoryProperties.properties[expense.category]['iconData'],
-          color: CategoryProperties.properties[expense.category]['color']),
+      leading: Icon(ExpenseCatProperties.properties[expense.category]['iconData'],
+          color: ExpenseCatProperties.properties[expense.category]['color']),
       title: Text(
         expense.name,
       ),

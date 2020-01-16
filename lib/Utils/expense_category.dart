@@ -14,7 +14,7 @@ enum ExpenseCategory {
   others
 }
 
-class CategoryProperties {
+class ExpenseCatProperties {
   static const Map<ExpenseCategory, Map<String, Object>> properties = {
     ExpenseCategory.food: {
       'string': Strings.food,

@@ -26,7 +26,12 @@ class _AddExpenseDialogState extends State<AddExpenseDialog> {
       create: (_) => new AddExpenseModel(widget.initialDate),
       child: Consumer<AddExpenseModel>(
         builder: (context, model, child) => AlertDialog(
-          title: const Text(Strings.newExpense),
+          title: Row(
+            children: <Widget>[
+              Icon(Icons.attach_money, color: Colors.white),
+              const Text(Strings.newExpense),
+            ],
+          ),
           content: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.min,

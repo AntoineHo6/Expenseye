@@ -24,6 +24,7 @@ dependencies:
   path_provider: ^1.5.1
   charts_flutter: ^0.8.1
   table_calendar: ^2.2.2
+  unicorndial: ^1.1.5
 
   google_sign_in: ^4.1.1
   firebase_auth: ^0.15.3+1

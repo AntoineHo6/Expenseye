@@ -34,7 +34,7 @@ class Strings {
   static const String signInToAvoidLosingData =
       'Sign In to avoid losing your data!';
 
-  // * CATEGORIES
+  // * EXPENSE categories
   static const String food = 'Food';
   static const String transportation = 'Transportation';
   static const String shopping = 'Shopping';
@@ -45,6 +45,10 @@ class Strings {
   static const String travel = 'Travel';
   static const String people = 'People';
   static const String others = 'Others';
+
+  // * INCOME categories
+  static const String salary = 'Salary';
+  static const String gift = 'Gift';
 
   // * DRAWER options
   static const String daily = 'Daily';

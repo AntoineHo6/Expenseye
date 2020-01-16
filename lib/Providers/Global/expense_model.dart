@@ -96,7 +96,7 @@ class ExpenseModel extends ChangeNotifier {
 
   // * may move out of this provider
   String totalString(List<Expense> expenses) {
-    return '${calcTotal(expenses).toString()} \$';
+    return '${calcTotal(expenses).toStringAsFixed(2)} \$';
   }
 }
 

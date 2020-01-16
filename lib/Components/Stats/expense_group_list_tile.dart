@@ -19,7 +19,7 @@ class ExpenseGroupListTile extends StatelessWidget {
       title:
           Text(CategoryProperties.properties[expenseGroup.category]['string']),
       subtitle: Text('${_calcPercentage()}\%'),
-      trailing: Text('${expenseGroup.total.toString()} \$'),
+      trailing: Text('${expenseGroup.total.toStringAsFixed(2)} \$'),
     );
   }
 

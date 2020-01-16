@@ -17,7 +17,7 @@ class ExpenseListTile extends StatelessWidget {
         expense.name,
       ),
       trailing: Text(
-        '${expense.price.toString()} \$',
+        '${expense.price.toStringAsFixed(2)} \$',
       ),
       onTap: onTap,
     );

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class ExpensesHeader extends StatelessWidget {
   final String total;
-  final pageModel;  // DailyModel, MonthlyModel or YearlyModel
+  final pageModel; // DailyModel, MonthlyModel or YearlyModel
 
   ExpensesHeader({this.total, this.pageModel});
 
@@ -16,18 +16,26 @@ class ExpensesHeader extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          CalendarFlatButton(
-            onPressed: () => pageModel.calendarFunc(context),
-          ),
-          Text(
-            pageModel.getTitle(),
-            style: Theme.of(context).textTheme.headline,
+          Container(
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Text(
+                  pageModel.getTitle(),
+                  style: Theme.of(context).textTheme.display2,
+                ),
+                const SizedBox(width: 15),
+                CalendarFlatButton(
+                  onPressed: () => pageModel.calendarFunc(context),
+                ),
+              ],
+            ),
           ),
           Container(
             margin: const EdgeInsets.only(top: 10),
             child: Text(
               '${Strings.total}: $total',
-              style: Theme.of(context).textTheme.display1,
+              style: Theme.of(context).textTheme.headline,
             ),
           ),
         ],

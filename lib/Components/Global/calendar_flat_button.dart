@@ -8,6 +8,7 @@ class CalendarFlatButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RaisedButton(
+      
       textColor: Colors.white,
       onPressed: onPressed,
       child: const Icon(Icons.calendar_today),

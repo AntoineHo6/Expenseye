@@ -85,7 +85,8 @@ class MonthlyExpensesPage extends StatelessWidget {
               borderRadius: BorderRadius.circular(15),
             ),
             padding: const EdgeInsets.all(12),
-            margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 12),
+            margin:
+                const EdgeInsets.only(left: 15, right: 15, top: 5, bottom: 15),
             child: Column(
               children: <Widget>[
                 Row(

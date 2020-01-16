@@ -1,19 +1,19 @@
-import 'package:Expenseye/Models/Expense.dart';
+import 'package:Expenseye/Models/Item.dart';
 import 'package:Expenseye/Pages/EditAdd/categories_page.dart';
-import 'package:Expenseye/Providers/Global/expense_income_model.dart';
+import 'package:Expenseye/Providers/Global/item_model.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
-import 'package:Expenseye/Utils/expense_category.dart';
+import 'package:Expenseye/Utils/item_category.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class AddExpenseModel extends ChangeNotifier {
+class AddItemModel extends ChangeNotifier {
   bool isNameInvalid = false;
   bool isPriceInvalid = false;
 
   DateTime date;
-  ExpenseCategory category = ExpenseCategory.food;
+  ItemCategory category = ItemCategory.food;
 
-  AddExpenseModel(this.date);
+  AddItemModel(this.date);
 
   // Will make the save button clickable
   void updateDate(DateTime newDate) {
@@ -28,7 +28,7 @@ class AddExpenseModel extends ChangeNotifier {
     updateDate(newDate);
   }
 
-  void addExpense(BuildContext context, String newName, String newPrice) {
+  void addItem(BuildContext context, String newName, String newPrice) {
     // make sure to remove time before adding to db
     final DateTime newDate = DateTimeUtil.timeToZeroInDate(date);
 
@@ -36,11 +36,11 @@ class AddExpenseModel extends ChangeNotifier {
 
     // if all the fields are valid, add and quit
     if (!areFieldsInvalid) {
-      Expense newExpense =
-          new Expense(newName, double.parse(newPrice), newDate, category);
+      Item newItem =
+          new Item(newName, double.parse(newPrice), newDate, 0, category);
 
-      Provider.of<ExpenseIncomeModel>(context, listen: false)
-          .addExpense(newExpense);
+      Provider.of<ItemModel>(context, listen: false)
+          .addItem(newItem);
       Navigator.pop(context, true);
     }
   }

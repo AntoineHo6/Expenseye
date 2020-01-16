@@ -1,8 +1,8 @@
-import 'package:Expenseye/Utils/expense_category.dart';
+import 'package:Expenseye/Utils/item_category.dart';
 import 'package:flutter/material.dart';
 
 class IconBtn extends StatelessWidget {
-  final ExpenseCategory category;
+  final ItemCategory category;
   final Function function;
 
   const IconBtn(this.category, this.function);
@@ -13,8 +13,8 @@ class IconBtn extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
       onPressed: function,
       child: Icon(
-        ExpenseCatProperties.properties[category]['iconData'],
-        color: ExpenseCatProperties.properties[category]['color'],
+        ItemCatProperties.properties[category]['iconData'],
+        color: ItemCatProperties.properties[category]['color'],
       ),
     );
   }

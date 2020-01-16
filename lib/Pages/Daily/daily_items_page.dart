@@ -1,23 +1,23 @@
-import 'package:Expenseye/Components/Expenses/expenses_header.dart';
+import 'package:Expenseye/Components/Items/items_header.dart';
 import 'package:Expenseye/Components/Global/add_expense_fab.dart';
-import 'package:Expenseye/Components/Expenses/expense_list_tile.dart';
-import 'package:Expenseye/Models/Expense.dart';
+import 'package:Expenseye/Components/Items/item_list_tile.dart';
+import 'package:Expenseye/Models/Item.dart';
 import 'package:Expenseye/Providers/daily_model.dart';
 import 'package:Expenseye/Resources/Themes/Colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:Expenseye/Providers/Global/expense_income_model.dart';
+import 'package:Expenseye/Providers/Global/item_model.dart';
 
-class DailyExpensesPage extends StatelessWidget {
+class DailyItemsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final _expenseModel = Provider.of<ExpenseIncomeModel>(context);
+    final _expenseModel = Provider.of<ItemModel>(context);
     final _dailyModel = Provider.of<DailyModel>(context);
 
     return Scaffold(
-      body: FutureBuilder<List<Expense>>(
+      body: FutureBuilder<List<Item>>(
         future:
-            _expenseModel.dbHelper.queryExpensesInDate(_dailyModel.currentDate),
+            _expenseModel.dbHelper.queryItemsInDate(_dailyModel.currentDate),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data != null && snapshot.data.length > 0) {
@@ -25,7 +25,7 @@ class DailyExpensesPage extends StatelessWidget {
               return SingleChildScrollView(
                 child: Column(
                   children: <Widget>[
-                    ExpensesHeader(
+                    ItemsHeader(
                       total: _expenseModel.totalString(snapshot.data),
                       pageModel: _dailyModel,
                     ),
@@ -36,9 +36,9 @@ class DailyExpensesPage extends StatelessWidget {
                             margin: const EdgeInsets.symmetric(
                                 horizontal: 15, vertical: 5),
                             color: MyColors.black02dp,
-                            child: ExpenseListTile(
+                            child: ItemListTile(
                               expense,
-                              onTap: () => _expenseModel.openEditExpense(
+                              onTap: () => _expenseModel.openEditItem(
                                   context, expense),
                             ),
                           );
@@ -51,7 +51,7 @@ class DailyExpensesPage extends StatelessWidget {
             } else {
               return Align(
                 alignment: Alignment.topCenter,
-                child: ExpensesHeader(
+                child: ItemsHeader(
                   total: _expenseModel.totalString(snapshot.data),
                   pageModel: _dailyModel,
                 ),
@@ -67,7 +67,7 @@ class DailyExpensesPage extends StatelessWidget {
       ),
       floatingActionButton: AddExpenseFab(
         onPressed: () =>
-            _expenseModel.showAddExpense(context, _dailyModel.currentDate),
+            _expenseModel.showAddItem(context, _dailyModel.currentDate),
       ),
     );
   }

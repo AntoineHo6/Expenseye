@@ -68,18 +68,11 @@ class Strings {
   static const String succDeleted = 'Successfully deleted';
 
   // * EXPENSE DATABASE table and column names
-  static const String tableExpenses = 'expenses';
-  static const String expenseColumnId = 'expense_id';
-  static const String expenseColumnName = 'name';
-  static const String expenseColumnPrice = 'price';
-  static const String expenseColumnDate = 'date';
-  static const String expenseColumnCategory = 'category';
-
-  // * INCOME DATABASE table and column names
-  static const String tableIncomes = 'incomes';
-  static const String incomeColumnId = 'income_id';
-  static const String incomeColumnName = 'name';
-  static const String incomeColumnAmount = 'amount';
-  static const String incomeColumnDate = 'date';
-  static const String incomeColumnCategory = 'category';
+  static const String tableItems = 'items';
+  static const String itemColumnId = 'expense_id';
+  static const String itemColumnName = 'name';
+  static const String itemColumnValue = 'value';
+  static const String itemColumnDate = 'date';
+  static const String itemColumnCategory = 'category';
+  static const String itemColumnType = 'type';
 }

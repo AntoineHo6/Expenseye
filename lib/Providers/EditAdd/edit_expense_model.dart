@@ -1,20 +1,20 @@
 import 'package:Expenseye/Components/EditAdd/confirmation_dialog.dart';
-import 'package:Expenseye/Models/Expense.dart';
+import 'package:Expenseye/Models/Item.dart';
 import 'package:Expenseye/Pages/EditAdd/categories_page.dart';
-import 'package:Expenseye/Providers/Global/expense_income_model.dart';
+import 'package:Expenseye/Providers/Global/item_model.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
-import 'package:Expenseye/Utils/expense_category.dart';
+import 'package:Expenseye/Utils/item_category.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class EditExpenseModel extends ChangeNotifier {
+class EditItemModel extends ChangeNotifier {
   bool didInfoChange = false;
   bool isNameInvalid = false;
   bool isPriceInvalid = false;
   DateTime date;
-  ExpenseCategory category;
+  ItemCategory category;
 
-  EditExpenseModel(this.date, this.category);
+  EditItemModel(this.date, this.category);
 
   // Will make the save button clickable
   void infoChanged(String text) {
@@ -35,17 +35,17 @@ class EditExpenseModel extends ChangeNotifier {
     updateDate(newDate);
   }
 
-  void editExpense(
+  void editItem(
       BuildContext context, int id, String newName, String newPrice) {
     bool areFieldsInvalid = _checkFieldsInvalid(newName, newPrice);
 
     // if all the fields are valid, update and quit
     if (!areFieldsInvalid) {
-      Expense newExpense = new Expense.withId(
-          id, newName, double.parse(newPrice), date, category);
+      Item newItem = new Item.withId(
+          id, newName, double.parse(newPrice), date, 0, category);
 
-      Provider.of<ExpenseIncomeModel>(context, listen: false)
-          .editExpense(newExpense);
+      Provider.of<ItemModel>(context, listen: false)
+          .editItem(newItem);
       Navigator.pop(context, 1);
     }
   }
@@ -57,8 +57,8 @@ class EditExpenseModel extends ChangeNotifier {
     );
 
     if (confirmed != null && confirmed) {
-      Provider.of<ExpenseIncomeModel>(context, listen: false)
-          .deleteExpense(expenseId);
+      Provider.of<ItemModel>(context, listen: false)
+          .deleteItem(expenseId);
       Navigator.pop(context, 2);
     }
   }

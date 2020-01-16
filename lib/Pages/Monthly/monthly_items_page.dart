@@ -1,29 +1,29 @@
-import 'package:Expenseye/Components/Expenses/expenses_header.dart';
+import 'package:Expenseye/Components/Items/items_header.dart';
 import 'package:Expenseye/Components/Global/add_expense_fab.dart';
-import 'package:Expenseye/Components/Expenses/expense_list_tile.dart';
-import 'package:Expenseye/Models/Expense.dart';
-import 'package:Expenseye/Providers/Global/expense_income_model.dart';
+import 'package:Expenseye/Components/Items/item_list_tile.dart';
+import 'package:Expenseye/Models/Item.dart';
+import 'package:Expenseye/Providers/Global/item_model.dart';
 import 'package:Expenseye/Providers/monthly_model.dart';
 import 'package:Expenseye/Resources/Themes/Colors.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class MonthlyExpensesPage extends StatelessWidget {
+class MonthlyItemsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final _expenseModel = Provider.of<ExpenseIncomeModel>(context);
+    final _expenseModel = Provider.of<ItemModel>(context);
     final _monthlyModel = Provider.of<MonthlyModel>(context);
 
     return Scaffold(
-      body: FutureBuilder<List<Expense>>(
+      body: FutureBuilder<List<Item>>(
         future: _expenseModel.dbHelper
-            .queryExpensesInMonth(_monthlyModel.yearMonth),
+            .queryItemsInMonth(_monthlyModel.yearMonth),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data != null && snapshot.data.length > 0) {
               var expensesSplitByDay =
-                  _monthlyModel.splitExpensesByDay(snapshot.data);
+                  _monthlyModel.splitItemsByDay(snapshot.data);
               _monthlyModel.currentTotal =
                   _expenseModel.calcTotal(snapshot.data);
 
@@ -34,7 +34,7 @@ class MonthlyExpensesPage extends StatelessWidget {
                     child: SingleChildScrollView(
                       child: Column(
                         children: <Widget>[
-                          ExpensesHeader(
+                          ItemsHeader(
                             total: _expenseModel.totalString(snapshot.data),
                             pageModel: _monthlyModel,
                           ),
@@ -51,7 +51,7 @@ class MonthlyExpensesPage extends StatelessWidget {
             } else {
               return Align(
                 alignment: Alignment.topCenter,
-                child: ExpensesHeader(
+                child: ItemsHeader(
                   total: _expenseModel.totalString(snapshot.data),
                   pageModel: _monthlyModel,
                 ),
@@ -67,15 +67,15 @@ class MonthlyExpensesPage extends StatelessWidget {
       ),
       floatingActionButton: AddExpenseFab(
         onPressed: () =>
-            _expenseModel.showAddExpense(context, _monthlyModel.currentDate),
+            _expenseModel.showAddItem(context, _monthlyModel.currentDate),
       ),
     );
   }
 
   // ? Move to components?
   List<Container> _expensesSplitByDayToContainers(
-      BuildContext context, List<List<Expense>> expensesSplitByDay) {
-    final _expenseModel = Provider.of<ExpenseIncomeModel>(context, listen: false);
+      BuildContext context, List<List<Item>> expensesSplitByDay) {
+    final _expenseModel = Provider.of<ItemModel>(context, listen: false);
 
     return expensesSplitByDay
         .map(
@@ -112,10 +112,10 @@ class MonthlyExpensesPage extends StatelessWidget {
                         (expense) => Card(
                           margin: const EdgeInsets.symmetric(vertical: 4),
                           color: MyColors.black02dp,
-                          child: ExpenseListTile(
+                          child: ItemListTile(
                             expense,
                             onTap: () =>
-                                _expenseModel.openEditExpense(context, expense),
+                                _expenseModel.openEditItem(context, expense),
                           ),
                         ),
                       )

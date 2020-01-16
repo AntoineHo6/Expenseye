@@ -2,11 +2,11 @@ import 'package:Expenseye/Components/Global/calendar_flat_button.dart';
 import 'package:Expenseye/Resources/Strings.dart';
 import 'package:flutter/material.dart';
 
-class ExpensesHeader extends StatelessWidget {
+class ItemsHeader extends StatelessWidget {
   final String total;
   final pageModel; // DailyModel, MonthlyModel or YearlyModel
 
-  ExpensesHeader({this.total, this.pageModel});
+  ItemsHeader({this.total, this.pageModel});
 
   @override
   Widget build(BuildContext context) {

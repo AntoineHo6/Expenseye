@@ -1,6 +1,6 @@
 import 'package:Expenseye/Components/Global/my_table_calendar.dart';
-import 'package:Expenseye/Models/Expense.dart';
-import 'package:Expenseye/Providers/Global/expense_income_model.dart';
+import 'package:Expenseye/Models/Item.dart';
+import 'package:Expenseye/Providers/Global/item_model.dart';
 import 'package:Expenseye/Resources/Strings.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
 import 'package:Expenseye/Utils/table_calendar_util.dart';
@@ -23,14 +23,14 @@ class _DailyTableCalendarPage extends State<DailyTableCalendarPage>
 
   @override
   Widget build(BuildContext context) {
-    final _expenseModel = Provider.of<ExpenseIncomeModel>(context, listen: false);
+    final _expenseModel = Provider.of<ItemModel>(context, listen: false);
 
     return Scaffold(
       appBar: AppBar(
         title: Text(Strings.pickADate),
       ),
-      body: FutureBuilder<List<Expense>>(
-        future: _expenseModel.dbHelper.queryAllExpenses(),
+      body: FutureBuilder<List<Item>>(
+        future: _expenseModel.dbHelper.queryAllItems(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data != null) {

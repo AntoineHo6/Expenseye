@@ -1,11 +1,11 @@
-import 'package:Expenseye/Models/Expense.dart';
+import 'package:Expenseye/Models/Item.dart';
 
 class TableCalendarUtil {
   
-  static Map<DateTime, List<Expense>> expensesToEvents(List<Expense> expenses) {
-    Map<DateTime, List<Expense>> events = new Map();
+  static Map<DateTime, List<Item>> expensesToEvents(List<Item> expenses) {
+    Map<DateTime, List<Item>> events = new Map();
 
-    for (Expense expense in expenses) {
+    for (Item expense in expenses) {
       if (events.containsKey(expense.date)) {
         events[expense.date].add(expense);
       }

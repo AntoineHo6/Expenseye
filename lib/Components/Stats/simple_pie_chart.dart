@@ -1,6 +1,6 @@
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:Expenseye/Utils/chart_util.dart';
-import 'package:Expenseye/Utils/expense_category.dart';
+import 'package:Expenseye/Utils/item_category.dart';
 import 'package:flutter/material.dart';
 
 class SimplePieChart extends StatelessWidget {
@@ -24,19 +24,19 @@ class SimplePieChart extends StatelessWidget {
   }
 
   /// Create one series with sample hard coded data.
-  static List<charts.Series<ExpenseGroup, ExpenseCategory>>
+  static List<charts.Series<ExpenseGroup, ItemCategory>>
       _createSampleData() {
     List<ExpenseGroup> aggregatedExpenses = [
-      new ExpenseGroup(ExpenseCategory.food, 5),
-      new ExpenseGroup(ExpenseCategory.transportation, 0),
-      new ExpenseGroup(ExpenseCategory.shopping, 8),
-      new ExpenseGroup(ExpenseCategory.entertainment, 0),
-      new ExpenseGroup(ExpenseCategory.activity, 0),
-      new ExpenseGroup(ExpenseCategory.medical, 1),
-      new ExpenseGroup(ExpenseCategory.home, 3),
-      new ExpenseGroup(ExpenseCategory.travel, 7),
-      new ExpenseGroup(ExpenseCategory.people, 1),
-      new ExpenseGroup(ExpenseCategory.others, 2),
+      new ExpenseGroup(ItemCategory.food, 5),
+      new ExpenseGroup(ItemCategory.transportation, 0),
+      new ExpenseGroup(ItemCategory.shopping, 8),
+      new ExpenseGroup(ItemCategory.entertainment, 0),
+      new ExpenseGroup(ItemCategory.activity, 0),
+      new ExpenseGroup(ItemCategory.medical, 1),
+      new ExpenseGroup(ItemCategory.home, 3),
+      new ExpenseGroup(ItemCategory.travel, 7),
+      new ExpenseGroup(ItemCategory.people, 1),
+      new ExpenseGroup(ItemCategory.others, 2),
     ];
     return [
       new charts.Series(
@@ -44,7 +44,7 @@ class SimplePieChart extends StatelessWidget {
           domainFn: (ExpenseGroup group, _) => group.category,
           measureFn: (ExpenseGroup group, _) => group.total,
           colorFn: (ExpenseGroup group, _) => charts.ColorUtil.fromDartColor(
-              ExpenseCatProperties.properties[group.category]['color']),
+              ItemCatProperties.properties[group.category]['color']),
           data: aggregatedExpenses)
     ];
   }

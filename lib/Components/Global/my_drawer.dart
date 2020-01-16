@@ -1,5 +1,5 @@
 import 'package:Expenseye/Pages/about_page.dart';
-import 'package:Expenseye/Providers/Global/expense_income_model.dart';
+import 'package:Expenseye/Providers/Global/item_model.dart';
 import 'package:Expenseye/Resources/Strings.dart';
 import 'package:Expenseye/Resources/Themes/Colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -14,7 +14,7 @@ class MyDrawer extends StatefulWidget {
 class _MyDrawerState extends State<MyDrawer> {
   @override
   Widget build(BuildContext context) {
-    final _expenseModel = Provider.of<ExpenseIncomeModel>(context, listen: false);
+    final _expenseModel = Provider.of<ItemModel>(context, listen: false);
 
     return Drawer(
       child: Container(

@@ -23,8 +23,8 @@ class _AddExpenseDialogState extends State<AddExpenseDialog> {
   @override
   Widget build(BuildContext context) {
     return new ChangeNotifierProvider(
-      create: (_) => new AddExpenseModel(widget.initialDate),
-      child: Consumer<AddExpenseModel>(
+      create: (_) => new AddItemModel(widget.initialDate),
+      child: Consumer<AddItemModel>(
         builder: (context, model, child) => AlertDialog(
           title: Row(
             children: <Widget>[
@@ -74,7 +74,7 @@ class _AddExpenseDialogState extends State<AddExpenseDialog> {
             FlatButton(
               textColor: Colors.white,
               child: Text(Strings.submitCaps),
-              onPressed: () => model.addExpense(
+              onPressed: () => model.addItem(
                   context, _nameController.text, _priceController.text),
             ),
           ],

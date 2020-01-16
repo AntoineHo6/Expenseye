@@ -1,54 +1,64 @@
-import 'package:Expenseye/Models/Expense.dart';
-import 'package:Expenseye/Utils/expense_category.dart';
+import 'package:Expenseye/Models/Item.dart';
+import 'package:Expenseye/Utils/item_category.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
 class ChartUtil {
-  static List<charts.Series<ExpenseGroup, ExpenseCategory>>
-      convertExpensesToChartSeries(List<Expense> expenses) {
+  static List<charts.Series<ExpenseGroup, ItemCategory>>
+      convertExpensesToChartSeries(List<Item> expenses) {
     List<ExpenseGroup> aggregatedExpenses = [
-      new ExpenseGroup(ExpenseCategory.food, 0),
-      new ExpenseGroup(ExpenseCategory.transportation, 0),
-      new ExpenseGroup(ExpenseCategory.shopping, 0),
-      new ExpenseGroup(ExpenseCategory.entertainment, 0),
-      new ExpenseGroup(ExpenseCategory.activity, 0),
-      new ExpenseGroup(ExpenseCategory.medical, 0),
-      new ExpenseGroup(ExpenseCategory.home, 0),
-      new ExpenseGroup(ExpenseCategory.travel, 0),
-      new ExpenseGroup(ExpenseCategory.people, 0),
-      new ExpenseGroup(ExpenseCategory.others, 0),
+      new ExpenseGroup(ItemCategory.food, 0),
+      new ExpenseGroup(ItemCategory.transportation, 0),
+      new ExpenseGroup(ItemCategory.shopping, 0),
+      new ExpenseGroup(ItemCategory.entertainment, 0),
+      new ExpenseGroup(ItemCategory.activity, 0),
+      new ExpenseGroup(ItemCategory.medical, 0),
+      new ExpenseGroup(ItemCategory.home, 0),
+      new ExpenseGroup(ItemCategory.travel, 0),
+      new ExpenseGroup(ItemCategory.people, 0),
+      new ExpenseGroup(ItemCategory.others, 0),
     ];
 
-    for (Expense expense in expenses) {
+    for (Item expense in expenses) {
       switch (expense.category) {
-        case ExpenseCategory.food:
-          aggregatedExpenses[0].total += expense.price;
+        case ItemCategory.food:
+          aggregatedExpenses[0].total += expense.value;
           break;
-        case ExpenseCategory.transportation:
-          aggregatedExpenses[1].total += expense.price;
+        case ItemCategory.transportation:
+          aggregatedExpenses[1].total += expense.value;
           break;
-        case ExpenseCategory.shopping:
-          aggregatedExpenses[2].total += expense.price;
+        case ItemCategory.shopping:
+          aggregatedExpenses[2].total += expense.value;
           break;
-        case ExpenseCategory.entertainment:
-          aggregatedExpenses[3].total += expense.price;
+        case ItemCategory.entertainment:
+          aggregatedExpenses[3].total += expense.value;
           break;
-        case ExpenseCategory.activity:
-          aggregatedExpenses[4].total += expense.price;
+        case ItemCategory.activity:
+          aggregatedExpenses[4].total += expense.value;
           break;
-        case ExpenseCategory.medical:
-          aggregatedExpenses[5].total += expense.price;
+        case ItemCategory.medical:
+          aggregatedExpenses[5].total += expense.value;
           break;
-        case ExpenseCategory.home:
-          aggregatedExpenses[6].total += expense.price;
+        case ItemCategory.home:
+          aggregatedExpenses[6].total += expense.value;
           break;
-        case ExpenseCategory.travel:
-          aggregatedExpenses[7].total += expense.price;
+        case ItemCategory.travel:
+          aggregatedExpenses[7].total += expense.value;
           break;
-        case ExpenseCategory.people:
-          aggregatedExpenses[8].total += expense.price;
+        case ItemCategory.people:
+          aggregatedExpenses[8].total += expense.value;
           break;
-        case ExpenseCategory.others:
-          aggregatedExpenses[9].total += expense.price;
+        case ItemCategory.others:
+          aggregatedExpenses[9].total += expense.value;
+          break;
+        case ItemCategory.salary:
+          break;
+        case ItemCategory.gift:
+          break;
+        case ItemCategory.business:
+          break;
+        case ItemCategory.insurance:
+          break;
+        case ItemCategory.refund:
           break;
       }
     }
@@ -59,7 +69,7 @@ class ChartUtil {
           domainFn: (ExpenseGroup group, _) => group.category,
           measureFn: (ExpenseGroup group, _) => group.total,
           colorFn: (ExpenseGroup group, _) => charts.ColorUtil.fromDartColor(
-              ExpenseCatProperties.properties[group.category]['color']),
+              ItemCatProperties.properties[group.category]['color']),
           data: aggregatedExpenses)
     ];
   }
@@ -67,7 +77,7 @@ class ChartUtil {
 
 // can't implement map instead because charts use lists
 class ExpenseGroup {
-  ExpenseCategory category;
+  ItemCategory category;
   double total;
 
   ExpenseGroup(this.category, this.total);

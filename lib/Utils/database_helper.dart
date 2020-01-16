@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:Expenseye/Models/Expense.dart';
+import 'package:Expenseye/Models/Item.dart';
 import 'package:Expenseye/Resources/Strings.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
@@ -8,9 +8,9 @@ import 'package:path_provider/path_provider.dart';
 // singleton class to manage the database
 class DatabaseHelper {
   // This is the actual database filename that is saved in the docs directory.
-  static const _databaseName = "ExpensesDb.db";
+  static const _databaseName = "ItemsDb.db";
   // Increment this version when you need to change the schema.
-  static final _databaseVersion = 4;
+  static final _databaseVersion = 1;
 
   // Make this a singleton class.
   DatabaseHelper._privateConstructor();
@@ -31,123 +31,118 @@ class DatabaseHelper {
     String path = join(documentsDirectory.path, _databaseName);
     // Open the database. Can also add an onUpdate callback parameter.
     return await openDatabase(path,
-        version: _databaseVersion, onCreate: _onCreate);
+        version: _databaseVersion, onCreate: _onCreate, onUpgrade: _onUpgrade);
   }
 
   Future _onCreate(Database db, int version) async {
-    print('creating expenses table');
+    print('creating items table');
     await db.execute('''
-              CREATE TABLE ${Strings.tableExpenses} (
-                ${Strings.expenseColumnId} INTEGER PRIMARY KEY AUTOINCREMENT,
-                ${Strings.expenseColumnName} TEXT NOT NULL,
-                ${Strings.expenseColumnPrice} DOUBLE NOT NULL,
-                ${Strings.expenseColumnDate} TEXT NOT NULL,
-                ${Strings.expenseColumnCategory} INTEGER NOT NULL
-              )
-              ''');
-
-    print('creating incomes table');
-    await db.execute('''
-              CREATE TABLE ${Strings.tableIncomes} (
-                ${Strings.incomeColumnId} INTEGER PRIMARY KEY AUTOINCREMENT,
-                ${Strings.incomeColumnName} TEXT NOT NULL,
-                ${Strings.incomeColumnAmount} DOUBLE NOT NULL,
-                ${Strings.incomeColumnDate} TEXT NOT NULL,
-                ${Strings.incomeColumnCategory} INTEGER NOT NULL
+              CREATE TABLE ${Strings.tableItems} (
+                ${Strings.itemColumnId} INTEGER PRIMARY KEY AUTOINCREMENT,
+                ${Strings.itemColumnName} TEXT NOT NULL,
+                ${Strings.itemColumnValue} DOUBLE NOT NULL,
+                ${Strings.itemColumnDate} TEXT NOT NULL,
+                ${Strings.itemColumnCategory} INTEGER NOT NULL,
+                ${Strings.itemColumnType} INTEGER NOT NULL
               )
               ''');
   }
 
-  Future<int> insertExpense(Expense expense) async {
+  Future _onUpgrade(Database db, int oldVersion, int newVersion) {
+
+  }
+
+  Future<int> insertItem(Item expense) async {
     Database db = await database;
-    int id = await db.insert(Strings.tableExpenses, expense.toMap());
+    int id = await db.insert(Strings.tableItems, expense.toMap());
     return id;
   }
 
-  Future<Expense> queryExpense(int id) async {
+  Future<Item> queryItem(int id) async {
     Database db = await database;
-    List<Map> maps = await db.query(Strings.tableExpenses,
+    List<Map> maps = await db.query(Strings.tableItems,
         columns: [
-          Strings.expenseColumnId,
-          Strings.expenseColumnName,
-          Strings.expenseColumnPrice,
-          Strings.expenseColumnDate,
-          Strings.expenseColumnCategory
+          Strings.itemColumnId,
+          Strings.itemColumnName,
+          Strings.itemColumnValue,
+          Strings.itemColumnDate,
+          Strings.itemColumnCategory,
+          Strings.itemColumnType
         ],
-        where: '${Strings.expenseColumnId} = ?',
+        where: '${Strings.itemColumnId} = ?',
         whereArgs: [id]);
     if (maps.length > 0) {
-      return Expense.fromMap(maps.first);
+      return Item.fromMap(maps.first);
     }
     return null;
   }
 
-  Future<List<Expense>> queryExpensesInDate(DateTime date) async {
+  Future<List<Item>> queryItemsInDate(DateTime date) async {
     Database db = await database;
     String dateStrToFind = date.toIso8601String().split('T')[0];
 
-    List<Map> maps = await db.query(Strings.tableExpenses,
-        where: '${Strings.expenseColumnDate} LIKE \'$dateStrToFind%\'');
+    List<Map> maps = await db.query(Strings.tableItems,
+        where: '${Strings.itemColumnDate} LIKE \'$dateStrToFind%\'');
 
-    return convertMapsToExpenses(maps);
+    return convertMapsToItems(maps);
   }
 
-  Future<List<Expense>> queryExpensesInMonth(String yearMonth) async {
+  Future<List<Item>> queryItemsInMonth(String yearMonth) async {
     Database db = await database;
 
     List<Map> maps = await db.query(
-      Strings.tableExpenses,
-      where: '${Strings.expenseColumnDate} LIKE \'$yearMonth%\'',
-      orderBy: '${Strings.expenseColumnDate} DESC',
+      Strings.tableItems,
+      where: '${Strings.itemColumnDate} LIKE \'$yearMonth%\'',
+      orderBy: '${Strings.itemColumnDate} DESC',
     );
 
-    return convertMapsToExpenses(maps);
+    return convertMapsToItems(maps);
   }
 
-  Future<List<Expense>> queryExpensesInYear(String year) async {
+  Future<List<Item>> queryItemsInYear(String year) async {
     Database db = await database;
 
     List<Map> maps = await db.query(
-      Strings.tableExpenses,
-      where: '${Strings.expenseColumnDate} LIKE \'$year%\'',
-      orderBy: '${Strings.expenseColumnDate} DESC',
+      Strings.tableItems,
+      where: '${Strings.itemColumnDate} LIKE \'$year%\'',
+      orderBy: '${Strings.itemColumnDate} DESC',
     );
 
-    return convertMapsToExpenses(maps);
+    return convertMapsToItems(maps);
   }
 
-  Future<List<Expense>> queryAllExpenses() async {
+  Future<List<Item>> queryAllItems() async {
     Database db = await database;
 
-    List<Map> maps = await db.query(Strings.tableExpenses);
+    List<Map> maps = await db.query(Strings.tableItems);
 
-    return convertMapsToExpenses(maps);
+    return convertMapsToItems(maps);
   }
 
-  Future<int> updateExpense(Expense expense) async {
+  Future<int> updateItem(Item expense) async {
     Database db = await database;
 
-    return await db.update(Strings.tableExpenses, expense.toMap(),
-        where: '${Strings.expenseColumnId} = ?', whereArgs: [expense.id]);
+    return await db.update(Strings.tableItems, expense.toMap(),
+        where: '${Strings.itemColumnId} = ?', whereArgs: [expense.id]);
   }
 
-  Future<int> deleteExpense(int id) async {
+  Future<int> deleteItem(int id) async {
     Database db = await database;
 
-    return await db.delete(Strings.tableExpenses,
-        where: '${Strings.expenseColumnId} = ?', whereArgs: [id]);
+    return await db.delete(Strings.tableItems,
+        where: '${Strings.itemColumnId} = ?', whereArgs: [id]);
   }
 
   Future<void> deleteAll() async {
     Database db = await database;
-    await db.rawQuery('DELETE FROM ${Strings.tableExpenses}');
+    await db.rawQuery('DELETE FROM ${Strings.tableItems}');
   }
 
-  List<Expense> convertMapsToExpenses(List<Map> maps) {
-    List<Expense> expenses = new List();
+  List<Item> convertMapsToItems(List<Map> maps) {
+    List<Item> expenses = new List();
     if (maps.length > 0) {
       for (Map row in maps) {
-        expenses.add(new Expense.fromMap(row));
+        expenses.add(new Item.fromMap(row));
       }
     }
 

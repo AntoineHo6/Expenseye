@@ -1,5 +1,5 @@
 import 'package:Expenseye/Resources/Strings.dart';
-import 'package:Expenseye/Utils/expense_category.dart';
+import 'package:Expenseye/Utils/item_category.dart';
 import 'package:flutter/material.dart';
 
 class CategoriesPage extends StatelessWidget {
@@ -16,19 +16,19 @@ class CategoriesPage extends StatelessWidget {
         mainAxisSpacing: 10,
         crossAxisCount: 3,
         children: List.generate(
-          ExpenseCategory.values.length,
+          ItemCategory.values.length,
           (index) {
             return RaisedButton(
               onPressed: () =>
-                  Navigator.pop(context, ExpenseCategory.values[index]),
+                  Navigator.pop(context, ItemCategory.values[index]),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   Icon(
-                    ExpenseCatProperties.properties[ExpenseCategory.values[index]]
+                    ItemCatProperties.properties[ItemCategory.values[index]]
                         ['iconData'],
-                    color: ExpenseCatProperties
-                        .properties[ExpenseCategory.values[index]]['color'],
+                    color: ItemCatProperties
+                        .properties[ItemCategory.values[index]]['color'],
                     size: 50,
                   ),
                   const SizedBox(
@@ -37,8 +37,8 @@ class CategoriesPage extends StatelessWidget {
                   FittedBox(
                     fit: BoxFit.fitWidth,
                     child: Text(
-                      ExpenseCatProperties
-                          .properties[ExpenseCategory.values[index]]['string'],
+                      ItemCatProperties
+                          .properties[ItemCategory.values[index]]['string'],
                       style: Theme.of(context).textTheme.subhead,
                     ),
                   ),

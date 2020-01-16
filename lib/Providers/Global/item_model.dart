@@ -1,15 +1,15 @@
 import 'package:Expenseye/Components/EditAdd/add_expense_dialog.dart';
-import 'package:Expenseye/Models/Expense.dart';
+import 'package:Expenseye/Models/Item.dart';
 import 'package:Expenseye/Pages/EditAdd/edit_expense_page.dart';
 import 'package:Expenseye/Resources/Strings.dart';
 import 'package:Expenseye/Utils/database_helper.dart';
 import 'package:Expenseye/google_firebase_helper.dart';
 import 'package:flutter/material.dart';
 
-class ExpenseIncomeModel extends ChangeNotifier {
+class ItemModel extends ChangeNotifier {
   final DatabaseHelper dbHelper = DatabaseHelper.instance;
 
-  ExpenseIncomeModel() {
+  ItemModel() {
     initConnectedUser();
   }
 
@@ -18,13 +18,13 @@ class ExpenseIncomeModel extends ChangeNotifier {
   }
 
   void loginWithGoogle() async {
-    List<Expense> localExpenses = await dbHelper.queryAllExpenses();
+    List<Item> localItems = await dbHelper.queryAllItems();
 
     bool isLoggedIn = await GoogleFirebaseHelper.loginWithGoogle();
 
-    if (isLoggedIn && localExpenses.length > 0) {
-      for (Expense expense in localExpenses) {
-        await dbHelper.insertExpense(expense);
+    if (isLoggedIn && localItems.length > 0) {
+      for (Item item in localItems) {
+        await dbHelper.insertItem(item);
       }
     }
 
@@ -38,22 +38,22 @@ class ExpenseIncomeModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void addExpense(Expense newExpense) async {
-    await dbHelper.insertExpense(newExpense);
+  void addItem(Item newItem) async {
+    await dbHelper.insertItem(newItem);
     notifyListeners();
   }
 
-  void editExpense(Expense newExpense) async {
-    await dbHelper.updateExpense(newExpense);
+  void editItem(Item newItem) async {
+    await dbHelper.updateItem(newItem);
     notifyListeners();
   }
 
-  void deleteExpense(int id) async {
-    await dbHelper.deleteExpense(id);
+  void deleteItem(int id) async {
+    await dbHelper.deleteItem(id);
     notifyListeners();
   }
 
-  void showAddExpense(BuildContext context, DateTime initialDate) async {
+  void showAddItem(BuildContext context, DateTime initialDate) async {
     bool confirmed = await showDialog(
       context: context,
       builder: (_) => AddExpenseDialog(initialDate),
@@ -69,10 +69,10 @@ class ExpenseIncomeModel extends ChangeNotifier {
     }
   }
 
-  void openEditExpense(BuildContext context, Expense expense) async {
+  void openEditItem(BuildContext context, Item item) async {
     int action = await Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => EditExpensePage(expense)),
+      MaterialPageRoute(builder: (context) => EditExpensePage(item)),
     );
 
     if (action != null) {
@@ -86,16 +86,16 @@ class ExpenseIncomeModel extends ChangeNotifier {
     }
   }
 
-  double calcTotal(List<Expense> expenses) {
+  double calcTotal(List<Item> items) {
     double total = 0;
-    for (Expense expense in expenses) {
-      total += expense.price;
+    for (Item item in items) {
+      total += item.value;
     }
     return total;
   }
 
   // * may move out of this provider
-  String totalString(List<Expense> expenses) {
-    return '${calcTotal(expenses).toStringAsFixed(2)} \$';
+  String totalString(List<Item> items) {
+    return '${calcTotal(items).toStringAsFixed(2)} \$';
   }
 }

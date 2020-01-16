@@ -1,6 +1,6 @@
 import 'package:Expenseye/Components/Global/my_table_calendar.dart';
 import 'package:Expenseye/Models/Expense.dart';
-import 'package:Expenseye/Providers/Global/expense_model.dart';
+import 'package:Expenseye/Providers/Global/expense_income_model.dart';
 import 'package:Expenseye/Resources/Strings.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
 import 'package:Expenseye/Utils/table_calendar_util.dart';
@@ -23,7 +23,7 @@ class _DailyTableCalendarPage extends State<DailyTableCalendarPage>
 
   @override
   Widget build(BuildContext context) {
-    final _expenseModel = Provider.of<ExpenseModel>(context, listen: false);
+    final _expenseModel = Provider.of<ExpenseIncomeModel>(context, listen: false);
 
     return Scaffold(
       appBar: AppBar(

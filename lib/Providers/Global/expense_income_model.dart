@@ -6,10 +6,10 @@ import 'package:Expenseye/Utils/database_helper.dart';
 import 'package:Expenseye/google_firebase_helper.dart';
 import 'package:flutter/material.dart';
 
-class ExpenseModel extends ChangeNotifier {
+class ExpenseIncomeModel extends ChangeNotifier {
   final DatabaseHelper dbHelper = DatabaseHelper.instance;
 
-  ExpenseModel() {
+  ExpenseIncomeModel() {
     initConnectedUser();
   }
 
@@ -24,7 +24,7 @@ class ExpenseModel extends ChangeNotifier {
 
     if (isLoggedIn && localExpenses.length > 0) {
       for (Expense expense in localExpenses) {
-        dbHelper.insert(expense);
+        await dbHelper.insertExpense(expense);
       }
     }
 
@@ -34,22 +34,22 @@ class ExpenseModel extends ChangeNotifier {
   void logOutFromGoogle() async {
     await GoogleFirebaseHelper.uploadDbFile();
     await GoogleFirebaseHelper.logOut();
-    dbHelper.deleteAll();
+    await dbHelper.deleteAll();
     notifyListeners();
   }
 
   void addExpense(Expense newExpense) async {
-    await dbHelper.insert(newExpense);
+    await dbHelper.insertExpense(newExpense);
     notifyListeners();
   }
 
   void editExpense(Expense newExpense) async {
-    await dbHelper.update(newExpense);
+    await dbHelper.updateExpense(newExpense);
     notifyListeners();
   }
 
   void deleteExpense(int id) async {
-    await dbHelper.delete(id);
+    await dbHelper.deleteExpense(id);
     notifyListeners();
   }
 
@@ -99,5 +99,3 @@ class ExpenseModel extends ChangeNotifier {
     return '${calcTotal(expenses).toStringAsFixed(2)} \$';
   }
 }
-
-// TODO: refactor this bs. Rename the model and split the functions to other models

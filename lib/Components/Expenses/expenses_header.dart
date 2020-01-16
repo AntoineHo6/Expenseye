@@ -10,14 +10,15 @@ class ExpensesHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 15),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          Container(
-            child: Row(
+    return FittedBox(
+      fit: BoxFit.fitWidth,
+      child: Container(
+        margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Row(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Text(
@@ -30,15 +31,15 @@ class ExpensesHeader extends StatelessWidget {
                 ),
               ],
             ),
-          ),
-          Container(
-            margin: const EdgeInsets.only(top: 10),
-            child: Text(
-              '${Strings.total}: $total',
-              style: Theme.of(context).textTheme.headline,
+            Container(
+              margin: const EdgeInsets.only(top: 10),
+              child: Text(
+                '${Strings.total}: $total',
+                style: Theme.of(context).textTheme.headline,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

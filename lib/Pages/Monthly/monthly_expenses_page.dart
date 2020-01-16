@@ -2,7 +2,7 @@ import 'package:Expenseye/Components/Expenses/expenses_header.dart';
 import 'package:Expenseye/Components/Global/add_expense_fab.dart';
 import 'package:Expenseye/Components/Expenses/expense_list_tile.dart';
 import 'package:Expenseye/Models/Expense.dart';
-import 'package:Expenseye/Providers/Global/expense_model.dart';
+import 'package:Expenseye/Providers/Global/expense_income_model.dart';
 import 'package:Expenseye/Providers/monthly_model.dart';
 import 'package:Expenseye/Resources/Themes/Colors.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
@@ -12,7 +12,7 @@ import 'package:provider/provider.dart';
 class MonthlyExpensesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final _expenseModel = Provider.of<ExpenseModel>(context);
+    final _expenseModel = Provider.of<ExpenseIncomeModel>(context);
     final _monthlyModel = Provider.of<MonthlyModel>(context);
 
     return Scaffold(
@@ -75,7 +75,7 @@ class MonthlyExpensesPage extends StatelessWidget {
   // ? Move to components?
   List<Container> _expensesSplitByDayToContainers(
       BuildContext context, List<List<Expense>> expensesSplitByDay) {
-    final _expenseModel = Provider.of<ExpenseModel>(context, listen: false);
+    final _expenseModel = Provider.of<ExpenseIncomeModel>(context, listen: false);
 
     return expensesSplitByDay
         .map(

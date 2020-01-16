@@ -35,19 +35,30 @@ class DatabaseHelper {
   }
 
   Future _onCreate(Database db, int version) async {
-    print('Creating db expense table');
+    print('creating expenses table');
     await db.execute('''
               CREATE TABLE ${Strings.tableExpenses} (
-                ${Strings.columnId} INTEGER PRIMARY KEY AUTOINCREMENT,
-                ${Strings.columnName} TEXT NOT NULL,
-                ${Strings.columnPrice} DOUBLE NOT NULL,
-                ${Strings.columnDate} TEXT NOT NULL,
-                ${Strings.columnCategory} INTEGER NOT NULL
+                ${Strings.expenseColumnId} INTEGER PRIMARY KEY AUTOINCREMENT,
+                ${Strings.expenseColumnName} TEXT NOT NULL,
+                ${Strings.expenseColumnPrice} DOUBLE NOT NULL,
+                ${Strings.expenseColumnDate} TEXT NOT NULL,
+                ${Strings.expenseColumnCategory} INTEGER NOT NULL
+              )
+              ''');
+
+    print('creating incomes table');
+    await db.execute('''
+              CREATE TABLE ${Strings.tableIncomes} (
+                ${Strings.incomeColumnId} INTEGER PRIMARY KEY AUTOINCREMENT,
+                ${Strings.incomeColumnName} TEXT NOT NULL,
+                ${Strings.incomeColumnAmount} DOUBLE NOT NULL,
+                ${Strings.incomeColumnDate} TEXT NOT NULL,
+                ${Strings.incomeColumnCategory} INTEGER NOT NULL
               )
               ''');
   }
 
-  Future<int> insert(Expense expense) async {
+  Future<int> insertExpense(Expense expense) async {
     Database db = await database;
     int id = await db.insert(Strings.tableExpenses, expense.toMap());
     return id;
@@ -57,13 +68,13 @@ class DatabaseHelper {
     Database db = await database;
     List<Map> maps = await db.query(Strings.tableExpenses,
         columns: [
-          Strings.columnId,
-          Strings.columnName,
-          Strings.columnPrice,
-          Strings.columnDate,
-          Strings.columnCategory
+          Strings.expenseColumnId,
+          Strings.expenseColumnName,
+          Strings.expenseColumnPrice,
+          Strings.expenseColumnDate,
+          Strings.expenseColumnCategory
         ],
-        where: '${Strings.columnId} = ?',
+        where: '${Strings.expenseColumnId} = ?',
         whereArgs: [id]);
     if (maps.length > 0) {
       return Expense.fromMap(maps.first);
@@ -76,7 +87,7 @@ class DatabaseHelper {
     String dateStrToFind = date.toIso8601String().split('T')[0];
 
     List<Map> maps = await db.query(Strings.tableExpenses,
-        where: '${Strings.columnDate} LIKE \'$dateStrToFind%\'');
+        where: '${Strings.expenseColumnDate} LIKE \'$dateStrToFind%\'');
 
     return convertMapsToExpenses(maps);
   }
@@ -86,8 +97,8 @@ class DatabaseHelper {
 
     List<Map> maps = await db.query(
       Strings.tableExpenses,
-      where: '${Strings.columnDate} LIKE \'$yearMonth%\'',
-      orderBy: '${Strings.columnDate} DESC',
+      where: '${Strings.expenseColumnDate} LIKE \'$yearMonth%\'',
+      orderBy: '${Strings.expenseColumnDate} DESC',
     );
 
     return convertMapsToExpenses(maps);
@@ -98,8 +109,8 @@ class DatabaseHelper {
 
     List<Map> maps = await db.query(
       Strings.tableExpenses,
-      where: '${Strings.columnDate} LIKE \'$year%\'',
-      orderBy: '${Strings.columnDate} DESC',
+      where: '${Strings.expenseColumnDate} LIKE \'$year%\'',
+      orderBy: '${Strings.expenseColumnDate} DESC',
     );
 
     return convertMapsToExpenses(maps);
@@ -113,36 +124,23 @@ class DatabaseHelper {
     return convertMapsToExpenses(maps);
   }
 
-  Future<int> update(Expense expense) async {
+  Future<int> updateExpense(Expense expense) async {
     Database db = await database;
 
     return await db.update(Strings.tableExpenses, expense.toMap(),
-        where: '${Strings.columnId} = ?', whereArgs: [expense.id]);
+        where: '${Strings.expenseColumnId} = ?', whereArgs: [expense.id]);
   }
 
-  Future<int> delete(int id) async {
+  Future<int> deleteExpense(int id) async {
     Database db = await database;
 
     return await db.delete(Strings.tableExpenses,
-        where: '${Strings.columnId} = ?', whereArgs: [id]);
+        where: '${Strings.expenseColumnId} = ?', whereArgs: [id]);
   }
 
   Future<void> deleteAll() async {
     Database db = await database;
-
-    db.rawQuery('DELETE FROM ${Strings.tableExpenses}');
-
-    // db.rawQuery('DROP TABLE ${Strings.tableExpenses}');
-
-    // await db.execute('''
-    //           CREATE TABLE ${Strings.tableExpenses} (
-    //             ${Strings.columnId} INTEGER PRIMARY KEY AUTOINCREMENT,
-    //             ${Strings.columnName} TEXT NOT NULL,
-    //             ${Strings.columnPrice} DOUBLE NOT NULL,
-    //             ${Strings.columnDate} TEXT NOT NULL,
-    //             ${Strings.columnCategory} INTEGER NOT NULL
-    //           )
-    //           ''');
+    await db.rawQuery('DELETE FROM ${Strings.tableExpenses}');
   }
 
   List<Expense> convertMapsToExpenses(List<Map> maps) {

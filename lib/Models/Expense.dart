@@ -13,22 +13,22 @@ class Expense {
   Expense.withId(this.id, this.name, this.price, this.date, this.category);
 
   Expense.fromMap(Map<String, dynamic> map) {
-    id = map[Strings.columnId];
-    name = map[Strings.columnName];
-    price = map[Strings.columnPrice];
-    date = DateTime.parse(map[Strings.columnDate]);
-    category = ExpenseCategory.values[map[Strings.columnCategory]];
+    id = map[Strings.expenseColumnId];
+    name = map[Strings.expenseColumnName];
+    price = map[Strings.expenseColumnPrice];
+    date = DateTime.parse(map[Strings.expenseColumnDate]);
+    category = ExpenseCategory.values[map[Strings.expenseColumnCategory]];
   }
 
   Map<String, dynamic> toMap() {
     var map = <String, dynamic>{
-      Strings.columnName: name,
-      Strings.columnPrice: price,
-      Strings.columnDate: date.toIso8601String(),
-      Strings.columnCategory: category.index
+      Strings.expenseColumnName: name,
+      Strings.expenseColumnPrice: price,
+      Strings.expenseColumnDate: date.toIso8601String(),
+      Strings.expenseColumnCategory: category.index
     };
     if (id != null) {
-      map[Strings.columnId] = id;
+      map[Strings.expenseColumnId] = id;
     }
     return map;
   }

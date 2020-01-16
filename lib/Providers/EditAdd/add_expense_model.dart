@@ -1,6 +1,6 @@
 import 'package:Expenseye/Models/Expense.dart';
 import 'package:Expenseye/Pages/EditAdd/categories_page.dart';
-import 'package:Expenseye/Providers/Global/expense_model.dart';
+import 'package:Expenseye/Providers/Global/expense_income_model.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
 import 'package:Expenseye/Utils/expense_category.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +39,8 @@ class AddExpenseModel extends ChangeNotifier {
       Expense newExpense =
           new Expense(newName, double.parse(newPrice), newDate, category);
 
-      Provider.of<ExpenseModel>(context, listen: false).addExpense(newExpense);
+      Provider.of<ExpenseIncomeModel>(context, listen: false)
+          .addExpense(newExpense);
       Navigator.pop(context, true);
     }
   }

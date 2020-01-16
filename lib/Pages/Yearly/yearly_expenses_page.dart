@@ -1,8 +1,9 @@
 import 'package:Expenseye/Components/Expenses/expenses_header.dart';
+import 'package:Expenseye/Components/Global/add_expense_fab.dart';
 import 'package:Expenseye/Components/Global/colored_dot.dart';
 import 'package:Expenseye/Models/Expense.dart';
 import 'package:Expenseye/Pages/Monthly/monthly_home_page.dart';
-import 'package:Expenseye/Providers/Global/expense_model.dart';
+import 'package:Expenseye/Providers/Global/expense_income_model.dart';
 import 'package:Expenseye/Providers/yearly_model.dart';
 import 'package:Expenseye/Resources/Themes/Colors.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
@@ -17,7 +18,7 @@ class YearlyExpensesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _expenseModel = Provider.of<ExpenseModel>(context);
+    final _expenseModel = Provider.of<ExpenseIncomeModel>(context);
     final _yearlyModel = Provider.of<YearlyModel>(context);
 
     return Scaffold(
@@ -73,13 +74,17 @@ class YearlyExpensesPage extends StatelessWidget {
           }
         },
       ),
+      floatingActionButton: AddExpenseFab(
+        onPressed: () =>
+            _expenseModel.showAddExpense(context, _yearlyModel.currentDate),
+      ),
     );
   }
 
   List<InkWell> _expensesSplitByMonthToContainers(
       BuildContext context,
       List<List<Expense>> expensesSplitByMonth,
-      ExpenseModel expenseModel,
+      ExpenseIncomeModel expenseModel,
       YearlyModel yearlyModel) {
     return expensesSplitByMonth
         .map(

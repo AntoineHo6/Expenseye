@@ -1,7 +1,7 @@
 import 'package:Expenseye/Components/EditAdd/confirmation_dialog.dart';
 import 'package:Expenseye/Models/Expense.dart';
 import 'package:Expenseye/Pages/EditAdd/categories_page.dart';
-import 'package:Expenseye/Providers/Global/expense_model.dart';
+import 'package:Expenseye/Providers/Global/expense_income_model.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
 import 'package:Expenseye/Utils/expense_category.dart';
 import 'package:flutter/material.dart';
@@ -44,7 +44,8 @@ class EditExpenseModel extends ChangeNotifier {
       Expense newExpense = new Expense.withId(
           id, newName, double.parse(newPrice), date, category);
 
-      Provider.of<ExpenseModel>(context, listen: false).editExpense(newExpense);
+      Provider.of<ExpenseIncomeModel>(context, listen: false)
+          .editExpense(newExpense);
       Navigator.pop(context, 1);
     }
   }
@@ -56,7 +57,7 @@ class EditExpenseModel extends ChangeNotifier {
     );
 
     if (confirmed != null && confirmed) {
-      Provider.of<ExpenseModel>(context, listen: false)
+      Provider.of<ExpenseIncomeModel>(context, listen: false)
           .deleteExpense(expenseId);
       Navigator.pop(context, 2);
     }

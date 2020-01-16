@@ -1,7 +1,7 @@
 import 'package:Expenseye/Components/Global/my_bottom_nav_bar.dart';
 import 'package:Expenseye/Pages/Yearly/yearly_expenses_page.dart';
 import 'package:Expenseye/Pages/stats_page.dart';
-import 'package:Expenseye/Providers/Global/expense_model.dart';
+import 'package:Expenseye/Providers/Global/expense_income_model.dart';
 import 'package:Expenseye/Providers/yearly_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -18,8 +18,8 @@ class YearlyHomePage extends StatefulWidget {
 class _YearlyHomePageState extends State<YearlyHomePage> {
   @override
   Widget build(BuildContext context) {
-    final _expenseModel = Provider.of<ExpenseModel>(context);
-    final _yearlyModel = Provider.of<YearlyModel>(context);
+    final _expenseModel = Provider.of<ExpenseIncomeModel>(context, listen: false);
+    final _yearlyModel = Provider.of<YearlyModel>(context, listen: false);
 
     return Scaffold(
       body: SafeArea(

@@ -49,6 +49,9 @@ class Strings {
   // * INCOME categories
   static const String salary = 'Salary';
   static const String gift = 'Gift';
+  static const String business = 'Business';
+  static const String insurance = 'Insurance';
+  static const String refund = 'Refund';
 
   // * DRAWER options
   static const String daily = 'Daily';
@@ -64,11 +67,19 @@ class Strings {
   static const String succEdited = 'Successfully edited';
   static const String succDeleted = 'Successfully deleted';
 
-  // * DATABASE table and column names
+  // * EXPENSE DATABASE table and column names
   static const String tableExpenses = 'expenses';
-  static const String columnId = 'expense_id';
-  static const String columnName = 'name';
-  static const String columnPrice = 'price';
-  static const String columnDate = 'date';
-  static const String columnCategory = 'category';
+  static const String expenseColumnId = 'expense_id';
+  static const String expenseColumnName = 'name';
+  static const String expenseColumnPrice = 'price';
+  static const String expenseColumnDate = 'date';
+  static const String expenseColumnCategory = 'category';
+
+  // * INCOME DATABASE table and column names
+  static const String tableIncomes = 'incomes';
+  static const String incomeColumnId = 'income_id';
+  static const String incomeColumnName = 'name';
+  static const String incomeColumnAmount = 'amount';
+  static const String incomeColumnDate = 'date';
+  static const String incomeColumnCategory = 'category';
 }

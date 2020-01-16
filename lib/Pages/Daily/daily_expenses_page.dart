@@ -6,12 +6,12 @@ import 'package:Expenseye/Providers/daily_model.dart';
 import 'package:Expenseye/Resources/Themes/Colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:Expenseye/Providers/Global/expense_model.dart';
+import 'package:Expenseye/Providers/Global/expense_income_model.dart';
 
 class DailyExpensesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final _expenseModel = Provider.of<ExpenseModel>(context);
+    final _expenseModel = Provider.of<ExpenseIncomeModel>(context);
     final _dailyModel = Provider.of<DailyModel>(context);
 
     return Scaffold(

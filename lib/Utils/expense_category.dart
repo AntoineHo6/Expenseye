@@ -63,7 +63,7 @@ class ExpenseCatProperties {
     },
     ExpenseCategory.others: {
       'string': Strings.others,
-      'iconData': Icons.tab,
+      'iconData': Icons.folder_open,
       'color': Colors.white
     }
   };

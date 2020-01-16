@@ -1,4 +1,4 @@
-import 'package:Expenseye/Providers/Global/expense_model.dart';
+import 'package:Expenseye/Providers/Global/expense_income_model.dart';
 import 'package:Expenseye/Resources/Themes/Colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
 
     return ChangeNotifierProvider(
-      create: (_) => new ExpenseModel(),
+      create: (_) => new ExpenseIncomeModel(),
       child: MaterialApp(
         home: HomePage(),
         theme: ThemeData(

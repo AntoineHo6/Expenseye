@@ -17,7 +17,7 @@ class Strings {
   static const String name = 'Name';
   static const String price = 'Price';
   static const String icons = 'Icons';
-  static const String noData = 'No data to show';
+  static const String noData = 'No expenses to show in the statistics page!';
   static const String confirm = 'Confirm';
   static const String expenses = 'Expenses';
   static const String stats = 'Stats';

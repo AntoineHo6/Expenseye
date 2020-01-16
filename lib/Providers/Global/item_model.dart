@@ -2,10 +2,12 @@ import 'package:Expenseye/Components/EditAdd/add_expense_dialog.dart';
 import 'package:Expenseye/Components/EditAdd/add_income_dialog.dart';
 import 'package:Expenseye/Models/Item.dart';
 import 'package:Expenseye/Pages/EditAdd/edit_expense_page.dart';
+import 'package:Expenseye/Providers/monthly_model.dart';
 import 'package:Expenseye/Resources/Strings.dart';
 import 'package:Expenseye/Utils/database_helper.dart';
 import 'package:Expenseye/google_firebase_helper.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ItemModel extends ChangeNotifier {
   final DatabaseHelper dbHelper = DatabaseHelper.instance;
@@ -18,7 +20,7 @@ class ItemModel extends ChangeNotifier {
     await GoogleFirebaseHelper.initConnectedUser();
   }
 
-  void loginWithGoogle() async {
+  Future<void> loginWithGoogle() async {
     List<Item> localItems = await dbHelper.queryAllItems();
 
     bool isLoggedIn = await GoogleFirebaseHelper.loginWithGoogle();
@@ -32,7 +34,7 @@ class ItemModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void logOutFromGoogle() async {
+  Future<void> logOutFromGoogle() async {
     await GoogleFirebaseHelper.uploadDbFile();
     await GoogleFirebaseHelper.logOut();
     await dbHelper.deleteAll();
@@ -104,20 +106,12 @@ class ItemModel extends ChangeNotifier {
     }
   }
 
-  // double calcTotal(List<Item> items) {
-  //   double total = 0;
-  //   for (Item item in items) {
-  //     switch (item.type) {
-  //       case 0:
-  //         total -= item.value;
-  //         break;
-  //       case 1:
-  //         total += item.value;
-  //         break;
-  //     }
-  //   }
-  //   return total;
-  // }
+  void updateTotals(Item item) {
+    switch (item.type) {
+      case 0:
+
+    }
+  }
 
   void calcTotals(dynamic model, List<Item> items) {
     double total = 0;
@@ -137,9 +131,15 @@ class ItemModel extends ChangeNotifier {
       }
     }
 
+    print('total: $total');
+    print('expenseTotal: $expenseTotal');
+    print('incomeTotal: $incomeTotal');
+
     model.currentTotal = total;
     model.currentExpenseTotal = expenseTotal;
     model.currentIncomeTotal = incomeTotal;
+
+    //notifyListeners();
   }
 
   // * may move out of this provider

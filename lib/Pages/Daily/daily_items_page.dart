@@ -21,13 +21,12 @@ class DailyItemsPage extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data != null && snapshot.data.length > 0) {
+              //print('Building things');
               _expenseModel.calcTotals(_dailyModel, snapshot.data);
               return SingleChildScrollView(
                 child: Column(
                   children: <Widget>[
                     ItemsHeader(
-                      total:
-                          '${_dailyModel.currentTotal.toStringAsFixed(2)}',
                       pageModel: _dailyModel,
                     ),
                     Column(
@@ -52,10 +51,10 @@ class DailyItemsPage extends StatelessWidget {
                 ),
               );
             } else {
+              _expenseModel.calcTotals(_dailyModel, snapshot.data);
               return Align(
                 alignment: Alignment.topCenter,
                 child: ItemsHeader(
-                  total: _expenseModel.totalString(_dailyModel.currentTotal),
                   pageModel: _dailyModel,
                 ),
               );
@@ -71,7 +70,7 @@ class DailyItemsPage extends StatelessWidget {
       floatingActionButton: AddExpenseFab(
         onExpensePressed: () =>
             _expenseModel.showAddExpense(context, _dailyModel.currentDate),
-            onIncomePressed: () =>
+        onIncomePressed: () =>
             _expenseModel.showAddIncome(context, _dailyModel.currentDate),
       ),
     );

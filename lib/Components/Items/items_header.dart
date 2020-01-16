@@ -3,10 +3,9 @@ import 'package:Expenseye/Resources/Strings.dart';
 import 'package:flutter/material.dart';
 
 class ItemsHeader extends StatelessWidget {
-  final String total;
   final pageModel; // DailyModel, MonthlyModel or YearlyModel
 
-  ItemsHeader({this.total, this.pageModel});
+  ItemsHeader({this.pageModel});
 
   @override
   Widget build(BuildContext context) {

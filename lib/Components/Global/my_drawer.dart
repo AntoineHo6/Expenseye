@@ -1,5 +1,8 @@
 import 'package:Expenseye/Pages/about_page.dart';
 import 'package:Expenseye/Providers/Global/item_model.dart';
+import 'package:Expenseye/Providers/daily_model.dart';
+import 'package:Expenseye/Providers/monthly_model.dart';
+import 'package:Expenseye/Providers/yearly_model.dart';
 import 'package:Expenseye/Resources/Strings.dart';
 import 'package:Expenseye/Resources/Themes/Colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -12,10 +15,10 @@ class MyDrawer extends StatefulWidget {
 }
 
 class _MyDrawerState extends State<MyDrawer> {
+  bool _logOutFirstPress = true;
+
   @override
   Widget build(BuildContext context) {
-    final _expenseModel = Provider.of<ItemModel>(context, listen: false);
-
     return Drawer(
       child: Container(
         color: MyColors.black00dp,
@@ -67,8 +70,12 @@ class _MyDrawerState extends State<MyDrawer> {
                                   Strings.signOut,
                                   style: Theme.of(context).textTheme.body1,
                                 ),
-                                onPressed: () =>
-                                    _expenseModel.logOutFromGoogle(),
+                                onPressed: () {
+                                  if (_logOutFirstPress) {
+                                    _logOutFirstPress = false;
+                                    _logoutReset(context);
+                                  }
+                                },
                               ),
                             ],
                           );
@@ -108,8 +115,7 @@ class _MyDrawerState extends State<MyDrawer> {
                                         ),
                                       ],
                                     ),
-                                    onPressed: () =>
-                                        _expenseModel.loginWithGoogle(),
+                                    onPressed: () => _loginInit(context),
                                   ),
                                 ],
                               ),
@@ -136,6 +142,17 @@ class _MyDrawerState extends State<MyDrawer> {
         ),
       ),
     );
+  }
+
+  void _logoutReset(BuildContext context) async {
+    Provider.of<DailyModel>(context, listen: false).resetTotals();
+    Provider.of<MonthlyModel>(context, listen: false).resetTotals();
+    Provider.of<YearlyModel>(context, listen: false).resetTotals();
+    await Provider.of<ItemModel>(context, listen: false).logOutFromGoogle();
+  }
+
+  void _loginInit(BuildContext context) async {
+    await Provider.of<ItemModel>(context, listen: false).loginWithGoogle();
   }
 
   void openAboutPage(BuildContext context) {

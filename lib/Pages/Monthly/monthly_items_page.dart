@@ -35,8 +35,6 @@ class MonthlyItemsPage extends StatelessWidget {
                       child: Column(
                         children: <Widget>[
                           ItemsHeader(
-                            total:
-                                '${_monthlyModel.currentTotal.toStringAsFixed(2)}',
                             pageModel: _monthlyModel,
                           ),
                           Column(
@@ -50,10 +48,10 @@ class MonthlyItemsPage extends StatelessWidget {
                 ],
               );
             } else {
+              _expenseModel.calcTotals(_monthlyModel, snapshot.data);
               return Align(
                 alignment: Alignment.topCenter,
                 child: ItemsHeader(
-                  total: _expenseModel.totalString(_monthlyModel.currentTotal),
                   pageModel: _monthlyModel,
                 ),
               );

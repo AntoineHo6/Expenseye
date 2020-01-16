@@ -39,8 +39,6 @@ class YearlyItemsPage extends StatelessWidget {
                       child: Column(
                         children: <Widget>[
                           ItemsHeader(
-                            total:
-                                '${_yearlyModel.currentTotal.toStringAsFixed(2)}',
                             pageModel: _yearlyModel,
                           ),
                           Column(
@@ -58,10 +56,10 @@ class YearlyItemsPage extends StatelessWidget {
                 ],
               );
             } else {
+              _expenseModel.calcTotals(_yearlyModel, snapshot.data);
               return Align(
                 alignment: Alignment.topCenter,
                 child: ItemsHeader(
-                  total: _expenseModel.totalString(_yearlyModel.currentTotal),
                   pageModel: _yearlyModel,
                 ),
               );

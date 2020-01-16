@@ -72,4 +72,12 @@ class YearlyModel extends ChangeNotifier {
           .updateDate(context, DateTime(date.year, date.month));
     }
   }
+
+  void resetTotals() {
+    currentTotal = 0;
+    currentIncomeTotal = 0;
+    currentExpenseTotal = 0;
+
+    notifyListeners();
+  }
 }

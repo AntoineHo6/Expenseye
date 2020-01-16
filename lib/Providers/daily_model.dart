@@ -1,7 +1,8 @@
-import 'package:Expenseye/Models/Item.dart';
 import 'package:Expenseye/Pages/Daily/daily_table_calendar_page.dart';
+import 'package:Expenseye/Providers/Global/item_model.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class DailyModel extends ChangeNotifier {
   DateTime currentDate = DateTime.now();
@@ -30,5 +31,13 @@ class DailyModel extends ChangeNotifier {
       currentDate = newDate;
       notifyListeners();
     }
+  }
+
+  void resetTotals() {
+    currentTotal = 0;
+    currentIncomeTotal = 0;
+    currentExpenseTotal = 0;
+
+    notifyListeners();
   }
 }

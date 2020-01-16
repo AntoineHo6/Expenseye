@@ -6,6 +6,7 @@ import 'package:Expenseye/Models/Item.dart';
 import 'package:Expenseye/Resources/Strings.dart';
 import 'package:Expenseye/Utils/chart_util.dart';
 import 'package:flutter/material.dart';
+
 typedef GetItems = Future<List<Item>> Function();
 
 class StatsPage extends StatelessWidget {
@@ -69,7 +70,8 @@ class StatsPage extends StatelessWidget {
                             margin: const EdgeInsets.all(15),
                             child: CategoryStatsContainer(
                               data: aggregatedItems[0].data,
-                              totalCost: localModel.currentTotal,
+                              totalCost:
+                                  calcExpensesTotal(aggregatedItems[0].data),
                             ),
                           ),
                         ],
@@ -93,5 +95,15 @@ class StatsPage extends StatelessWidget {
         },
       ),
     );
+  }
+
+  double calcExpensesTotal(List<ExpenseGroup> expenseGroups) {
+    double total = 0;
+
+    for (var expenseGroup in expenseGroups) {
+      total += (expenseGroup.total);
+    }
+
+    return total;
   }
 }

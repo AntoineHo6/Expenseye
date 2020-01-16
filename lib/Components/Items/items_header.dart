@@ -34,7 +34,7 @@ class ItemsHeader extends StatelessWidget {
             Container(
               margin: const EdgeInsets.only(top: 10),
               child: Text(
-                '${Strings.total}: $total',
+                '${Strings.total}: $total \$',
                 style: Theme.of(context).textTheme.headline,
               ),
             ),

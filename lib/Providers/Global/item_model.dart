@@ -54,12 +54,24 @@ class ItemModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void showAddItem(BuildContext context, DateTime initialDate) async {
-    // bool confirmed = await showDialog(
-    //   context: context,
-    //   builder: (_) => AddExpenseDialog(initialDate),
-    // );
+  void showAddExpense(BuildContext context, DateTime initialDate) async {
+    bool confirmed = await showDialog(
+      context: context,
+      builder: (_) => AddExpenseDialog(initialDate),
+    );
 
+    // TODO: make this a func
+    if (confirmed != null && confirmed) {
+      final snackBar = SnackBar(
+        content: Text(Strings.succAdded),
+        backgroundColor: Colors.grey.withOpacity(0.5),
+      );
+
+      Scaffold.of(context).showSnackBar(snackBar);
+    }
+  }
+
+  void showAddIncome(BuildContext context, DateTime initialDate) async {
     bool confirmed = await showDialog(
       context: context,
       builder: (_) => AddIncomeDialog(initialDate),
@@ -95,7 +107,14 @@ class ItemModel extends ChangeNotifier {
   double calcTotal(List<Item> items) {
     double total = 0;
     for (Item item in items) {
-      total += item.value;
+      switch (item.type) {
+        case 0:
+          total -= item.value;
+          break;
+        case 1:
+          total += item.value;
+          break;
+      }
     }
     return total;
   }

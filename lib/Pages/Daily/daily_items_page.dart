@@ -26,20 +26,23 @@ class DailyItemsPage extends StatelessWidget {
                 child: Column(
                   children: <Widget>[
                     ItemsHeader(
-                      total: _expenseModel.totalString(snapshot.data),
+                      total:
+                          '${_dailyModel.currentTotal.toStringAsFixed(2)}',
                       pageModel: _dailyModel,
                     ),
                     Column(
                       children: snapshot.data.map(
-                        (expense) {
+                        (item) {
                           return Card(
                             margin: const EdgeInsets.symmetric(
                                 horizontal: 15, vertical: 5),
-                            color: MyColors.black02dp,
+                            color: item.type == 0
+                                ? MyColors.expenseColor
+                                : MyColors.incomeColor,
                             child: ItemListTile(
-                              expense,
-                              onTap: () => _expenseModel.openEditItem(
-                                  context, expense),
+                              item,
+                              onTap: () =>
+                                  _expenseModel.openEditItem(context, item),
                             ),
                           );
                         },
@@ -66,8 +69,10 @@ class DailyItemsPage extends StatelessWidget {
         },
       ),
       floatingActionButton: AddExpenseFab(
-        onPressed: () =>
-            _expenseModel.showAddItem(context, _dailyModel.currentDate),
+        onExpensePressed: () =>
+            _expenseModel.showAddExpense(context, _dailyModel.currentDate),
+            onIncomePressed: () =>
+            _expenseModel.showAddIncome(context, _dailyModel.currentDate),
       ),
     );
   }

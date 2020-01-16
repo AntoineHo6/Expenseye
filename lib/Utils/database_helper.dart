@@ -8,7 +8,7 @@ import 'package:path_provider/path_provider.dart';
 // singleton class to manage the database
 class DatabaseHelper {
   // This is the actual database filename that is saved in the docs directory.
-  static const _databaseName = "ItemsDb.db";
+  static const _databaseName = Strings.dbFileName;
   // Increment this version when you need to change the schema.
   static final _databaseVersion = 1;
 

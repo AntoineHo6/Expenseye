@@ -29,6 +29,7 @@ class _AddExpenseDialogState extends State<AddExpenseDialog> {
           title: Row(
             children: <Widget>[
               Icon(Icons.attach_money, color: Colors.white),
+              const SizedBox(width: 10),
               const Text(Strings.newExpense),
             ],
           ),

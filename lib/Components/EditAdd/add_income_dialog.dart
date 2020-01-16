@@ -28,7 +28,8 @@ class _AddIncomeDialogState extends State<AddIncomeDialog> {
         builder: (context, model, child) => AlertDialog(
           title: Row(
             children: <Widget>[
-              Icon(Icons.attach_money, color: Colors.white),
+              Icon(Icons.account_balance_wallet, color: Colors.white),
+              const SizedBox(width: 10),
               const Text('New income'),
             ],
           ),

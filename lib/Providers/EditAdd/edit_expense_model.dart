@@ -43,7 +43,7 @@ class EditItemModel extends ChangeNotifier {
     // if all the fields are valid, update and quit
     if (!areFieldsInvalid) {
       Item newItem = new Item.withId(
-          id, newName, double.parse(newPrice), date, 0, category);
+          id, newName, double.parse(newPrice), date, type, category);
 
       Provider.of<ItemModel>(context, listen: false)
           .editItem(newItem);

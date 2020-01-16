@@ -17,8 +17,8 @@ class MonthlyItemsPage extends StatelessWidget {
 
     return Scaffold(
       body: FutureBuilder<List<Item>>(
-        future: _expenseModel.dbHelper
-            .queryItemsInMonth(_monthlyModel.yearMonth),
+        future:
+            _expenseModel.dbHelper.queryItemsInMonth(_monthlyModel.yearMonth),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data != null && snapshot.data.length > 0) {
@@ -35,7 +35,8 @@ class MonthlyItemsPage extends StatelessWidget {
                       child: Column(
                         children: <Widget>[
                           ItemsHeader(
-                            total: _expenseModel.totalString(snapshot.data),
+                            total:
+                                '${_monthlyModel.currentTotal.toStringAsFixed(2)}',
                             pageModel: _monthlyModel,
                           ),
                           Column(
@@ -66,8 +67,10 @@ class MonthlyItemsPage extends StatelessWidget {
         },
       ),
       floatingActionButton: AddExpenseFab(
-        onPressed: () =>
-            _expenseModel.showAddItem(context, _monthlyModel.currentDate),
+        onExpensePressed: () =>
+            _expenseModel.showAddExpense(context, _monthlyModel.currentDate),
+            onIncomePressed: () =>
+            _expenseModel.showAddIncome(context, _monthlyModel.currentDate),
       ),
     );
   }
@@ -109,13 +112,15 @@ class MonthlyItemsPage extends StatelessWidget {
                 Column(
                   children: expenseList
                       .map(
-                        (expense) => Card(
+                        (item) => Card(
                           margin: const EdgeInsets.symmetric(vertical: 4),
-                          color: MyColors.black02dp,
+                          color: item.type == 0
+                              ? MyColors.expenseColor
+                              : MyColors.incomeColor,
                           child: ItemListTile(
-                            expense,
+                            item,
                             onTap: () =>
-                                _expenseModel.openEditItem(context, expense),
+                                _expenseModel.openEditItem(context, item),
                           ),
                         ),
                       )

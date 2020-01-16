@@ -69,6 +69,7 @@ class Strings {
   static const String succDeleted = 'Successfully deleted';
 
   // * EXPENSE DATABASE table and column names
+  static const String dbFileName = 'itemsDb.db';
   static const String tableItems = 'items';
   static const String itemColumnId = 'expense_id';
   static const String itemColumnName = 'name';

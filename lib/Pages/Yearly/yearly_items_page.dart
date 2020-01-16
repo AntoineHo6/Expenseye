@@ -1,5 +1,4 @@
 import 'package:Expenseye/Components/Items/items_header.dart';
-import 'package:Expenseye/Components/Global/add_expense_fab.dart';
 import 'package:Expenseye/Components/Global/colored_dot.dart';
 import 'package:Expenseye/Models/Item.dart';
 import 'package:Expenseye/Pages/Monthly/monthly_home_page.dart';
@@ -40,7 +39,8 @@ class YearlyItemsPage extends StatelessWidget {
                       child: Column(
                         children: <Widget>[
                           ItemsHeader(
-                            total: _expenseModel.totalString(snapshot.data),
+                            total:
+                                '${_yearlyModel.currentTotal.toStringAsFixed(2)}',
                             pageModel: _yearlyModel,
                           ),
                           Column(
@@ -73,10 +73,6 @@ class YearlyItemsPage extends StatelessWidget {
             );
           }
         },
-      ),
-      floatingActionButton: AddExpenseFab(
-        onPressed: () =>
-            _expenseModel.showAddItem(context, _yearlyModel.currentDate),
       ),
     );
   }

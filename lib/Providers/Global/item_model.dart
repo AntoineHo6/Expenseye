@@ -104,23 +104,46 @@ class ItemModel extends ChangeNotifier {
     }
   }
 
-  double calcTotal(List<Item> items) {
+  // double calcTotal(List<Item> items) {
+  //   double total = 0;
+  //   for (Item item in items) {
+  //     switch (item.type) {
+  //       case 0:
+  //         total -= item.value;
+  //         break;
+  //       case 1:
+  //         total += item.value;
+  //         break;
+  //     }
+  //   }
+  //   return total;
+  // }
+
+  void calcTotals(dynamic model, List<Item> items) {
     double total = 0;
-    for (Item item in items) {
+    double expenseTotal = 0;
+    double incomeTotal = 0;
+
+    for (var item in items) {
       switch (item.type) {
         case 0:
+          expenseTotal += item.value;
           total -= item.value;
           break;
         case 1:
+          incomeTotal += item.value;
           total += item.value;
           break;
       }
     }
-    return total;
+
+    model.currentTotal = total;
+    model.currentExpenseTotal = expenseTotal;
+    model.currentIncomeTotal = incomeTotal;
   }
 
   // * may move out of this provider
-  String totalString(List<Item> items) {
-    return '${calcTotal(items).toStringAsFixed(2)} \$';
+  String totalString(double total) {
+    return '${total.toStringAsFixed(2)} \$';
   }
 }

@@ -22,6 +22,7 @@ class Strings {
   static const String expenses = 'Expenses';
   static const String stats = 'Stats';
   static const String about = 'About';
+  static const String balance = 'Balance';
 
   // * QUESTIONS
   static const String confirmMsg =
@@ -35,6 +36,7 @@ class Strings {
       'Sign In to avoid losing your data!';
 
   // * EXPENSE categories
+  static const String expense = 'Expense';
   static const String food = 'Food';
   static const String transportation = 'Transportation';
   static const String shopping = 'Shopping';
@@ -48,6 +50,7 @@ class Strings {
   static const String others = 'Others';
 
   // * INCOME categories
+  static const String income = 'Income';
   static const String salary = 'Salary';
   static const String gift = 'Gift';
   static const String business = 'Business';

@@ -28,8 +28,8 @@ class YearlyItemsPage extends StatelessWidget {
             if (snapshot.data != null && snapshot.data.length > 0) {
               var expensesSplitByMonth =
                   _yearlyModel.splitItemByMonth(snapshot.data);
-              _yearlyModel.currentTotal =
-                  _expenseModel.calcTotal(snapshot.data);
+
+              _expenseModel.calcTotals(_yearlyModel, snapshot.data);
 
               return Column(
                 mainAxisSize: MainAxisSize.min,
@@ -61,7 +61,7 @@ class YearlyItemsPage extends StatelessWidget {
               return Align(
                 alignment: Alignment.topCenter,
                 child: ItemsHeader(
-                  total: _expenseModel.totalString(snapshot.data),
+                  total: _expenseModel.totalString(_yearlyModel.currentTotal),
                   pageModel: _yearlyModel,
                 ),
               );
@@ -111,7 +111,8 @@ class YearlyItemsPage extends StatelessWidget {
                       ),
                       Container(
                         margin: EdgeInsets.only(right: 16),
-                        child: Text(expenseModel.totalString(expenseList)),
+                        child: Text(
+                            expenseModel.totalString(yearlyModel.currentTotal)),
                       ),
                     ],
                   ),

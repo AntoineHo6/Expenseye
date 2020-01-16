@@ -21,7 +21,7 @@ class DailyItemsPage extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data != null && snapshot.data.length > 0) {
-              _dailyModel.currentTotal = _expenseModel.calcTotal(snapshot.data);
+              _expenseModel.calcTotals(_dailyModel, snapshot.data);
               return SingleChildScrollView(
                 child: Column(
                   children: <Widget>[
@@ -55,7 +55,7 @@ class DailyItemsPage extends StatelessWidget {
               return Align(
                 alignment: Alignment.topCenter,
                 child: ItemsHeader(
-                  total: _expenseModel.totalString(snapshot.data),
+                  total: _expenseModel.totalString(_dailyModel.currentTotal),
                   pageModel: _dailyModel,
                 ),
               );

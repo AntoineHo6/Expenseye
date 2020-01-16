@@ -8,6 +8,8 @@ class YearlyModel extends ChangeNotifier {
   DateTime currentDate = DateTime.now(); // to be changed in the year picker
   String year = getYearString(DateTime.now());
   double currentTotal = 0;
+  double currentExpenseTotal = 0;
+  double currentIncomeTotal = 0;
   int pageIndex = 0;
 
   static String getYearString(DateTime newYear) {

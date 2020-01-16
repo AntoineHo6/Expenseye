@@ -24,8 +24,8 @@ class MonthlyItemsPage extends StatelessWidget {
             if (snapshot.data != null && snapshot.data.length > 0) {
               var expensesSplitByDay =
                   _monthlyModel.splitItemsByDay(snapshot.data);
-              _monthlyModel.currentTotal =
-                  _expenseModel.calcTotal(snapshot.data);
+
+              _expenseModel.calcTotals(_monthlyModel, snapshot.data);
 
               return Column(
                 mainAxisSize: MainAxisSize.min,
@@ -53,7 +53,7 @@ class MonthlyItemsPage extends StatelessWidget {
               return Align(
                 alignment: Alignment.topCenter,
                 child: ItemsHeader(
-                  total: _expenseModel.totalString(snapshot.data),
+                  total: _expenseModel.totalString(_monthlyModel.currentTotal),
                   pageModel: _monthlyModel,
                 ),
               );
@@ -69,7 +69,7 @@ class MonthlyItemsPage extends StatelessWidget {
       floatingActionButton: AddExpenseFab(
         onExpensePressed: () =>
             _expenseModel.showAddExpense(context, _monthlyModel.currentDate),
-            onIncomePressed: () =>
+        onIncomePressed: () =>
             _expenseModel.showAddIncome(context, _monthlyModel.currentDate),
       ),
     );
@@ -78,7 +78,9 @@ class MonthlyItemsPage extends StatelessWidget {
   // ? Move to components?
   List<Container> _expensesSplitByDayToContainers(
       BuildContext context, List<List<Item>> expensesSplitByDay) {
+    // ? pass models by arg?
     final _expenseModel = Provider.of<ItemModel>(context, listen: false);
+    final _monthlyModel = Provider.of<MonthlyModel>(context, listen: false);
 
     return expensesSplitByDay
         .map(
@@ -102,7 +104,8 @@ class MonthlyItemsPage extends StatelessWidget {
                     ),
                     Container(
                       margin: const EdgeInsets.only(right: 16),
-                      child: Text(_expenseModel.totalString(expenseList)),
+                      child: Text(_expenseModel
+                          .totalString(_monthlyModel.currentTotal)),
                     ),
                   ],
                 ),

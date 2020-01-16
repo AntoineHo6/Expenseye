@@ -33,9 +33,38 @@ class ItemsHeader extends StatelessWidget {
             ),
             Container(
               margin: const EdgeInsets.only(top: 10),
-              child: Text(
-                '${Strings.total}: $total \$',
-                style: Theme.of(context).textTheme.headline,
+              child: Row(
+                children: <Widget>[
+                  Column(
+                    children: <Widget>[
+                      Text(Strings.income),
+                      Text(
+                        '${pageModel.currentIncomeTotal.toStringAsFixed(2)} \$',
+                        style: Theme.of(context).textTheme.headline,
+                      ),
+                    ],
+                  ),
+                  const SizedBox(width: 25),
+                  Column(
+                    children: <Widget>[
+                      Text(Strings.expense),
+                      Text(
+                        '${pageModel.currentExpenseTotal.toStringAsFixed(2)} \$',
+                        style: Theme.of(context).textTheme.headline,
+                      ),
+                    ],
+                  ),
+                  const SizedBox(width: 25),
+                  Column(
+                    children: <Widget>[
+                      Text(Strings.balance),
+                      Text(
+                        '${pageModel.currentTotal.toStringAsFixed(2)} \$',
+                        style: Theme.of(context).textTheme.headline,
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ),
           ],

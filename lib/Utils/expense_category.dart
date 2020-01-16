@@ -11,6 +11,7 @@ enum ExpenseCategory {
   home,
   travel,
   people,
+  education,
   others
 }
 
@@ -29,7 +30,7 @@ class CategoryProperties {
     ExpenseCategory.shopping: {
       'string': Strings.shopping,
       'iconData': Icons.shopping_cart,
-      'color': Color(0xff9999ff)
+      'color': Color(0xffac3973)
     },
     ExpenseCategory.entertainment: {
       'string': Strings.entertainment,
@@ -60,6 +61,11 @@ class CategoryProperties {
       'string': Strings.people,
       'iconData': Icons.people,
       'color': Color(0xff3377ff)
+    },
+    ExpenseCategory.education: {
+      'string': Strings.education,
+      'iconData': Icons.school,
+      'color': Color(0xff9933ff)
     },
     ExpenseCategory.others: {
       'string': Strings.others,

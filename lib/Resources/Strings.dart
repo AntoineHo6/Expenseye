@@ -44,6 +44,7 @@ class Strings {
   static const String home = 'Home';
   static const String travel = 'Travel';
   static const String people = 'People';
+  static const String education = 'Education';
   static const String others = 'Others';
 
   // * DRAWER options

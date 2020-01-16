@@ -11,9 +11,12 @@ class AddItemModel extends ChangeNotifier {
   bool isPriceInvalid = false;
 
   DateTime date;
-  ItemCategory category = ItemCategory.food;
+  int type;
+  ItemCategory category;
 
-  AddItemModel(this.date);
+  AddItemModel(this.date, this.type){
+    type == 0 ? category = ItemCategory.food : category = ItemCategory.salary;
+  }
 
   // Will make the save button clickable
   void updateDate(DateTime newDate) {
@@ -37,7 +40,7 @@ class AddItemModel extends ChangeNotifier {
     // if all the fields are valid, add and quit
     if (!areFieldsInvalid) {
       Item newItem =
-          new Item(newName, double.parse(newPrice), newDate, 0, category);
+          new Item(newName, double.parse(newPrice), newDate, type, category);
 
       Provider.of<ItemModel>(context, listen: false)
           .addItem(newItem);
@@ -51,7 +54,7 @@ class AddItemModel extends ChangeNotifier {
     final result = await Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => CategoriesPage(),
+        builder: (context) => CategoriesPage(type: type),
       ),
     );
 

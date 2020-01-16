@@ -12,6 +12,7 @@ enum ItemCategory {
   home,
   travel,
   people,
+  education,
   // income
   salary,
   gift,
@@ -36,7 +37,7 @@ class ItemCatProperties {
     ItemCategory.shopping: {
       'string': Strings.shopping,
       'iconData': Icons.shopping_cart,
-      'color': Color(0xff9999ff)
+      'color': Color(0xffac3973)
     },
     ItemCategory.entertainment: {
       'string': Strings.entertainment,
@@ -67,6 +68,11 @@ class ItemCatProperties {
       'string': Strings.people,
       'iconData': Icons.people,
       'color': Color(0xff3377ff)
+    },
+    ItemCategory.education: {
+      'string': Strings.education,
+      'iconData': Icons.school,
+      'color': Color(0xff9933ff)
     },
     ItemCategory.salary: {
       'string': Strings.salary,

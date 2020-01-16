@@ -15,6 +15,7 @@ class ChartUtil {
       new ExpenseGroup(ItemCategory.home, 0),
       new ExpenseGroup(ItemCategory.travel, 0),
       new ExpenseGroup(ItemCategory.people, 0),
+      new ExpenseGroup(ItemCategory.education, 0),
       new ExpenseGroup(ItemCategory.others, 0),
     ];
 
@@ -47,8 +48,11 @@ class ChartUtil {
         case ItemCategory.people:
           aggregatedExpenses[8].total += expense.value;
           break;
-        case ItemCategory.others:
+        case ItemCategory.education:
           aggregatedExpenses[9].total += expense.value;
+          break;
+        case ItemCategory.others:
+          aggregatedExpenses[10].total += expense.value;
           break;
         case ItemCategory.salary:
           break;

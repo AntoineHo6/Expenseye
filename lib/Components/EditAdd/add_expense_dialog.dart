@@ -1,7 +1,7 @@
 import 'package:Expenseye/Components/EditAdd/icon_btn.dart';
 import 'package:Expenseye/Components/EditAdd/name_text_field.dart';
 import 'package:Expenseye/Components/EditAdd/price_text_field.dart';
-import 'package:Expenseye/Providers/EditAdd/add_expense_model.dart';
+import 'package:Expenseye/Providers/EditAdd/add_item_model.dart';
 import 'package:Expenseye/Components/EditAdd/date_picker_btn.dart';
 import 'package:Expenseye/Resources/Strings.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +23,7 @@ class _AddExpenseDialogState extends State<AddExpenseDialog> {
   @override
   Widget build(BuildContext context) {
     return new ChangeNotifierProvider(
-      create: (_) => new AddItemModel(widget.initialDate),
+      create: (_) => new AddItemModel(widget.initialDate, 0),
       child: Consumer<AddItemModel>(
         builder: (context, model, child) => AlertDialog(
           title: Row(

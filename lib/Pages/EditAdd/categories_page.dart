@@ -3,8 +3,29 @@ import 'package:Expenseye/Utils/item_category.dart';
 import 'package:flutter/material.dart';
 
 class CategoriesPage extends StatelessWidget {
+  final int type;
+
+  CategoriesPage({@required this.type});
+
   @override
   Widget build(BuildContext context) {
+    List<ItemCategory> categories = new List();
+
+    if (type == 0) {
+      for (var category in ItemCategory.values) {
+        if (category.index < 10) {
+          categories.add(category);
+        }
+      }
+    }
+    else {
+      for (var category in ItemCategory.values) {
+        if (category.index > 9) {
+          categories.add(category);
+        }
+      }
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text(Strings.icons),
@@ -16,19 +37,19 @@ class CategoriesPage extends StatelessWidget {
         mainAxisSpacing: 10,
         crossAxisCount: 3,
         children: List.generate(
-          ItemCategory.values.length,
+          categories.length,
           (index) {
             return RaisedButton(
               onPressed: () =>
-                  Navigator.pop(context, ItemCategory.values[index]),
+                  Navigator.pop(context, categories[index]),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   Icon(
-                    ItemCatProperties.properties[ItemCategory.values[index]]
+                    ItemCatProperties.properties[categories[index]]
                         ['iconData'],
                     color: ItemCatProperties
-                        .properties[ItemCategory.values[index]]['color'],
+                        .properties[categories[index]]['color'],
                     size: 50,
                   ),
                   const SizedBox(
@@ -38,7 +59,7 @@ class CategoriesPage extends StatelessWidget {
                     fit: BoxFit.fitWidth,
                     child: Text(
                       ItemCatProperties
-                          .properties[ItemCategory.values[index]]['string'],
+                          .properties[categories[index]]['string'],
                       style: Theme.of(context).textTheme.subhead,
                     ),
                   ),

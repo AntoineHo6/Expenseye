@@ -16,6 +16,7 @@ class ItemListTile extends StatelessWidget {
       title: Text(
         item.name,
       ),
+      subtitle: Text(item.type.toString()),
       trailing: Text(
         '${item.value.toStringAsFixed(2)} \$',
       ),

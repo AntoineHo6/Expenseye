@@ -13,8 +13,9 @@ class EditItemModel extends ChangeNotifier {
   bool isPriceInvalid = false;
   DateTime date;
   ItemCategory category;
+  int type;
 
-  EditItemModel(this.date, this.category);
+  EditItemModel(this.date, this.category, this.type);
 
   // Will make the save button clickable
   void infoChanged(String text) {
@@ -69,7 +70,7 @@ class EditItemModel extends ChangeNotifier {
     final result = await Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => CategoriesPage(),
+        builder: (context) => CategoriesPage(type: type),
       ),
     );
 

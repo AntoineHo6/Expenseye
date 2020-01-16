@@ -1,29 +1,29 @@
 import 'package:Expenseye/Components/EditAdd/icon_btn.dart';
 import 'package:Expenseye/Components/EditAdd/name_text_field.dart';
 import 'package:Expenseye/Components/EditAdd/price_text_field.dart';
-import 'package:Expenseye/Providers/EditAdd/add_expense_model.dart';
+import 'package:Expenseye/Providers/EditAdd/add_item_model.dart';
 import 'package:Expenseye/Components/EditAdd/date_picker_btn.dart';
 import 'package:Expenseye/Resources/Strings.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class AddExpenseDialog extends StatefulWidget {
+class AddIncomeDialog extends StatefulWidget {
   final DateTime initialDate;
 
-  AddExpenseDialog(this.initialDate);
+  AddIncomeDialog(this.initialDate);
 
   @override
-  _AddExpenseDialogState createState() => _AddExpenseDialogState();
+  _AddIncomeDialogState createState() => _AddIncomeDialogState();
 }
 
-class _AddExpenseDialogState extends State<AddExpenseDialog> {
+class _AddIncomeDialogState extends State<AddIncomeDialog> {
   final _nameController = TextEditingController();
   final _priceController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return new ChangeNotifierProvider(
-      create: (_) => new AddItemModel(widget.initialDate),
+      create: (_) => new AddItemModel(widget.initialDate, 1),
       child: Consumer<AddItemModel>(
         builder: (context, model, child) => AlertDialog(
           title: Row(

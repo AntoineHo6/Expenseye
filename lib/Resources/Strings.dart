@@ -57,6 +57,8 @@ class Strings {
   static const String gift = 'Gift';
   static const String business = 'Business';
   static const String insurance = 'Insurance';
+  static const String realEstate = 'Real Estate';
+  static const String investment = 'Investment';
   static const String refund = 'Refund';
 
   // * DRAWER options

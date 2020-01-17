@@ -18,6 +18,8 @@ enum ItemCategory {
   gift,
   business,
   insurance,
+  realEstate,
+  investment,
   refund,
   others
 }
@@ -62,7 +64,7 @@ class ItemCatProperties {
     ItemCategory.travel: {
       'string': Strings.travel,
       'iconData': Icons.airplanemode_active,
-      'color': Color(0xff99e600)
+      'color': Color(0xffcc6600)
     },
     ItemCategory.people: {
       'string': Strings.people,
@@ -93,6 +95,16 @@ class ItemCatProperties {
       'string': Strings.insurance,
       'iconData': Icons.account_balance,
       'color': Color(0xff6666ff),
+    },
+    ItemCategory.realEstate: {
+      'string': Strings.realEstate,
+      'iconData': Icons.business,
+      'color': Color(0xffccccff),
+    },
+    ItemCategory.investment: {
+      'string': Strings.investment,
+      'iconData': Icons.trending_up,
+      'color': Color(0xff00e673),
     },
     ItemCategory.refund: {
       'string': Strings.refund,

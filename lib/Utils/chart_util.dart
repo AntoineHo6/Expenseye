@@ -62,6 +62,10 @@ class ChartUtil {
           break;
         case ItemCategory.insurance:
           break;
+        case ItemCategory.realEstate:
+          break;
+        case ItemCategory.investment:
+          break;
         case ItemCategory.refund:
           break;
       }

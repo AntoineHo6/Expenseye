@@ -6,7 +6,7 @@ class AboutPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(Strings.about),
+        title: const Text(Strings.about),
       ),
       body: Container(
         margin: const EdgeInsets.all(40),

@@ -20,7 +20,6 @@ class DailyItemsPage extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data != null && snapshot.data.length > 0) {
-              //print('Building things');
               _itemModel.calcTotals(_dailyModel, snapshot.data);
               return SingleChildScrollView(
                 child: Column(

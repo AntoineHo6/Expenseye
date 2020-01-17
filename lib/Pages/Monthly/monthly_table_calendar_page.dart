@@ -23,14 +23,14 @@ class _MonthlyTableCalendarPage extends State<MonthlyTableCalendarPage>
 
   @override
   Widget build(BuildContext context) {
-    final _expenseModel = Provider.of<ItemModel>(context, listen: false);
+    final _itemModel = Provider.of<ItemModel>(context, listen: false);
 
     return Scaffold(
       appBar: AppBar(
         title: const Text(Strings.pickAMonth),
       ),
       body: FutureBuilder<List<Item>>(
-        future: _expenseModel.dbHelper.queryAllItems(),
+        future: _itemModel.dbHelper.queryAllItems(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data != null) {

@@ -12,4 +12,5 @@ class MyColors {
 
   static const incomeColor = Color(0xff1C231B);
   static const expenseColor = Color(0xff231B1B);
+  static const balanceColor = Color(0xff2B2B1E);
 }

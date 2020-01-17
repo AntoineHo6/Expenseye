@@ -11,47 +11,53 @@ import 'package:Expenseye/Providers/Global/item_model.dart';
 class DailyItemsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final _expenseModel = Provider.of<ItemModel>(context);
+    final _itemModel = Provider.of<ItemModel>(context);
     final _dailyModel = Provider.of<DailyModel>(context);
 
     return Scaffold(
       body: FutureBuilder<List<Item>>(
-        future:
-            _expenseModel.dbHelper.queryItemsInDate(_dailyModel.currentDate),
+        future: _itemModel.dbHelper.queryItemsInDate(_dailyModel.currentDate),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data != null && snapshot.data.length > 0) {
               //print('Building things');
-              _expenseModel.calcTotals(_dailyModel, snapshot.data);
+              _itemModel.calcTotals(_dailyModel, snapshot.data);
               return SingleChildScrollView(
                 child: Column(
                   children: <Widget>[
                     ItemsHeader(
                       pageModel: _dailyModel,
                     ),
-                    Column(
-                      children: snapshot.data.map(
-                        (item) {
-                          return Card(
-                            margin: const EdgeInsets.symmetric(
-                                horizontal: 15, vertical: 5),
-                            color: item.type == 0
-                                ? MyColors.expenseColor
-                                : MyColors.incomeColor,
-                            child: ItemListTile(
-                              item,
-                              onTap: () =>
-                                  _expenseModel.openEditItem(context, item),
-                            ),
-                          );
-                        },
-                      ).toList(),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: MyColors.black06dp,
+                        borderRadius: BorderRadius.circular(15),
+                      ),
+                      padding: const EdgeInsets.all(12),
+                      margin: const EdgeInsets.only(
+                          left: 15, right: 15, top: 5, bottom: 15),
+                      child: Column(
+                        children: snapshot.data.map(
+                          (item) {
+                            return Card(
+                              color: item.type == 0
+                                  ? MyColors.expenseColor
+                                  : MyColors.incomeColor,
+                              child: ItemListTile(
+                                item,
+                                onTap: () =>
+                                    _itemModel.openEditItem(context, item),
+                              ),
+                            );
+                          },
+                        ).toList(),
+                      ),
                     ),
                   ],
                 ),
               );
             } else {
-              _expenseModel.calcTotals(_dailyModel, snapshot.data);
+              _itemModel.calcTotals(_dailyModel, snapshot.data);
               return Align(
                 alignment: Alignment.topCenter,
                 child: ItemsHeader(
@@ -69,9 +75,9 @@ class DailyItemsPage extends StatelessWidget {
       ),
       floatingActionButton: AddExpenseFab(
         onExpensePressed: () =>
-            _expenseModel.showAddExpense(context, _dailyModel.currentDate),
+            _itemModel.showAddExpense(context, _dailyModel.currentDate),
         onIncomePressed: () =>
-            _expenseModel.showAddIncome(context, _dailyModel.currentDate),
+            _itemModel.showAddIncome(context, _dailyModel.currentDate),
       ),
     );
   }

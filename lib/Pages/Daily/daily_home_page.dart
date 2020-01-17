@@ -14,7 +14,7 @@ class DailyHomePage extends StatefulWidget {
 class _DailyHomePageState extends State<DailyHomePage> {
   @override
   Widget build(BuildContext context) {
-    final _expenseModel = Provider.of<ItemModel>(context, listen: false);
+    final _itemModel = Provider.of<ItemModel>(context, listen: false);
     final _dailyModel = Provider.of<DailyModel>(context, listen: false);
 
     return Scaffold(
@@ -26,7 +26,7 @@ class _DailyHomePageState extends State<DailyHomePage> {
             DailyItemsPage(),
             StatsPage(
               localModel: _dailyModel,
-              future: () => _expenseModel.dbHelper
+              future: () => _itemModel.dbHelper
                   .queryItemsInDate(_dailyModel.currentDate),
             ),
           ],

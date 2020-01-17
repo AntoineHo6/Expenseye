@@ -2,12 +2,10 @@ import 'package:Expenseye/Components/EditAdd/add_expense_dialog.dart';
 import 'package:Expenseye/Components/EditAdd/add_income_dialog.dart';
 import 'package:Expenseye/Models/Item.dart';
 import 'package:Expenseye/Pages/EditAdd/edit_expense_page.dart';
-import 'package:Expenseye/Providers/monthly_model.dart';
 import 'package:Expenseye/Resources/Strings.dart';
 import 'package:Expenseye/Utils/database_helper.dart';
 import 'package:Expenseye/google_firebase_helper.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class ItemModel extends ChangeNotifier {
   final DatabaseHelper dbHelper = DatabaseHelper.instance;
@@ -136,6 +134,23 @@ class ItemModel extends ChangeNotifier {
     model.currentIncomeTotal = incomeTotal;
 
     //notifyListeners();
+  }
+
+  double calcItemsTotal(List<Item> items) {
+    double total = 0;
+
+    for (var item in items) {
+      switch (item.type) {
+        case 0:
+          total -= item.value;
+          break;
+        case 1:
+          total += item.value;
+          break;
+      }
+    }
+
+    return total;
   }
 
   // * may move out of this provider

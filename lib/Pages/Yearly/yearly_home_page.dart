@@ -18,7 +18,7 @@ class YearlyHomePage extends StatefulWidget {
 class _YearlyHomePageState extends State<YearlyHomePage> {
   @override
   Widget build(BuildContext context) {
-    final _expenseModel = Provider.of<ItemModel>(context, listen: false);
+    final _itemModel = Provider.of<ItemModel>(context, listen: false);
     final _yearlyModel = Provider.of<YearlyModel>(context, listen: false);
 
     return Scaffold(
@@ -31,7 +31,7 @@ class _YearlyHomePageState extends State<YearlyHomePage> {
             StatsPage(
               localModel: _yearlyModel,
               future: () =>
-                  _expenseModel.dbHelper.queryItemsInYear(_yearlyModel.year),
+                  _itemModel.dbHelper.queryItemsInYear(_yearlyModel.year),
             ),
           ],
         ),

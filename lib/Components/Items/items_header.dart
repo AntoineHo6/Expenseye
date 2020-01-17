@@ -1,5 +1,6 @@
 import 'package:Expenseye/Components/Global/calendar_flat_button.dart';
 import 'package:Expenseye/Resources/Strings.dart';
+import 'package:Expenseye/Resources/Themes/Colors.dart';
 import 'package:flutter/material.dart';
 
 class ItemsHeader extends StatelessWidget {
@@ -12,29 +13,35 @@ class ItemsHeader extends StatelessWidget {
     return FittedBox(
       fit: BoxFit.fitWidth,
       child: Container(
-        margin: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+        margin: const EdgeInsets.symmetric(vertical: 17, horizontal: 10),
         child: Column(
-          mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Text(
-                  pageModel.getTitle(),
-                  style: Theme.of(context).textTheme.display2,
-                ),
-                const SizedBox(width: 15),
-                CalendarFlatButton(
-                  onPressed: () => pageModel.calendarFunc(context),
-                ),
-              ],
-            ),
             Container(
-              margin: const EdgeInsets.only(top: 10),
+              margin: const EdgeInsets.only(bottom: 15),
               child: Row(
                 children: <Widget>[
-                  Column(
+                  Text(
+                    pageModel.getTitle(),
+                    style: Theme.of(context).textTheme.display2,
+                  ),
+                  const SizedBox(width: 15),
+                  CalendarFlatButton(
+                    onPressed: () => pageModel.calendarFunc(context),
+                  ),
+                ],
+              ),
+            ),
+            Row(
+              mainAxisSize: MainAxisSize.max,
+              children: <Widget>[
+                Container(
+                  decoration: BoxDecoration(
+                    color: MyColors.incomeColor,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  padding: const EdgeInsets.all(8),
+                  child: Column(
                     children: <Widget>[
                       const Text(Strings.income),
                       Text(
@@ -43,8 +50,15 @@ class ItemsHeader extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(width: 25),
-                  Column(
+                ),
+                const SizedBox(width: 30),
+                Container(
+                  decoration: BoxDecoration(
+                    color: MyColors.expenseColor,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  padding: const EdgeInsets.all(8),
+                  child: Column(
                     children: <Widget>[
                       const Text(Strings.expense),
                       Text(
@@ -53,8 +67,15 @@ class ItemsHeader extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(width: 25),
-                  Column(
+                ),
+                const SizedBox(width: 30),
+                Container(
+                  decoration: BoxDecoration(
+                    color: MyColors.balanceColor,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  padding: const EdgeInsets.all(8),
+                  child: Column(
                     children: <Widget>[
                       const Text(Strings.balance),
                       Text(
@@ -63,8 +84,8 @@ class ItemsHeader extends StatelessWidget {
                       ),
                     ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ],
         ),

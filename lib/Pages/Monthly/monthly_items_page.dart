@@ -12,20 +12,19 @@ import 'package:provider/provider.dart';
 class MonthlyItemsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final _expenseModel = Provider.of<ItemModel>(context);
+    final _itemModel = Provider.of<ItemModel>(context);
     final _monthlyModel = Provider.of<MonthlyModel>(context);
 
     return Scaffold(
       body: FutureBuilder<List<Item>>(
-        future:
-            _expenseModel.dbHelper.queryItemsInMonth(_monthlyModel.yearMonth),
+        future: _itemModel.dbHelper.queryItemsInMonth(_monthlyModel.yearMonth),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data != null && snapshot.data.length > 0) {
               var expensesSplitByDay =
                   _monthlyModel.splitItemsByDay(snapshot.data);
 
-              _expenseModel.calcTotals(_monthlyModel, snapshot.data);
+              _itemModel.calcTotals(_monthlyModel, snapshot.data);
 
               return Column(
                 mainAxisSize: MainAxisSize.min,
@@ -48,7 +47,7 @@ class MonthlyItemsPage extends StatelessWidget {
                 ],
               );
             } else {
-              _expenseModel.calcTotals(_monthlyModel, snapshot.data);
+              _itemModel.calcTotals(_monthlyModel, snapshot.data);
               return Align(
                 alignment: Alignment.topCenter,
                 child: ItemsHeader(
@@ -66,9 +65,9 @@ class MonthlyItemsPage extends StatelessWidget {
       ),
       floatingActionButton: AddExpenseFab(
         onExpensePressed: () =>
-            _expenseModel.showAddExpense(context, _monthlyModel.currentDate),
+            _itemModel.showAddExpense(context, _monthlyModel.currentDate),
         onIncomePressed: () =>
-            _expenseModel.showAddIncome(context, _monthlyModel.currentDate),
+            _itemModel.showAddIncome(context, _monthlyModel.currentDate),
       ),
     );
   }
@@ -77,12 +76,11 @@ class MonthlyItemsPage extends StatelessWidget {
   List<Container> _expensesSplitByDayToContainers(
       BuildContext context, List<List<Item>> expensesSplitByDay) {
     // ? pass models by arg?
-    final _expenseModel = Provider.of<ItemModel>(context, listen: false);
-    final _monthlyModel = Provider.of<MonthlyModel>(context, listen: false);
+    final _itemModel = Provider.of<ItemModel>(context, listen: false);
 
     return expensesSplitByDay
         .map(
-          (expenseList) => Container(
+          (itemList) => Container(
             decoration: BoxDecoration(
               color: MyColors.black06dp,
               borderRadius: BorderRadius.circular(15),
@@ -97,13 +95,13 @@ class MonthlyItemsPage extends StatelessWidget {
                   mainAxisSize: MainAxisSize.max,
                   children: <Widget>[
                     Text(
-                      DateTimeUtil.formattedDate(expenseList[0].date),
+                      DateTimeUtil.formattedDate(itemList[0].date),
                       style: Theme.of(context).textTheme.title,
                     ),
                     Container(
                       margin: const EdgeInsets.only(right: 16),
-                      child: Text(_expenseModel
-                          .totalString(_monthlyModel.currentTotal)),
+                      child: Text(_itemModel
+                          .totalString(_itemModel.calcItemsTotal(itemList))),
                     ),
                   ],
                 ),
@@ -111,7 +109,7 @@ class MonthlyItemsPage extends StatelessWidget {
                   height: 10,
                 ),
                 Column(
-                  children: expenseList
+                  children: itemList
                       .map(
                         (item) => Card(
                           margin: const EdgeInsets.symmetric(vertical: 4),
@@ -120,8 +118,7 @@ class MonthlyItemsPage extends StatelessWidget {
                               : MyColors.incomeColor,
                           child: ItemListTile(
                             item,
-                            onTap: () =>
-                                _expenseModel.openEditItem(context, item),
+                            onTap: () => _itemModel.openEditItem(context, item),
                           ),
                         ),
                       )

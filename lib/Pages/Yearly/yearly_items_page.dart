@@ -17,19 +17,19 @@ class YearlyItemsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _expenseModel = Provider.of<ItemModel>(context);
+    final _itemModel = Provider.of<ItemModel>(context);
     final _yearlyModel = Provider.of<YearlyModel>(context);
 
     return Scaffold(
       body: FutureBuilder<List<Item>>(
-        future: _expenseModel.dbHelper.queryItemsInYear(_yearlyModel.year),
+        future: _itemModel.dbHelper.queryItemsInYear(_yearlyModel.year),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data != null && snapshot.data.length > 0) {
               var expensesSplitByMonth =
                   _yearlyModel.splitItemByMonth(snapshot.data);
 
-              _expenseModel.calcTotals(_yearlyModel, snapshot.data);
+              _itemModel.calcTotals(_yearlyModel, snapshot.data);
 
               return Column(
                 mainAxisSize: MainAxisSize.min,
@@ -45,7 +45,7 @@ class YearlyItemsPage extends StatelessWidget {
                             children: _expensesSplitByMonthToContainers(
                               context,
                               expensesSplitByMonth,
-                              _expenseModel,
+                              _itemModel,
                               _yearlyModel,
                             ),
                           ),
@@ -56,7 +56,7 @@ class YearlyItemsPage extends StatelessWidget {
                 ],
               );
             } else {
-              _expenseModel.calcTotals(_yearlyModel, snapshot.data);
+              _itemModel.calcTotals(_yearlyModel, snapshot.data);
               return Align(
                 alignment: Alignment.topCenter,
                 child: ItemsHeader(
@@ -78,7 +78,7 @@ class YearlyItemsPage extends StatelessWidget {
   List<InkWell> _expensesSplitByMonthToContainers(
       BuildContext context,
       List<List<Item>> expensesSplitByMonth,
-      ItemModel expenseModel,
+      ItemModel itemModel,
       YearlyModel yearlyModel) {
     return expensesSplitByMonth
         .map(
@@ -110,7 +110,7 @@ class YearlyItemsPage extends StatelessWidget {
                       Container(
                         margin: EdgeInsets.only(right: 16),
                         child: Text(
-                            expenseModel.totalString(yearlyModel.currentTotal)),
+                            itemModel.totalString(yearlyModel.currentTotal)),
                       ),
                     ],
                   ),

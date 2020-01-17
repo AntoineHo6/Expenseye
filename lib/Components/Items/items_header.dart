@@ -46,6 +46,7 @@ class ItemsHeader extends StatelessWidget {
                     child: Column(
                       children: <Widget>[
                         const Text(Strings.income),
+                        const SizedBox(height: 5),
                         Text(
                           '${pageModel.currentIncomeTotal.toStringAsFixed(2)} \$',
                           style: Theme.of(context).textTheme.headline,
@@ -63,6 +64,7 @@ class ItemsHeader extends StatelessWidget {
                     child: Column(
                       children: <Widget>[
                         const Text(Strings.expense),
+                        const SizedBox(height: 5),
                         Text(
                           '${pageModel.currentExpenseTotal.toStringAsFixed(2)} \$',
                           style: Theme.of(context).textTheme.headline,
@@ -80,6 +82,7 @@ class ItemsHeader extends StatelessWidget {
                     child: Column(
                       children: <Widget>[
                         const Text(Strings.balance),
+                        const SizedBox(height: 5),
                         Text(
                           '${pageModel.currentTotal.toStringAsFixed(2)} \$',
                           style: Theme.of(context).textTheme.headline,

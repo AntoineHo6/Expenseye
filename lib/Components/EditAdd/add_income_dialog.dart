@@ -44,6 +44,7 @@ class _AddIncomeDialogState extends State<AddIncomeDialog> {
                 PriceTextField(
                   controller: _priceController,
                   isPriceInvalid: model.isPriceInvalid,
+                  hintText: Strings.amount,
                 ),
                 Container(
                   margin: const EdgeInsets.only(top: 20),

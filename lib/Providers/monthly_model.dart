@@ -9,7 +9,7 @@ class MonthlyModel extends ChangeNotifier {
   double currentTotal;
   double currentExpenseTotal;
   double currentIncomeTotal;
-  int pageIndex = 0;
+  int pageIndex;
 
   MonthlyModel(DateTime date) {
     currentDate = date;
@@ -17,6 +17,7 @@ class MonthlyModel extends ChangeNotifier {
     currentTotal = 0;
     currentExpenseTotal = 0;
     currentIncomeTotal = 0;
+    pageIndex = 0;
   }
 
   /// Returns String format of DateTime containing strictly it's month & year,

@@ -6,10 +6,12 @@ class PriceTextField extends StatelessWidget {
   final TextEditingController controller;
   final bool isPriceInvalid;
   final Function onChanged;
+  final String hintText;
 
   const PriceTextField(
       {@required this.controller,
       @required this.isPriceInvalid,
+      this.hintText,
       this.onChanged});
 
   @override
@@ -25,8 +27,8 @@ class PriceTextField extends StatelessWidget {
         onChanged: onChanged,
         decoration: InputDecoration(
           border: InputBorder.none,
-          hintText: Strings.price,
-          hintStyle: TextStyle(color: MyColors.black24dp),
+          hintText: hintText,
+          hintStyle: const TextStyle(color: MyColors.black24dp),
           errorText:
               isPriceInvalid ? Strings.price + ' ' + Strings.isInvalid : null,
         ),

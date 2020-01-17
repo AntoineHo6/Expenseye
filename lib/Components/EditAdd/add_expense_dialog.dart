@@ -44,6 +44,7 @@ class _AddExpenseDialogState extends State<AddExpenseDialog> {
                 PriceTextField(
                   controller: _priceController,
                   isPriceInvalid: model.isPriceInvalid,
+                  hintText: Strings.price,
                 ),
                 Container(
                   margin: const EdgeInsets.only(top: 20),

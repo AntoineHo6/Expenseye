@@ -131,10 +131,6 @@ class ItemModel extends ChangeNotifier {
       }
     }
 
-    print('total: $total');
-    print('expenseTotal: $expenseTotal');
-    print('incomeTotal: $incomeTotal');
-
     model.currentTotal = total;
     model.currentExpenseTotal = expenseTotal;
     model.currentIncomeTotal = incomeTotal;

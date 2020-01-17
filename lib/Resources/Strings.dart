@@ -16,6 +16,8 @@ class Strings {
   static const String total = 'Total';
   static const String name = 'Name';
   static const String price = 'Price';
+  static const String value = 'Value';
+  static const String amount = 'Amount';
   static const String icons = 'Icons';
   static const String noData = 'No expenses to show in the statistics page!';
   static const String confirm = 'Confirm';

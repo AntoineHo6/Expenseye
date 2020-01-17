@@ -17,8 +17,9 @@ class CategoriesPage extends StatelessWidget {
           categories.add(category);
         }
       }
-    }
-    else {
+      categories.add(ItemCategory.others);
+      
+    } else {
       for (var category in ItemCategory.values) {
         if (category.index > 9) {
           categories.add(category);
@@ -40,16 +41,14 @@ class CategoriesPage extends StatelessWidget {
           categories.length,
           (index) {
             return RaisedButton(
-              onPressed: () =>
-                  Navigator.pop(context, categories[index]),
+              onPressed: () => Navigator.pop(context, categories[index]),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   Icon(
-                    ItemCatProperties.properties[categories[index]]
-                        ['iconData'],
-                    color: ItemCatProperties
-                        .properties[categories[index]]['color'],
+                    ItemCatProperties.properties[categories[index]]['iconData'],
+                    color: ItemCatProperties.properties[categories[index]]
+                        ['color'],
                     size: 50,
                   ),
                   const SizedBox(
@@ -58,8 +57,7 @@ class CategoriesPage extends StatelessWidget {
                   FittedBox(
                     fit: BoxFit.fitWidth,
                     child: Text(
-                      ItemCatProperties
-                          .properties[categories[index]]['string'],
+                      ItemCatProperties.properties[categories[index]]['string'],
                       style: Theme.of(context).textTheme.subhead,
                     ),
                   ),

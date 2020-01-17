@@ -2,15 +2,16 @@ import 'package:Expenseye/Components/Global/my_drawer.dart';
 import 'package:Expenseye/Components/Stats/category_stats_container.dart';
 import 'package:Expenseye/Components/Stats/legend_container.dart';
 import 'package:Expenseye/Components/Stats/simple_pie_chart.dart';
-import 'package:Expenseye/Models/Expense.dart';
+import 'package:Expenseye/Models/Item.dart';
 import 'package:Expenseye/Resources/Strings.dart';
 import 'package:Expenseye/Utils/chart_util.dart';
 import 'package:flutter/material.dart';
-typedef GetExpenses = Future<List<Expense>> Function();
+
+typedef GetItems = Future<List<Item>> Function();
 
 class StatsPage extends StatelessWidget {
   final localModel;
-  final GetExpenses future;
+  final GetItems future;
 
   StatsPage({@required this.localModel, @required this.future})
       : assert(localModel != null);
@@ -19,12 +20,12 @@ class StatsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: MyDrawer(),
-      body: FutureBuilder<List<Expense>>(
+      body: FutureBuilder<List<Item>>(
         future: future(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data != null && snapshot.data.length > 0) {
-              var aggregatedExpenses =
+              var aggregatedItems =
                   ChartUtil.convertExpensesToChartSeries(snapshot.data);
               return Column(
                 mainAxisSize: MainAxisSize.min,
@@ -49,7 +50,7 @@ class StatsPage extends StatelessWidget {
                                         child: SizedBox(
                                           height: 250.0,
                                           child: SimplePieChart(
-                                            aggregatedExpenses,
+                                            aggregatedItems,
                                           ),
                                         ),
                                       ),
@@ -60,7 +61,7 @@ class StatsPage extends StatelessWidget {
                               Container(
                                 margin: const EdgeInsets.all(20),
                                 child: LegendContainer(
-                                  aggregatedExpenses[0].data,
+                                  aggregatedItems[0].data,
                                 ),
                               ),
                             ],
@@ -68,8 +69,9 @@ class StatsPage extends StatelessWidget {
                           Container(
                             margin: const EdgeInsets.all(15),
                             child: CategoryStatsContainer(
-                              data: aggregatedExpenses[0].data,
-                              totalCost: localModel.currentTotal,
+                              data: aggregatedItems[0].data,
+                              totalCost:
+                                  calcExpensesTotal(aggregatedItems[0].data),
                             ),
                           ),
                         ],
@@ -93,5 +95,15 @@ class StatsPage extends StatelessWidget {
         },
       ),
     );
+  }
+
+  double calcExpensesTotal(List<ExpenseGroup> expenseGroups) {
+    double total = 0;
+
+    for (var expenseGroup in expenseGroups) {
+      total += (expenseGroup.total);
+    }
+
+    return total;
   }
 }

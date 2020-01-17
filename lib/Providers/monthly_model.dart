@@ -1,4 +1,4 @@
-import 'package:Expenseye/Models/Expense.dart';
+import 'package:Expenseye/Models/Item.dart';
 import 'package:Expenseye/Pages/Monthly/monthly_table_calendar_page.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
 import 'package:flutter/material.dart';
@@ -7,12 +7,17 @@ class MonthlyModel extends ChangeNotifier {
   DateTime currentDate;
   String yearMonth;
   double currentTotal;
-  int pageIndex = 0;
+  double currentExpenseTotal;
+  double currentIncomeTotal;
+  int pageIndex;
 
   MonthlyModel(DateTime date) {
     currentDate = date;
     yearMonth = getYearMonthString(currentDate);
     currentTotal = 0;
+    currentExpenseTotal = 0;
+    currentIncomeTotal = 0;
+    pageIndex = 0;
   }
 
   /// Returns String format of DateTime containing strictly it's month & year,
@@ -33,14 +38,14 @@ class MonthlyModel extends ChangeNotifier {
   /// Returns nested lists of expenses seperated by day.
   /// E.g. : [ [01, 01], [03, 03, 03], [04] ] where each number represents an
   /// expense.
-  List<List<Expense>> splitExpensesByDay(List<Expense> expenses) {
-    List<List<Expense>> expensesSplitByDay = new List();
+  List<List<Item>> splitItemsByDay(List<Item> expenses) {
+    List<List<Item>> expensesSplitByDay = new List();
 
     DateTime currentDate = expenses[0].date;
     int index = 0;
     expensesSplitByDay.add(new List());
 
-    for (Expense expense in expenses) {
+    for (Item expense in expenses) {
       if (expense.date == currentDate) {
         expensesSplitByDay[index].add(expense);
       } else {
@@ -72,5 +77,13 @@ class MonthlyModel extends ChangeNotifier {
       yearMonth = getYearMonthString(currentDate);
       notifyListeners();
     }
+  }
+
+  void resetTotals() {
+    currentTotal = 0;
+    currentIncomeTotal = 0;
+    currentExpenseTotal = 0;
+
+    notifyListeners();
   }
 }

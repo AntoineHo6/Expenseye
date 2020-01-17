@@ -1,4 +1,4 @@
-import 'package:Expenseye/Models/Expense.dart';
+import 'package:Expenseye/Models/Item.dart';
 import 'package:Expenseye/Providers/monthly_model.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +8,8 @@ class YearlyModel extends ChangeNotifier {
   DateTime currentDate = DateTime.now(); // to be changed in the year picker
   String year = getYearString(DateTime.now());
   double currentTotal = 0;
+  double currentExpenseTotal = 0;
+  double currentIncomeTotal = 0;
   int pageIndex = 0;
 
   static String getYearString(DateTime newYear) {
@@ -20,14 +22,14 @@ class YearlyModel extends ChangeNotifier {
     return temp.substring(0, temp.length - 3);
   }
 
-  List<List<Expense>> splitExpenseByMonth(List<Expense> expenses) {
-    List<List<Expense>> expensesSplitByMonth = new List();
+  List<List<Item>> splitItemByMonth(List<Item> expenses) {
+    List<List<Item>> expensesSplitByMonth = new List();
 
     String currentMonth = getYearMonthString(expenses[0].date);
     int index = 0;
     expensesSplitByMonth.add(new List());
 
-    for (Expense expense in expenses) {
+    for (Item expense in expenses) {
       if (getYearMonthString(expense.date) == currentMonth) {
         expensesSplitByMonth[index].add(expense);
       } else {
@@ -69,5 +71,13 @@ class YearlyModel extends ChangeNotifier {
       Provider.of<MonthlyModel>(context, listen: false)
           .updateDate(context, DateTime(date.year, date.month));
     }
+  }
+
+  void resetTotals() {
+    currentTotal = 0;
+    currentIncomeTotal = 0;
+    currentExpenseTotal = 0;
+
+    notifyListeners();
   }
 }

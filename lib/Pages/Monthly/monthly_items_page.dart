@@ -1,31 +1,30 @@
-import 'package:Expenseye/Components/Expenses/expenses_header.dart';
-import 'package:Expenseye/Components/Global/add_expense_fab.dart';
-import 'package:Expenseye/Components/Expenses/expense_list_tile.dart';
-import 'package:Expenseye/Models/Expense.dart';
-import 'package:Expenseye/Providers/Global/expense_model.dart';
+import 'package:Expenseye/Components/Items/items_header.dart';
+import 'package:Expenseye/Components/Global/add_item_fab.dart';
+import 'package:Expenseye/Components/Items/item_list_tile.dart';
+import 'package:Expenseye/Models/Item.dart';
+import 'package:Expenseye/Providers/Global/item_model.dart';
 import 'package:Expenseye/Providers/monthly_model.dart';
 import 'package:Expenseye/Resources/Themes/Colors.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class MonthlyExpensesPage extends StatelessWidget {
+class MonthlyItemsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final _expenseModel = Provider.of<ExpenseModel>(context);
+    final _itemModel = Provider.of<ItemModel>(context);
     final _monthlyModel = Provider.of<MonthlyModel>(context);
 
     return Scaffold(
-      body: FutureBuilder<List<Expense>>(
-        future: _expenseModel.dbHelper
-            .queryExpensesInMonth(_monthlyModel.yearMonth),
+      body: FutureBuilder<List<Item>>(
+        future: _itemModel.dbHelper.queryItemsInMonth(_monthlyModel.yearMonth),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data != null && snapshot.data.length > 0) {
               var expensesSplitByDay =
-                  _monthlyModel.splitExpensesByDay(snapshot.data);
-              _monthlyModel.currentTotal =
-                  _expenseModel.calcTotal(snapshot.data);
+                  _monthlyModel.splitItemsByDay(snapshot.data);
+
+              _itemModel.calcTotals(_monthlyModel, snapshot.data);
 
               return Column(
                 mainAxisSize: MainAxisSize.min,
@@ -34,8 +33,7 @@ class MonthlyExpensesPage extends StatelessWidget {
                     child: SingleChildScrollView(
                       child: Column(
                         children: <Widget>[
-                          ExpensesHeader(
-                            total: _expenseModel.totalString(snapshot.data),
+                          ItemsHeader(
                             pageModel: _monthlyModel,
                           ),
                           Column(
@@ -49,10 +47,10 @@ class MonthlyExpensesPage extends StatelessWidget {
                 ],
               );
             } else {
+              _itemModel.calcTotals(_monthlyModel, snapshot.data);
               return Align(
                 alignment: Alignment.topCenter,
-                child: ExpensesHeader(
-                  total: _expenseModel.totalString(snapshot.data),
+                child: ItemsHeader(
                   pageModel: _monthlyModel,
                 ),
               );
@@ -66,20 +64,23 @@ class MonthlyExpensesPage extends StatelessWidget {
         },
       ),
       floatingActionButton: AddExpenseFab(
-        onPressed: () =>
-            _expenseModel.showAddExpense(context, _monthlyModel.currentDate),
+        onExpensePressed: () =>
+            _itemModel.showAddExpense(context, _monthlyModel.currentDate),
+        onIncomePressed: () =>
+            _itemModel.showAddIncome(context, _monthlyModel.currentDate),
       ),
     );
   }
 
   // ? Move to components?
   List<Container> _expensesSplitByDayToContainers(
-      BuildContext context, List<List<Expense>> expensesSplitByDay) {
-    final _expenseModel = Provider.of<ExpenseModel>(context, listen: false);
+      BuildContext context, List<List<Item>> expensesSplitByDay) {
+    // ? pass models by arg?
+    final _itemModel = Provider.of<ItemModel>(context, listen: false);
 
     return expensesSplitByDay
         .map(
-          (expenseList) => Container(
+          (itemList) => Container(
             decoration: BoxDecoration(
               color: MyColors.black06dp,
               borderRadius: BorderRadius.circular(15),
@@ -94,12 +95,13 @@ class MonthlyExpensesPage extends StatelessWidget {
                   mainAxisSize: MainAxisSize.max,
                   children: <Widget>[
                     Text(
-                      DateTimeUtil.formattedDate(expenseList[0].date),
+                      DateTimeUtil.formattedDate(itemList[0].date),
                       style: Theme.of(context).textTheme.title,
                     ),
                     Container(
                       margin: const EdgeInsets.only(right: 16),
-                      child: Text(_expenseModel.totalString(expenseList)),
+                      child: Text(_itemModel
+                          .totalString(_itemModel.calcItemsTotal(itemList))),
                     ),
                   ],
                 ),
@@ -107,15 +109,16 @@ class MonthlyExpensesPage extends StatelessWidget {
                   height: 10,
                 ),
                 Column(
-                  children: expenseList
+                  children: itemList
                       .map(
-                        (expense) => Card(
+                        (item) => Card(
                           margin: const EdgeInsets.symmetric(vertical: 4),
-                          color: MyColors.black02dp,
-                          child: ExpenseListTile(
-                            expense,
-                            onTap: () =>
-                                _expenseModel.openEditExpense(context, expense),
+                          color: item.type == 0
+                              ? MyColors.expenseColor
+                              : MyColors.incomeColor,
+                          child: ItemListTile(
+                            item,
+                            onTap: () => _itemModel.openEditItem(context, item),
                           ),
                         ),
                       )

@@ -1,6 +1,6 @@
 class Strings {
   static const String appName = 'Expenseye';
-  static const String versionNumber = '1.0.0';
+  static const String versionNumber = '1.1.1';
 
   // * BUTTON messages
   static const String submitCaps = 'SUBMIT';
@@ -16,12 +16,15 @@ class Strings {
   static const String total = 'Total';
   static const String name = 'Name';
   static const String price = 'Price';
+  static const String value = 'Value';
+  static const String amount = 'Amount';
   static const String icons = 'Icons';
   static const String noData = 'No expenses to show in the statistics page!';
   static const String confirm = 'Confirm';
   static const String expenses = 'Expenses';
   static const String stats = 'Stats';
   static const String about = 'About';
+  static const String balance = 'Balance';
 
   // * QUESTIONS
   static const String confirmMsg =
@@ -34,7 +37,8 @@ class Strings {
   static const String signInToAvoidLosingData =
       'Sign In to avoid losing your data!';
 
-  // * CATEGORIES
+  // * EXPENSE categories
+  static const String expense = 'Expense';
   static const String food = 'Food';
   static const String transportation = 'Transportation';
   static const String shopping = 'Shopping';
@@ -46,6 +50,14 @@ class Strings {
   static const String people = 'People';
   static const String education = 'Education';
   static const String others = 'Others';
+
+  // * INCOME categories
+  static const String income = 'Income';
+  static const String salary = 'Salary';
+  static const String gift = 'Gift';
+  static const String business = 'Business';
+  static const String insurance = 'Insurance';
+  static const String refund = 'Refund';
 
   // * DRAWER options
   static const String daily = 'Daily';
@@ -61,11 +73,13 @@ class Strings {
   static const String succEdited = 'Successfully edited';
   static const String succDeleted = 'Successfully deleted';
 
-  // * DATABASE table and column names
-  static const String tableExpenses = 'expenses';
-  static const String columnId = 'expense_id';
-  static const String columnName = 'name';
-  static const String columnPrice = 'price';
-  static const String columnDate = 'date';
-  static const String columnCategory = 'category';
+  // * EXPENSE DATABASE table and column names
+  static const String dbFileName = 'itemsDb.db';
+  static const String tableItems = 'items';
+  static const String itemColumnId = 'expense_id';
+  static const String itemColumnName = 'name';
+  static const String itemColumnValue = 'value';
+  static const String itemColumnDate = 'date';
+  static const String itemColumnCategory = 'category';
+  static const String itemColumnType = 'type';
 }

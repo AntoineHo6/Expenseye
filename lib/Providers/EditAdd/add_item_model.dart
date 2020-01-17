@@ -1,32 +1,28 @@
-import 'package:Expenseye/Components/EditAdd/confirmation_dialog.dart';
-import 'package:Expenseye/Models/Expense.dart';
+import 'package:Expenseye/Models/Item.dart';
 import 'package:Expenseye/Pages/EditAdd/categories_page.dart';
-import 'package:Expenseye/Providers/Global/expense_model.dart';
+import 'package:Expenseye/Providers/Global/item_model.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
-import 'package:Expenseye/Utils/expense_category.dart';
+import 'package:Expenseye/Utils/item_category.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class EditExpenseModel extends ChangeNotifier {
-  bool didInfoChange = false;
+class AddItemModel extends ChangeNotifier {
   bool isNameInvalid = false;
   bool isPriceInvalid = false;
+
   DateTime date;
-  ExpenseCategory category;
+  int type;
+  ItemCategory category;
 
-  EditExpenseModel(this.date, this.category);
-
-  // Will make the save button clickable
-  void infoChanged(String text) {
-    didInfoChange = true;
-    notifyListeners();
+  AddItemModel(this.date, this.type){
+    type == 0 ? category = ItemCategory.food : category = ItemCategory.salary;
   }
 
   // Will make the save button clickable
   void updateDate(DateTime newDate) {
     if (newDate != null) {
       date = newDate;
-      infoChanged(null);
+      notifyListeners();
     }
   }
 
@@ -35,30 +31,20 @@ class EditExpenseModel extends ChangeNotifier {
     updateDate(newDate);
   }
 
-  void editExpense(
-      BuildContext context, int id, String newName, String newPrice) {
+  void addItem(BuildContext context, String newName, String newPrice) {
+    // make sure to remove time before adding to db
+    final DateTime newDate = DateTimeUtil.timeToZeroInDate(date);
+
     bool areFieldsInvalid = _checkFieldsInvalid(newName, newPrice);
 
-    // if all the fields are valid, update and quit
+    // if all the fields are valid, add and quit
     if (!areFieldsInvalid) {
-      Expense newExpense = new Expense.withId(
-          id, newName, double.parse(newPrice), date, category);
+      Item newItem =
+          new Item(newName, double.parse(newPrice), newDate, type, category);
 
-      Provider.of<ExpenseModel>(context, listen: false).editExpense(newExpense);
-      Navigator.pop(context, 1);
-    }
-  }
-
-  void delete(BuildContext context, int expenseId) async {
-    bool confirmed = await showDialog(
-      context: context,
-      builder: (_) => DeleteConfirmDialog(),
-    );
-
-    if (confirmed != null && confirmed) {
-      Provider.of<ExpenseModel>(context, listen: false)
-          .deleteExpense(expenseId);
-      Navigator.pop(context, 2);
+      Provider.of<ItemModel>(context, listen: false)
+          .addItem(newItem);
+      Navigator.pop(context, true);
     }
   }
 
@@ -68,13 +54,13 @@ class EditExpenseModel extends ChangeNotifier {
     final result = await Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => CategoriesPage(),
+        builder: (context) => CategoriesPage(type: type),
       ),
     );
 
     if (result != null) {
       category = result;
-      infoChanged(null);
+      notifyListeners();
     }
   }
 

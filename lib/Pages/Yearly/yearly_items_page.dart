@@ -1,35 +1,35 @@
-import 'package:Expenseye/Components/Expenses/expenses_header.dart';
+import 'package:Expenseye/Components/Items/items_header.dart';
 import 'package:Expenseye/Components/Global/colored_dot.dart';
-import 'package:Expenseye/Models/Expense.dart';
+import 'package:Expenseye/Models/Item.dart';
 import 'package:Expenseye/Pages/Monthly/monthly_home_page.dart';
-import 'package:Expenseye/Providers/Global/expense_model.dart';
+import 'package:Expenseye/Providers/Global/item_model.dart';
 import 'package:Expenseye/Providers/yearly_model.dart';
 import 'package:Expenseye/Resources/Themes/Colors.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
-import 'package:Expenseye/Utils/expense_category.dart';
+import 'package:Expenseye/Utils/item_category.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class YearlyExpensesPage extends StatelessWidget {
+class YearlyItemsPage extends StatelessWidget {
   final Function goToMonthPage;
 
-  YearlyExpensesPage({this.goToMonthPage});
+  YearlyItemsPage({this.goToMonthPage});
 
   @override
   Widget build(BuildContext context) {
-    final _expenseModel = Provider.of<ExpenseModel>(context);
+    final _itemModel = Provider.of<ItemModel>(context);
     final _yearlyModel = Provider.of<YearlyModel>(context);
 
     return Scaffold(
-      body: FutureBuilder<List<Expense>>(
-        future: _expenseModel.dbHelper.queryExpensesInYear(_yearlyModel.year),
+      body: FutureBuilder<List<Item>>(
+        future: _itemModel.dbHelper.queryItemsInYear(_yearlyModel.year),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data != null && snapshot.data.length > 0) {
               var expensesSplitByMonth =
-                  _yearlyModel.splitExpenseByMonth(snapshot.data);
-              _yearlyModel.currentTotal =
-                  _expenseModel.calcTotal(snapshot.data);
+                  _yearlyModel.splitItemByMonth(snapshot.data);
+
+              _itemModel.calcTotals(_yearlyModel, snapshot.data);
 
               return Column(
                 mainAxisSize: MainAxisSize.min,
@@ -38,15 +38,14 @@ class YearlyExpensesPage extends StatelessWidget {
                     child: SingleChildScrollView(
                       child: Column(
                         children: <Widget>[
-                          ExpensesHeader(
-                            total: _expenseModel.totalString(snapshot.data),
+                          ItemsHeader(
                             pageModel: _yearlyModel,
                           ),
                           Column(
                             children: _expensesSplitByMonthToContainers(
                               context,
                               expensesSplitByMonth,
-                              _expenseModel,
+                              _itemModel,
                               _yearlyModel,
                             ),
                           ),
@@ -57,10 +56,10 @@ class YearlyExpensesPage extends StatelessWidget {
                 ],
               );
             } else {
+              _itemModel.calcTotals(_yearlyModel, snapshot.data);
               return Align(
                 alignment: Alignment.topCenter,
-                child: ExpensesHeader(
-                  total: _expenseModel.totalString(snapshot.data),
+                child: ItemsHeader(
                   pageModel: _yearlyModel,
                 ),
               );
@@ -78,8 +77,8 @@ class YearlyExpensesPage extends StatelessWidget {
 
   List<InkWell> _expensesSplitByMonthToContainers(
       BuildContext context,
-      List<List<Expense>> expensesSplitByMonth,
-      ExpenseModel expenseModel,
+      List<List<Item>> expensesSplitByMonth,
+      ItemModel itemModel,
       YearlyModel yearlyModel) {
     return expensesSplitByMonth
         .map(
@@ -110,7 +109,8 @@ class YearlyExpensesPage extends StatelessWidget {
                       ),
                       Container(
                         margin: EdgeInsets.only(right: 16),
-                        child: Text(expenseModel.totalString(expenseList)),
+                        child: Text(
+                            itemModel.totalString(yearlyModel.currentTotal)),
                       ),
                     ],
                   ),
@@ -124,7 +124,7 @@ class YearlyExpensesPage extends StatelessWidget {
                       runSpacing: 5,
                       children: List.generate(expenseList.length, (index) {
                         return ColoredDot(
-                            color: CategoryProperties
+                            color: ItemCatProperties
                                     .properties[expenseList[index].category]
                                 ['color']);
                       }),

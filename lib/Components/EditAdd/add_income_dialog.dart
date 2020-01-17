@@ -7,30 +7,30 @@ import 'package:Expenseye/Resources/Strings.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class AddExpenseDialog extends StatefulWidget {
+class AddIncomeDialog extends StatefulWidget {
   final DateTime initialDate;
 
-  AddExpenseDialog(this.initialDate);
+  AddIncomeDialog(this.initialDate);
 
   @override
-  _AddExpenseDialogState createState() => _AddExpenseDialogState();
+  _AddIncomeDialogState createState() => _AddIncomeDialogState();
 }
 
-class _AddExpenseDialogState extends State<AddExpenseDialog> {
+class _AddIncomeDialogState extends State<AddIncomeDialog> {
   final _nameController = TextEditingController();
   final _priceController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return new ChangeNotifierProvider(
-      create: (_) => new AddItemModel(widget.initialDate, 0),
+      create: (_) => new AddItemModel(widget.initialDate, 1),
       child: Consumer<AddItemModel>(
         builder: (context, model, child) => AlertDialog(
           title: Row(
             children: <Widget>[
-              Icon(Icons.attach_money, color: Colors.white),
+              Icon(Icons.account_balance_wallet, color: Colors.white),
               const SizedBox(width: 10),
-              const Text(Strings.newExpense),
+              const Text('New income'),
             ],
           ),
           content: SingleChildScrollView(
@@ -44,7 +44,7 @@ class _AddExpenseDialogState extends State<AddExpenseDialog> {
                 PriceTextField(
                   controller: _priceController,
                   isPriceInvalid: model.isPriceInvalid,
-                  hintText: Strings.price,
+                  hintText: Strings.amount,
                 ),
                 Container(
                   margin: const EdgeInsets.only(top: 20),

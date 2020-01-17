@@ -1,10 +1,32 @@
 import 'package:Expenseye/Resources/Strings.dart';
-import 'package:Expenseye/Utils/expense_category.dart';
+import 'package:Expenseye/Utils/item_category.dart';
 import 'package:flutter/material.dart';
 
 class CategoriesPage extends StatelessWidget {
+  final int type;
+
+  CategoriesPage({@required this.type});
+
   @override
   Widget build(BuildContext context) {
+    List<ItemCategory> categories = new List();
+
+    if (type == 0) {
+      for (var category in ItemCategory.values) {
+        if (category.index < 10) {
+          categories.add(category);
+        }
+      }
+      categories.add(ItemCategory.others);
+      
+    } else {
+      for (var category in ItemCategory.values) {
+        if (category.index > 9) {
+          categories.add(category);
+        }
+      }
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: Text(Strings.icons),
@@ -16,19 +38,17 @@ class CategoriesPage extends StatelessWidget {
         mainAxisSpacing: 10,
         crossAxisCount: 3,
         children: List.generate(
-          ExpenseCategory.values.length,
+          categories.length,
           (index) {
             return RaisedButton(
-              onPressed: () =>
-                  Navigator.pop(context, ExpenseCategory.values[index]),
+              onPressed: () => Navigator.pop(context, categories[index]),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   Icon(
-                    CategoryProperties.properties[ExpenseCategory.values[index]]
-                        ['iconData'],
-                    color: CategoryProperties
-                        .properties[ExpenseCategory.values[index]]['color'],
+                    ItemCatProperties.properties[categories[index]]['iconData'],
+                    color: ItemCatProperties.properties[categories[index]]
+                        ['color'],
                     size: 50,
                   ),
                   const SizedBox(
@@ -37,8 +57,7 @@ class CategoriesPage extends StatelessWidget {
                   FittedBox(
                     fit: BoxFit.fitWidth,
                     child: Text(
-                      CategoryProperties
-                          .properties[ExpenseCategory.values[index]]['string'],
+                      ItemCatProperties.properties[categories[index]]['string'],
                       style: Theme.of(context).textTheme.subhead,
                     ),
                   ),

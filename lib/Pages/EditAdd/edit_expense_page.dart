@@ -2,14 +2,14 @@ import 'package:Expenseye/Components/EditAdd/icon_btn.dart';
 import 'package:Expenseye/Components/EditAdd/name_text_field.dart';
 import 'package:Expenseye/Components/EditAdd/price_text_field.dart';
 import 'package:Expenseye/Components/EditAdd/date_picker_btn.dart';
-import 'package:Expenseye/Models/Expense.dart';
-import 'package:Expenseye/Providers/EditAdd/edit_expense_model.dart';
+import 'package:Expenseye/Models/Item.dart';
+import 'package:Expenseye/Providers/EditAdd/edit_item_model.dart';
 import 'package:Expenseye/Resources/Strings.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class EditExpensePage extends StatefulWidget {
-  final Expense expense;
+  final Item expense;
 
   EditExpensePage(this.expense);
 
@@ -24,9 +24,9 @@ class _EditExpense extends State<EditExpensePage> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) =>
-          EditExpenseModel(widget.expense.date, widget.expense.category),
-      child: Consumer<EditExpenseModel>(
+      create: (_) => EditItemModel(
+          widget.expense.date, widget.expense.category, widget.expense.type),
+      child: Consumer<EditItemModel>(
         builder: (context, model, child) => Scaffold(
           appBar: AppBar(
             title: Text(widget.expense.name),
@@ -81,6 +81,7 @@ class _EditExpense extends State<EditExpensePage> {
                       PriceTextField(
                         controller: _priceController,
                         isPriceInvalid: model.isPriceInvalid,
+                        hintText: Strings.value,
                         onChanged: model.infoChanged,
                       ),
                     ],
@@ -109,7 +110,7 @@ class _EditExpense extends State<EditExpensePage> {
                     Strings.saveCaps,
                   ),
                   onPressed: model.didInfoChange
-                      ? () => model.editExpense(
+                      ? () => model.editItem(
                             context,
                             widget.expense.id,
                             _nameController.text,
@@ -135,7 +136,7 @@ class _EditExpense extends State<EditExpensePage> {
   @override
   void initState() {
     _nameController.text = widget.expense.name;
-    _priceController.text = widget.expense.price.toString();
+    _priceController.text = widget.expense.value.toString();
     super.initState();
   }
 }

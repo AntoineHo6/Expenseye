@@ -10,7 +10,7 @@ class DatabaseHelper {
   // This is the actual database filename that is saved in the docs directory.
   static const _databaseName = Strings.dbFileName;
   // Increment this version when you need to change the schema.
-  static final _databaseVersion = 1;
+  static final _databaseVersion = 2;
 
   // Make this a singleton class.
   DatabaseHelper._privateConstructor();
@@ -46,10 +46,34 @@ class DatabaseHelper {
                 ${Strings.itemColumnType} INTEGER NOT NULL
               )
               ''');
+
+    print('Creating reccurrent expenses table');
+    await db.execute('''
+              CREATE TABLE ${Strings.tableRecurrentItems} (
+                ${Strings.itemColumnId} INTEGER PRIMARY KEY AUTOINCREMENT,
+                ${Strings.itemColumnName} TEXT NOT NULL,
+                ${Strings.itemColumnValue} DOUBLE NOT NULL,
+                ${Strings.recurrentItemColumnDay} INTEGER NOT NULL,
+                ${Strings.itemColumnCategory} INTEGER NOT NULL,
+                ${Strings.itemColumnType} INTEGER NOT NULL,
+                ${Strings.recurrentItemColumnIsAdded} INTEGER NOT NULL
+              )
+              ''');
   }
 
-  Future _onUpgrade(Database db, int oldVersion, int newVersion) {
-
+  Future _onUpgrade(Database db, int oldVersion, int newVersion) async {
+    // print('Creating reccurrent expenses table');
+    // await db.execute('''
+    //           CREATE TABLE ${Strings.tableRecurrentItems} (
+    //             ${Strings.itemColumnId} INTEGER PRIMARY KEY AUTOINCREMENT,
+    //             ${Strings.itemColumnName} TEXT NOT NULL,
+    //             ${Strings.itemColumnValue} DOUBLE NOT NULL,
+    //             ${Strings.recurrentItemColumnDay} INTEGER NOT NULL,
+    //             ${Strings.itemColumnCategory} INTEGER NOT NULL,
+    //             ${Strings.itemColumnType} INTEGER NOT NULL,
+    //             ${Strings.recurrentItemColumnIsAdded} INTEGER NOT NULL
+    //           )
+    //           ''');
   }
 
   Future<int> insertItem(Item expense) async {

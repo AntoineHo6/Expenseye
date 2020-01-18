@@ -75,7 +75,7 @@ class Strings {
   static const String succEdited = 'Successfully edited';
   static const String succDeleted = 'Successfully deleted';
 
-  // * EXPENSE DATABASE table and column names
+  // * ITEM DATABASE table and column names
   static const String dbFileName = 'itemsDb.db';
   static const String tableItems = 'items';
   static const String itemColumnId = 'expense_id';
@@ -84,4 +84,9 @@ class Strings {
   static const String itemColumnDate = 'date';
   static const String itemColumnCategory = 'category';
   static const String itemColumnType = 'type';
+
+  // * RECCURENT ITEMS DATABASE table and extra column names
+  static const String tableRecurrentItems = 'reccurent_items';
+  static const String recurrentItemColumnDay = 'day';
+  static const String recurrentItemColumnIsAdded = 'is_added';
 }

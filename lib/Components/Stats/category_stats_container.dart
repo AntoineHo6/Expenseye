@@ -18,21 +18,34 @@ class CategoryStatsContainer extends StatelessWidget {
       ),
       padding: const EdgeInsets.all(12),
       child: Column(
-        children: data.map(
-          (expenseGroup) {
-            if (expenseGroup.total > 0) {
-              return Card(
-                color: MyColors.black02dp,
-                child: ExpenseGroupListTile(
-                  expenseGroup: expenseGroup,
-                  totalCost: totalCost,
+        children: <Widget>[
+          Container(
+              margin: const EdgeInsets.only(right: 20, bottom: 7),
+              child: SizedBox(
+                width: double.infinity,
+                child: Text(
+                  '${totalCost.toStringAsFixed(2)} \$',
+                  textAlign: TextAlign.end,
                 ),
-              );
-            } else {
-              return Container();
-            }
-          },
-        ).toList(),
+              )),
+          Column(
+            children: data.map(
+              (expenseGroup) {
+                if (expenseGroup.total > 0) {
+                  return Card(
+                    color: MyColors.black02dp,
+                    child: ExpenseGroupListTile(
+                      expenseGroup: expenseGroup,
+                      totalCost: totalCost,
+                    ),
+                  );
+                } else {
+                  return Container();
+                }
+              },
+            ).toList(),
+          ),
+        ],
       ),
     );
   }

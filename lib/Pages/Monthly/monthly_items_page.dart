@@ -1,6 +1,7 @@
 import 'package:Expenseye/Components/Items/items_header.dart';
 import 'package:Expenseye/Components/Global/add_item_fab.dart';
 import 'package:Expenseye/Components/Items/item_list_tile.dart';
+import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Models/Item.dart';
 import 'package:Expenseye/Providers/Global/item_model.dart';
 import 'package:Expenseye/Providers/monthly_model.dart';
@@ -113,7 +114,7 @@ class MonthlyItemsPage extends StatelessWidget {
                       .map(
                         (item) => Card(
                           margin: const EdgeInsets.symmetric(vertical: 4),
-                          color: item.type == 0
+                          color: item.type == ItemType.expense
                               ? MyColors.expenseColor
                               : MyColors.incomeColor,
                           child: ItemListTile(

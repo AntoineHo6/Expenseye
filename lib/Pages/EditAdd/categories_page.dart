@@ -1,9 +1,10 @@
+import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Resources/Strings.dart';
 import 'package:Expenseye/Utils/item_category.dart';
 import 'package:flutter/material.dart';
 
 class CategoriesPage extends StatelessWidget {
-  final int type;
+  final ItemType type;
 
   CategoriesPage({@required this.type});
 
@@ -11,7 +12,7 @@ class CategoriesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     List<ItemCategory> categories = new List();
 
-    if (type == 0) {
+    if (type == ItemType.expense) {
       for (var category in ItemCategory.values) {
         if (category.index < 10) {
           categories.add(category);

@@ -32,7 +32,7 @@ class PriceTextField extends StatelessWidget {
           errorText:
               isPriceInvalid ? Strings.price + ' ' + Strings.isInvalid : null,
         ),
-        keyboardType: TextInputType.number,
+        keyboardType: TextInputType.numberWithOptions(decimal: true),
       ),
     );
   }

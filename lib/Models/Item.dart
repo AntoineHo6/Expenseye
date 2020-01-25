@@ -1,3 +1,4 @@
+import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Resources/Strings.dart';
 import 'package:Expenseye/Utils/item_category.dart';
 
@@ -7,7 +8,7 @@ class Item {
   double value;
   DateTime date;
   ItemCategory category;
-  int type;
+  ItemType type;
 
   Item(this.name, this.value, this.date, this.type, this.category);
 
@@ -20,7 +21,7 @@ class Item {
     value = map[Strings.itemColumnValue];
     date = DateTime.parse(map[Strings.itemColumnDate]);
     category = ItemCategory.values[map[Strings.itemColumnCategory]];
-    type = map[Strings.itemColumnType];
+    type = ItemType.values[map[Strings.itemColumnType]];
   }
 
   Map<String, dynamic> toMap() {
@@ -29,7 +30,7 @@ class Item {
       Strings.itemColumnValue: value,
       Strings.itemColumnDate: date.toIso8601String(),
       Strings.itemColumnCategory: category.index,
-      Strings.itemColumnType: type
+      Strings.itemColumnType: type.index
     };
     if (id != null) {
       map[Strings.itemColumnId] = id;

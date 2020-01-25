@@ -1,5 +1,6 @@
 import 'package:Expenseye/Components/EditAdd/add_expense_dialog.dart';
 import 'package:Expenseye/Components/EditAdd/add_income_dialog.dart';
+import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Models/Item.dart';
 import 'package:Expenseye/Pages/EditAdd/edit_expense_page.dart';
 import 'package:Expenseye/Resources/Strings.dart';
@@ -104,13 +105,6 @@ class ItemModel extends ChangeNotifier {
     }
   }
 
-  void updateTotals(Item item) {
-    switch (item.type) {
-      case 0:
-
-    }
-  }
-
   void calcTotals(dynamic model, List<Item> items) {
     double total = 0;
     double expenseTotal = 0;
@@ -118,11 +112,11 @@ class ItemModel extends ChangeNotifier {
 
     for (var item in items) {
       switch (item.type) {
-        case 0:
+        case ItemType.expense:
           expenseTotal += item.value;
           total -= item.value;
           break;
-        case 1:
+        case ItemType.income:
           incomeTotal += item.value;
           total += item.value;
           break;
@@ -141,10 +135,10 @@ class ItemModel extends ChangeNotifier {
 
     for (var item in items) {
       switch (item.type) {
-        case 0:
+        case ItemType.expense:
           total -= item.value;
           break;
-        case 1:
+        case ItemType.income:
           total += item.value;
           break;
       }

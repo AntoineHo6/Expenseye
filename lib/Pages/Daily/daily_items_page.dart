@@ -1,6 +1,7 @@
 import 'package:Expenseye/Components/Items/items_header.dart';
 import 'package:Expenseye/Components/Global/add_item_fab.dart';
 import 'package:Expenseye/Components/Items/item_list_tile.dart';
+import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Models/Item.dart';
 import 'package:Expenseye/Providers/daily_model.dart';
 import 'package:Expenseye/Resources/Themes/Colors.dart';
@@ -39,7 +40,7 @@ class DailyItemsPage extends StatelessWidget {
                         children: snapshot.data.map(
                           (item) {
                             return Card(
-                              color: item.type == 0
+                              color: item.type == ItemType.expense
                                   ? MyColors.expenseColor
                                   : MyColors.incomeColor,
                               child: ItemListTile(

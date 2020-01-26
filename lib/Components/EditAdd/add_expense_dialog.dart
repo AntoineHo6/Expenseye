@@ -24,7 +24,7 @@ class _AddExpenseDialogState extends State<AddExpenseDialog> {
   @override
   Widget build(BuildContext context) {
     return new ChangeNotifierProvider(
-      create: (_) => new AddItemModel(widget.initialDate, ItemType.income),
+      create: (_) => new AddItemModel(widget.initialDate, ItemType.expense),
       child: Consumer<AddItemModel>(
         builder: (context, model, child) => AlertDialog(
           title: Row(

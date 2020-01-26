@@ -10,23 +10,14 @@ class CategoriesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<ItemCategory> categories = new List();
+    List<String> categories = new List();
 
-    if (type == ItemType.expense) {
-      for (var category in ItemCategory.values) {
-        if (category.index < 10) {
-          categories.add(category);
-        }
-      }
-      categories.add(ItemCategory.others);
-      
-    } else {
-      for (var category in ItemCategory.values) {
-        if (category.index > 9) {
-          categories.add(category);
-        }
+    if(type == ItemType.expense) {
+      for (var item in ItemCategories.properties.values) {
+        if ()
       }
     }
+    
 
     return Scaffold(
       appBar: AppBar(

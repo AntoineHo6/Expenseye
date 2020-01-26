@@ -13,12 +13,12 @@ class AddItemModel extends ChangeNotifier {
 
   DateTime date;
   ItemType type;
-  ItemCategory category;
+  String category;
 
   AddItemModel(this.date, this.type) {
     type == ItemType.expense
-        ? category = ItemCategory.food
-        : category = ItemCategory.salary;
+        ? category = 'food'
+        : category = 'salary';
   }
 
   // Will make the save button clickable

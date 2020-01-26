@@ -4,7 +4,6 @@ import 'package:Expenseye/Models/Item.dart';
 import 'package:Expenseye/Pages/EditAdd/categories_page.dart';
 import 'package:Expenseye/Providers/Global/item_model.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
-import 'package:Expenseye/Utils/item_category.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -13,7 +12,7 @@ class EditItemModel extends ChangeNotifier {
   bool isNameInvalid = false;
   bool isPriceInvalid = false;
   DateTime date;
-  ItemCategory category;
+  String category;
   ItemType type;
 
   EditItemModel(this.date, this.category, this.type);

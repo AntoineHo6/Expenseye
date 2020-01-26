@@ -1,117 +1,135 @@
+import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Resources/Strings.dart';
 import 'package:flutter/material.dart';
 
-enum ItemCategory {
-  // expenses
-  food,
-  transportation,
-  shopping,
-  entertainment,
-  activity,
-  medical,
-  home,
-  travel,
-  people,
-  education,
-  // income
-  salary,
-  gift,
-  business,
-  insurance,
-  realEstate,
-  investment,
-  refund,
-  others
-}
+// enum ItemCategory {
+//   // expenses
+//   food,
+//   transportation,
+//   shopping,
+//   entertainment,
+//   activity,
+//   medical,
+//   home,
+//   travel,
+//   people,
+//   education,
+//   // income
+//   salary,
+//   gift,
+//   business,
+//   insurance,
+//   realEstate,
+//   investment,
+//   refund,
+//   others
+// }
 
-class ItemCatProperties {
-  static const Map<ItemCategory, Map<String, Object>> properties = {
-    ItemCategory.food: {
+class ItemCategories {
+  static const Map<String, Map<String, Object>> properties = {
+    'food': {
       'string': Strings.food,
       'iconData': Icons.restaurant,
-      'color': Color(0xffff8533)
+      'color': Color(0xffff8533),
+      'type': ItemType.expense
     },
-    ItemCategory.transportation: {
+    'transportation': {
       'string': Strings.transportation,
       'iconData': Icons.directions_car,
-      'color': Colors.yellow
+      'color': Colors.yellow,
+      'type': ItemType.expense
     },
-    ItemCategory.shopping: {
+    'shopping': {
       'string': Strings.shopping,
       'iconData': Icons.shopping_cart,
-      'color': Color(0xffac3973)
+      'color': Color(0xffac3973),
+      'type': ItemType.expense
     },
-    ItemCategory.entertainment: {
+    'entertainment': {
       'string': Strings.entertainment,
       'iconData': Icons.movie,
-      'color': Color(0xff66ccff)
+      'color': Color(0xff66ccff),
+      'type': ItemType.expense
     },
-    ItemCategory.activity: {
+    'activity': {
       'string': Strings.activity,
       'iconData': Icons.insert_emoticon,
-      'color': Color(0xffff66cc)
+      'color': Color(0xffff66cc),
+      'type': ItemType.expense
     },
-    ItemCategory.medical: {
+    'medical': {
       'string': Strings.medical,
       'iconData': Icons.healing,
-      'color': Color(0xffff3333)
+      'color': Color(0xffff3333),
+      'type': ItemType.expense
     },
-    ItemCategory.home: {
+    'home': {
       'string': Strings.home,
       'iconData': Icons.home,
-      'color': Color(0xffcc9966)
+      'color': Color(0xffcc9966),
+      'type': ItemType.expense
     },
-    ItemCategory.travel: {
+    'travel': {
       'string': Strings.travel,
       'iconData': Icons.airplanemode_active,
-      'color': Color(0xffcc6600)
+      'color': Color(0xffcc6600),
+      'type': ItemType.expense
     },
-    ItemCategory.people: {
+    'people': {
       'string': Strings.people,
       'iconData': Icons.people,
-      'color': Color(0xff3377ff)
+      'color': Color(0xff3377ff),
+      'type': ItemType.expense
     },
-    ItemCategory.education: {
+    'education': {
       'string': Strings.education,
       'iconData': Icons.school,
-      'color': Color(0xff9933ff)
+      'color': Color(0xff9933ff),
+      'type': ItemType.expense
     },
-    ItemCategory.salary: {
+    'salary': {
       'string': Strings.salary,
       'iconData': Icons.attach_money,
-      'color': Colors.green
+      'color': Colors.green,
+      'type': ItemType.income
     },
-    ItemCategory.gift: {
+    'gift': {
       'string': Strings.gift,
       'iconData': Icons.card_giftcard,
-      'color': Color(0xffb84dff)
+      'color': Color(0xffb84dff),
+      'type': ItemType.income
     },
-    ItemCategory.business: {
+    'business': {
       'string': Strings.business,
       'iconData': Icons.work,
       'color': Color(0xff1a8cff),
+      'type': ItemType.income
     },
-    ItemCategory.insurance: {
+    'insurance': {
       'string': Strings.insurance,
       'iconData': Icons.account_balance,
       'color': Color(0xff6666ff),
+      'type': ItemType.income
     },
-    ItemCategory.realEstate: {
+    'realEstate': {
       'string': Strings.realEstate,
       'iconData': Icons.business,
       'color': Color(0xffccccff),
+      'type': ItemType.income
     },
-    ItemCategory.investment: {
+    'investment': {
       'string': Strings.investment,
       'iconData': Icons.trending_up,
       'color': Color(0xff00e673),
+      'type': ItemType.income
     },
-    ItemCategory.refund: {
+    'refund': {
       'string': Strings.refund,
       'iconData': Icons.swap_vertical_circle,
       'color': Color(0xff66ffff),
+      'type': ItemType.income
     },
-    ItemCategory.others: {
+    'others': {
       'string': Strings.others,
       'iconData': Icons.folder_open,
       'color': Colors.white,

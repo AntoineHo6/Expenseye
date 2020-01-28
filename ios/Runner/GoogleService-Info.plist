@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>720825235171-ddf3q4ni8vk5d7vr45ml5u3dkfjgohjs.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.720825235171-ddf3q4ni8vk5d7vr45ml5u3dkfjgohjs</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>720825235171-fcjl6t8nr5lpl7js5astqlb489qa3o5r.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAjNb-aWPhLNapcACrxypG2FJrc3x-1Gd0</string>
+	<key>GCM_SENDER_ID</key>
+	<string>720825235171</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.srimp.expenseye</string>
+	<key>PROJECT_ID</key>
+	<string>expense-app-71b04</string>
+	<key>STORAGE_BUCKET</key>
+	<string>expense-app-71b04.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:720825235171:ios:ad9a1a3622933a31e337d6</string>
+	<key>DATABASE_URL</key>
+	<string>https://expense-app-71b04.firebaseio.com</string>
+</dict>
+</plist>

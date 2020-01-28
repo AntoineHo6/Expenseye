@@ -12,11 +12,11 @@ class ExpenseGroupListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       leading: Icon(
-        ItemCatProperties.properties[expenseGroup.category]['iconData'],
-        color: ItemCatProperties.properties[expenseGroup.category]['color'],
+        ItemCategories.properties[expenseGroup.category]['iconData'],
+        color: ItemCategories.properties[expenseGroup.category]['color'],
       ),
       title: Text(
-          ItemCatProperties.properties[expenseGroup.category]['string']),
+          ItemCategories.properties[expenseGroup.category]['string']),
       subtitle: Text('${_calcPercentage()}\%'),
       trailing: Text('${expenseGroup.total.toStringAsFixed(2)} \$'),
     );

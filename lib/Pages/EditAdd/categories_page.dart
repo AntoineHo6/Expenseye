@@ -10,11 +10,13 @@ class CategoriesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<String> categories = new List();
+    List<Map<String, Object>> categories = new List();
 
     if(type == ItemType.expense) {
       for (var item in ItemCategories.properties.values) {
-        if ()
+        if (item['type'] == ItemType.expense) {
+          categories.add(item);
+        }
       }
     }
     
@@ -38,8 +40,8 @@ class CategoriesPage extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   Icon(
-                    ItemCatProperties.properties[categories[index]]['iconData'],
-                    color: ItemCatProperties.properties[categories[index]]
+                    ItemCategories.properties[categories[index]]['iconData'],
+                    color: ItemCategories.properties[categories[index]]
                         ['color'],
                     size: 50,
                   ),
@@ -49,7 +51,7 @@ class CategoriesPage extends StatelessWidget {
                   FittedBox(
                     fit: BoxFit.fitWidth,
                     child: Text(
-                      ItemCatProperties.properties[categories[index]]['string'],
+                      ItemCategories.properties[categories[index]]['string'],
                       style: Theme.of(context).textTheme.subhead,
                     ),
                   ),

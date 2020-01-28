@@ -7,7 +7,7 @@ class Item {
   String name;
   double value;
   DateTime date;
-  ItemCategory category;
+  String category;
   ItemType type;
 
   Item(this.name, this.value, this.date, this.type, this.category);
@@ -20,7 +20,7 @@ class Item {
     name = map[Strings.itemColumnName];
     value = map[Strings.itemColumnValue];
     date = DateTime.parse(map[Strings.itemColumnDate]);
-    category = ItemCategory.values[map[Strings.itemColumnCategory]];
+    category = map[Strings.itemColumnCategory];
     type = ItemType.values[map[Strings.itemColumnType]];
   }
 
@@ -29,7 +29,7 @@ class Item {
       Strings.itemColumnName: name,
       Strings.itemColumnValue: value,
       Strings.itemColumnDate: date.toIso8601String(),
-      Strings.itemColumnCategory: category.index,
+      Strings.itemColumnCategory: category,
       Strings.itemColumnType: type.index
     };
     if (id != null) {

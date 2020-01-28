@@ -26,7 +26,14 @@ class ItemModel extends ChangeNotifier {
 
     if (isLoggedIn && localItems.length > 0) {
       for (Item item in localItems) {
-        await dbHelper.insertItem(item);
+        // TODO: temp until expiry date
+        try {
+          var value = double.parse(item.category);
+          dbHelper.upgrade();
+        } on FormatException {
+          await dbHelper.insertItem(item);
+        } 
+        
       }
     }
 

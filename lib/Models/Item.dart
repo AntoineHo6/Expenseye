@@ -15,6 +15,15 @@ class Item {
   Item.withId(
       this.id, this.name, this.value, this.date, this.type, this.category);
 
+  Item.fromMapHasIntCat(Map<String, dynamic> map) {
+    id = map[Strings.itemColumnId];
+    name = map[Strings.itemColumnName];
+    value = map[Strings.itemColumnValue];
+    date = DateTime.parse(map[Strings.itemColumnDate]);
+    category = map[Strings.itemColumnCategory].toString();
+    type = ItemType.values[map[Strings.itemColumnType]];
+  }
+
   Item.fromMap(Map<String, dynamic> map) {
     id = map[Strings.itemColumnId];
     name = map[Strings.itemColumnName];

@@ -10,7 +10,7 @@ class DatabaseHelper {
   // This is the actual database filename that is saved in the docs directory.
   static const _databaseName = Strings.dbFileName;
   // Increment this version when you need to change the schema.
-  static final _databaseVersion = 2;
+  static final _databaseVersion = 3;
 
   // Make this a singleton class.
   DatabaseHelper._privateConstructor();
@@ -42,7 +42,7 @@ class DatabaseHelper {
                 ${Strings.itemColumnName} TEXT NOT NULL,
                 ${Strings.itemColumnValue} DOUBLE NOT NULL,
                 ${Strings.itemColumnDate} TEXT NOT NULL,
-                ${Strings.itemColumnCategory} INTEGER NOT NULL,
+                ${Strings.itemColumnCategory} TEXT NOT NULL,
                 ${Strings.itemColumnType} INTEGER NOT NULL
               )
               ''');
@@ -54,7 +54,7 @@ class DatabaseHelper {
                 ${Strings.itemColumnName} TEXT NOT NULL,
                 ${Strings.itemColumnValue} DOUBLE NOT NULL,
                 ${Strings.recurrentItemColumnDay} INTEGER NOT NULL,
-                ${Strings.itemColumnCategory} INTEGER NOT NULL,
+                ${Strings.itemColumnCategory} TEXT NOT NULL,
                 ${Strings.itemColumnType} INTEGER NOT NULL,
                 ${Strings.recurrentItemColumnIsAdded} INTEGER NOT NULL
               )
@@ -62,18 +62,137 @@ class DatabaseHelper {
   }
 
   Future _onUpgrade(Database db, int oldVersion, int newVersion) async {
-    // print('Creating reccurrent expenses table');
-    // await db.execute('''
-    //           CREATE TABLE ${Strings.tableRecurrentItems} (
-    //             ${Strings.itemColumnId} INTEGER PRIMARY KEY AUTOINCREMENT,
-    //             ${Strings.itemColumnName} TEXT NOT NULL,
-    //             ${Strings.itemColumnValue} DOUBLE NOT NULL,
-    //             ${Strings.recurrentItemColumnDay} INTEGER NOT NULL,
-    //             ${Strings.itemColumnCategory} INTEGER NOT NULL,
-    //             ${Strings.itemColumnType} INTEGER NOT NULL,
-    //             ${Strings.recurrentItemColumnIsAdded} INTEGER NOT NULL
-    //           )
-    //           ''');
+    // TODO: temp until expiry date
+
+    //create temp table
+    print('Creating temporary table');
+    await db.execute('''
+              CREATE TABLE temp (
+                ${Strings.itemColumnId} INTEGER PRIMARY KEY AUTOINCREMENT,
+                ${Strings.itemColumnName} TEXT NOT NULL,
+                ${Strings.itemColumnValue} DOUBLE NOT NULL,
+                ${Strings.itemColumnDate} TEXT NOT NULL,
+                ${Strings.itemColumnCategory} TEXT NOT NULL,
+                ${Strings.itemColumnType} INTEGER NOT NULL
+              )
+              ''');
+
+    print('copying data from old table to temporary table');
+    List<Map> maps = await db.query(Strings.tableItems);
+    List<Item> items = new List();
+    // items contains fuked up items with numbers as categories
+    if (maps.length > 0) {
+      for (Map row in maps) {
+        items.add(new Item.fromMapHasIntCat(row));
+      }
+    }
+    for (var item in items) {
+      String category;
+      switch (item.category) {
+        case '0':
+          category = 'food';
+          break;
+        case '1':
+          category = 'transportation';
+          break;
+        case '2':
+          category = 'shopping';
+          break;
+        case '3':
+          category = 'entertainment';
+          break;
+        case '4':
+          category = 'activity';
+          break;
+        case '5':
+          category = 'medical';
+          break;
+        case '6':
+          category = 'home';
+          break;
+        case '7':
+          category = 'travel';
+          break;
+        case '8':
+          category = 'people';
+          break;
+        case '9':
+          category = 'education';
+          break;
+        case '10':
+          category = 'salary';
+          break;
+        case '11':
+          category = 'gift';
+          break;
+        case '12':
+          category = 'business';
+          break;
+        case '13':
+          category = 'insurance';
+          break;
+        case '14':
+          category = 'realEstate';
+          break;
+        case '15':
+          category = 'investment';
+          break;
+        case '16':
+          category = 'refund';
+          break;
+        case '17':
+          category = 'others';
+          break;
+      }
+
+      item.category = category;
+
+      await db.insert('temp', item.toMap());
+    }
+
+    // drop table
+    print('dropping outdated items table');
+    await db.rawQuery('DROP TABLE ${Strings.tableItems};');
+
+    print('Creating up to date items table');
+    await db.execute('''
+              CREATE TABLE ${Strings.tableItems} (
+                ${Strings.itemColumnId} INTEGER PRIMARY KEY AUTOINCREMENT,
+                ${Strings.itemColumnName} TEXT NOT NULL,
+                ${Strings.itemColumnValue} DOUBLE NOT NULL,
+                ${Strings.itemColumnDate} TEXT NOT NULL,
+                ${Strings.itemColumnCategory} TEXT NOT NULL,
+                ${Strings.itemColumnType} INTEGER NOT NULL
+              )
+              ''');
+
+    print('transfering rows in temp table to new items table');
+    await db.rawQuery('INSERT INTO ${Strings.tableItems} SELECT * FROM temp;');
+
+    print('drop temp table');
+    await db.rawQuery('DROP TABLE temp;');
+
+    print('Dropping outdated reccurent items table');
+    await db.rawQuery('DROP TABLE ${Strings.tableRecurrentItems};');
+
+    print('create new reccurent table');
+    await db.execute('''
+              CREATE TABLE ${Strings.tableRecurrentItems} (
+                ${Strings.itemColumnId} INTEGER PRIMARY KEY AUTOINCREMENT,
+                ${Strings.itemColumnName} TEXT NOT NULL,
+                ${Strings.itemColumnValue} DOUBLE NOT NULL,
+                ${Strings.recurrentItemColumnDay} INTEGER NOT NULL,
+                ${Strings.itemColumnCategory} TEXT NOT NULL,
+                ${Strings.itemColumnType} INTEGER NOT NULL,
+                ${Strings.recurrentItemColumnIsAdded} INTEGER NOT NULL
+              )
+              ''');
+  }
+
+  Future<void> upgrade() async {
+    // TODO: temp until expiry date
+    Database db = await database;
+    await _onUpgrade(db, 2, 3);
   }
 
   Future<int> insertItem(Item expense) async {

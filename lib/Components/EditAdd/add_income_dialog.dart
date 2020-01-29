@@ -31,7 +31,7 @@ class _AddIncomeDialogState extends State<AddIncomeDialog> {
             children: <Widget>[
               Icon(Icons.account_balance_wallet, color: Colors.white),
               const SizedBox(width: 10),
-              const Text('New income'),
+              const Text('New income'), // TODO: remove hardcoded
             ],
           ),
           content: SingleChildScrollView(

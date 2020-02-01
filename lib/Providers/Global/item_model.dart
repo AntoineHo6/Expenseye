@@ -1,9 +1,11 @@
 import 'package:Expenseye/Components/EditAdd/add_item_dialog.dart';
 import 'package:Expenseye/Enums/item_type.dart';
+import 'package:Expenseye/Models/Category.dart';
 import 'package:Expenseye/Models/Item.dart';
 import 'package:Expenseye/Pages/EditAdd/edit_expense_page.dart';
 import 'package:Expenseye/Resources/Strings.dart';
 import 'package:Expenseye/Utils/database_helper.dart';
+import 'package:Expenseye/Utils/item_category.dart';
 import 'package:Expenseye/google_firebase_helper.dart';
 import 'package:flutter/material.dart';
 
@@ -12,10 +14,18 @@ class ItemModel extends ChangeNotifier {
 
   ItemModel() {
     initConnectedUser();
+    initCategoriesMap();
   }
 
   void initConnectedUser() async {
     await GoogleFirebaseHelper.initConnectedUser();
+  }
+
+  void initCategoriesMap() async {
+    List<Category> categories = await dbHelper.queryCategories();
+    for (var category in categories) {
+      Categories.map[category.id] = category;
+    }
   }
 
   Future<void> loginWithGoogle() async {
@@ -23,11 +33,22 @@ class ItemModel extends ChangeNotifier {
 
     bool isLoggedIn = await GoogleFirebaseHelper.loginWithGoogle();
 
-    if (isLoggedIn && localItems.length > 0) {
+    //if (isLoggedIn && localItems.length > 0) {
+    if (isLoggedIn) {
       for (Item item in localItems) {
         await dbHelper.insertItem(item);
       }
     }
+
+    try{
+        await dbHelper.upgrade();
+      }
+      catch(e) {}
+    
+    try{
+        await dbHelper.upgrade();
+      }
+      catch(e) {}
 
     notifyListeners();
   }

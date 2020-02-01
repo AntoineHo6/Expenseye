@@ -25,6 +25,7 @@ dependencies:
   charts_flutter: ^0.8.1
   table_calendar: ^2.2.2
   flutter_speed_dial: ^1.2.5
+  material_design_icons_flutter: ^3.4.4895
 
   google_sign_in: ^4.1.1
   firebase_auth: ^0.15.3+1

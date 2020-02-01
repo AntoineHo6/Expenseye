@@ -80,15 +80,27 @@ class Strings {
   // * ITEM DATABASE table and column names
   static const String dbFileName = 'itemsDb.db';
   static const String tableItems = 'items';
-  static const String itemColumnId = 'expense_id';
+  static const String itemColumnId = 'expense_id';  // TODO: rename to item id
   static const String itemColumnName = 'name';
   static const String itemColumnValue = 'value';
   static const String itemColumnDate = 'date';
   static const String itemColumnCategory = 'category';
-  static const String itemColumnType = 'type';
+  static const String itemColumnType = 'type';  // TODO: DEPRECATED. use categories type
+
+  // * CATEGORIES DATABASE table and column names
+  static const String tableCategories = 'categories';
+  static const String categoryColumnId = 'category_id';
+  static const String categoryColumnName = 'name';
+  static const String categoryColumnIconCodePoint = 'icon_code_point';
+  static const String categoryColumnColor = 'color';
+  static const String categoryColumnType = 'type';
 
   // * RECCURENT ITEMS DATABASE table and extra column names
-  static const String tableRecurrentItems = 'reccurent_items';
+  static const String tableRecurrentItems = 'recurrent_items';
+  static const String recurrentItemColumnId = 'recurrent_item_id';
+  static const String recurrentItemColumnName = 'name';
+  static const String recurrentItemColumnValue = 'value';
   static const String recurrentItemColumnDay = 'day';
+  static const String recurrentItemColumnCategory = 'category';
   static const String recurrentItemColumnIsAdded = 'is_added';
 }

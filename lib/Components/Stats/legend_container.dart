@@ -31,7 +31,6 @@ class LegendContainer extends StatelessWidget {
                       alignment: Alignment.centerRight,
                       child: Text(
                         Categories.map[expenseGroup.category].name,
-                        //style: Theme.of(context).textTheme.subhead,
                       ),
                     ),
                   ],

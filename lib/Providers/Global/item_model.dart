@@ -1,5 +1,4 @@
-import 'package:Expenseye/Components/EditAdd/add_expense_dialog.dart';
-import 'package:Expenseye/Components/EditAdd/add_income_dialog.dart';
+import 'package:Expenseye/Components/EditAdd/add_item_dialog.dart';
 import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Models/Item.dart';
 import 'package:Expenseye/Pages/EditAdd/edit_expense_page.dart';
@@ -58,7 +57,7 @@ class ItemModel extends ChangeNotifier {
   void showAddExpense(BuildContext context, DateTime initialDate) async {
     bool confirmed = await showDialog(
       context: context,
-      builder: (_) => AddExpenseDialog(initialDate),
+      builder: (_) => AddItemDialog(initialDate, ItemType.expense),
     );
 
     if (confirmed != null && confirmed) {
@@ -69,7 +68,7 @@ class ItemModel extends ChangeNotifier {
   void showAddIncome(BuildContext context, DateTime initialDate) async {
     bool confirmed = await showDialog(
       context: context,
-      builder: (_) => AddIncomeDialog(initialDate),
+      builder: (_) => AddItemDialog(initialDate, ItemType.income),
     );
 
     if (confirmed != null && confirmed) {

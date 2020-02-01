@@ -25,11 +25,5 @@ class AddExpenseFab extends StatelessWidget {
         ),
       ],
     );
-
-    // return FloatingActionButton(
-    //   child: const Icon(Icons.add),
-    //   onPressed: onPressed,
-    //   elevation: 2,
-    // );
   }
 }

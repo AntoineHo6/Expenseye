@@ -8,30 +8,41 @@ import 'package:Expenseye/Resources/Strings.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class AddIncomeDialog extends StatefulWidget {
+class AddItemDialog extends StatefulWidget {
   final DateTime initialDate;
+  final ItemType type;
 
-  AddIncomeDialog(this.initialDate);
+  AddItemDialog(this.initialDate, this.type);
 
   @override
-  _AddIncomeDialogState createState() => _AddIncomeDialogState();
+  _AddItemDialogState createState() => _AddItemDialogState();
 }
 
-class _AddIncomeDialogState extends State<AddIncomeDialog> {
+class _AddItemDialogState extends State<AddItemDialog> {
   final _nameController = TextEditingController();
   final _priceController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    String title;
+    Icon icon;
+    if (widget.type == ItemType.expense) {
+      title = Strings.newExpense;
+      icon = Icon(Icons.attach_money, color: Colors.white);
+    } else {
+      title = Strings.newIncome;
+      icon = Icon(Icons.account_balance_wallet, color: Colors.white);
+    }
+
     return new ChangeNotifierProvider(
-      create: (_) => new AddItemModel(widget.initialDate, ItemType.income),
+      create: (_) => new AddItemModel(widget.initialDate, widget.type),
       child: Consumer<AddItemModel>(
         builder: (context, model, child) => AlertDialog(
           title: Row(
             children: <Widget>[
-              Icon(Icons.account_balance_wallet, color: Colors.white),
+              icon,
               const SizedBox(width: 10),
-              const Text(Strings.newIncome),
+              Text(title),
             ],
           ),
           content: SingleChildScrollView(
@@ -45,7 +56,7 @@ class _AddIncomeDialogState extends State<AddIncomeDialog> {
                 PriceTextField(
                   controller: _priceController,
                   isPriceInvalid: model.isPriceInvalid,
-                  hintText: Strings.amount,
+                  hintText: Strings.price,
                 ),
                 Container(
                   margin: const EdgeInsets.only(top: 20),

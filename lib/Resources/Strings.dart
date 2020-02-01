@@ -50,6 +50,7 @@ class Strings {
   static const String people = 'People';
   static const String education = 'Education';
   static const String others = 'Others';
+  static const String otherExpenses = 'Other Expenses';
 
   // * INCOME categories
   static const String income = 'Income';
@@ -60,6 +61,7 @@ class Strings {
   static const String realEstate = 'Real Estate';
   static const String investment = 'Investment';
   static const String refund = 'Refund';
+  static const String otherIncomes = 'Other Incomes';
 
   // * DRAWER options
   static const String daily = 'Daily';

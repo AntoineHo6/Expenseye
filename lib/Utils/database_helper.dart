@@ -63,10 +63,10 @@ class DatabaseHelper {
 
   Future _onUpgrade(Database db, int oldVersion, int newVersion) async {
     // TODO: temp until expiry date
-
-    //create temp table
-    print('Creating temporary table');
-    await db.execute('''
+    try {
+      //create temp table
+      print('Creating temporary table');
+      await db.execute('''
               CREATE TABLE temp (
                 ${Strings.itemColumnId} INTEGER PRIMARY KEY AUTOINCREMENT,
                 ${Strings.itemColumnName} TEXT NOT NULL,
@@ -77,85 +77,85 @@ class DatabaseHelper {
               )
               ''');
 
-    print('copying data from old table to temporary table');
-    List<Map> maps = await db.query(Strings.tableItems);
-    List<Item> items = new List();
-    // items contains fuked up items with numbers as categories
-    if (maps.length > 0) {
-      for (Map row in maps) {
-        items.add(new Item.fromMapHasIntCat(row));
+      print('copying data from old table to temporary table');
+      List<Map> maps = await db.query(Strings.tableItems);
+      List<Item> items = new List();
+      // items contains fuked up items with numbers as categories
+      if (maps.length > 0) {
+        for (Map row in maps) {
+          items.add(new Item.fromMapHasIntCat(row));
+        }
       }
-    }
-    for (var item in items) {
-      String category;
-      switch (item.category) {
-        case '0':
-          category = Strings.food;
-          break;
-        case '1':
-          category = Strings.transportation;
-          break;
-        case '2':
-          category = Strings.shopping;
-          break;
-        case '3':
-          category = Strings.entertainment;
-          break;
-        case '4':
-          category = Strings.activity;
-          break;
-        case '5':
-          category = Strings.medical;
-          break;
-        case '6':
-          category = Strings.home;
-          break;
-        case '7':
-          category = Strings.travel;
-          break;
-        case '8':
-          category = Strings.people;
-          break;
-        case '9':
-          category = Strings.education;
-          break;
-        case '10':
-          category = Strings.salary;
-          break;
-        case '11':
-          category = Strings.gift;
-          break;
-        case '12':
-          category = Strings.business;
-          break;
-        case '13':
-          category = Strings.insurance;
-          break;
-        case '14':
-          category = Strings.realEstate;
-          break;
-        case '15':
-          category = Strings.investment;
-          break;
-        case '16':
-          category = Strings.refund;
-          break;
-        case '17':
-          category = Strings.others;
-          break;
+      for (var item in items) {
+        String category;
+        switch (item.category) {
+          case '0':
+            category = Strings.food;
+            break;
+          case '1':
+            category = Strings.transportation;
+            break;
+          case '2':
+            category = Strings.shopping;
+            break;
+          case '3':
+            category = Strings.entertainment;
+            break;
+          case '4':
+            category = Strings.activity;
+            break;
+          case '5':
+            category = Strings.medical;
+            break;
+          case '6':
+            category = Strings.home;
+            break;
+          case '7':
+            category = Strings.travel;
+            break;
+          case '8':
+            category = Strings.people;
+            break;
+          case '9':
+            category = Strings.education;
+            break;
+          case '10':
+            category = Strings.salary;
+            break;
+          case '11':
+            category = Strings.gift;
+            break;
+          case '12':
+            category = Strings.business;
+            break;
+          case '13':
+            category = Strings.insurance;
+            break;
+          case '14':
+            category = Strings.realEstate;
+            break;
+          case '15':
+            category = Strings.investment;
+            break;
+          case '16':
+            category = Strings.refund;
+            break;
+          case '17':
+            category = Strings.others;
+            break;
+        }
+
+        item.category = category;
+
+        await db.insert('temp', item.toMap());
       }
 
-      item.category = category;
+      // drop table
+      print('dropping outdated items table');
+      await db.rawQuery('DROP TABLE ${Strings.tableItems};');
 
-      await db.insert('temp', item.toMap());
-    }
-
-    // drop table
-    print('dropping outdated items table');
-    await db.rawQuery('DROP TABLE ${Strings.tableItems};');
-
-    print('Creating up to date items table');
-    await db.execute('''
+      print('Creating up to date items table');
+      await db.execute('''
               CREATE TABLE ${Strings.tableItems} (
                 ${Strings.itemColumnId} INTEGER PRIMARY KEY AUTOINCREMENT,
                 ${Strings.itemColumnName} TEXT NOT NULL,
@@ -166,17 +166,18 @@ class DatabaseHelper {
               )
               ''');
 
-    print('transfering rows in temp table to new items table');
-    await db.rawQuery('INSERT INTO ${Strings.tableItems} SELECT * FROM temp;');
+      print('transfering rows in temp table to new items table');
+      await db
+          .rawQuery('INSERT INTO ${Strings.tableItems} SELECT * FROM temp;');
 
-    print('drop temp table');
-    await db.rawQuery('DROP TABLE temp;');
+      print('drop temp table');
+      await db.rawQuery('DROP TABLE temp;');
 
-    print('Dropping outdated reccurent items table');
-    await db.rawQuery('DROP TABLE ${Strings.tableRecurrentItems};');
+      print('Dropping outdated reccurent items table');
+      await db.rawQuery('DROP TABLE ${Strings.tableRecurrentItems};');
 
-    print('create new reccurent table');
-    await db.execute('''
+      print('create new reccurent table');
+      await db.execute('''
               CREATE TABLE ${Strings.tableRecurrentItems} (
                 ${Strings.itemColumnId} INTEGER PRIMARY KEY AUTOINCREMENT,
                 ${Strings.itemColumnName} TEXT NOT NULL,
@@ -187,6 +188,9 @@ class DatabaseHelper {
                 ${Strings.recurrentItemColumnIsAdded} INTEGER NOT NULL
               )
               ''');
+    } catch (e) {
+      print('Error migrating data to new db');
+    }
   }
 
   Future<void> upgrade() async {

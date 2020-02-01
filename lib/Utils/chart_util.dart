@@ -17,7 +17,7 @@ class ChartUtil {
       new ExpenseGroup(Strings.travel, 0),
       new ExpenseGroup(Strings.people, 0),
       new ExpenseGroup(Strings.education, 0),
-      new ExpenseGroup(Strings.others, 0),
+      new ExpenseGroup(Strings.otherExpenses, 0),
     ];
 
     for (Item expense in expenses) {
@@ -52,7 +52,7 @@ class ChartUtil {
         case Strings.education:
           aggregatedExpenses[9].total += expense.value;
           break;
-        case Strings.others:
+        case Strings.otherExpenses:
           aggregatedExpenses[10].total += expense.value;
           break;
       }

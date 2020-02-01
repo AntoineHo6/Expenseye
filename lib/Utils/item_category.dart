@@ -66,6 +66,12 @@ class Categories {
       color: Color(0xff9933ff),
       type: ItemType.expense,
     ),
+    Strings.otherExpenses: Category(
+      name: Strings.others,
+      iconData: Icons.folder_open,
+      color: Colors.white,
+      type: ItemType.expense,
+    ),
     // * Default Incomes
     Strings.salary: Category(
       name: Strings.salary,
@@ -109,11 +115,11 @@ class Categories {
       color: Color(0xff66ffff),
       type: ItemType.income,
     ),
-    Strings.others: Category(
+    Strings.otherIncomes: Category(
       name: Strings.others,
       iconData: Icons.folder_open,
       color: Colors.white,
-      // TODO: add new type: hybrid
+      type: ItemType.income,
     ),
   };
 }

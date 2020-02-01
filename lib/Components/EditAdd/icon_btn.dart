@@ -13,8 +13,8 @@ class IconBtn extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
       onPressed: function,
       child: Icon(
-        ItemCategories.properties[category]['iconData'],
-        color: ItemCategories.properties[category]['color'],
+        Categories.map[category].iconData,
+        color: Categories.map[category].color,
       ),
     );
   }

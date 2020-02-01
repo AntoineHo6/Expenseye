@@ -14,18 +14,3 @@ class Category {
       @required this.color,
       @required this.type});
 }
-
-class Categories {
-  static const List<Category> list = [
-    Category(
-        name: Strings.food,
-        iconData: Icons.restaurant,
-        color: Color(0xffff8533),
-        type: ItemType.expense),
-    Category(
-        name: Strings.salary,
-        iconData: Icons.attach_money,
-        color: Colors.green,
-        type: ItemType.income),
-  ];
-}

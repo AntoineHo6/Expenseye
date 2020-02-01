@@ -22,8 +22,7 @@ class LegendContainer extends StatelessWidget {
                   mainAxisSize: MainAxisSize.max,
                   children: <Widget>[
                     ColoredDot(
-                      color: ItemCategories
-                          .properties[expenseGroup.category]['color'],
+                      color: Categories.map[expenseGroup.category].color,
                     ),
                     const SizedBox(
                       width: 10,
@@ -31,8 +30,7 @@ class LegendContainer extends StatelessWidget {
                     Align(
                       alignment: Alignment.centerRight,
                       child: Text(
-                        ItemCategories.properties[expenseGroup.category]
-                            ['string'],
+                        Categories.map[expenseGroup.category].name,
                         //style: Theme.of(context).textTheme.subhead,
                       ),
                     ),

@@ -11,8 +11,8 @@ class ItemListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: Icon(ItemCategories.properties[item.category]['iconData'],
-          color: ItemCategories.properties[item.category]['color']),
+      leading: Icon(Categories.map[item.category].iconData,
+          color: Categories.map[item.category].color),
       title: Text(
         item.name,
       ),

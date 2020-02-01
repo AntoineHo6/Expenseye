@@ -1,5 +1,4 @@
 import 'package:Expenseye/Enums/item_type.dart';
-import 'package:Expenseye/Models/Category.dart';
 import 'package:Expenseye/Resources/Strings.dart';
 import 'package:Expenseye/Utils/item_category.dart';
 import 'package:flutter/material.dart';
@@ -11,11 +10,11 @@ class CategoriesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Category> categories = new List();
+    List<String> categorieKeys = new List();
 
-    for (var category in Categories.list) {
-      if (category.type == type) {
-        categories.add(category);
+    for (var key in Categories.map.keys) {
+      if (Categories.map[key].type == type) {
+        categorieKeys.add(key);
       }
     }
 
@@ -30,31 +29,32 @@ class CategoriesPage extends StatelessWidget {
         mainAxisSpacing: 10,
         crossAxisCount: 3,
         children: List.generate(
-          categories.length,
+          categorieKeys.length,
           (index) {
-              return RaisedButton(
-                onPressed: () => Navigator.pop(context, categories[index]),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    Icon(
-                      categories[index].iconData,
-                      color: categories[index].color,
-                      size: 50,
+            String key = categorieKeys[index];
+            return RaisedButton(
+              onPressed: () => Navigator.pop(context, key),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Icon(
+                    Categories.map[key].iconData,
+                    color: Categories.map[key].color,
+                    size: 50,
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  FittedBox(
+                    fit: BoxFit.fitWidth,
+                    child: Text(
+                      Categories.map[key].name,
+                      style: Theme.of(context).textTheme.subhead,
                     ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    FittedBox(
-                      fit: BoxFit.fitWidth,
-                      child: Text(
-                        categories[index].name,
-                        style: Theme.of(context).textTheme.subhead,
-                      ),
-                    ),
-                  ],
-                ),
-              );
+                  ),
+                ],
+              ),
+            );
           },
         ),
       ),

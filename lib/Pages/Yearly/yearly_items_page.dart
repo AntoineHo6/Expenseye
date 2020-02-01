@@ -124,9 +124,8 @@ class YearlyItemsPage extends StatelessWidget {
                       runSpacing: 5,
                       children: List.generate(expenseList.length, (index) {
                         return ColoredDot(
-                            color: ItemCategories
-                                    .properties[expenseList[index].category]
-                                ['color']);
+                            color: Categories
+                                .map[expenseList[index].category].color);
                       }),
                     ),
                   ),

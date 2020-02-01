@@ -1,6 +1,5 @@
 import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Resources/Strings.dart';
-import 'package:Expenseye/Utils/item_category.dart';
 
 class Item {
   int id;

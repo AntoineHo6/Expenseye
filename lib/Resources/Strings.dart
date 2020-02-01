@@ -12,7 +12,8 @@ class Strings {
   static const String signOut = 'Sign Out';
 
   static const String appBy = 'App by Antoine Ho, 2020';
-  static const String newExpense = 'New expense';
+  static const String newExpense = 'New Expense';
+  static const String newIncome = 'New Income';
   static const String total = 'Total';
   static const String name = 'Name';
   static const String price = 'Price';

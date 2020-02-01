@@ -1,5 +1,4 @@
 import 'package:Expenseye/Enums/item_type.dart';
-import 'package:Expenseye/Resources/Strings.dart';
 import 'package:flutter/material.dart';
 
 class Category {

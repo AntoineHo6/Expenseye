@@ -26,18 +26,8 @@ class ItemModel extends ChangeNotifier {
 
     if (isLoggedIn && localItems.length > 0) {
       for (Item item in localItems) {
-        // TODO: temp until expiry date
-        try {
-          var value = double.parse(item.category);
-          dbHelper.upgrade();
-        } on FormatException {
-          await dbHelper.insertItem(item);
-        } 
-        
+        await dbHelper.insertItem(item);
       }
-    }
-    else if (isLoggedIn) {
-      dbHelper.upgrade();
     }
 
     notifyListeners();
@@ -71,14 +61,8 @@ class ItemModel extends ChangeNotifier {
       builder: (_) => AddExpenseDialog(initialDate),
     );
 
-    // TODO: make this a func
     if (confirmed != null && confirmed) {
-      final snackBar = SnackBar(
-        content: Text(Strings.succAdded),
-        backgroundColor: Colors.grey.withOpacity(0.5),
-      );
-
-      Scaffold.of(context).showSnackBar(snackBar);
+      showSuccAddedSnackBar(context);
     }
   }
 
@@ -89,13 +73,17 @@ class ItemModel extends ChangeNotifier {
     );
 
     if (confirmed != null && confirmed) {
-      final snackBar = SnackBar(
-        content: Text(Strings.succAdded),
-        backgroundColor: Colors.grey.withOpacity(0.5),
-      );
-
-      Scaffold.of(context).showSnackBar(snackBar);
+      showSuccAddedSnackBar(context);
     }
+  }
+
+  void showSuccAddedSnackBar(BuildContext context) {
+    final snackBar = SnackBar(
+      content: Text(Strings.succAdded),
+      backgroundColor: Colors.grey.withOpacity(0.5),
+    );
+
+    Scaffold.of(context).showSnackBar(snackBar);
   }
 
   void openEditItem(BuildContext context, Item item) async {

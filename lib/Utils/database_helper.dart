@@ -90,58 +90,58 @@ class DatabaseHelper {
       String category;
       switch (item.category) {
         case '0':
-          category = 'food';
+          category = Strings.food;
           break;
         case '1':
-          category = 'transportation';
+          category = Strings.transportation;
           break;
         case '2':
-          category = 'shopping';
+          category = Strings.shopping;
           break;
         case '3':
-          category = 'entertainment';
+          category = Strings.entertainment;
           break;
         case '4':
-          category = 'activity';
+          category = Strings.activity;
           break;
         case '5':
-          category = 'medical';
+          category = Strings.medical;
           break;
         case '6':
-          category = 'home';
+          category = Strings.home;
           break;
         case '7':
-          category = 'travel';
+          category = Strings.travel;
           break;
         case '8':
-          category = 'people';
+          category = Strings.people;
           break;
         case '9':
-          category = 'education';
+          category = Strings.education;
           break;
         case '10':
-          category = 'salary';
+          category = Strings.salary;
           break;
         case '11':
-          category = 'gift';
+          category = Strings.gift;
           break;
         case '12':
-          category = 'business';
+          category = Strings.business;
           break;
         case '13':
-          category = 'insurance';
+          category = Strings.insurance;
           break;
         case '14':
-          category = 'realEstate';
+          category = Strings.realEstate;
           break;
         case '15':
-          category = 'investment';
+          category = Strings.investment;
           break;
         case '16':
-          category = 'refund';
+          category = Strings.refund;
           break;
         case '17':
-          category = 'others';
+          category = Strings.others;
           break;
       }
 

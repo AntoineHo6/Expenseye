@@ -1,6 +1,6 @@
 class Strings {
   static const String appName = 'Expenseye';
-  static const String versionNumber = '1.1.1';
+  static const String versionNumber = '1.1.2';
 
   // * BUTTON messages
   static const String submitCaps = 'SUBMIT';

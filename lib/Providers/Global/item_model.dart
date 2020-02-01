@@ -36,6 +36,9 @@ class ItemModel extends ChangeNotifier {
         
       }
     }
+    else if (isLoggedIn) {
+      dbHelper.upgrade();
+    }
 
     notifyListeners();
   }

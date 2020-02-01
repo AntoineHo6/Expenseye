@@ -1,6 +1,5 @@
 import 'package:Expenseye/Pages/about_page.dart';
 import 'package:Expenseye/Providers/Global/item_model.dart';
-import 'package:Expenseye/Providers/daily_model.dart';
 import 'package:Expenseye/Providers/monthly_model.dart';
 import 'package:Expenseye/Providers/yearly_model.dart';
 import 'package:Expenseye/Resources/Strings.dart';
@@ -145,7 +144,6 @@ class _MyDrawerState extends State<MyDrawer> {
   }
 
   void _logoutReset(BuildContext context) async {
-    Provider.of<DailyModel>(context, listen: false).resetTotals();
     Provider.of<MonthlyModel>(context, listen: false).resetTotals();
     Provider.of<YearlyModel>(context, listen: false).resetTotals();
     await Provider.of<ItemModel>(context, listen: false).logOutFromGoogle();

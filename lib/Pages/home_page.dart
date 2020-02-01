@@ -1,14 +1,12 @@
 import 'package:Expenseye/Components/Global/my_drawer.dart';
 import 'package:Expenseye/Pages/Monthly/monthly_home_page.dart';
 import 'package:Expenseye/Pages/Yearly/yearly_home_page.dart';
-import 'package:Expenseye/Providers/daily_model.dart';
 import 'package:Expenseye/Providers/monthly_model.dart';
 import 'package:Expenseye/Providers/yearly_model.dart';
 import 'package:Expenseye/Resources/Strings.dart';
 import 'package:Expenseye/google_firebase_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'Daily/daily_home_page.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -25,9 +23,9 @@ class _HomePageState extends State<HomePage>
     WidgetsBinding.instance.addObserver(this);
 
     _tabController = TabController(
-      length: 3,
+      length: 2,
       vsync: this,
-      initialIndex: 1,
+      initialIndex: 0,
     );
   }
 
@@ -49,7 +47,6 @@ class _HomePageState extends State<HomePage>
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<DailyModel>(create: (_) => DailyModel()),
         ChangeNotifierProvider<MonthlyModel>(
             create: (_) => MonthlyModel(DateTime.now())),
         ChangeNotifierProvider<YearlyModel>(create: (_) => YearlyModel()),
@@ -61,10 +58,6 @@ class _HomePageState extends State<HomePage>
           bottom: TabBar(
             controller: _tabController,
             tabs: <Widget>[
-              Container(
-                margin: const EdgeInsets.only(bottom: 15, top: 8),
-                child: const Text(Strings.daily),
-              ),
               Container(
                 margin: const EdgeInsets.only(bottom: 15, top: 8),
                 child: const Text(Strings.monthly),
@@ -80,7 +73,6 @@ class _HomePageState extends State<HomePage>
         body: TabBarView(
           controller: _tabController,
           children: <Widget>[
-            DailyHomePage(),
             MonthlyHomePage(),
             YearlyHomePage(goToMonthPage: goToMonthPage),
           ],
@@ -90,6 +82,6 @@ class _HomePageState extends State<HomePage>
   }
 
   void goToMonthPage() {
-    _tabController.animateTo(1);
+    _tabController.animateTo(0);
   }
 }

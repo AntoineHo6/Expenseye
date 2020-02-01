@@ -65,7 +65,6 @@ class Strings {
   static const String otherIncomes = 'Other Incomes';
 
   // * DRAWER options
-  static const String daily = 'Daily';
   static const String monthly = 'Monthly';
   static const String yearly = 'Yearly';
 

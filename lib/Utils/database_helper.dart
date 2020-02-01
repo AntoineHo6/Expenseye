@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Models/Item.dart';
 import 'package:Expenseye/Resources/Strings.dart';
 import 'package:path/path.dart';
@@ -141,7 +142,12 @@ class DatabaseHelper {
             category = Strings.refund;
             break;
           case '17':
-            category = Strings.others;
+            if (item.type == ItemType.expense) {
+              category = Strings.otherExpenses;
+            }
+            else {
+              category = Strings.otherIncomes;
+            }
             break;
         }
 

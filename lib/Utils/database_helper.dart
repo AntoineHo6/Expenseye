@@ -80,8 +80,6 @@ class DatabaseHelper {
 
   Future _onUpgrade(Database db, int oldVersion, int newVersion) async {
     print('UPGRADINGGGG');
-    print('Creating categories table');
-
     try {
       await db.execute('''
           CREATE TABLE ${Strings.tableCategories} (
@@ -92,13 +90,18 @@ class DatabaseHelper {
             ${Strings.categoryColumnType} INTEGER NOT NULL
           )
           ''');
+      print('Created categories table');
 
       await _insertDefaultCategories(db);
+      print('Inserted default categories');
+    } catch (e) {}
 
-      print('Dropping outdated recurrent items table');
+    try {
       await db.rawQuery('DROP TABLE reccurent_items');
+      print('Dropped outdated recurrent items table');
+    } catch (e) {}
 
-      print('Creating new recurrent expenses table');
+    try {
       await db.execute('''
             CREATE TABLE ${Strings.tableRecurrentItems} (
               ${Strings.recurrentItemColumnId} INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -110,6 +113,7 @@ class DatabaseHelper {
               FOREIGN KEY(${Strings.recurrentItemColumnCategory}) REFERENCES ${Strings.tableCategories}(${Strings.categoryColumnId})
             )
             ''');
+      print('Created new recurrent expenses table');
     } catch (e) {}
   }
 

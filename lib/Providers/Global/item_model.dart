@@ -48,6 +48,9 @@ class ItemModel extends ChangeNotifier {
   }
 
   Future<void> logOutFromGoogle() async {
+    // TODO: temp
+    print('upgrading on sign out');
+    await dbHelper.upgrade();
     await GoogleFirebaseHelper.uploadDbFile();
     await GoogleFirebaseHelper.logOut();
     await dbHelper.deleteAll();

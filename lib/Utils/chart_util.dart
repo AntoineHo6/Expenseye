@@ -1,5 +1,5 @@
 import 'package:Expenseye/Models/Item.dart';
-import 'package:Expenseye/Utils/item_category.dart';
+import 'package:Expenseye/Providers/Global/item_model.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
 class ChartUtil {
@@ -21,7 +21,7 @@ class ChartUtil {
           domainFn: (ExpenseGroup group, _) => group.category,
           measureFn: (ExpenseGroup group, _) => group.total,
           colorFn: (ExpenseGroup group, _) => charts.ColorUtil.fromDartColor(
-                Categories.map[group.category].color,
+                ItemModel.categoriesMap[group.category].color,
               ),
           data: aggregatedExpenses.values.toList())
     ];

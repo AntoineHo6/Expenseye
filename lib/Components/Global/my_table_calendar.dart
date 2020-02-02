@@ -1,5 +1,5 @@
+import 'package:Expenseye/Providers/Global/item_model.dart';
 import 'package:Expenseye/Resources/Themes/Colors.dart';
-import 'package:Expenseye/Utils/item_category.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -40,7 +40,7 @@ class MyTableCalendar extends StatelessWidget {
             margin: const EdgeInsets.symmetric(horizontal: 0.3),
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: Categories.map[expense.category].color,
+              color: ItemModel.categoriesMap[expense.category].color,
             ),
           );
         },

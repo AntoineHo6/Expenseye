@@ -1,6 +1,6 @@
 import 'package:Expenseye/Enums/item_type.dart';
+import 'package:Expenseye/Providers/Global/item_model.dart';
 import 'package:Expenseye/Resources/Strings.dart';
-import 'package:Expenseye/Utils/item_category.dart';
 import 'package:flutter/material.dart';
 
 class CategoriesPage extends StatelessWidget {
@@ -12,8 +12,8 @@ class CategoriesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     List<String> categorieKeys = new List();
 
-    for (var key in Categories.map.keys) {
-      if (Categories.map[key].type == type) {
+    for (var key in ItemModel.categoriesMap.keys) {
+      if (ItemModel.categoriesMap[key].type == type) {
         categorieKeys.add(key);
       }
     }
@@ -38,8 +38,8 @@ class CategoriesPage extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   Icon(
-                    Categories.map[key].iconData,
-                    color: Categories.map[key].color,
+                    ItemModel.categoriesMap[key].iconData,
+                    color: ItemModel.categoriesMap[key].color,
                     size: 50,
                   ),
                   const SizedBox(
@@ -48,7 +48,7 @@ class CategoriesPage extends StatelessWidget {
                   FittedBox(
                     fit: BoxFit.fitWidth,
                     child: Text(
-                      Categories.map[key].name,
+                      ItemModel.categoriesMap[key].name,
                       style: Theme.of(context).textTheme.subhead,
                     ),
                   ),

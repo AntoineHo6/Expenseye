@@ -1,18 +1,16 @@
-import 'dart:io';
-
 import 'package:Expenseye/Components/EditAdd/add_item_dialog.dart';
 import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Models/Category.dart';
 import 'package:Expenseye/Models/Item.dart';
 import 'package:Expenseye/Pages/EditAdd/edit_expense_page.dart';
 import 'package:Expenseye/Resources/Strings.dart';
-import 'package:Expenseye/Utils/database_helper.dart';
-import 'package:Expenseye/Utils/item_category.dart';
-import 'package:Expenseye/google_firebase_helper.dart';
+import 'package:Expenseye/Helpers/database_helper.dart';
+import 'package:Expenseye/Helpers/google_firebase_helper.dart';
 import 'package:flutter/material.dart';
 
 class ItemModel extends ChangeNotifier {
   final DatabaseHelper dbHelper = DatabaseHelper.instance;
+  static Map<String, Category> categoriesMap = new Map();
 
   ItemModel() {
     initConnectedUser();
@@ -26,7 +24,7 @@ class ItemModel extends ChangeNotifier {
   void initCategoriesMap() async {
     List<Category> categories = await dbHelper.queryCategories();
     for (var category in categories) {
-      Categories.map[category.id] = category;
+      categoriesMap[category.id] = category;
     }
   }
 
@@ -41,16 +39,9 @@ class ItemModel extends ChangeNotifier {
       }
     }
     notifyListeners();
-
-    // TODO: temp
-    print('upgrading on sign in');
-    await dbHelper.upgrade();
   }
 
   Future<void> logOutFromGoogle() async {
-    // TODO: temp
-    print('upgrading on sign out');
-    await dbHelper.upgrade();
     await GoogleFirebaseHelper.uploadDbFile();
     await GoogleFirebaseHelper.logOut();
     await dbHelper.deleteAll();

@@ -1,6 +1,6 @@
 import 'package:Expenseye/Components/Global/colored_dot.dart';
+import 'package:Expenseye/Providers/Global/item_model.dart';
 import 'package:Expenseye/Utils/chart_util.dart';
-import 'package:Expenseye/Utils/item_category.dart';
 import 'package:flutter/material.dart';
 
 class LegendContainer extends StatelessWidget {
@@ -22,7 +22,7 @@ class LegendContainer extends StatelessWidget {
                   mainAxisSize: MainAxisSize.max,
                   children: <Widget>[
                     ColoredDot(
-                      color: Categories.map[expenseGroup.category].color,
+                      color: ItemModel.categoriesMap[expenseGroup.category].color,
                     ),
                     const SizedBox(
                       width: 10,
@@ -30,7 +30,7 @@ class LegendContainer extends StatelessWidget {
                     Align(
                       alignment: Alignment.centerRight,
                       child: Text(
-                        Categories.map[expenseGroup.category].name,
+                        ItemModel.categoriesMap[expenseGroup.category].name,
                       ),
                     ),
                   ],

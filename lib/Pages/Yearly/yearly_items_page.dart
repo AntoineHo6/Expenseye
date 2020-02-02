@@ -6,7 +6,6 @@ import 'package:Expenseye/Providers/Global/item_model.dart';
 import 'package:Expenseye/Providers/yearly_model.dart';
 import 'package:Expenseye/Resources/Themes/Colors.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
-import 'package:Expenseye/Utils/item_category.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -124,8 +123,8 @@ class YearlyItemsPage extends StatelessWidget {
                       runSpacing: 5,
                       children: List.generate(expenseList.length, (index) {
                         return ColoredDot(
-                            color: Categories
-                                .map[expenseList[index].category].color);
+                            color: ItemModel
+                                .categoriesMap[expenseList[index].category].color);
                       }),
                     ),
                   ),

@@ -1,11 +1,10 @@
 import 'package:Expenseye/Components/Global/my_drawer.dart';
 import 'package:Expenseye/Pages/Monthly/monthly_home_page.dart';
 import 'package:Expenseye/Pages/Yearly/yearly_home_page.dart';
-import 'package:Expenseye/Providers/Global/item_model.dart';
 import 'package:Expenseye/Providers/monthly_model.dart';
 import 'package:Expenseye/Providers/yearly_model.dart';
 import 'package:Expenseye/Resources/Strings.dart';
-import 'package:Expenseye/google_firebase_helper.dart';
+import 'package:Expenseye/Helpers/google_firebase_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -40,8 +39,6 @@ class _HomePageState extends State<HomePage>
   void didChangeAppLifecycleState(AppLifecycleState state) {
     super.didChangeAppLifecycleState(state);
     if (state == AppLifecycleState.paused) {
-      // TODO: temp
-      Provider.of<ItemModel>(context, listen: false).dbHelper.upgrade();
       GoogleFirebaseHelper.uploadDbFile();
     }
   }

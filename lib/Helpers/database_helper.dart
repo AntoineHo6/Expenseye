@@ -79,48 +79,6 @@ class DatabaseHelper {
   }
 
   Future _onUpgrade(Database db, int oldVersion, int newVersion) async {
-    print('UPGRADINGGGG');
-    try {
-      await db.execute('''
-          CREATE TABLE ${Strings.tableCategories} (
-            ${Strings.categoryColumnId} TEXT PRIMARY KEY,
-            ${Strings.categoryColumnName} TEXT NOT NULL,
-            ${Strings.categoryColumnIconCodePoint} TEXT NOT NULL,
-            ${Strings.categoryColumnColor} TEXT NOT NULL,
-            ${Strings.categoryColumnType} INTEGER NOT NULL
-          )
-          ''');
-      print('Created categories table');
-
-      await _insertDefaultCategories(db);
-      print('Inserted default categories');
-    } catch (e) {}
-
-    try {
-      await db.rawQuery('DROP TABLE reccurent_items');
-      print('Dropped outdated recurrent items table');
-    } catch (e) {}
-
-    try {
-      await db.execute('''
-            CREATE TABLE ${Strings.tableRecurrentItems} (
-              ${Strings.recurrentItemColumnId} INTEGER PRIMARY KEY AUTOINCREMENT,
-              ${Strings.recurrentItemColumnName} TEXT NOT NULL,
-              ${Strings.recurrentItemColumnValue} DOUBLE NOT NULL,
-              ${Strings.recurrentItemColumnDay} INTEGER NOT NULL,
-              ${Strings.recurrentItemColumnIsAdded} INTEGER NOT NULL,
-              ${Strings.recurrentItemColumnCategory} TEXT NOT NULL,
-              FOREIGN KEY(${Strings.recurrentItemColumnCategory}) REFERENCES ${Strings.tableCategories}(${Strings.categoryColumnId})
-            )
-            ''');
-      print('Created new recurrent expenses table');
-    } catch (e) {}
-  }
-
-  Future<void> upgrade() async {
-    // TODO: temp until expiry date
-    Database db = await database;
-    await _onUpgrade(db, 3, 4);
   }
 
   Future<int> insertItem(Item expense) async {
@@ -208,6 +166,8 @@ class DatabaseHelper {
   Future<void> deleteAll() async {
     Database db = await database;
     await db.rawQuery('DELETE FROM ${Strings.tableItems}');
+    await db.rawQuery('DELETE FROM ${Strings.tableRecurrentItems}');
+    // TODO: reset categories to default state
   }
 
   List<Item> convertMapsToItems(List<Map> maps) {

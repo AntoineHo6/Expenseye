@@ -43,6 +43,7 @@ class ItemModel extends ChangeNotifier {
     notifyListeners();
 
     // TODO: temp
+    print('upgrading on sign in');
     await dbHelper.upgrade();
   }
 

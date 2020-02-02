@@ -82,7 +82,8 @@ class DatabaseHelper {
     print('UPGRADINGGGG');
     print('Creating categories table');
 
-    await db.execute('''
+    try {
+      await db.execute('''
           CREATE TABLE ${Strings.tableCategories} (
             ${Strings.categoryColumnId} TEXT PRIMARY KEY,
             ${Strings.categoryColumnName} TEXT NOT NULL,
@@ -92,13 +93,13 @@ class DatabaseHelper {
           )
           ''');
 
-    await _insertDefaultCategories(db);
+      await _insertDefaultCategories(db);
 
-    print('Dropping outdated recurrent items table');
-    await db.rawQuery('DROP TABLE reccurent_items');
+      print('Dropping outdated recurrent items table');
+      await db.rawQuery('DROP TABLE reccurent_items');
 
-    print('Creating new recurrent expenses table');
-    await db.execute('''
+      print('Creating new recurrent expenses table');
+      await db.execute('''
             CREATE TABLE ${Strings.tableRecurrentItems} (
               ${Strings.recurrentItemColumnId} INTEGER PRIMARY KEY AUTOINCREMENT,
               ${Strings.recurrentItemColumnName} TEXT NOT NULL,
@@ -109,11 +110,13 @@ class DatabaseHelper {
               FOREIGN KEY(${Strings.recurrentItemColumnCategory}) REFERENCES ${Strings.tableCategories}(${Strings.categoryColumnId})
             )
             ''');
+    } catch (e) {}
   }
 
   Future<void> upgrade() async {
     // TODO: temp until expiry date
     Database db = await database;
+    await _onUpgrade(db, 3, 4);
     await _onUpgrade(db, 3, 4);
   }
 

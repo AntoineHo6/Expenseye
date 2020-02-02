@@ -33,22 +33,12 @@ class ItemModel extends ChangeNotifier {
 
     bool isLoggedIn = await GoogleFirebaseHelper.loginWithGoogle();
 
-    //if (isLoggedIn && localItems.length > 0) {
-    if (isLoggedIn) {
+    if (isLoggedIn && localItems.length > 0) {
       for (Item item in localItems) {
         await dbHelper.insertItem(item);
       }
     }
-
-    try{
-        await dbHelper.upgrade();
-      }
-      catch(e) {}
-    
-    try{
-        await dbHelper.upgrade();
-      }
-      catch(e) {}
+    await dbHelper.upgrade();
 
     notifyListeners();
   }

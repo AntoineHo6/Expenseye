@@ -1,6 +1,6 @@
 import 'package:Expenseye/Models/Category.dart';
 
-// TODO: REFACTOR. ADD MAP TO ITEM MODEL
 class Categories {
+  // TODO: move this map to itemModel
   static Map<String, Category> map = new Map();
 }

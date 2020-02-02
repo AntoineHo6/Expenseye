@@ -117,7 +117,6 @@ class DatabaseHelper {
     // TODO: temp until expiry date
     Database db = await database;
     await _onUpgrade(db, 3, 4);
-    await _onUpgrade(db, 3, 4);
   }
 
   Future<int> insertItem(Item expense) async {
@@ -228,6 +227,97 @@ class DatabaseHelper {
     );
     db.insert(Strings.tableCategories, food.toMap());
 
+    Category transportation = Category(
+      id: Strings.transportation,
+      name: Strings.transportation,
+      iconData: MdiIcons.car,
+      color: Colors.yellow,
+      type: ItemType.expense,
+    );
+    db.insert(Strings.tableCategories, transportation.toMap());
+
+    Category shopping = Category(
+      id: Strings.shopping,
+      name: Strings.shopping,
+      iconData: MdiIcons.cart,
+      color: Color(0xffac3973),
+      type: ItemType.expense,
+    );
+    db.insert(Strings.tableCategories, shopping.toMap());
+
+    Category entertainment = Category(
+      id: Strings.entertainment,
+      name: Strings.entertainment,
+      iconData: MdiIcons.movie,
+      color: Color(0xff66ccff),
+      type: ItemType.expense,
+    );
+    db.insert(Strings.tableCategories, entertainment.toMap());
+
+    Category activity = Category(
+      id: Strings.activity,
+      name: Strings.activity,
+      iconData: MdiIcons.emoticonOutline,
+      color: Color(0xffff66cc),
+      type: ItemType.expense,
+    );
+    db.insert(Strings.tableCategories, activity.toMap());
+
+    Category medical = Category(
+      id: Strings.medical,
+      name: Strings.medical,
+      iconData: MdiIcons.medicalBag,
+      color: Color(0xffff3333),
+      type: ItemType.expense,
+    );
+    db.insert(Strings.tableCategories, medical.toMap());
+
+    Category home = Category(
+      id: Strings.home,
+      name: Strings.home,
+      iconData: MdiIcons.home,
+      color: Color(0xffcc9966),
+      type: ItemType.expense,
+    );
+    db.insert(Strings.tableCategories, home.toMap());
+
+    Category travel = Category(
+      id: Strings.travel,
+      name: Strings.travel,
+      iconData: MdiIcons.airplane,
+      color: Color(0xffcc6600),
+      type: ItemType.expense,
+    );
+    db.insert(Strings.tableCategories, travel.toMap());
+
+    Category people = Category(
+      id: Strings.people,
+      name: Strings.people,
+      iconData: MdiIcons.accountMultiple,
+      color: Color(0xff3377ff),
+      type: ItemType.expense,
+    );
+    db.insert(Strings.tableCategories, people.toMap());
+
+    Category education = Category(
+      id: Strings.education,
+      name: Strings.education,
+      iconData: MdiIcons.school,
+      color: Color(0xff9933ff),
+      type: ItemType.expense,
+    );
+    db.insert(Strings.tableCategories, education.toMap());
+
+    Category otherExpenses = Category(
+      id: Strings.otherExpenses,
+      name: Strings.others,
+      iconData: MdiIcons.folderDownload,
+      color: Colors.white,
+      type: ItemType.expense,
+    );
+    db.insert(Strings.tableCategories, otherExpenses.toMap());
+
+    // * DEFAULT INCOMES
     Category salary = Category(
       id: Strings.salary,
       name: Strings.salary,
@@ -236,6 +326,69 @@ class DatabaseHelper {
       type: ItemType.income,
     );
     db.insert(Strings.tableCategories, salary.toMap());
+
+    Category gift = Category(
+      id: Strings.gift,
+      name: Strings.gift,
+      iconData: MdiIcons.walletGiftcard,
+      color: Color(0xffb84dff),
+      type: ItemType.income,
+    );
+    db.insert(Strings.tableCategories, gift.toMap());
+
+    Category business = Category(
+      id: Strings.business,
+      name: Strings.business,
+      iconData: MdiIcons.briefcase,
+      color: Color(0xff1a8cff),
+      type: ItemType.income,
+    );
+    db.insert(Strings.tableCategories, business.toMap());
+
+    Category insurance = Category(
+      id: Strings.insurance,
+      name: Strings.insurance,
+      iconData: MdiIcons.bank,
+      color: Color(0xff6666ff),
+      type: ItemType.income,
+    );
+    db.insert(Strings.tableCategories, insurance.toMap());
+
+    Category realEstate = Category(
+      id: Strings.realEstate,
+      name: Strings.realEstate,
+      iconData: MdiIcons.homeGroup,
+      color: Color(0xffccccff),
+      type: ItemType.income,
+    );
+    db.insert(Strings.tableCategories, realEstate.toMap());
+
+    Category investment = Category(
+      id: Strings.investment,
+      name: Strings.investment,
+      iconData: MdiIcons.trendingUp,
+      color: Color(0xff00e673),
+      type: ItemType.income,
+    );
+    db.insert(Strings.tableCategories, investment.toMap());
+
+    Category refund = Category(
+      id: Strings.refund,
+      name: Strings.refund,
+      iconData: MdiIcons.swapVerticalBold,
+      color: Color(0xff66ffff),
+      type: ItemType.income,
+    );
+    db.insert(Strings.tableCategories, refund.toMap());
+
+    Category otherIncomes = Category(
+      id: Strings.otherIncomes,
+      name: Strings.others,
+      iconData: MdiIcons.folderUpload,
+      color: Colors.white,
+      type: ItemType.income,
+    );
+    db.insert(Strings.tableCategories, otherIncomes.toMap());
   }
 
   Future<List<Category>> queryCategories() async {

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:Expenseye/Components/EditAdd/add_item_dialog.dart';
 import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Models/Category.dart';
@@ -38,9 +40,10 @@ class ItemModel extends ChangeNotifier {
         await dbHelper.insertItem(item);
       }
     }
-    await dbHelper.upgrade();
-
     notifyListeners();
+
+    // TODO: temp
+    await dbHelper.upgrade();
   }
 
   Future<void> logOutFromGoogle() async {

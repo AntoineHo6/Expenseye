@@ -14,6 +14,7 @@ class MyDrawer extends StatefulWidget {
 }
 
 class _MyDrawerState extends State<MyDrawer> {
+  bool _logInFirstPress = true;
   bool _logOutFirstPress = true;
 
   @override
@@ -114,7 +115,12 @@ class _MyDrawerState extends State<MyDrawer> {
                                         ),
                                       ],
                                     ),
-                                    onPressed: () => _loginInit(context),
+                                    onPressed: () {
+                                      if (_logInFirstPress) {
+                                        _logInFirstPress = false;
+                                        _loginInit(context);
+                                      }
+                                    },
                                   ),
                                 ],
                               ),
@@ -147,10 +153,12 @@ class _MyDrawerState extends State<MyDrawer> {
     Provider.of<MonthlyModel>(context, listen: false).resetTotals();
     Provider.of<YearlyModel>(context, listen: false).resetTotals();
     await Provider.of<ItemModel>(context, listen: false).logOutFromGoogle();
+    _logInFirstPress = true;
   }
 
   void _loginInit(BuildContext context) async {
     await Provider.of<ItemModel>(context, listen: false).loginWithGoogle();
+    _logOutFirstPress = true;
   }
 
   void openAboutPage(BuildContext context) {

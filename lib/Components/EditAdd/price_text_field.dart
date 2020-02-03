@@ -30,7 +30,7 @@ class PriceTextField extends StatelessWidget {
           hintText: hintText,
           hintStyle: const TextStyle(color: MyColors.black24dp),
           errorText:
-              isPriceInvalid ? Strings.price + ' ' + Strings.isInvalid : null,
+              isPriceInvalid ? '${Strings.price} ${Strings.isInvalid}' : null,
         ),
         keyboardType: TextInputType.numberWithOptions(decimal: true),
       ),

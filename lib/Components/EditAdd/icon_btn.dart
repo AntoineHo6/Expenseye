@@ -5,7 +5,7 @@ class IconBtn extends StatelessWidget {
   final String category;
   final Function function;
 
-  const IconBtn(this.category, this.function);
+  IconBtn(this.category, this.function);
 
   @override
   Widget build(BuildContext context) {

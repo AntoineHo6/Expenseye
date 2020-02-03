@@ -1,3 +1,4 @@
+import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Models/Item.dart';
 import 'package:Expenseye/Providers/Global/item_model.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
@@ -8,11 +9,12 @@ class ChartUtil {
     Map<String, ExpenseGroup> aggregatedExpenses = new Map();
 
     for (Item item in items) {
-      if (!aggregatedExpenses.containsKey(item.category)) {
-        aggregatedExpenses[item.category] = ExpenseGroup(item.category);
+      if (item.type == ItemType.expense) {
+        if (!aggregatedExpenses.containsKey(item.category)) {
+          aggregatedExpenses[item.category] = ExpenseGroup(item.category);
+        }
+        aggregatedExpenses[item.category].total += item.value;
       }
-      
-      aggregatedExpenses[item.category].total += item.value;
     }
 
     return [
@@ -21,7 +23,7 @@ class ChartUtil {
           domainFn: (ExpenseGroup group, _) => group.category,
           measureFn: (ExpenseGroup group, _) => group.total,
           colorFn: (ExpenseGroup group, _) => charts.ColorUtil.fromDartColor(
-                ItemModel.categoriesMap[group.category].color,
+                ItemModel.catMap[group.category].color,
               ),
           data: aggregatedExpenses.values.toList())
     ];

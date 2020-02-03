@@ -12,8 +12,8 @@ class CategoriesPage extends StatelessWidget {
   Widget build(BuildContext context) {
     List<String> categorieKeys = new List();
 
-    for (var key in ItemModel.categoriesMap.keys) {
-      if (ItemModel.categoriesMap[key].type == type) {
+    for (var key in ItemModel.catMap.keys) {
+      if (ItemModel.catMap[key].type == type) {
         categorieKeys.add(key);
       }
     }
@@ -38,8 +38,8 @@ class CategoriesPage extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   Icon(
-                    ItemModel.categoriesMap[key].iconData,
-                    color: ItemModel.categoriesMap[key].color,
+                    ItemModel.catMap[key].iconData,
+                    color: ItemModel.catMap[key].color,
                     size: 50,
                   ),
                   const SizedBox(
@@ -48,7 +48,7 @@ class CategoriesPage extends StatelessWidget {
                   FittedBox(
                     fit: BoxFit.fitWidth,
                     child: Text(
-                      ItemModel.categoriesMap[key].name,
+                      ItemModel.catMap[key].name,
                       style: Theme.of(context).textTheme.subhead,
                     ),
                   ),

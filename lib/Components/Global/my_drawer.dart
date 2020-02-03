@@ -156,7 +156,7 @@ class _MyDrawerState extends State<MyDrawer> {
   void openAboutPage(BuildContext context) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => AboutPage()),
+      MaterialPageRoute(builder: (context) => const AboutPage()),
     );
   }
 }

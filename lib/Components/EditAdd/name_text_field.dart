@@ -28,7 +28,7 @@ class NameTextField extends StatelessWidget {
           hintText: Strings.name,
           hintStyle: TextStyle(color: MyColors.black24dp),
           errorText:
-              isNameInvalid ? Strings.name + ' ' + Strings.isInvalid : null,
+              isNameInvalid ? '${Strings.name} ${Strings.isInvalid}' : null,
         ),
       ),
     );

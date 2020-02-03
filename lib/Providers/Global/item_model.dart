@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 
 class ItemModel extends ChangeNotifier {
   final DatabaseHelper dbHelper = DatabaseHelper.instance;
-  static Map<String, Category> categoriesMap = new Map();
+  static Map<String, Category> catMap = new Map();
 
   ItemModel() {
     initConnectedUser();
@@ -24,7 +24,7 @@ class ItemModel extends ChangeNotifier {
   void initCategoriesMap() async {
     List<Category> categories = await dbHelper.queryCategories();
     for (var category in categories) {
-      categoriesMap[category.id] = category;
+      catMap[category.id] = category;
     }
   }
 

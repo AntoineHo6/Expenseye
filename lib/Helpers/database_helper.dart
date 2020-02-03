@@ -162,7 +162,6 @@ class DatabaseHelper {
         where: '${Strings.itemColumnId} = ?', whereArgs: [id]);
   }
 
-  // TODO: include other tables
   Future<void> deleteAll() async {
     Database db = await database;
     await db.rawQuery('DELETE FROM ${Strings.tableItems}');

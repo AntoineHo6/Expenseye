@@ -11,16 +11,16 @@ class AddExpenseFab extends StatelessWidget {
   Widget build(BuildContext context) {
     return SpeedDial(
       overlayOpacity: 0,
-      child: Icon(Icons.add),
+      child: const Icon(Icons.add),
       children: [
         SpeedDialChild(
           backgroundColor: Colors.red,
-          child: Icon(Icons.attach_money),
+          child: const Icon(Icons.attach_money),
           onTap: onExpensePressed,
         ),
         SpeedDialChild(
           backgroundColor: Colors.green,
-          child: Icon(Icons.account_balance_wallet),
+          child: const Icon(Icons.account_balance_wallet),
           onTap: onIncomePressed,
         ),
       ],

@@ -1,3 +1,4 @@
+import 'package:Expenseye/Pages/Categories/cat_home_page.dart';
 import 'package:Expenseye/Pages/about_page.dart';
 import 'package:Expenseye/Providers/Global/item_model.dart';
 import 'package:Expenseye/Providers/monthly_model.dart';
@@ -6,6 +7,7 @@ import 'package:Expenseye/Resources/Strings.dart';
 import 'package:Expenseye/Resources/Themes/Colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
 
 class MyDrawer extends StatefulWidget {
@@ -136,6 +138,16 @@ class _MyDrawerState extends State<MyDrawer> {
             ListTile(
               title: Row(
                 children: <Widget>[
+                  Icon(MdiIcons.sword, color: Colors.white),
+                  const SizedBox(width: 6),
+                  const Text(Strings.categories),
+                ],
+              ),
+              onTap: () => openCategoriesPage(context),
+            ),
+            ListTile(
+              title: Row(
+                children: <Widget>[
                   Icon(Icons.info_outline, color: Colors.white),
                   const SizedBox(width: 6),
                   const Text(Strings.about),
@@ -165,6 +177,13 @@ class _MyDrawerState extends State<MyDrawer> {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => const AboutPage()),
+    );
+  }
+
+  void openCategoriesPage(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => CatHomePage()),
     );
   }
 }

@@ -54,7 +54,6 @@ class _HomePageState extends State<HomePage>
       child: Scaffold(
         appBar: AppBar(
           title: Text(Strings.expenses),
-          actions: <Widget>[],
           bottom: TabBar(
             controller: _tabController,
             tabs: <Widget>[

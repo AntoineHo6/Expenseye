@@ -1,6 +1,6 @@
 import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Models/Item.dart';
-import 'package:Expenseye/Pages/EditAdd/categories_page.dart';
+import 'package:Expenseye/Pages/EditAdd/choose_category_page.dart';
 import 'package:Expenseye/Providers/Global/item_model.dart';
 import 'package:Expenseye/Resources/Strings.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
@@ -50,13 +50,13 @@ class AddItemModel extends ChangeNotifier {
     }
   }
 
-  /// On selected category in the CategoriesPage, update the current category
+  /// On selected category in the ChooseCategoryPage, update the current category
   /// in the model
-  void openCategoriesPage(BuildContext context) async {
+  void openChooseCategoryPage(BuildContext context) async {
     final result = await Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => CategoriesPage(type: type),
+        builder: (context) => ChooseCategoryPage(type: type),
       ),
     );
 

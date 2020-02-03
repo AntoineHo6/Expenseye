@@ -22,8 +22,10 @@ class Strings {
   static const String icons = 'Icons';
   static const String noData = 'No expenses to show in the statistics page!';
   static const String confirm = 'Confirm';
+  static const String incomes = 'Incomes';
   static const String expenses = 'Expenses';
   static const String stats = 'Stats';
+  static const String categories = 'Categories';
   static const String about = 'About';
   static const String balance = 'Balance';
 

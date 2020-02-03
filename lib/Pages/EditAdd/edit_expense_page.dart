@@ -95,7 +95,7 @@ class _EditExpense extends State<EditExpensePage> {
                     children: <Widget>[
                       IconBtn(
                         model.category,
-                        () => model.openCategoriesPage(context),
+                        () => model.openChooseCategoryPage(context),
                       ),
                       DatePickerBtn(
                         model.date,

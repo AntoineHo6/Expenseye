@@ -1,12 +1,13 @@
+import 'package:Expenseye/Components/Categories/category_btn.dart';
 import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Providers/Global/item_model.dart';
 import 'package:Expenseye/Resources/Strings.dart';
 import 'package:flutter/material.dart';
 
-class CategoriesPage extends StatelessWidget {
+class ChooseCategoryPage extends StatelessWidget {
   final ItemType type;
 
-  CategoriesPage({@required this.type});
+  ChooseCategoryPage({@required this.type});
 
   @override
   Widget build(BuildContext context) {
@@ -32,28 +33,9 @@ class CategoriesPage extends StatelessWidget {
           categorieKeys.length,
           (index) {
             String key = categorieKeys[index];
-            return RaisedButton(
+            return CategoryBtn(
+              category: ItemModel.catMap[key],
               onPressed: () => Navigator.pop(context, key),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Icon(
-                    ItemModel.catMap[key].iconData,
-                    color: ItemModel.catMap[key].color,
-                    size: 50,
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  FittedBox(
-                    fit: BoxFit.fitWidth,
-                    child: Text(
-                      ItemModel.catMap[key].name,
-                      style: Theme.of(context).textTheme.subhead,
-                    ),
-                  ),
-                ],
-              ),
             );
           },
         ),

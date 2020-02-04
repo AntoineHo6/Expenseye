@@ -138,7 +138,7 @@ class _MyDrawerState extends State<MyDrawer> {
             ListTile(
               title: Row(
                 children: <Widget>[
-                  Icon(MdiIcons.sword, color: Colors.white),
+                  Icon(MdiIcons.viewGrid, color: Colors.white),
                   const SizedBox(width: 6),
                   const Text(Strings.categories),
                 ],

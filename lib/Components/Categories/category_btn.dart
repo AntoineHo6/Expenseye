@@ -5,7 +5,7 @@ class CategoryBtn extends StatelessWidget {
   final Category category;
   final Function onPressed;
 
-  CategoryBtn({this.category, this.onPressed});
+  CategoryBtn({@required this.category, this.onPressed});
 
   @override
   Widget build(BuildContext context) {

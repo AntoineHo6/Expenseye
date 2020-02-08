@@ -1,5 +1,6 @@
 import 'package:Expenseye/Components/Categories/category_btn.dart';
 import 'package:Expenseye/Enums/item_type.dart';
+import 'package:Expenseye/Pages/Categories/add_new_category_page.dart';
 import 'package:Expenseye/Providers/Global/item_model.dart';
 import 'package:Expenseye/Resources/Themes/Colors.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +26,7 @@ class ExpensesPage extends StatelessWidget {
           return Container(
             margin: const EdgeInsets.all(10),
             child: RawMaterialButton(
-              onPressed: () => print('open add expense page'),
+              onPressed: () => _openAddCategoryPage(context),
               child: const Icon(
                 Icons.add,
                 color: Colors.white,
@@ -43,6 +44,13 @@ class ExpensesPage extends StatelessWidget {
             category: ItemModel.catMap[expenseKeys[index]],
             onPressed: () => print('john'));
       }),
+    );
+  }
+
+  void _openAddCategoryPage(context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => AddNewCategoryPage(ItemType.expense)),
     );
   }
 }

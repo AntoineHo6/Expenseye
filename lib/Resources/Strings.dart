@@ -3,6 +3,7 @@ class Strings {
   static const String versionNumber = '1.1.4';
 
   // * BUTTON messages
+  static const String addCaps = 'ADD';
   static const String submitCaps = 'SUBMIT';
   static const String cancelCaps = 'CANCEL';
   static const String saveCaps = 'SAVE';

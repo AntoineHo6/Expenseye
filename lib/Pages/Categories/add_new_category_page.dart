@@ -4,9 +4,7 @@ import 'package:Expenseye/Resources/Strings.dart';
 import 'package:Expenseye/Resources/Themes/Colors.dart';
 import 'package:Expenseye/Resources/icons.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_colorpicker/block_picker.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
-import 'package:flutter_colorpicker/material_picker.dart';
 
 class AddNewCategoryPage extends StatefulWidget {
   @override

@@ -14,7 +14,7 @@ class DatabaseHelper {
   // This is the actual database filename that is saved in the docs directory.
   static const _databaseName = Strings.dbFileName;
   // Increment this version when you need to change the schema.
-  static final _databaseVersion = 4;
+  static final _databaseVersion = 5;
 
   // Make this a singleton class.
   DatabaseHelper._privateConstructor();
@@ -79,6 +79,28 @@ class DatabaseHelper {
   }
 
   Future _onUpgrade(Database db, int oldVersion, int newVersion) async {
+    print('UPGRADDDDE');
+    await db.execute('''
+      UPDATE ${Strings.tableCategories}
+      SET ${Strings.categoryColumnId} = lower(${Strings.categoryColumnId});
+    ''');
+
+    await db.execute('''
+      UPDATE ${Strings.tableItems}
+      SET ${Strings.itemColumnCategory} = lower(${Strings.itemColumnCategory});
+    ''');
+
+    await db.execute('''
+      UPDATE categories
+      SET name = 'Other Expenses'
+      WHERE category_id = 'other expenses';
+    ''');
+
+    await db.execute('''
+      UPDATE categories
+      SET name = 'Other Incomes'
+      WHERE category_id = 'other incomes'
+    ''');
   }
 
   Future<int> insertItem(Item expense) async {
@@ -182,7 +204,7 @@ class DatabaseHelper {
 
   Future<void> _insertDefaultCategories(Database db) async {
     Category food = Category(
-      id: Strings.food,
+      id: Strings.food.toLowerCase(),
       name: Strings.food,
       iconData: MdiIcons.silverware,
       color: Color(0xffff8533),
@@ -191,7 +213,7 @@ class DatabaseHelper {
     db.insert(Strings.tableCategories, food.toMap());
 
     Category transportation = Category(
-      id: Strings.transportation,
+      id: Strings.transportation.toLowerCase(),
       name: Strings.transportation,
       iconData: MdiIcons.car,
       color: Colors.yellow,
@@ -200,7 +222,7 @@ class DatabaseHelper {
     db.insert(Strings.tableCategories, transportation.toMap());
 
     Category shopping = Category(
-      id: Strings.shopping,
+      id: Strings.shopping.toLowerCase(),
       name: Strings.shopping,
       iconData: MdiIcons.cart,
       color: Color(0xffac3973),
@@ -209,7 +231,7 @@ class DatabaseHelper {
     db.insert(Strings.tableCategories, shopping.toMap());
 
     Category entertainment = Category(
-      id: Strings.entertainment,
+      id: Strings.entertainment.toLowerCase(),
       name: Strings.entertainment,
       iconData: MdiIcons.movie,
       color: Color(0xff66ccff),
@@ -218,7 +240,7 @@ class DatabaseHelper {
     db.insert(Strings.tableCategories, entertainment.toMap());
 
     Category activity = Category(
-      id: Strings.activity,
+      id: Strings.activity.toLowerCase(),
       name: Strings.activity,
       iconData: MdiIcons.emoticonOutline,
       color: Color(0xffff66cc),
@@ -227,7 +249,7 @@ class DatabaseHelper {
     db.insert(Strings.tableCategories, activity.toMap());
 
     Category medical = Category(
-      id: Strings.medical,
+      id: Strings.medical.toLowerCase(),
       name: Strings.medical,
       iconData: MdiIcons.medicalBag,
       color: Color(0xffff3333),
@@ -236,7 +258,7 @@ class DatabaseHelper {
     db.insert(Strings.tableCategories, medical.toMap());
 
     Category home = Category(
-      id: Strings.home,
+      id: Strings.home.toLowerCase(),
       name: Strings.home,
       iconData: MdiIcons.home,
       color: Color(0xffcc9966),
@@ -245,7 +267,7 @@ class DatabaseHelper {
     db.insert(Strings.tableCategories, home.toMap());
 
     Category travel = Category(
-      id: Strings.travel,
+      id: Strings.travel.toLowerCase(),
       name: Strings.travel,
       iconData: MdiIcons.airplane,
       color: Color(0xffcc6600),
@@ -254,7 +276,7 @@ class DatabaseHelper {
     db.insert(Strings.tableCategories, travel.toMap());
 
     Category people = Category(
-      id: Strings.people,
+      id: Strings.people.toLowerCase(),
       name: Strings.people,
       iconData: MdiIcons.accountMultiple,
       color: Color(0xff3377ff),
@@ -263,7 +285,7 @@ class DatabaseHelper {
     db.insert(Strings.tableCategories, people.toMap());
 
     Category education = Category(
-      id: Strings.education,
+      id: Strings.education.toLowerCase(),
       name: Strings.education,
       iconData: MdiIcons.school,
       color: Color(0xff9933ff),
@@ -272,8 +294,8 @@ class DatabaseHelper {
     db.insert(Strings.tableCategories, education.toMap());
 
     Category otherExpenses = Category(
-      id: Strings.otherExpenses,
-      name: Strings.others,
+      id: Strings.otherExpenses.toLowerCase(),
+      name: Strings.otherExpenses,
       iconData: MdiIcons.folderDownload,
       color: Colors.white,
       type: ItemType.expense,
@@ -282,7 +304,7 @@ class DatabaseHelper {
 
     // * DEFAULT INCOMES
     Category salary = Category(
-      id: Strings.salary,
+      id: Strings.salary.toLowerCase(),
       name: Strings.salary,
       iconData: MdiIcons.currencyUsd,
       color: Colors.green,
@@ -291,7 +313,7 @@ class DatabaseHelper {
     db.insert(Strings.tableCategories, salary.toMap());
 
     Category gift = Category(
-      id: Strings.gift,
+      id: Strings.gift.toLowerCase(),
       name: Strings.gift,
       iconData: MdiIcons.walletGiftcard,
       color: Color(0xffb84dff),
@@ -300,7 +322,7 @@ class DatabaseHelper {
     db.insert(Strings.tableCategories, gift.toMap());
 
     Category business = Category(
-      id: Strings.business,
+      id: Strings.business.toLowerCase(),
       name: Strings.business,
       iconData: MdiIcons.briefcase,
       color: Color(0xff1a8cff),
@@ -309,7 +331,7 @@ class DatabaseHelper {
     db.insert(Strings.tableCategories, business.toMap());
 
     Category insurance = Category(
-      id: Strings.insurance,
+      id: Strings.insurance.toLowerCase(),
       name: Strings.insurance,
       iconData: MdiIcons.bank,
       color: Color(0xff6666ff),
@@ -318,7 +340,7 @@ class DatabaseHelper {
     db.insert(Strings.tableCategories, insurance.toMap());
 
     Category realEstate = Category(
-      id: Strings.realEstate,
+      id: Strings.realEstate.toLowerCase(),
       name: Strings.realEstate,
       iconData: MdiIcons.homeGroup,
       color: Color(0xffccccff),
@@ -327,7 +349,7 @@ class DatabaseHelper {
     db.insert(Strings.tableCategories, realEstate.toMap());
 
     Category investment = Category(
-      id: Strings.investment,
+      id: Strings.investment.toLowerCase(),
       name: Strings.investment,
       iconData: MdiIcons.trendingUp,
       color: Color(0xff00e673),
@@ -336,7 +358,7 @@ class DatabaseHelper {
     db.insert(Strings.tableCategories, investment.toMap());
 
     Category refund = Category(
-      id: Strings.refund,
+      id: Strings.refund.toLowerCase(),
       name: Strings.refund,
       iconData: MdiIcons.swapVerticalBold,
       color: Color(0xff66ffff),
@@ -345,8 +367,8 @@ class DatabaseHelper {
     db.insert(Strings.tableCategories, refund.toMap());
 
     Category otherIncomes = Category(
-      id: Strings.otherIncomes,
-      name: Strings.others,
+      id: Strings.otherIncomes.toLowerCase(),
+      name: Strings.otherIncomes,
       iconData: MdiIcons.folderUpload,
       color: Colors.white,
       type: ItemType.income,
@@ -371,5 +393,11 @@ class DatabaseHelper {
     }
 
     return categories;
+  }
+
+  Future<void> insertCategory(Category category) async {
+    Database db = await database;
+
+    await db.insert(Strings.tableCategories, category.toMap());
   }
 }

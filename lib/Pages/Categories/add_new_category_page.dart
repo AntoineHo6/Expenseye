@@ -1,5 +1,8 @@
 import 'package:Expenseye/Components/EditAdd/name_text_field.dart';
 import 'package:Expenseye/Enums/item_type.dart';
+import 'package:Expenseye/Helpers/database_helper.dart';
+import 'package:Expenseye/Models/Category.dart';
+import 'package:Expenseye/Providers/Global/item_model.dart';
 import 'package:Expenseye/Resources/Strings.dart';
 import 'package:Expenseye/Resources/Themes/Colors.dart';
 import 'package:Expenseye/Resources/icons.dart';
@@ -18,12 +21,12 @@ class AddNewCategoryPage extends StatefulWidget {
 class _AddNewCategoryPageState extends State<AddNewCategoryPage> {
   Color pickerColor = Color(0xff443a49);
   Color currentColor = MyColors.secondary;
+  int selectedIconIndex;
+  final _nameController = TextEditingController();
+  bool isNameInvalid = true;
 
   @override
   Widget build(BuildContext context) {
-    final _nameController = TextEditingController();
-    bool isNameInvalid = false;
-
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -38,20 +41,26 @@ class _AddNewCategoryPageState extends State<AddNewCategoryPage> {
               children: <Widget>[
                 Expanded(
                   child: NameTextField(
-                      controller: _nameController,
-                      isNameInvalid: isNameInvalid),
+                    controller: _nameController,
+                    isNameInvalid: isNameInvalid,
+                    onChanged: _checkNameInvalid,
+                  ),
                 ),
                 const SizedBox(
                   width: 30,
                 ),
-                ButtonTheme(
-                  minWidth: 50,
-                  height: 40,
-                  child: RaisedButton(
-                    elevation: 10,
-                    color: currentColor,
-                    onPressed: () => _openColorPickerDialog(context),
-                  ),
+                Column(
+                  children: <Widget>[
+                    Text('Color'),
+                    ButtonTheme(
+                      minWidth: 50,
+                      height: 40,
+                      child: RaisedButton(
+                        color: currentColor,
+                        onPressed: () => _openColorPickerDialog(context),
+                      ),
+                    ),
+                  ],
                 )
               ],
             ),
@@ -65,8 +74,24 @@ class _AddNewCategoryPageState extends State<AddNewCategoryPage> {
               children: List.generate(
                 MyIcons.expenseIcons.length,
                 (index) {
+                  // if is the selected icon
+                  if (selectedIconIndex != null && index == selectedIconIndex) {
+                    return Container(
+                      color: MyColors.secondary,
+                      padding: const EdgeInsets.all(5),
+                      child: RaisedButton(
+                        onPressed: () => _changeSelectedIcon(index),
+                        child: Icon(
+                          MyIcons.expenseIcons[index],
+                          size: 30,
+                          color: currentColor,
+                        ),
+                      ),
+                    );
+                  }
+                  // other unselected icons
                   return RaisedButton(
-                    onPressed: () => print('joe'),
+                    onPressed: () => _changeSelectedIcon(index),
                     child: Icon(
                       MyIcons.expenseIcons[index],
                       size: 35,
@@ -77,16 +102,40 @@ class _AddNewCategoryPageState extends State<AddNewCategoryPage> {
               ),
             ),
           ),
-          RaisedButton(
-            child: const Text(
-              Strings.addCaps,
-              style: TextStyle(color: Colors.white),
+          Container(
+            margin: const EdgeInsets.symmetric(horizontal: 15),
+            child: SizedBox(
+              width: double.infinity,
+              child: RaisedButton(
+                child: const Text(
+                  Strings.addCaps,
+                  style: TextStyle(color: Colors.white),
+                ),
+                onPressed: (selectedIconIndex != null && isNameInvalid == false)
+                    ? () => _addNewCategory(context)
+                    : null,
+              ),
             ),
-            onPressed: () => print('s'),
           ),
         ],
       ),
     );
+  }
+
+  void _checkNameInvalid(String newName) {
+    setState(() {
+      if (ItemModel.catMap.containsKey(newName.toLowerCase())) {
+        isNameInvalid = true;
+      } else if (newName.isEmpty) {
+        isNameInvalid = true;
+      } else {
+        isNameInvalid = false;
+      }
+    });
+  }
+
+  void _changeSelectedIcon(int index) {
+    setState(() => selectedIconIndex = index);
   }
 
   void _changeColor(Color color) {
@@ -97,12 +146,13 @@ class _AddNewCategoryPageState extends State<AddNewCategoryPage> {
     showDialog(
       context: context,
       child: AlertDialog(
-        title: const Text('Pick a color!'),
+        title: const Text('Pick a color'),
         content: SingleChildScrollView(
           child: ColorPicker(
             pickerColor: pickerColor,
+            enableLabel: false,
+            enableAlpha: true,
             onColorChanged: _changeColor,
-            enableLabel: true,
             pickerAreaHeightPercent: 0.8,
           ),
         ),
@@ -117,5 +167,24 @@ class _AddNewCategoryPageState extends State<AddNewCategoryPage> {
         ],
       ),
     );
+  }
+
+  void _addNewCategory(BuildContext context) async {
+    final DatabaseHelper dbHelper = DatabaseHelper.instance;
+
+    Category newCategory = Category(
+      id: _nameController.text.toLowerCase(),
+      name: _nameController.text,
+      iconData: (widget.type == ItemType.expense)
+          ? MyIcons.expenseIcons[selectedIconIndex]
+          : MyIcons.incomeIcons[selectedIconIndex],
+      color: currentColor,
+      type: widget.type,
+    );
+
+    ItemModel.catMap[newCategory.id] = newCategory;
+    await dbHelper.insertCategory(newCategory);
+
+    Navigator.pop(context);
   }
 }

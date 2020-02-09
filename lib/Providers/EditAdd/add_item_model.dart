@@ -17,8 +17,8 @@ class AddItemModel extends ChangeNotifier {
 
   AddItemModel(this.date, this.type) {
     type == ItemType.expense
-        ? category = Strings.food
-        : category = Strings.salary;
+        ? category = Strings.food.toLowerCase()
+        : category = Strings.salary.toLowerCase();
   }
 
   // Will make the save button clickable

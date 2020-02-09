@@ -29,6 +29,7 @@ class Strings {
   static const String categories = 'Categories';
   static const String about = 'About';
   static const String balance = 'Balance';
+  static const String color = 'Color';
 
   // * QUESTIONS
   static const String confirmMsg =
@@ -40,6 +41,7 @@ class Strings {
   static const String addAnExpense = 'Add an expense!';
   static const String signInToAvoidLosingData =
       'Sign In to avoid losing your data!';
+  static const String pickAColor = 'Pick a color';
 
   // * EXPENSE categories
   static const String expense = 'Expense';

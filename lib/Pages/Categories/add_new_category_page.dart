@@ -30,7 +30,8 @@ class _AddNewCategoryPageState extends State<AddNewCategoryPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-            widget.type == ItemType.expense ? Strings.expense : Strings.income),
+          widget.type == ItemType.expense ? Strings.expense : Strings.income,
+        ),
       ),
       body: Column(
         mainAxisSize: MainAxisSize.min,
@@ -51,7 +52,7 @@ class _AddNewCategoryPageState extends State<AddNewCategoryPage> {
                 ),
                 Column(
                   children: <Widget>[
-                    Text('Color'),
+                    const Text(Strings.color),
                     ButtonTheme(
                       minWidth: 50,
                       height: 40,
@@ -68,8 +69,8 @@ class _AddNewCategoryPageState extends State<AddNewCategoryPage> {
           Expanded(
             child: GridView.count(
               padding: const EdgeInsets.all(15),
-              crossAxisSpacing: 7,
-              mainAxisSpacing: 7,
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 10,
               crossAxisCount: 5,
               children: List.generate(
                 MyIcons.expenseIcons.length,
@@ -146,7 +147,7 @@ class _AddNewCategoryPageState extends State<AddNewCategoryPage> {
     showDialog(
       context: context,
       child: AlertDialog(
-        title: const Text('Pick a color'),
+        title: const Text(Strings.pickAColor),
         content: SingleChildScrollView(
           child: ColorPicker(
             pickerColor: pickerColor,
@@ -158,6 +159,7 @@ class _AddNewCategoryPageState extends State<AddNewCategoryPage> {
         ),
         actions: <Widget>[
           FlatButton(
+            textColor: Colors.white,
             child: const Text(Strings.confirmCaps),
             onPressed: () {
               setState(() => currentColor = pickerColor);

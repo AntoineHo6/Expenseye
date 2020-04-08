@@ -38,6 +38,9 @@ class ItemModel extends ChangeNotifier {
         await dbHelper.insertItem(item);
       }
     }
+
+    initCategoriesMap();
+
     notifyListeners();
   }
 

@@ -94,7 +94,11 @@ class YearlyItemsPage extends StatelessWidget {
               ),
               padding: const EdgeInsets.all(12),
               margin: const EdgeInsets.only(
-                  top: 4, left: 15, right: 15, bottom: 15),
+                top: 4,
+                left: 15,
+                right: 15,
+                bottom: 15,
+              ),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
@@ -109,7 +113,8 @@ class YearlyItemsPage extends StatelessWidget {
                       Container(
                         margin: EdgeInsets.only(right: 16),
                         child: Text(
-                            itemModel.totalString(yearlyModel.currentTotal)),
+                          itemModel.totalString(yearlyModel.currentTotal),
+                        ),
                       ),
                     ],
                   ),
@@ -123,9 +128,9 @@ class YearlyItemsPage extends StatelessWidget {
                       runSpacing: 5,
                       children: List.generate(expenseList.length, (index) {
                         return ColoredDot(
-                            color: ItemModel
-                                .catMap[expenseList[index].category]
-                                .color);
+                          color: ItemModel
+                              .catMap[expenseList[index].category].color,
+                        );
                       }),
                     ),
                   ),

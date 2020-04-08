@@ -72,35 +72,7 @@ class _AddNewCategoryPageState extends State<AddNewCategoryPage> {
               crossAxisSpacing: 10,
               mainAxisSpacing: 10,
               crossAxisCount: 5,
-              children: List.generate(
-                MyIcons.expenseIcons.length,
-                (index) {
-                  // if is the selected icon
-                  if (selectedIconIndex != null && index == selectedIconIndex) {
-                    return Container(
-                      color: MyColors.secondary,
-                      padding: const EdgeInsets.all(5),
-                      child: RaisedButton(
-                        onPressed: () => _changeSelectedIcon(index),
-                        child: Icon(
-                          MyIcons.expenseIcons[index],
-                          size: 30,
-                          color: currentColor,
-                        ),
-                      ),
-                    );
-                  }
-                  // other unselected icons
-                  return RaisedButton(
-                    onPressed: () => _changeSelectedIcon(index),
-                    child: Icon(
-                      MyIcons.expenseIcons[index],
-                      size: 35,
-                      color: currentColor,
-                    ),
-                  );
-                },
-              ),
+              children: _iconList(),
             ),
           ),
           Container(
@@ -188,5 +160,43 @@ class _AddNewCategoryPageState extends State<AddNewCategoryPage> {
     await dbHelper.insertCategory(newCategory);
 
     Navigator.pop(context);
+  }
+
+  List<Widget> _iconList() {
+    final List<IconData> icons = (widget.type == ItemType.expense)
+        ? MyIcons.expenseIcons
+        : MyIcons.incomeIcons;
+
+    List<Widget> pageIcons = List.generate(
+      icons.length,
+      (index) {
+        // if is the selected icon
+        if (selectedIconIndex != null && index == selectedIconIndex) {
+          return Container(
+            color: MyColors.secondary,
+            padding: const EdgeInsets.all(5),
+            child: RaisedButton(
+              onPressed: () => _changeSelectedIcon(index),
+              child: Icon(
+                icons[index],
+                size: 30,
+                color: currentColor,
+              ),
+            ),
+          );
+        }
+        // other unselected icons
+        return RaisedButton(
+          onPressed: () => _changeSelectedIcon(index),
+          child: Icon(
+            icons[index],
+            size: 35,
+            color: currentColor,
+          ),
+        );
+      },
+    );
+
+    return pageIcons;
   }
 }

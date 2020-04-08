@@ -49,7 +49,9 @@ class MyIcons {
     MdiIcons.iceCream,
     MdiIcons.phone,
     MdiIcons.tennis,
-    MdiIcons.watch
+    MdiIcons.watch,
+    MdiIcons.toyBrick,
+    MdiIcons.telescope
   ];
 
   static const List<IconData> incomeIcons = [

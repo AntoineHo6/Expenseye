@@ -14,7 +14,7 @@ class DatabaseHelper {
   // This is the actual database filename that is saved in the docs directory.
   static const _databaseName = Strings.dbFileName;
   // Increment this version when you need to change the schema.
-  static final _databaseVersion = 5;
+  static final _databaseVersion = 6;
 
   // Make this a singleton class.
   DatabaseHelper._privateConstructor();

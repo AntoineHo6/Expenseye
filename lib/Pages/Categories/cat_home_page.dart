@@ -1,4 +1,5 @@
 import 'package:Expenseye/Pages/Categories/expenses_page.dart';
+import 'package:Expenseye/Pages/Categories/incomes_page.dart';
 import 'package:Expenseye/Providers/categories_model.dart';
 import 'package:Expenseye/Resources/Strings.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +44,7 @@ class _CatHomePageState extends State<CatHomePage>
         ),
         body: TabBarView(
           controller: _tabController,
-          children: <Widget>[ExpensesPage(), Text('allo 2')],
+          children: <Widget>[ExpensesPage(), IncomesPage()],
         ),
       ),
     );

@@ -2,7 +2,7 @@ import 'package:Expenseye/Components/EditAdd/name_text_field.dart';
 import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Helpers/database_helper.dart';
 import 'package:Expenseye/Models/Category.dart';
-import 'package:Expenseye/Providers/Global/item_model.dart';
+import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:Expenseye/Resources/Strings.dart';
 import 'package:Expenseye/Resources/Themes/Colors.dart';
 import 'package:Expenseye/Resources/icons.dart';
@@ -10,12 +10,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
 class AddNewCategoryPage extends StatefulWidget {
-  @override
-  _AddNewCategoryPageState createState() => _AddNewCategoryPageState();
-
   final ItemType type;
 
   AddNewCategoryPage(this.type);
+
+  @override
+  _AddNewCategoryPageState createState() => _AddNewCategoryPageState();
 }
 
 class _AddNewCategoryPageState extends State<AddNewCategoryPage> {
@@ -97,7 +97,7 @@ class _AddNewCategoryPageState extends State<AddNewCategoryPage> {
 
   void _checkNameInvalid(String newName) {
     setState(() {
-      if (ItemModel.catMap.containsKey(newName.toLowerCase())) {
+      if (DbModel.catMap.containsKey(newName.toLowerCase())) {
         isNameInvalid = true;
       } else if (newName.isEmpty) {
         isNameInvalid = true;
@@ -156,7 +156,7 @@ class _AddNewCategoryPageState extends State<AddNewCategoryPage> {
       type: widget.type,
     );
 
-    ItemModel.catMap[newCategory.id] = newCategory;
+    DbModel.catMap[newCategory.id] = newCategory;
     await dbHelper.insertCategory(newCategory);
 
     Navigator.pop(context);

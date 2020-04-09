@@ -1,7 +1,6 @@
-import 'package:Expenseye/Providers/Global/item_model.dart';
+import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:flutter/material.dart';
 
-// TODO: might remove
 class IconBtn extends StatelessWidget {
   final String category;
   final Function function;
@@ -14,8 +13,8 @@ class IconBtn extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
       onPressed: function,
       child: Icon(
-        ItemModel.catMap[category].iconData,
-        color: ItemModel.catMap[category].color,
+        DbModel.catMap[category].iconData,
+        color: DbModel.catMap[category].color,
       ),
     );
   }

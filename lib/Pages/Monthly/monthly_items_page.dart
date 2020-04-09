@@ -3,6 +3,7 @@ import 'package:Expenseye/Components/Global/add_item_fab.dart';
 import 'package:Expenseye/Components/Items/item_list_tile.dart';
 import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Models/Item.dart';
+import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:Expenseye/Providers/Global/item_model.dart';
 import 'package:Expenseye/Providers/monthly_model.dart';
 import 'package:Expenseye/Resources/Themes/Colors.dart';
@@ -15,10 +16,11 @@ class MonthlyItemsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final _itemModel = Provider.of<ItemModel>(context);
     final _monthlyModel = Provider.of<MonthlyModel>(context);
+    final _dbModel = Provider.of<DbModel>(context);
 
     return Scaffold(
       body: FutureBuilder<List<Item>>(
-        future: _itemModel.dbHelper.queryItemsInMonth(_monthlyModel.yearMonth),
+        future: _dbModel.dbHelper.queryItemsInMonth(_monthlyModel.yearMonth),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data != null && snapshot.data.length > 0) {

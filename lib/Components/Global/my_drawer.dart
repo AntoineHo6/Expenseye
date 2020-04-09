@@ -1,6 +1,8 @@
+import 'package:Expenseye/Models/Item.dart';
 import 'package:Expenseye/Pages/Categories/cat_home_page.dart';
 import 'package:Expenseye/Pages/about_page.dart';
-import 'package:Expenseye/Providers/Global/item_model.dart';
+import 'package:Expenseye/Providers/Global/db_model.dart';
+import 'package:Expenseye/Providers/Global/firebase_model.dart';
 import 'package:Expenseye/Providers/monthly_model.dart';
 import 'package:Expenseye/Providers/yearly_model.dart';
 import 'package:Expenseye/Resources/Strings.dart';
@@ -164,12 +166,22 @@ class _MyDrawerState extends State<MyDrawer> {
   void _logoutReset(BuildContext context) async {
     Provider.of<MonthlyModel>(context, listen: false).resetTotals();
     Provider.of<YearlyModel>(context, listen: false).resetTotals();
-    await Provider.of<ItemModel>(context, listen: false).logOutFromGoogle();
+    await Provider.of<FirebaseModel>(context, listen: false).logOutFromGoogle();
+    await Provider.of<DbModel>(context, listen: false).deleteAll();
     _logInFirstPress = true;
   }
 
   void _loginInit(BuildContext context) async {
-    await Provider.of<ItemModel>(context, listen: false).loginWithGoogle();
+    final _dbModel = Provider.of<DbModel>(context, listen: false);
+    final _firebaseModel = Provider.of<FirebaseModel>(context, listen: false);
+
+    List<Item> localItems = await _dbModel.dbHelper.queryAllItems();
+    bool isLoggedIn = await _firebaseModel.loginWithGoogle();
+    await _dbModel.initCategoriesMap();
+
+    if (isLoggedIn) {
+      await _dbModel.initItems(localItems);
+    }
     _logOutFirstPress = true;
   }
 

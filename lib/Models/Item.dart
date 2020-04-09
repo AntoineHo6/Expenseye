@@ -7,7 +7,7 @@ class Item {
   double value;
   DateTime date;
   String category;
-  ItemType type;  // TODO: DEPRECATED
+  ItemType type;
 
   Item(this.name, this.value, this.date, this.type, this.category);
 

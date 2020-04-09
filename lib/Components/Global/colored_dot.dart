@@ -5,8 +5,7 @@ class ColoredDot extends StatelessWidget {
   final double width;
   final double height;
 
-  ColoredDot(
-      {@required this.color, this.width = 8.0, this.height = 8.0});
+  ColoredDot({@required this.color, this.width = 8.0, this.height = 8.0});
 
   @override
   Widget build(BuildContext context) {

@@ -400,4 +400,11 @@ class DatabaseHelper {
 
     await db.insert(Strings.tableCategories, category.toMap());
   }
+
+  Future<void> deleteCategory(String id) async {
+    Database db = await database;
+
+    return await db.delete(Strings.tableItems,
+        where: '${Strings.itemColumnId} = ?', whereArgs: [id]);
+  }
 }

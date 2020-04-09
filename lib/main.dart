@@ -1,3 +1,5 @@
+import 'package:Expenseye/Providers/Global/db_model.dart';
+import 'package:Expenseye/Providers/Global/firebase_model.dart';
 import 'package:Expenseye/Providers/Global/item_model.dart';
 import 'package:Expenseye/Resources/Themes/Colors.dart';
 import 'package:flutter/material.dart';
@@ -12,8 +14,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
 
-    return ChangeNotifierProvider(
-      create: (_) => new ItemModel(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<ItemModel>(create: (_) => ItemModel()),
+        ChangeNotifierProvider<DbModel>(create: (_) => DbModel()),
+        ChangeNotifierProvider<FirebaseModel>(create: (_) => FirebaseModel())
+      ],
       child: MaterialApp(
         home: HomePage(),
         theme: ThemeData(
@@ -30,7 +36,7 @@ class MyApp extends StatelessWidget {
               .textTheme
               .apply(bodyColor: Colors.white, displayColor: Colors.white),
         ),
-      ),
+      )
     );
   }
 }

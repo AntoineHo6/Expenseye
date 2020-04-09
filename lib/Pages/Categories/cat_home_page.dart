@@ -1,9 +1,7 @@
-import 'package:Expenseye/Pages/Categories/expenses_page.dart';
-import 'package:Expenseye/Pages/Categories/incomes_page.dart';
-import 'package:Expenseye/Providers/categories_model.dart';
+import 'package:Expenseye/Enums/item_type.dart';
+import 'package:Expenseye/Pages/Categories/items_page.dart';
 import 'package:Expenseye/Resources/Strings.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class CatHomePage extends StatefulWidget {
   @override
@@ -13,6 +11,11 @@ class CatHomePage extends StatefulWidget {
 class _CatHomePageState extends State<CatHomePage>
     with SingleTickerProviderStateMixin {
   TabController _tabController;
+
+  List<Widget> _pages = [
+    ItemsPage(ItemType.expense),
+    ItemsPage(ItemType.income),
+  ];
 
   @override
   void initState() {
@@ -27,25 +30,22 @@ class _CatHomePageState extends State<CatHomePage>
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => new CategoriesModel(),
-      child: Scaffold(
-        appBar: AppBar(
-          bottom: TabBar(controller: _tabController, tabs: <Widget>[
-            Container(
-              margin: const EdgeInsets.only(bottom: 15, top: 8),
-              child: const Text(Strings.expenses),
-            ),
-            Container(
-              margin: const EdgeInsets.only(bottom: 15, top: 8),
-              child: const Text(Strings.incomes),
-            ),
-          ]),
-        ),
-        body: TabBarView(
-          controller: _tabController,
-          children: <Widget>[ExpensesPage(), IncomesPage()],
-        ),
+    return Scaffold(
+      appBar: AppBar(
+        bottom: TabBar(controller: _tabController, tabs: <Widget>[
+          Container(
+            margin: const EdgeInsets.only(bottom: 15, top: 8),
+            child: const Text(Strings.expenses),
+          ),
+          Container(
+            margin: const EdgeInsets.only(bottom: 15, top: 8),
+            child: const Text(Strings.incomes),
+          ),
+        ]),
+      ),
+      body: TabBarView(
+        controller: _tabController,
+        children: _pages,
       ),
     );
   }

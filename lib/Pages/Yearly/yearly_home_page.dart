@@ -1,7 +1,7 @@
 import 'package:Expenseye/Components/Global/my_bottom_nav_bar.dart';
 import 'package:Expenseye/Pages/Yearly/yearly_items_page.dart';
 import 'package:Expenseye/Pages/stats_page.dart';
-import 'package:Expenseye/Providers/Global/item_model.dart';
+import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:Expenseye/Providers/yearly_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -18,8 +18,8 @@ class YearlyHomePage extends StatefulWidget {
 class _YearlyHomePageState extends State<YearlyHomePage> {
   @override
   Widget build(BuildContext context) {
-    final _itemModel = Provider.of<ItemModel>(context, listen: false);
     final _yearlyModel = Provider.of<YearlyModel>(context, listen: false);
+    final _dbModel = Provider.of<DbModel>(context, listen: false);
 
     return Scaffold(
       body: SafeArea(
@@ -31,7 +31,7 @@ class _YearlyHomePageState extends State<YearlyHomePage> {
             StatsPage(
               localModel: _yearlyModel,
               future: () =>
-                  _itemModel.dbHelper.queryItemsInYear(_yearlyModel.year),
+                  _dbModel.dbHelper.queryItemsInYear(_yearlyModel.year),
             ),
           ],
         ),

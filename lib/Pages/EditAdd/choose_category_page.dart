@@ -1,6 +1,6 @@
 import 'package:Expenseye/Components/Categories/category_btn.dart';
 import 'package:Expenseye/Enums/item_type.dart';
-import 'package:Expenseye/Providers/Global/item_model.dart';
+import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:Expenseye/Resources/Strings.dart';
 import 'package:flutter/material.dart';
 
@@ -13,8 +13,8 @@ class ChooseCategoryPage extends StatelessWidget {
   Widget build(BuildContext context) {
     List<String> categorieKeys = new List();
 
-    for (var key in ItemModel.catMap.keys) {
-      if (ItemModel.catMap[key].type == type) {
+    for (var key in DbModel.catMap.keys) {
+      if (DbModel.catMap[key].type == type) {
         categorieKeys.add(key);
       }
     }
@@ -34,7 +34,7 @@ class ChooseCategoryPage extends StatelessWidget {
           (index) {
             String key = categorieKeys[index];
             return CategoryBtn(
-              category: ItemModel.catMap[key],
+              category: DbModel.catMap[key],
               onPressed: () => Navigator.pop(context, key),
             );
           },

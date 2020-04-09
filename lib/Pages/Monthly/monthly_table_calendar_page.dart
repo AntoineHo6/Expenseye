@@ -1,6 +1,6 @@
 import 'package:Expenseye/Components/Global/my_table_calendar.dart';
 import 'package:Expenseye/Models/Item.dart';
-import 'package:Expenseye/Providers/Global/item_model.dart';
+import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:Expenseye/Resources/Strings.dart';
 import 'package:Expenseye/Resources/Themes/Colors.dart';
 import 'package:Expenseye/Utils/table_calendar_util.dart';
@@ -23,14 +23,14 @@ class _MonthlyTableCalendarPage extends State<MonthlyTableCalendarPage>
 
   @override
   Widget build(BuildContext context) {
-    final _itemModel = Provider.of<ItemModel>(context, listen: false);
+    final _dbModel = Provider.of<DbModel>(context, listen: false);
 
     return Scaffold(
       appBar: AppBar(
         title: const Text(Strings.pickAMonth),
       ),
       body: FutureBuilder<List<Item>>(
-        future: _itemModel.dbHelper.queryAllItems(),
+        future: _dbModel.dbHelper.queryAllItems(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data != null) {

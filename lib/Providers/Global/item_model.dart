@@ -1,70 +1,13 @@
 import 'package:Expenseye/Components/EditAdd/add_item_dialog.dart';
 import 'package:Expenseye/Enums/item_type.dart';
-import 'package:Expenseye/Models/Category.dart';
 import 'package:Expenseye/Models/Item.dart';
 import 'package:Expenseye/Pages/EditAdd/edit_expense_page.dart';
 import 'package:Expenseye/Resources/Strings.dart';
-import 'package:Expenseye/Helpers/database_helper.dart';
-import 'package:Expenseye/Helpers/google_firebase_helper.dart';
 import 'package:flutter/material.dart';
 
 class ItemModel extends ChangeNotifier {
-  final DatabaseHelper dbHelper = DatabaseHelper.instance;
-  static Map<String, Category> catMap = new Map();
-
-  ItemModel() {
-    initConnectedUser();
-    initCategoriesMap();
-  }
-
-  void initConnectedUser() async {
-    await GoogleFirebaseHelper.initConnectedUser();
-  }
-
-  void initCategoriesMap() async {
-    List<Category> categories = await dbHelper.queryCategories();
-    for (var category in categories) {
-      catMap[category.id] = category;
-    }
-  }
-
-  Future<void> loginWithGoogle() async {
-    List<Item> localItems = await dbHelper.queryAllItems();
-
-    bool isLoggedIn = await GoogleFirebaseHelper.loginWithGoogle();
-
-    if (isLoggedIn && localItems.length > 0) {
-      for (Item item in localItems) {
-        await dbHelper.insertItem(item);
-      }
-    }
-
-    initCategoriesMap();
-
-    notifyListeners();
-  }
-
-  Future<void> logOutFromGoogle() async {
-    await GoogleFirebaseHelper.uploadDbFile();
-    await GoogleFirebaseHelper.logOut();
-    await dbHelper.deleteAll();
-    notifyListeners();
-  }
-
-  void addItem(Item newItem) async {
-    await dbHelper.insertItem(newItem);
-    notifyListeners();
-  }
-
-  void editItem(Item newItem) async {
-    await dbHelper.updateItem(newItem);
-    notifyListeners();
-  }
-
-  void deleteItem(int id) async {
-    await dbHelper.deleteItem(id);
-    notifyListeners();
-  }
+  
+  ItemModel();
 
   void showAddExpense(BuildContext context, DateTime initialDate) async {
     bool confirmed = await showDialog(

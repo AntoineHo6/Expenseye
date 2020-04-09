@@ -1,5 +1,5 @@
 import 'package:Expenseye/Models/Item.dart';
-import 'package:Expenseye/Providers/Global/item_model.dart';
+import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:flutter/material.dart';
 
 class ItemListTile extends StatelessWidget {
@@ -11,8 +11,8 @@ class ItemListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: Icon(ItemModel.catMap[item.category].iconData,
-          color: ItemModel.catMap[item.category].color),
+      leading: Icon(DbModel.catMap[item.category].iconData,
+          color: DbModel.catMap[item.category].color),
       title: Text(
         item.name,
       ),

@@ -1,7 +1,7 @@
 import 'package:Expenseye/Components/Global/my_bottom_nav_bar.dart';
 import 'package:Expenseye/Pages/Monthly/monthly_items_page.dart';
 import 'package:Expenseye/Pages/stats_page.dart';
-import 'package:Expenseye/Providers/Global/item_model.dart';
+import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:Expenseye/Providers/monthly_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -14,9 +14,9 @@ class MonthlyHomePage extends StatefulWidget {
 class _MonthlyHomePageState extends State<MonthlyHomePage> {
   @override
   Widget build(BuildContext context) {
-    final _itemModel = Provider.of<ItemModel>(context, listen: false);
     final _monthlyModel = Provider.of<MonthlyModel>(context, listen: false);
-    
+    final _dbModel = Provider.of<DbModel>(context, listen: false);
+
     return Scaffold(
       body: SafeArea(
         top: false,
@@ -26,7 +26,7 @@ class _MonthlyHomePageState extends State<MonthlyHomePage> {
             MonthlyItemsPage(),
             StatsPage(
               localModel: _monthlyModel,
-              future: () => _itemModel.dbHelper
+              future: () => _dbModel.dbHelper
                   .queryItemsInMonth(_monthlyModel.yearMonth),
             ),
           ],

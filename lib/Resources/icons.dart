@@ -51,12 +51,31 @@ class MyIcons {
     MdiIcons.tennis,
     MdiIcons.watch,
     MdiIcons.toyBrick,
-    MdiIcons.telescope
+    MdiIcons.telescope,
+    MdiIcons.spotify,
+    MdiIcons.origin
   ];
 
   static const List<IconData> incomeIcons = [
+    MdiIcons.currencyUsd,
+    MdiIcons.walletGiftcard,
+    MdiIcons.briefcase,
     MdiIcons.bank,
+    MdiIcons.homeGroup,
+    MdiIcons.swapVerticalBold,
+    MdiIcons.folderUpload,
     MdiIcons.baguette,
-    MdiIcons.balloon
+    MdiIcons.balloon,
+    MdiIcons.currencyBtc,
+    MdiIcons.seed,
+    MdiIcons.brush,
+    MdiIcons.carSide,
+    MdiIcons.chartBar,
+    MdiIcons.fish,
+    MdiIcons.footballHelmet,
+    MdiIcons.gamepad,
+    MdiIcons.hatFedora,
+    MdiIcons.watermark,
+    MdiIcons.tabletAndroid
   ];
 }

@@ -1,7 +1,7 @@
 import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Models/Item.dart';
 import 'package:Expenseye/Pages/EditAdd/choose_category_page.dart';
-import 'package:Expenseye/Providers/Global/item_model.dart';
+import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:Expenseye/Resources/Strings.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
 import 'package:flutter/material.dart';
@@ -45,7 +45,7 @@ class AddItemModel extends ChangeNotifier {
       Item newItem =
           new Item(newName, double.parse(newPrice), newDate, type, category);
 
-      Provider.of<ItemModel>(context, listen: false).addItem(newItem);
+      Provider.of<DbModel>(context, listen: false).addItem(newItem);
       Navigator.pop(context, true);
     }
   }

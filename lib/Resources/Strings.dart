@@ -33,7 +33,7 @@ class Strings {
 
   // * QUESTIONS
   static const String confirmMsg =
-      'Are you sure you want to delete this expense?';
+      'Are you sure you want to delete?';
 
   // * INSTRUCTIONS
   static const String pickADate = 'Pick a date';

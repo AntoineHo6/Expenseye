@@ -2,7 +2,7 @@ import 'package:Expenseye/Components/EditAdd/confirmation_dialog.dart';
 import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Models/Item.dart';
 import 'package:Expenseye/Pages/EditAdd/choose_category_page.dart';
-import 'package:Expenseye/Providers/Global/item_model.dart';
+import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -45,7 +45,7 @@ class EditItemModel extends ChangeNotifier {
       Item newItem = new Item.withId(
           id, newName, double.parse(newPrice), date, type, category);
 
-      Provider.of<ItemModel>(context, listen: false)
+      Provider.of<DbModel>(context, listen: false)
           .editItem(newItem);
       Navigator.pop(context, 1);
     }
@@ -58,7 +58,7 @@ class EditItemModel extends ChangeNotifier {
     );
 
     if (confirmed != null && confirmed) {
-      Provider.of<ItemModel>(context, listen: false)
+      Provider.of<DbModel>(context, listen: false)
           .deleteItem(expenseId);
       Navigator.pop(context, 2);
     }

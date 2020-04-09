@@ -1,4 +1,4 @@
-import 'package:Expenseye/Providers/Global/item_model.dart';
+import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:Expenseye/Utils/chart_util.dart';
 import 'package:flutter/material.dart';
 
@@ -12,11 +12,11 @@ class ExpenseGroupListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       leading: Icon(
-        ItemModel.catMap[expenseGroup.category].iconData,
-        color: ItemModel.catMap[expenseGroup.category].color,
+        DbModel.catMap[expenseGroup.category].iconData,
+        color: DbModel.catMap[expenseGroup.category].color,
       ),
       title: Text(
-          ItemModel.catMap[expenseGroup.category].name),
+          DbModel.catMap[expenseGroup.category].name),
       subtitle: Text('${_calcPercentage()}\%'),
       trailing: Text('${expenseGroup.total.toStringAsFixed(2)} \$'),
     );

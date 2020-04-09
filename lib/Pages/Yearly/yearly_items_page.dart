@@ -2,6 +2,7 @@ import 'package:Expenseye/Components/Items/items_header.dart';
 import 'package:Expenseye/Components/Global/colored_dot.dart';
 import 'package:Expenseye/Models/Item.dart';
 import 'package:Expenseye/Pages/Monthly/monthly_home_page.dart';
+import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:Expenseye/Providers/Global/item_model.dart';
 import 'package:Expenseye/Providers/yearly_model.dart';
 import 'package:Expenseye/Resources/Themes/Colors.dart';
@@ -18,10 +19,11 @@ class YearlyItemsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final _itemModel = Provider.of<ItemModel>(context);
     final _yearlyModel = Provider.of<YearlyModel>(context);
+    final _dbModel = Provider.of<DbModel>(context);
 
     return Scaffold(
       body: FutureBuilder<List<Item>>(
-        future: _itemModel.dbHelper.queryItemsInYear(_yearlyModel.year),
+        future: _dbModel.dbHelper.queryItemsInYear(_yearlyModel.year),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data != null && snapshot.data.length > 0) {
@@ -128,7 +130,7 @@ class YearlyItemsPage extends StatelessWidget {
                       runSpacing: 5,
                       children: List.generate(expenseList.length, (index) {
                         return ColoredDot(
-                          color: ItemModel
+                          color: DbModel
                               .catMap[expenseList[index].category].color,
                         );
                       }),

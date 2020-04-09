@@ -4,6 +4,7 @@ import 'package:Expenseye/Models/Item.dart';
 import 'package:flutter/material.dart';
 
 class DbModel extends ChangeNotifier {
+  // TODO: make this a private variable
   final DatabaseHelper dbHelper = DatabaseHelper.instance;
   static Map<String, Category> catMap = new Map();
 
@@ -42,8 +43,24 @@ class DbModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> deleteAll() async {
-    await dbHelper.deleteAll();
+  Future<void> deleteAllItems() async {
+    await dbHelper.deleteAllItems();
+    notifyListeners();
+  }
+
+  Future<void> deleteCategory(String categoryId) async {
+    await dbHelper.deleteCategory(categoryId);
+    await initCategoriesMap();
+    notifyListeners();
+  }
+
+  Future<void> resetCategories() async {
+    await dbHelper.deleteAllCategories();
+    await dbHelper.insertDefaultCategories();
+    await initCategoriesMap();
+
+    print('WOWLLOLOLO');
+    print(catMap);
     notifyListeners();
   }
 }

@@ -167,7 +167,8 @@ class _MyDrawerState extends State<MyDrawer> {
     Provider.of<MonthlyModel>(context, listen: false).resetTotals();
     Provider.of<YearlyModel>(context, listen: false).resetTotals();
     await Provider.of<FirebaseModel>(context, listen: false).logOutFromGoogle();
-    await Provider.of<DbModel>(context, listen: false).deleteAll();
+    await Provider.of<DbModel>(context, listen: false).deleteAllItems();
+    await Provider.of<DbModel>(context, listen: false).resetCategories();
     _logInFirstPress = true;
   }
 

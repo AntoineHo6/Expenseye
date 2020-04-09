@@ -62,7 +62,7 @@ class DatabaseHelper {
           )
           ''');
 
-    await _insertDefaultCategories(db);
+    await insertDefaultCategories();
 
     print('Creating reccurrent expenses table');
     await db.execute('''
@@ -184,11 +184,10 @@ class DatabaseHelper {
         where: '${Strings.itemColumnId} = ?', whereArgs: [id]);
   }
 
-  Future<void> deleteAll() async {
+  Future<void> deleteAllItems() async {
     Database db = await database;
     await db.rawQuery('DELETE FROM ${Strings.tableItems}');
     await db.rawQuery('DELETE FROM ${Strings.tableRecurrentItems}');
-    // TODO: reset categories to default state
   }
 
   List<Item> convertMapsToItems(List<Map> maps) {
@@ -202,7 +201,9 @@ class DatabaseHelper {
     return items;
   }
 
-  Future<void> _insertDefaultCategories(Database db) async {
+  Future<void> insertDefaultCategories() async {
+    Database db = await database;
+    
     Category food = Category(
       id: Strings.food.toLowerCase(),
       name: Strings.food,
@@ -406,5 +407,10 @@ class DatabaseHelper {
 
     return await db.delete(Strings.tableItems,
         where: '${Strings.itemColumnId} = ?', whereArgs: [id]);
+  }
+
+  Future<void> deleteAllCategories() async {
+    Database db = await database;
+    await db.rawQuery('DELETE FROM ${Strings.tableCategories}');
   }
 }

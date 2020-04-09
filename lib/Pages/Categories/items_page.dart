@@ -5,18 +5,13 @@ import 'package:Expenseye/Pages/Categories/add_new_category_page.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:Expenseye/Resources/Themes/Colors.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ItemsPage extends StatefulWidget {
   final ItemType type;
   final List<String> itemKeys = new List();
 
-  ItemsPage(this.type) {
-    for (var key in DbModel.catMap.keys) {
-      if (DbModel.catMap[key].type == type) {
-        itemKeys.add(key);
-      }
-    }
-  }
+  ItemsPage(this.type);
 
   @override
   _ItemsPageState createState() => _ItemsPageState();
@@ -25,6 +20,13 @@ class ItemsPage extends StatefulWidget {
 class _ItemsPageState extends State<ItemsPage> {
   @override
   Widget build(BuildContext context) {
+    widget.itemKeys.clear();
+    for (var key in DbModel.catMap.keys) {
+      if (DbModel.catMap[key].type == widget.type) {
+        widget.itemKeys.add(key);
+      }
+    }
+
     return GridView.count(
       padding: const EdgeInsets.all(15),
       crossAxisSpacing: 7,
@@ -72,6 +74,8 @@ class _ItemsPageState extends State<ItemsPage> {
     );
 
     if (confirmed != null && confirmed) {
+      final _dbModel = Provider.of<DbModel>(context, listen: false);
+      await _dbModel.deleteCategory(widget.itemKeys[index]);
       //widget.itemKeys[index]
       //await
 

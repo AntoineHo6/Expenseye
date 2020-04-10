@@ -23,6 +23,7 @@ class DbModel extends ChangeNotifier {
 
   Future<void> initCategoriesMap() async {
     List<Category> categories = await dbHelper.queryCategories();
+    catMap.clear();
     for (var category in categories) {
       catMap[category.id] = category;
     }
@@ -48,19 +49,25 @@ class DbModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<List<Item>> queryItemsByMonth(String yearMonth) async {
+    return await dbHelper.queryItemsByMonth(yearMonth);
+  }
+
   Future<void> deleteCategory(String categoryId) async {
     await dbHelper.deleteCategory(categoryId);
     await initCategoriesMap();
     notifyListeners();
   }
 
+  Future<void> deleteItemsByCategory(String categoryId) async {
+    await dbHelper.deleteItemsByCategory(categoryId);  
+    notifyListeners();  
+  }
+
   Future<void> resetCategories() async {
     await dbHelper.deleteAllCategories();
     await dbHelper.insertDefaultCategories();
     await initCategoriesMap();
-
-    print('WOWLLOLOLO');
-    print(catMap);
     notifyListeners();
   }
 }

@@ -32,8 +32,10 @@ class Strings {
   static const String color = 'Color';
 
   // * QUESTIONS
-  static const String confirmMsg =
-      'Are you sure you want to delete?';
+  static const String confirmMsg = 'Are you sure you want to delete?';
+
+  static const String confirmDeleteCategory =
+      'Deleting this category will subsequently delete all items of this type. Are you sure you want to delete?';
 
   // * INSTRUCTIONS
   static const String pickADate = 'Pick a date';
@@ -85,12 +87,13 @@ class Strings {
   // * ITEM DATABASE table and column names
   static const String dbFileName = 'itemsDb.db';
   static const String tableItems = 'items';
-  static const String itemColumnId = 'expense_id';  // TODO: rename to item id
+  static const String itemColumnId = 'expense_id'; // TODO: rename to item id
   static const String itemColumnName = 'name';
   static const String itemColumnValue = 'value';
   static const String itemColumnDate = 'date';
   static const String itemColumnCategory = 'category';
-  static const String itemColumnType = 'type';  // TODO: DEPRECATED. use categories type
+  static const String itemColumnType =
+      'type'; // TODO: DEPRECATED. use categories type
 
   // * CATEGORIES DATABASE table and column names
   static const String tableCategories = 'categories';

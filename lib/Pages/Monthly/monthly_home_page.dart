@@ -15,7 +15,7 @@ class _MonthlyHomePageState extends State<MonthlyHomePage> {
   @override
   Widget build(BuildContext context) {
     final _monthlyModel = Provider.of<MonthlyModel>(context, listen: false);
-    final _dbModel = Provider.of<DbModel>(context, listen: false);
+    final _dbModel = Provider.of<DbModel>(context);
 
     return Scaffold(
       body: SafeArea(
@@ -26,8 +26,7 @@ class _MonthlyHomePageState extends State<MonthlyHomePage> {
             MonthlyItemsPage(),
             StatsPage(
               localModel: _monthlyModel,
-              future: () => _dbModel.dbHelper
-                  .queryItemsInMonth(_monthlyModel.yearMonth),
+              future: () => _dbModel.queryItemsByMonth(_monthlyModel.yearMonth),
             ),
           ],
         ),

@@ -7,9 +7,11 @@ import 'package:Expenseye/Resources/Themes/Colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../Resources/Strings.dart';
+
 class ItemsPage extends StatefulWidget {
   final ItemType type;
-  final List<String> itemKeys = new List();
+  final List<String> categoryKeys = new List();
 
   ItemsPage(this.type);
 
@@ -20,10 +22,12 @@ class ItemsPage extends StatefulWidget {
 class _ItemsPageState extends State<ItemsPage> {
   @override
   Widget build(BuildContext context) {
-    widget.itemKeys.clear();
+    final _dbModel = Provider.of<DbModel>(context);
+
+    widget.categoryKeys.clear();
     for (var key in DbModel.catMap.keys) {
       if (DbModel.catMap[key].type == widget.type) {
-        widget.itemKeys.add(key);
+        widget.categoryKeys.add(key);
       }
     }
 
@@ -32,8 +36,8 @@ class _ItemsPageState extends State<ItemsPage> {
       crossAxisSpacing: 7,
       mainAxisSpacing: 7,
       crossAxisCount: 4,
-      children: List.generate(widget.itemKeys.length + 1, (index) {
-        if (index >= widget.itemKeys.length) {
+      children: List.generate(widget.categoryKeys.length + 1, (index) {
+        if (index >= widget.categoryKeys.length) {
           return Container(
             margin: const EdgeInsets.all(10),
             child: RawMaterialButton(
@@ -51,7 +55,7 @@ class _ItemsPageState extends State<ItemsPage> {
         }
 
         return CategoryBtn(
-          category: DbModel.catMap[widget.itemKeys[index]],
+          category: DbModel.catMap[widget.categoryKeys[index]],
           onPressed: () => _selectedCategory(index),
         );
       }),
@@ -70,15 +74,13 @@ class _ItemsPageState extends State<ItemsPage> {
   void _selectedCategory(int index) async {
     bool confirmed = await showDialog(
       context: context,
-      builder: (_) => DeleteConfirmDialog(),
+      builder: (_) => DeleteConfirmDialog(Strings.confirmDeleteCategory),
     );
 
     if (confirmed != null && confirmed) {
       final _dbModel = Provider.of<DbModel>(context, listen: false);
-      await _dbModel.deleteCategory(widget.itemKeys[index]);
-      //widget.itemKeys[index]
-      //await
-
+      await _dbModel.deleteItemsByCategory(widget.categoryKeys[index]);
+      await _dbModel.deleteCategory(widget.categoryKeys[index]);
     }
   }
 }

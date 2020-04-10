@@ -20,7 +20,7 @@ class MonthlyItemsPage extends StatelessWidget {
 
     return Scaffold(
       body: FutureBuilder<List<Item>>(
-        future: _dbModel.dbHelper.queryItemsInMonth(_monthlyModel.yearMonth),
+        future: _dbModel.queryItemsByMonth(_monthlyModel.yearMonth),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data != null && snapshot.data.length > 0) {

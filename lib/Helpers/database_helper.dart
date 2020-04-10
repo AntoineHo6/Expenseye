@@ -138,7 +138,7 @@ class DatabaseHelper {
     return convertMapsToItems(maps);
   }
 
-  Future<List<Item>> queryItemsInMonth(String yearMonth) async {
+  Future<List<Item>> queryItemsByMonth(String yearMonth) async {
     Database db = await database;
 
     List<Map> maps = await db.query(
@@ -182,6 +182,12 @@ class DatabaseHelper {
 
     return await db.delete(Strings.tableItems,
         where: '${Strings.itemColumnId} = ?', whereArgs: [id]);
+  }
+
+  Future<int> deleteItemsByCategory(String categoryId) async {
+    Database db = await database;
+
+    return await db.delete(Strings.tableItems, where: '${Strings.itemColumnCategory} = ?', whereArgs: [categoryId]);
   }
 
   Future<void> deleteAllItems() async {
@@ -405,8 +411,8 @@ class DatabaseHelper {
   Future<void> deleteCategory(String id) async {
     Database db = await database;
 
-    return await db.delete(Strings.tableItems,
-        where: '${Strings.itemColumnId} = ?', whereArgs: [id]);
+    return await db.delete(Strings.tableCategories,
+        where: '${Strings.categoryColumnId} = ?', whereArgs: [id]);
   }
 
   Future<void> deleteAllCategories() async {

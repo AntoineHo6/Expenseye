@@ -18,7 +18,7 @@ class FirebaseModel extends ChangeNotifier {
   Future<void> logOutFromGoogle() async {
     await GoogleFirebaseHelper.uploadDbFile();
     await GoogleFirebaseHelper.logOut();
-    // await dbHelper.deleteAll();
+    //await dbHelper.deleteAll();
     notifyListeners();
   }
 }

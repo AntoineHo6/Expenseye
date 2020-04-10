@@ -7,6 +7,8 @@ import 'package:Expenseye/Utils/date_time_util.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../Resources/Strings.dart';
+
 class EditItemModel extends ChangeNotifier {
   bool didInfoChange = false;
   bool isNameInvalid = false;
@@ -54,7 +56,7 @@ class EditItemModel extends ChangeNotifier {
   void delete(BuildContext context, int expenseId) async {
     bool confirmed = await showDialog(
       context: context,
-      builder: (_) => DeleteConfirmDialog(),
+      builder: (_) => DeleteConfirmDialog(Strings.confirmMsg),
     );
 
     if (confirmed != null && confirmed) {

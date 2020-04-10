@@ -37,7 +37,7 @@ class _AddNewCategoryPageState extends State<AddNewCategoryPage> {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           Container(
-            margin: const EdgeInsets.symmetric(horizontal: 15),
+            margin: const EdgeInsets.fromLTRB(15, 0, 15, 12),
             child: Row(
               children: <Widget>[
                 Expanded(

@@ -115,7 +115,7 @@ class YearlyItemsPage extends StatelessWidget {
                       Container(
                         margin: EdgeInsets.only(right: 16),
                         child: Text(
-                          itemModel.totalString(yearlyModel.currentTotal),
+                          itemModel.totalString(itemModel.calcItemsTotal(expenseList)),
                         ),
                       ),
                     ],

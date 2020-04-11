@@ -115,7 +115,8 @@ class YearlyItemsPage extends StatelessWidget {
                       Container(
                         margin: EdgeInsets.only(right: 16),
                         child: Text(
-                          itemModel.totalString(itemModel.calcItemsTotal(expenseList)),
+                          itemModel.totalString(
+                              itemModel.calcItemsTotal(expenseList)),
                         ),
                       ),
                     ],
@@ -130,8 +131,8 @@ class YearlyItemsPage extends StatelessWidget {
                       runSpacing: 5,
                       children: List.generate(expenseList.length, (index) {
                         return ColoredDot(
-                          color: DbModel
-                              .catMap[expenseList[index].category].color,
+                          color:
+                              DbModel.catMap[expenseList[index].category].color,
                         );
                       }),
                     ),

@@ -12,9 +12,17 @@ class DbModel extends ChangeNotifier {
     initCategoriesMap();
   }
 
-  Future<void> initItems(List<Item> localItems) async {
+  Future<void> addLocalItems(List<Item> localItems, List<Category> localCategories, List<Category> accCategories) async {
+    List<String> accCategoriesId = accCategories.map((category) => category.id).toList();
+
     if (localItems.length > 0) {
       for (Item item in localItems) {
+        if (!accCategoriesId.contains(item.category)) {
+          Category missingCategory = localCategories.firstWhere((category) => category.id == item.category);
+          await dbHelper.insertCategory(missingCategory);
+          catMap[missingCategory.id] = missingCategory;
+        }
+
         await dbHelper.insertItem(item);
       }
     }

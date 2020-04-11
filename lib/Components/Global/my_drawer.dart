@@ -12,6 +12,8 @@ import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
 
+import '../../Models/Category.dart';
+
 class MyDrawer extends StatefulWidget {
   @override
   _MyDrawerState createState() => _MyDrawerState();
@@ -176,12 +178,17 @@ class _MyDrawerState extends State<MyDrawer> {
     final _dbModel = Provider.of<DbModel>(context, listen: false);
     final _firebaseModel = Provider.of<FirebaseModel>(context, listen: false);
 
+    // TODO: refactor: don't use dbHelper outside of provider
     List<Item> localItems = await _dbModel.dbHelper.queryAllItems();
+    List<Category> localCategories = await _dbModel.dbHelper.queryCategories();
+
     bool isLoggedIn = await _firebaseModel.loginWithGoogle();
     await _dbModel.initCategoriesMap();
 
+    List<Category> accCategories = await _dbModel.dbHelper.queryCategories();
+
     if (isLoggedIn) {
-      await _dbModel.initItems(localItems);
+      await _dbModel.addLocalItems(localItems, localCategories, accCategories);
     }
     _logOutFirstPress = true;
   }

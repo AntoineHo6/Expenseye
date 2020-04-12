@@ -1,5 +1,4 @@
 import 'package:Expenseye/Providers/Global/db_model.dart';
-import 'package:Expenseye/Providers/Global/firebase_model.dart';
 import 'package:Expenseye/Providers/Global/item_model.dart';
 import 'package:Expenseye/Resources/Themes/Colors.dart';
 import 'package:flutter/material.dart';
@@ -17,8 +16,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<ItemModel>(create: (_) => ItemModel()),
-        ChangeNotifierProvider<DbModel>(create: (_) => DbModel()),
-        ChangeNotifierProvider<FirebaseModel>(create: (_) => FirebaseModel())
+        ChangeNotifierProvider<DbModel>(create: (_) => DbModel())
       ],
       child: MaterialApp(
         home: HomePage(),

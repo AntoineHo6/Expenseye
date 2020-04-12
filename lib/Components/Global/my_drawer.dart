@@ -2,7 +2,6 @@ import 'package:Expenseye/Models/Item.dart';
 import 'package:Expenseye/Pages/Categories/cat_home_page.dart';
 import 'package:Expenseye/Pages/about_page.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
-import 'package:Expenseye/Providers/Global/firebase_model.dart';
 import 'package:Expenseye/Providers/monthly_model.dart';
 import 'package:Expenseye/Providers/yearly_model.dart';
 import 'package:Expenseye/Resources/Strings.dart';
@@ -168,24 +167,22 @@ class _MyDrawerState extends State<MyDrawer> {
   void _logoutReset(BuildContext context) async {
     Provider.of<MonthlyModel>(context, listen: false).resetTotals();
     Provider.of<YearlyModel>(context, listen: false).resetTotals();
-    await Provider.of<FirebaseModel>(context, listen: false).logOutFromGoogle();
-    await Provider.of<DbModel>(context, listen: false).deleteAllItems();
-    await Provider.of<DbModel>(context, listen: false).resetCategories();
+    await Provider.of<DbModel>(context, listen: false).logOutFromGoogle();
     _logInFirstPress = true;
   }
 
   void _loginInit(BuildContext context) async {
     final _dbModel = Provider.of<DbModel>(context, listen: false);
-    final _firebaseModel = Provider.of<FirebaseModel>(context, listen: false);
+    final _firebaseModel = Provider.of<DbModel>(context, listen: false);
 
     // TODO: refactor: don't use dbHelper outside of provider
     List<Item> localItems = await _dbModel.dbHelper.queryAllItems();
-    List<Category> localCategories = await _dbModel.dbHelper.queryCategories();
+    List<Category> localCategories = await _dbModel.queryCategories();
 
     bool isLoggedIn = await _firebaseModel.loginWithGoogle();
     await _dbModel.initCategoriesMap();
 
-    List<Category> accCategories = await _dbModel.dbHelper.queryCategories();
+    List<Category> accCategories = await _dbModel.queryCategories();
 
     if (isLoggedIn) {
       await _dbModel.addLocalItems(localItems, localCategories, accCategories);

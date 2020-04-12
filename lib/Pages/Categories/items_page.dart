@@ -22,8 +22,6 @@ class ItemsPage extends StatefulWidget {
 class _ItemsPageState extends State<ItemsPage> {
   @override
   Widget build(BuildContext context) {
-    final _dbModel = Provider.of<DbModel>(context);
-
     widget.categoryKeys.clear();
     for (var key in DbModel.catMap.keys) {
       if (DbModel.catMap[key].type == widget.type) {

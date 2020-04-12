@@ -1,4 +1,5 @@
 import 'package:Expenseye/Helpers/database_helper.dart';
+import 'package:Expenseye/Helpers/google_firebase_helper.dart';
 import 'package:Expenseye/Models/Category.dart';
 import 'package:Expenseye/Models/Item.dart';
 import 'package:flutter/material.dart';
@@ -9,11 +10,29 @@ class DbModel extends ChangeNotifier {
   static Map<String, Category> catMap = new Map();
 
   DbModel() {
+    initConnectedUser();
     initCategoriesMap();
   }
 
-  Future<void> addLocalItems(List<Item> localItems, List<Category> localCategories, List<Category> accCategories) async {
-    List<String> accCategoriesId = accCategories.map((category) => category.id).toList();
+  void initConnectedUser() async {
+    await GoogleFirebaseHelper.initConnectedUser();
+  }
+
+  Future<bool> loginWithGoogle() async {
+    return await GoogleFirebaseHelper.loginWithGoogle();
+  }
+
+  Future<void> logOutFromGoogle() async {
+    await GoogleFirebaseHelper.uploadDbFile();
+    await GoogleFirebaseHelper.logOut();
+    await _deleteAllItems();
+    await _resetCategories();
+  }
+
+  Future<void> addLocalItems(List<Item> localItems,
+      List<Category> localCategories, List<Category> accCategories) async {
+    List<String> accCategoriesId =
+        accCategories.map((category) => category.id).toList();
 
     for (var localCategory in localCategories) {
       if (!accCategoriesId.contains(localCategory.id)) {
@@ -38,6 +57,10 @@ class DbModel extends ChangeNotifier {
     }
   }
 
+  Future<List<Category>> queryCategories() async {
+    return await dbHelper.queryCategories();
+  }
+
   Future<void> addItem(Item newItem) async {
     await dbHelper.insertItem(newItem);
     notifyListeners();
@@ -53,7 +76,7 @@ class DbModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> deleteAllItems() async {
+  Future<void> _deleteAllItems() async {
     await dbHelper.deleteAllItems();
     notifyListeners();
   }
@@ -69,11 +92,11 @@ class DbModel extends ChangeNotifier {
   }
 
   Future<void> deleteItemsByCategory(String categoryId) async {
-    await dbHelper.deleteItemsByCategory(categoryId);  
-    notifyListeners();  
+    await dbHelper.deleteItemsByCategory(categoryId);
+    notifyListeners();
   }
 
-  Future<void> resetCategories() async {
+  Future<void> _resetCategories() async {
     await dbHelper.deleteAllCategories();
     await dbHelper.insertDefaultCategories();
     await initCategoriesMap();

@@ -17,7 +17,7 @@ class CategoryBtn extends StatelessWidget {
           Icon(
             category.iconData,
             color: category.color,
-            size: 50,
+            size: 35,
           ),
           const SizedBox(
             height: 10,

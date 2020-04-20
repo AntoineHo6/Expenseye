@@ -57,6 +57,7 @@ class _AddNewCategoryPageState extends State<AddNewCategoryPage> {
                       minWidth: 50,
                       height: 40,
                       child: RaisedButton(
+                        hoverElevation: 50,
                         color: currentColor,
                         onPressed: () => _openColorPickerDialog(context),
                       ),
@@ -68,9 +69,9 @@ class _AddNewCategoryPageState extends State<AddNewCategoryPage> {
           ),
           Expanded(
             child: GridView.count(
-              padding: const EdgeInsets.all(15),
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
+              padding: const EdgeInsets.all(10),
+              crossAxisSpacing: 5,
+              mainAxisSpacing: 5,
               crossAxisCount: 5,
               children: _iconList(),
             ),
@@ -174,13 +175,20 @@ class _AddNewCategoryPageState extends State<AddNewCategoryPage> {
         if (selectedIconIndex != null && index == selectedIconIndex) {
           return Container(
             color: MyColors.secondary,
-            padding: const EdgeInsets.all(5),
+            padding: const EdgeInsets.all(2),
             child: RaisedButton(
               onPressed: () => _changeSelectedIcon(index),
-              child: Icon(
-                icons[index],
-                size: 30,
-                color: currentColor,
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Expanded(
+                    child: Icon(
+                      icons[index],
+                      size: 35,
+                      color: currentColor,
+                    ),
+                  ),
+                ],
               ),
             ),
           );
@@ -188,10 +196,17 @@ class _AddNewCategoryPageState extends State<AddNewCategoryPage> {
         // other unselected icons
         return RaisedButton(
           onPressed: () => _changeSelectedIcon(index),
-          child: Icon(
-            icons[index],
-            size: 35,
-            color: currentColor,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Expanded(
+                child: Icon(
+                  icons[index],
+                  size: 35,
+                  color: currentColor,
+                ),
+              ),
+            ],
           ),
         );
       },

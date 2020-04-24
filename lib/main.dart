@@ -1,10 +1,10 @@
+import 'package:Expenseye/Pages/Monthly/monthly_home_page.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:Expenseye/Providers/Global/item_model.dart';
 import 'package:Expenseye/Resources/Themes/Colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'Pages/home_page.dart';
 
 void main() => runApp(MyApp());
 
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<DbModel>(create: (_) => DbModel())
       ],
       child: MaterialApp(
-        home: HomePage(),
+        home: MonthlyHomePage(DateTime.now()),
         theme: ThemeData(
           primaryColor: MyColors.black02dp,
           accentColor: MyColors.black02dp,

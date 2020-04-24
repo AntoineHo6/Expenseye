@@ -62,17 +62,6 @@ class YearlyModel extends ChangeNotifier {
     updateCurrentDate(context, newDate);
   }
 
-  void prepMonthPage(BuildContext context, DateTime date) {
-    DateTime nowDate = DateTime.now();
-    if (date.year == nowDate.year && date.month == nowDate.month) {
-      Provider.of<MonthlyModel>(context, listen: false)
-          .updateDate(context, nowDate);
-    } else {
-      Provider.of<MonthlyModel>(context, listen: false)
-          .updateDate(context, DateTime(date.year, date.month));
-    }
-  }
-
   void resetTotals() {
     currentTotal = 0;
     currentIncomeTotal = 0;

@@ -85,8 +85,7 @@ class YearlyItemsPage extends StatelessWidget {
         .map(
           (expenseList) => InkWell(
             onTap: () {
-              yearlyModel.prepMonthPage(context, expenseList[0].date);
-              goToMonthPage();
+              openMonthsPage(context, expenseList[0].date);
             },
             borderRadius: BorderRadius.circular(15),
             child: Container(
@@ -148,7 +147,7 @@ class YearlyItemsPage extends StatelessWidget {
   void openMonthsPage(BuildContext context, DateTime date) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => MonthlyHomePage()),
+      MaterialPageRoute(builder: (context) => MonthlyHomePage(date)),
     );
   }
 }

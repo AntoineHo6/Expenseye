@@ -1,5 +1,7 @@
 import 'package:Expenseye/Models/Item.dart';
 import 'package:Expenseye/Pages/Categories/cat_home_page.dart';
+import 'package:Expenseye/Pages/Monthly/monthly_home_page.dart';
+import 'package:Expenseye/Pages/Yearly/yearly_home_page.dart';
 import 'package:Expenseye/Pages/about_page.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:Expenseye/Providers/monthly_model.dart';
@@ -141,6 +143,26 @@ class _MyDrawerState extends State<MyDrawer> {
             ListTile(
               title: Row(
                 children: <Widget>[
+                  Icon(MdiIcons.calendarBlank, color: Colors.white),
+                  const SizedBox(width: 6),
+                  const Text(Strings.monthly),
+                ],
+              ),
+              onTap: () => openMonthlyPage(context),
+            ),
+            ListTile(
+              title: Row(
+                children: <Widget>[
+                  Icon(MdiIcons.calendarBlankMultiple, color: Colors.white),
+                  const SizedBox(width: 6),
+                  const Text(Strings.yearly),
+                ],
+              ),
+              onTap: () => openYearlyPage(context),
+            ),
+            ListTile(
+              title: Row(
+                children: <Widget>[
                   Icon(MdiIcons.viewGrid, color: Colors.white),
                   const SizedBox(width: 6),
                   const Text(Strings.categories),
@@ -190,6 +212,21 @@ class _MyDrawerState extends State<MyDrawer> {
     _logOutFirstPress = true;
   }
 
+  void openMonthlyPage(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => MonthlyHomePage(DateTime.now())),
+    );
+  }
+
+  void openYearlyPage(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+          builder: (context) => YearlyHomePage(goToMonthPage: null)),
+    );
+  }
+
   void openAboutPage(BuildContext context) {
     Navigator.push(
       context,
@@ -205,4 +242,4 @@ class _MyDrawerState extends State<MyDrawer> {
   }
 }
 
-// TODO: refactor this bs
+// TODO: refactor this

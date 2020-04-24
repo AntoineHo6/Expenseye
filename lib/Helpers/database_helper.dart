@@ -79,28 +79,7 @@ class DatabaseHelper {
   }
 
   Future _onUpgrade(Database db, int oldVersion, int newVersion) async {
-    print('UPGRADDDDE');
-    await db.execute('''
-      UPDATE ${Strings.tableCategories}
-      SET ${Strings.categoryColumnId} = lower(${Strings.categoryColumnId});
-    ''');
-
-    await db.execute('''
-      UPDATE ${Strings.tableItems}
-      SET ${Strings.itemColumnCategory} = lower(${Strings.itemColumnCategory});
-    ''');
-
-    await db.execute('''
-      UPDATE categories
-      SET name = 'Other Expenses'
-      WHERE category_id = 'other expenses';
-    ''');
-
-    await db.execute('''
-      UPDATE categories
-      SET name = 'Other Incomes'
-      WHERE category_id = 'other incomes'
-    ''');
+    
   }
 
   Future<int> insertItem(Item expense) async {

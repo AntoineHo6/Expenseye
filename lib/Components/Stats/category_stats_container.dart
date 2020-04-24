@@ -1,9 +1,7 @@
 import 'package:Expenseye/Components/Stats/expense_group_list_tile.dart';
-import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:Expenseye/Resources/Themes/Colors.dart';
 import 'package:Expenseye/Utils/chart_util.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class CategoryStatsContainer extends StatelessWidget {
   final List<ExpenseGroup> data;

@@ -4,8 +4,6 @@ import 'package:Expenseye/Pages/Monthly/monthly_home_page.dart';
 import 'package:Expenseye/Pages/Yearly/yearly_home_page.dart';
 import 'package:Expenseye/Pages/about_page.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
-import 'package:Expenseye/Providers/monthly_model.dart';
-import 'package:Expenseye/Providers/yearly_model.dart';
 import 'package:Expenseye/Resources/Strings.dart';
 import 'package:Expenseye/Resources/Themes/Colors.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -148,7 +146,10 @@ class _MyDrawerState extends State<MyDrawer> {
                   const Text(Strings.monthly),
                 ],
               ),
-              onTap: () => openMonthlyPage(context),
+              onTap: () {
+                Navigator.of(context).pop(context);
+                openMonthlyPage(context);
+              } 
             ),
             ListTile(
               title: Row(
@@ -158,7 +159,10 @@ class _MyDrawerState extends State<MyDrawer> {
                   const Text(Strings.yearly),
                 ],
               ),
-              onTap: () => openYearlyPage(context),
+              onTap: () {
+                Navigator.of(context).pop(context);
+                openYearlyPage(context);
+              },
             ),
             ListTile(
               title: Row(
@@ -168,18 +172,23 @@ class _MyDrawerState extends State<MyDrawer> {
                   const Text(Strings.categories),
                 ],
               ),
-              onTap: () => openCategoriesPage(context),
+              onTap: () {
+                Navigator.of(context).pop(context);
+                openCategoriesPage(context);
+              } 
             ),
             ListTile(
-              title: Row(
-                children: <Widget>[
-                  Icon(Icons.info_outline, color: Colors.white),
-                  const SizedBox(width: 6),
-                  const Text(Strings.about),
-                ],
-              ),
-              onTap: () => openAboutPage(context),
-            ),
+                title: Row(
+                  children: <Widget>[
+                    Icon(Icons.info_outline, color: Colors.white),
+                    const SizedBox(width: 6),
+                    const Text(Strings.about),
+                  ],
+                ),
+                onTap: () {
+                  Navigator.of(context).pop(context);
+                  openAboutPage(context);
+                }),
           ],
         ),
       ),
@@ -187,8 +196,6 @@ class _MyDrawerState extends State<MyDrawer> {
   }
 
   void _logoutReset(BuildContext context) async {
-    Provider.of<MonthlyModel>(context, listen: false).resetTotals();
-    Provider.of<YearlyModel>(context, listen: false).resetTotals();
     await Provider.of<DbModel>(context, listen: false).logOutFromGoogle();
     _logInFirstPress = true;
   }
@@ -222,8 +229,7 @@ class _MyDrawerState extends State<MyDrawer> {
   void openYearlyPage(BuildContext context) {
     Navigator.push(
       context,
-      MaterialPageRoute(
-          builder: (context) => YearlyHomePage()),
+      MaterialPageRoute(builder: (context) => YearlyHomePage()),
     );
   }
 

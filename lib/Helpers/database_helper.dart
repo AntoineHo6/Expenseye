@@ -3,6 +3,7 @@ import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Models/Category.dart';
 import 'package:Expenseye/Models/Item.dart';
 import 'package:Expenseye/Resources/Strings.dart';
+import 'package:Expenseye/Utils/default_categories.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:path/path.dart';
@@ -62,7 +63,7 @@ class DatabaseHelper {
           )
           ''');
 
-    await insertDefaultCategories();
+    await _insertDefaultCategories(db);
 
     print('Creating reccurrent expenses table');
     await db.execute('''
@@ -78,9 +79,7 @@ class DatabaseHelper {
             ''');
   }
 
-  Future _onUpgrade(Database db, int oldVersion, int newVersion) async {
-    
-  }
+  Future _onUpgrade(Database db, int oldVersion, int newVersion) async {}
 
   Future<int> insertItem(Item expense) async {
     Database db = await database;
@@ -166,7 +165,8 @@ class DatabaseHelper {
   Future<int> deleteItemsByCategory(String categoryId) async {
     Database db = await database;
 
-    return await db.delete(Strings.tableItems, where: '${Strings.itemColumnCategory} = ?', whereArgs: [categoryId]);
+    return await db.delete(Strings.tableItems,
+        where: '${Strings.itemColumnCategory} = ?', whereArgs: [categoryId]);
   }
 
   Future<void> deleteAllItems() async {
@@ -186,180 +186,17 @@ class DatabaseHelper {
     return items;
   }
 
+  Future<void> _insertDefaultCategories(Database db) async {
+    for (var category in DefaultCategories.categories) {
+      await db.insert(Strings.tableCategories, category.toMap());
+    }
+  }
+
   Future<void> insertDefaultCategories() async {
     Database db = await database;
-    
-    Category food = Category(
-      id: Strings.food.toLowerCase(),
-      name: Strings.food,
-      iconData: MdiIcons.silverware,
-      color: Color(0xffff8533),
-      type: ItemType.expense,
-    );
-    db.insert(Strings.tableCategories, food.toMap());
-
-    Category transportation = Category(
-      id: Strings.transportation.toLowerCase(),
-      name: Strings.transportation,
-      iconData: MdiIcons.car,
-      color: Colors.yellow,
-      type: ItemType.expense,
-    );
-    db.insert(Strings.tableCategories, transportation.toMap());
-
-    Category shopping = Category(
-      id: Strings.shopping.toLowerCase(),
-      name: Strings.shopping,
-      iconData: MdiIcons.cart,
-      color: Color(0xffac3973),
-      type: ItemType.expense,
-    );
-    db.insert(Strings.tableCategories, shopping.toMap());
-
-    Category entertainment = Category(
-      id: Strings.entertainment.toLowerCase(),
-      name: Strings.entertainment,
-      iconData: MdiIcons.movie,
-      color: Color(0xff66ccff),
-      type: ItemType.expense,
-    );
-    db.insert(Strings.tableCategories, entertainment.toMap());
-
-    Category activity = Category(
-      id: Strings.activity.toLowerCase(),
-      name: Strings.activity,
-      iconData: MdiIcons.emoticonOutline,
-      color: Color(0xffff66cc),
-      type: ItemType.expense,
-    );
-    db.insert(Strings.tableCategories, activity.toMap());
-
-    Category medical = Category(
-      id: Strings.medical.toLowerCase(),
-      name: Strings.medical,
-      iconData: MdiIcons.medicalBag,
-      color: Color(0xffff3333),
-      type: ItemType.expense,
-    );
-    db.insert(Strings.tableCategories, medical.toMap());
-
-    Category home = Category(
-      id: Strings.home.toLowerCase(),
-      name: Strings.home,
-      iconData: MdiIcons.home,
-      color: Color(0xffcc9966),
-      type: ItemType.expense,
-    );
-    db.insert(Strings.tableCategories, home.toMap());
-
-    Category travel = Category(
-      id: Strings.travel.toLowerCase(),
-      name: Strings.travel,
-      iconData: MdiIcons.airplane,
-      color: Color(0xffcc6600),
-      type: ItemType.expense,
-    );
-    db.insert(Strings.tableCategories, travel.toMap());
-
-    Category people = Category(
-      id: Strings.people.toLowerCase(),
-      name: Strings.people,
-      iconData: MdiIcons.accountMultiple,
-      color: Color(0xff3377ff),
-      type: ItemType.expense,
-    );
-    db.insert(Strings.tableCategories, people.toMap());
-
-    Category education = Category(
-      id: Strings.education.toLowerCase(),
-      name: Strings.education,
-      iconData: MdiIcons.school,
-      color: Color(0xff9933ff),
-      type: ItemType.expense,
-    );
-    db.insert(Strings.tableCategories, education.toMap());
-
-    Category otherExpenses = Category(
-      id: Strings.otherExpenses.toLowerCase(),
-      name: Strings.otherExpenses,
-      iconData: MdiIcons.folderDownload,
-      color: Colors.white,
-      type: ItemType.expense,
-    );
-    db.insert(Strings.tableCategories, otherExpenses.toMap());
-
-    // * DEFAULT INCOMES
-    Category salary = Category(
-      id: Strings.salary.toLowerCase(),
-      name: Strings.salary,
-      iconData: MdiIcons.currencyUsd,
-      color: Colors.green,
-      type: ItemType.income,
-    );
-    db.insert(Strings.tableCategories, salary.toMap());
-
-    Category gift = Category(
-      id: Strings.gift.toLowerCase(),
-      name: Strings.gift,
-      iconData: MdiIcons.walletGiftcard,
-      color: Color(0xffb84dff),
-      type: ItemType.income,
-    );
-    db.insert(Strings.tableCategories, gift.toMap());
-
-    Category business = Category(
-      id: Strings.business.toLowerCase(),
-      name: Strings.business,
-      iconData: MdiIcons.briefcase,
-      color: Color(0xff1a8cff),
-      type: ItemType.income,
-    );
-    db.insert(Strings.tableCategories, business.toMap());
-
-    Category insurance = Category(
-      id: Strings.insurance.toLowerCase(),
-      name: Strings.insurance,
-      iconData: MdiIcons.bank,
-      color: Color(0xff6666ff),
-      type: ItemType.income,
-    );
-    db.insert(Strings.tableCategories, insurance.toMap());
-
-    Category realEstate = Category(
-      id: Strings.realEstate.toLowerCase(),
-      name: Strings.realEstate,
-      iconData: MdiIcons.homeGroup,
-      color: Color(0xffccccff),
-      type: ItemType.income,
-    );
-    db.insert(Strings.tableCategories, realEstate.toMap());
-
-    Category investment = Category(
-      id: Strings.investment.toLowerCase(),
-      name: Strings.investment,
-      iconData: MdiIcons.trendingUp,
-      color: Color(0xff00e673),
-      type: ItemType.income,
-    );
-    db.insert(Strings.tableCategories, investment.toMap());
-
-    Category refund = Category(
-      id: Strings.refund.toLowerCase(),
-      name: Strings.refund,
-      iconData: MdiIcons.swapVerticalBold,
-      color: Color(0xff66ffff),
-      type: ItemType.income,
-    );
-    db.insert(Strings.tableCategories, refund.toMap());
-
-    Category otherIncomes = Category(
-      id: Strings.otherIncomes.toLowerCase(),
-      name: Strings.otherIncomes,
-      iconData: MdiIcons.folderUpload,
-      color: Colors.white,
-      type: ItemType.income,
-    );
-    db.insert(Strings.tableCategories, otherIncomes.toMap());
+    for (var category in DefaultCategories.categories) {
+      await db.insert(Strings.tableCategories, category.toMap());
+    }
   }
 
   Future<List<Category>> queryCategories() async {

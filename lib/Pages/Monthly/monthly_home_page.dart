@@ -50,6 +50,16 @@ class _MonthlyHomePageState extends State<MonthlyHomePage>
         builder: (context, monthlyModel, child) => Scaffold(
           appBar: AppBar(
             title: Text(Strings.monthly),
+            actions: <Widget>[
+              FlatButton(
+                textColor: Colors.white,
+                onPressed: () => monthlyModel.calendarFunc(context),
+                child: const Icon(Icons.calendar_today),
+                shape: const CircleBorder(
+                  side: const BorderSide(color: Colors.transparent),
+                ),
+              ),
+            ],
           ),
           drawer: MyDrawer(),
           body: SafeArea(

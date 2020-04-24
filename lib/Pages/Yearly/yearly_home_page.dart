@@ -10,10 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class YearlyHomePage extends StatefulWidget {
-  final Function goToMonthPage;
-
-  YearlyHomePage({this.goToMonthPage});
-
   @override
   _YearlyHomePageState createState() => _YearlyHomePageState();
 }
@@ -50,6 +46,16 @@ class _YearlyHomePageState extends State<YearlyHomePage>
         builder: (context, yearlyModel, child) => Scaffold(
           appBar: AppBar(
             title: Text(Strings.yearly),
+            actions: <Widget>[
+              FlatButton(
+                textColor: Colors.white,
+                onPressed: () => yearlyModel.calendarFunc(context),
+                child: const Icon(Icons.calendar_today),
+                shape: const CircleBorder(
+                  side: const BorderSide(color: Colors.transparent),
+                ),
+              ),
+            ],
           ),
           drawer: MyDrawer(),
           body: SafeArea(
@@ -57,7 +63,7 @@ class _YearlyHomePageState extends State<YearlyHomePage>
             child: IndexedStack(
               index: yearlyModel.pageIndex,
               children: <Widget>[
-                YearlyItemsPage(goToMonthPage: widget.goToMonthPage),
+                YearlyItemsPage(),
                 StatsPage(
                   localModel: yearlyModel,
                   future: () =>

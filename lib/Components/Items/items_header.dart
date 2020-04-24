@@ -19,17 +19,9 @@ class ItemsHeader extends StatelessWidget {
           children: <Widget>[
             Container(
               margin: const EdgeInsets.only(bottom: 25),
-              child: Row(
-                children: <Widget>[
-                  Text(
-                    pageModel.getTitle(),
-                    style: Theme.of(context).textTheme.display2,
-                  ),
-                  const SizedBox(width: 15),
-                  CalendarFlatButton(
-                    onPressed: () => pageModel.calendarFunc(context),
-                  ),
-                ],
+              child: Text(
+                pageModel.getTitle(),
+                style: Theme.of(context).textTheme.display2,
               ),
             ),
             Container(

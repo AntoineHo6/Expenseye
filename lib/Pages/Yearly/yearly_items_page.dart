@@ -11,10 +11,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class YearlyItemsPage extends StatelessWidget {
-  final Function goToMonthPage;
-
-  YearlyItemsPage({this.goToMonthPage});
-
   @override
   Widget build(BuildContext context) {
     final _itemModel = Provider.of<ItemModel>(context);

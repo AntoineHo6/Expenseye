@@ -223,7 +223,7 @@ class _MyDrawerState extends State<MyDrawer> {
     Navigator.push(
       context,
       MaterialPageRoute(
-          builder: (context) => YearlyHomePage(goToMonthPage: null)),
+          builder: (context) => YearlyHomePage()),
     );
   }
 

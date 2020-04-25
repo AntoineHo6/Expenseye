@@ -1,9 +1,11 @@
 import 'package:Expenseye/Components/Global/add_item_fab.dart';
 import 'package:Expenseye/Components/Global/my_drawer.dart';
+import 'package:Expenseye/Components/Items/item_list_tile.dart';
 import 'package:Expenseye/Models/Item.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:Expenseye/Providers/Global/item_model.dart';
 import 'package:Expenseye/Resources/Strings.dart';
+import 'package:Expenseye/Resources/Themes/Colors.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -23,9 +25,9 @@ class DailyPage extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data != null && snapshot.data.length > 0) {
-              return mySliverView(snapshot.data);
+              return mySliverView(snapshot.data, _itemModel, context);
             } else {
-              return mySliverView([]);
+              return mySliverView([], _itemModel, context);
             }
           } else {
             return const Align(
@@ -42,7 +44,8 @@ class DailyPage extends StatelessWidget {
     );
   }
 
-  CustomScrollView mySliverView(List<Item> items) {
+  CustomScrollView mySliverView(
+      List<Item> items, ItemModel itemModel, BuildContext context) {
     return CustomScrollView(
       slivers: <Widget>[
         SliverAppBar(
@@ -60,7 +63,16 @@ class DailyPage extends StatelessWidget {
             items
                 .map(
                   (item) => Container(
-                    child: Text(item.name),
+                    padding: EdgeInsets.all(15),
+                    margin: EdgeInsets.fromLTRB(10, 20, 10, 0),
+                    decoration: BoxDecoration(
+                      color: MyColors.black06dp,
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    child: ItemListTile(
+                      item,
+                      onTap: () => itemModel.openEditItem(context, item),
+                    ),
                   ),
                 )
                 .toList(),

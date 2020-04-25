@@ -14,27 +14,28 @@ class MyApp extends StatelessWidget {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
 
     return MultiProvider(
-      providers: [
-        ChangeNotifierProvider<ItemModel>(create: (_) => ItemModel()),
-        ChangeNotifierProvider<DbModel>(create: (_) => DbModel())
-      ],
-      child: MaterialApp(
-        home: DailyPage(),
-        theme: ThemeData(
-          primaryColor: MyColors.black02dp,
-          accentColor: MyColors.black02dp,
-          backgroundColor: MyColors.black00dp,
-          dialogBackgroundColor: MyColors.black00dp,
-          scaffoldBackgroundColor: MyColors.black00dp,
-          buttonColor: MyColors.black02dp,
-          floatingActionButtonTheme: FloatingActionButtonThemeData(
-            backgroundColor: MyColors.secondary,
+        providers: [
+          ChangeNotifierProvider<ItemModel>(create: (_) => ItemModel()),
+          ChangeNotifierProvider<DbModel>(create: (_) => DbModel())
+        ],
+        child: MaterialApp(
+          home: Scaffold(
+            body: DailyPage(),
           ),
-          textTheme: Theme.of(context)
-              .textTheme
-              .apply(bodyColor: Colors.white, displayColor: Colors.white),
-        ),
-      )
-    );
+          theme: ThemeData(
+            primaryColor: MyColors.black02dp,
+            accentColor: MyColors.black02dp,
+            backgroundColor: MyColors.black00dp,
+            dialogBackgroundColor: MyColors.black00dp,
+            scaffoldBackgroundColor: MyColors.black00dp,
+            buttonColor: MyColors.black02dp,
+            floatingActionButtonTheme: FloatingActionButtonThemeData(
+              backgroundColor: MyColors.secondary,
+            ),
+            textTheme: Theme.of(context)
+                .textTheme
+                .apply(bodyColor: Colors.white, displayColor: Colors.white),
+          ),
+        ));
   }
 }

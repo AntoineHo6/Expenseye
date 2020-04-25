@@ -79,6 +79,6 @@ class DateTimeUtil {
   }
 
   static String formattedDate(DateTime date) {
-    return '${DateTimeUtil.monthAbb[date.month]} ${date.day} ${date.year}';
+    return '${DateTimeUtil.monthAbb[date.month]} ${date.day}, ${date.year}';
   }
 }

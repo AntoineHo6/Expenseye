@@ -2,6 +2,7 @@ import 'package:Expenseye/Helpers/database_helper.dart';
 import 'package:Expenseye/Helpers/google_firebase_helper.dart';
 import 'package:Expenseye/Models/Category.dart';
 import 'package:Expenseye/Models/Item.dart';
+import 'package:Expenseye/Utils/date_time_util.dart';
 import 'package:flutter/material.dart';
 
 class DbModel extends ChangeNotifier {
@@ -79,6 +80,11 @@ class DbModel extends ChangeNotifier {
   Future<void> _deleteAllItems() async {
     await dbHelper.deleteAllItems();
     notifyListeners();
+  }
+
+  Future<List<Item>> queryItemsByDay(DateTime day) async {
+    DateTime dayClean = DateTimeUtil.timeToZeroInDate(day);
+    return await dbHelper.queryItemsInDate(dayClean);
   }
 
   Future<List<Item>> queryItemsByMonth(String yearMonth) async {

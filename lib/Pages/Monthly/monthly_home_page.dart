@@ -20,6 +20,7 @@ class MonthlyHomePage extends StatefulWidget {
 
 class _MonthlyHomePageState extends State<MonthlyHomePage>
     with WidgetsBindingObserver {
+  // TODO: move these widgetsbinding things to daily
   @override
   void initState() {
     super.initState();
@@ -61,7 +62,6 @@ class _MonthlyHomePageState extends State<MonthlyHomePage>
               ),
             ],
           ),
-          drawer: MyDrawer(),
           body: SafeArea(
             top: false,
             child: IndexedStack(

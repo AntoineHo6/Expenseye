@@ -1,4 +1,4 @@
-import 'package:Expenseye/Pages/Monthly/monthly_home_page.dart';
+import 'package:Expenseye/Pages/daily_page.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:Expenseye/Providers/Global/item_model.dart';
 import 'package:Expenseye/Resources/Themes/Colors.dart';
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<DbModel>(create: (_) => DbModel())
       ],
       child: MaterialApp(
-        home: MonthlyHomePage(DateTime.now()),
+        home: DailyPage(),
         theme: ThemeData(
           primaryColor: MyColors.black02dp,
           accentColor: MyColors.black02dp,

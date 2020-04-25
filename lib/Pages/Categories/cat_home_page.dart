@@ -1,5 +1,5 @@
 import 'package:Expenseye/Enums/item_type.dart';
-import 'package:Expenseye/Pages/Categories/items_page.dart';
+import 'package:Expenseye/Pages/Categories/categories_page.dart';
 import 'package:Expenseye/Resources/Strings.dart';
 import 'package:flutter/material.dart';
 
@@ -13,8 +13,8 @@ class _CatHomePageState extends State<CatHomePage>
   TabController _tabController;
 
   List<Widget> _pages = [
-    ItemsPage(ItemType.expense),
-    ItemsPage(ItemType.income),
+    CategoriesPage(ItemType.expense),
+    CategoriesPage(ItemType.income),
   ];
 
   @override

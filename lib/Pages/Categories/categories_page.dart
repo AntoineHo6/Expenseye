@@ -9,19 +9,21 @@ import 'package:provider/provider.dart';
 
 import '../../Resources/Strings.dart';
 
-class ItemsPage extends StatefulWidget {
+class CategoriesPage extends StatefulWidget {
   final ItemType type;
   final List<String> categoryKeys = new List();
 
-  ItemsPage(this.type);
+  CategoriesPage(this.type);
 
   @override
   _ItemsPageState createState() => _ItemsPageState();
 }
 
-class _ItemsPageState extends State<ItemsPage> {
+class _ItemsPageState extends State<CategoriesPage> {
   @override
   Widget build(BuildContext context) {
+    final _dbModel = Provider.of<DbModel>(context);
+
     widget.categoryKeys.clear();
     for (var key in DbModel.catMap.keys) {
       if (DbModel.catMap[key].type == widget.type) {
@@ -54,7 +56,7 @@ class _ItemsPageState extends State<ItemsPage> {
 
         return CategoryBtn(
           category: DbModel.catMap[widget.categoryKeys[index]],
-          onPressed: () => _selectedCategory(index),
+          onPressed: () => _selectedCategory(index, _dbModel),
         );
       }),
     );
@@ -69,16 +71,15 @@ class _ItemsPageState extends State<ItemsPage> {
     );
   }
 
-  void _selectedCategory(int index) async {
+  void _selectedCategory(int index, DbModel dbModel) async {
     bool confirmed = await showDialog(
       context: context,
       builder: (_) => DeleteConfirmDialog(Strings.confirmDeleteCategory),
     );
 
     if (confirmed != null && confirmed) {
-      final _dbModel = Provider.of<DbModel>(context, listen: false);
-      await _dbModel.deleteItemsByCategory(widget.categoryKeys[index]);
-      await _dbModel.deleteCategory(widget.categoryKeys[index]);
+      await dbModel.deleteItemsByCategory(widget.categoryKeys[index]);
+      await dbModel.deleteCategory(widget.categoryKeys[index]);
     }
   }
 }

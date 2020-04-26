@@ -1,17 +1,42 @@
 import 'package:Expenseye/Components/Global/add_item_fab.dart';
 import 'package:Expenseye/Components/Global/my_drawer.dart';
 import 'package:Expenseye/Components/Items/item_list_tile.dart';
+import 'package:Expenseye/Helpers/google_firebase_helper.dart';
 import 'package:Expenseye/Models/Item.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:Expenseye/Providers/Global/item_model.dart';
-import 'package:Expenseye/Resources/Strings.dart';
 import 'package:Expenseye/Resources/Themes/Colors.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class DailyPage extends StatelessWidget {
+class DailyPage extends StatefulWidget {
   final DateTime day = DateTime.now();
+
+  @override
+  _DailyPageState createState() => _DailyPageState();
+}
+
+class _DailyPageState extends State<DailyPage> with WidgetsBindingObserver {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    if (state == AppLifecycleState.paused) {
+      GoogleFirebaseHelper.uploadDbFile();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +46,7 @@ class DailyPage extends StatelessWidget {
     return Scaffold(
       drawer: MyDrawer(),
       body: FutureBuilder<List<Item>>(
-        future: _dbModel.queryItemsByDay(day),
+        future: _dbModel.queryItemsByDay(widget.day),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data != null && snapshot.data.length > 0) {
@@ -38,8 +63,8 @@ class DailyPage extends StatelessWidget {
         },
       ),
       floatingActionButton: AddExpenseFab(
-        onExpensePressed: () => _itemModel.showAddExpense(context, day),
-        onIncomePressed: () => _itemModel.showAddIncome(context, day),
+        onExpensePressed: () => _itemModel.showAddExpense(context, widget.day),
+        onIncomePressed: () => _itemModel.showAddIncome(context, widget.day),
       ),
     );
   }
@@ -49,11 +74,21 @@ class DailyPage extends StatelessWidget {
     return CustomScrollView(
       slivers: <Widget>[
         SliverAppBar(
+          actions: <Widget>[
+            FlatButton(
+              textColor: Colors.white,
+              onPressed: () => null,
+              child: const Icon(Icons.calendar_today),
+              shape: const CircleBorder(
+                side: const BorderSide(color: Colors.transparent),
+              ),
+            ),
+          ],
           expandedHeight: 160,
           pinned: true,
           flexibleSpace: FlexibleSpaceBar(
             title: Text(
-              DateTimeUtil.formattedDate(day),
+              DateTimeUtil.formattedDate(widget.day),
             ),
             centerTitle: true,
           ),

@@ -1,6 +1,4 @@
 import 'package:Expenseye/Components/Global/my_bottom_nav_bar.dart';
-import 'package:Expenseye/Components/Global/my_drawer.dart';
-import 'package:Expenseye/Helpers/google_firebase_helper.dart';
 import 'package:Expenseye/Pages/Yearly/yearly_items_page.dart';
 import 'package:Expenseye/Pages/stats_page.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
@@ -14,29 +12,7 @@ class YearlyHomePage extends StatefulWidget {
   _YearlyHomePageState createState() => _YearlyHomePageState();
 }
 
-class _YearlyHomePageState extends State<YearlyHomePage>
-    with WidgetsBindingObserver {
-      // TODO: move these widgetsbinding things to daily
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addObserver(this);
-  }
-
-  @override
-  void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
-    super.dispose();
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    super.didChangeAppLifecycleState(state);
-    if (state == AppLifecycleState.paused) {
-      GoogleFirebaseHelper.uploadDbFile();
-    }
-  }
-
+class _YearlyHomePageState extends State<YearlyHomePage>{
   @override
   Widget build(BuildContext context) {
     final _dbModel = Provider.of<DbModel>(context, listen: false);

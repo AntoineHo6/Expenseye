@@ -1,11 +1,8 @@
 import 'dart:io';
-import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Models/Category.dart';
 import 'package:Expenseye/Models/Item.dart';
 import 'package:Expenseye/Resources/Strings.dart';
 import 'package:Expenseye/Utils/default_categories.dart';
-import 'package:flutter/material.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';

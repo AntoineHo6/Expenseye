@@ -18,7 +18,7 @@ class MyIcons {
     MdiIcons.apple,
     MdiIcons.baguette,
     MdiIcons.balloon,
-    MdiIcons.xboxController,
+    MdiIcons.microsoftXboxController,
     MdiIcons.audioVideo,
     MdiIcons.babyFaceOutline,
     MdiIcons.axe,

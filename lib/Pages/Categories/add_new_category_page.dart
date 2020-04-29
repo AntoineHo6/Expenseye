@@ -124,7 +124,7 @@ class _AddNewCategoryPageState extends State<AddNewCategoryPage> {
         content: SingleChildScrollView(
           child: ColorPicker(
             pickerColor: pickerColor,
-            enableLabel: false,
+            showLabel: false,
             enableAlpha: true,
             onColorChanged: _changeColor,
             pickerAreaHeightPercent: 0.8,

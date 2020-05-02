@@ -27,7 +27,7 @@ class MyIcons {
     MdiIcons.bike,
     MdiIcons.bugle,
     MdiIcons.brush,
-    MdiIcons.bowl,
+    MdiIcons.bowlMix,
     MdiIcons.camera,
     MdiIcons.campfire,
     MdiIcons.cannabis,

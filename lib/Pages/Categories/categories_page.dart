@@ -56,7 +56,7 @@ class _ItemsPageState extends State<CategoriesPage> {
 
         return CategoryBtn(
           category: DbModel.catMap[widget.categoryKeys[index]],
-          onPressed: () => _selectedCategory(index, _dbModel),
+          onLongPress: () => _selectedCategory(index, _dbModel),
         );
       }),
     );

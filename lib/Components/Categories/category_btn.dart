@@ -4,12 +4,14 @@ import 'package:flutter/material.dart';
 class CategoryBtn extends StatelessWidget {
   final Category category;
   final Function onPressed;
+  final Function onLongPress;
 
-  CategoryBtn({@required this.category, this.onPressed});
+  CategoryBtn({@required this.category, this.onPressed, this.onLongPress});
 
   @override
   Widget build(BuildContext context) {
     return RaisedButton(
+      onLongPress: onLongPress,
       onPressed: onPressed,
       child: Column(
         mainAxisSize: MainAxisSize.min,

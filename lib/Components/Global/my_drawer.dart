@@ -204,8 +204,7 @@ class _MyDrawerState extends State<MyDrawer> {
     final _dbModel = Provider.of<DbModel>(context, listen: false);
     final _firebaseModel = Provider.of<DbModel>(context, listen: false);
 
-    // TODO: refactor: don't use dbHelper outside of provider
-    List<Item> localItems = await _dbModel.dbHelper.queryAllItems();
+    List<Item> localItems = await _dbModel.queryAllItems();
     List<Category> localCategories = await _dbModel.queryCategories();
 
     bool isLoggedIn = await _firebaseModel.loginWithGoogle();

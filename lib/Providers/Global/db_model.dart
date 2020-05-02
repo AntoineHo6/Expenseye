@@ -6,8 +6,7 @@ import 'package:Expenseye/Utils/date_time_util.dart';
 import 'package:flutter/material.dart';
 
 class DbModel extends ChangeNotifier {
-  // TODO: make this a private variable
-  final DatabaseHelper dbHelper = DatabaseHelper.instance;
+  final DatabaseHelper _dbHelper = DatabaseHelper.instance;
   static Map<String, Category> catMap = new Map();
 
   DbModel() {
@@ -37,75 +36,83 @@ class DbModel extends ChangeNotifier {
 
     for (var localCategory in localCategories) {
       if (!accCategoriesId.contains(localCategory.id)) {
-        await dbHelper.insertCategory(localCategory);
+        await _dbHelper.insertCategory(localCategory);
         catMap[localCategory.id] = localCategory;
       }
     }
 
     if (localItems.length > 0) {
       for (Item item in localItems) {
-        await dbHelper.insertItem(item);
+        await _dbHelper.insertItem(item);
       }
     }
     notifyListeners();
   }
 
   Future<void> initCategoriesMap() async {
-    List<Category> categories = await dbHelper.queryCategories();
+    List<Category> categories = await _dbHelper.queryCategories();
     catMap.clear();
     for (var category in categories) {
       catMap[category.id] = category;
     }
   }
 
+  Future<List<Item>> queryAllItems() async {
+    return await _dbHelper.queryAllItems();
+  }
+
   Future<List<Category>> queryCategories() async {
-    return await dbHelper.queryCategories();
+    return await _dbHelper.queryCategories();
   }
 
   Future<void> addItem(Item newItem) async {
-    await dbHelper.insertItem(newItem);
+    await _dbHelper.insertItem(newItem);
     notifyListeners();
   }
 
   Future<void> editItem(Item newItem) async {
-    await dbHelper.updateItem(newItem);
+    await _dbHelper.updateItem(newItem);
     notifyListeners();
   }
 
   Future<void> deleteItem(int id) async {
-    await dbHelper.deleteItem(id);
+    await _dbHelper.deleteItem(id);
     notifyListeners();
   }
 
   Future<void> _deleteAllItems() async {
-    await dbHelper.deleteAllItems();
+    await _dbHelper.deleteAllItems();
     notifyListeners();
   }
 
   Future<List<Item>> queryItemsByDay(DateTime day) async {
     DateTime dayClean = DateTimeUtil.timeToZeroInDate(day);
-    return await dbHelper.queryItemsInDate(dayClean);
+    return await _dbHelper.queryItemsInDate(dayClean);
   }
 
   Future<List<Item>> queryItemsByMonth(String yearMonth) async {
-    return await dbHelper.queryItemsByMonth(yearMonth);
+    return await _dbHelper.queryItemsByMonth(yearMonth);
   }
 
   Future<void> deleteCategory(String categoryId) async {
-    await dbHelper.deleteCategory(categoryId);
+    await _dbHelper.deleteCategory(categoryId);
     await initCategoriesMap();
     notifyListeners();
   }
 
   Future<void> deleteItemsByCategory(String categoryId) async {
-    await dbHelper.deleteItemsByCategory(categoryId);
+    await _dbHelper.deleteItemsByCategory(categoryId);
     notifyListeners();
   }
 
   Future<void> _resetCategories() async {
-    await dbHelper.deleteAllCategories();
-    await dbHelper.insertDefaultCategories();
+    await _dbHelper.deleteAllCategories();
+    await _dbHelper.insertDefaultCategories();
     await initCategoriesMap();
     notifyListeners();
+  }
+
+  Future<List<Item>> queryItemsInYear(String year) async {
+    return await _dbHelper.queryItemsInYear(year);
   }
 }

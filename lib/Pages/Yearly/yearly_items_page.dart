@@ -19,7 +19,7 @@ class YearlyItemsPage extends StatelessWidget {
 
     return Scaffold(
       body: FutureBuilder<List<Item>>(
-        future: _dbModel.dbHelper.queryItemsInYear(_yearlyModel.year),
+        future: _dbModel.queryItemsInYear(_yearlyModel.year),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data != null && snapshot.data.length > 0) {

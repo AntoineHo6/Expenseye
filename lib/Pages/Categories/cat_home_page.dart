@@ -32,6 +32,7 @@ class _CatHomePageState extends State<CatHomePage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: Text(Strings.categories),
         bottom: TabBar(controller: _tabController, tabs: <Widget>[
           Container(
             margin: const EdgeInsets.only(bottom: 15, top: 8),

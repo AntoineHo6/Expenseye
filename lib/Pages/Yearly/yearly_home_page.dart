@@ -43,7 +43,7 @@ class _YearlyHomePageState extends State<YearlyHomePage>{
                 StatsPage(
                   localModel: yearlyModel,
                   future: () =>
-                      _dbModel.dbHelper.queryItemsInYear(yearlyModel.year),
+                      _dbModel.queryItemsInYear(yearlyModel.year),
                 ),
               ],
             ),

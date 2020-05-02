@@ -30,7 +30,7 @@ class _MonthlyTableCalendarPage extends State<MonthlyTableCalendarPage>
         title: const Text(Strings.pickAMonth),
       ),
       body: FutureBuilder<List<Item>>(
-        future: _dbModel.dbHelper.queryAllItems(),
+        future: _dbModel.queryAllItems(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data != null) {

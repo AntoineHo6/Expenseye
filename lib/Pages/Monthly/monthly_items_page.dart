@@ -98,8 +98,8 @@ class MonthlyItemsPage extends StatelessWidget {
                   mainAxisSize: MainAxisSize.max,
                   children: <Widget>[
                     Text(
-                      DateTimeUtil.formattedDate(itemList[0].date),
-                      style: Theme.of(context).textTheme.title,
+                      DateTimeUtil.formattedDate(context, itemList[0].date),
+                      style: Theme.of(context).textTheme.headline5,
                     ),
                     Container(
                       margin: const EdgeInsets.only(right: 16),

@@ -92,8 +92,7 @@ class Strings {
   static const String itemColumnValue = 'value';
   static const String itemColumnDate = 'date';
   static const String itemColumnCategory = 'category';
-  static const String itemColumnType =
-      'type'; // TODO: DEPRECATED. use categories type
+  static const String itemColumnType = 'type';
 
   // * CATEGORIES DATABASE table and column names
   static const String tableCategories = 'categories';

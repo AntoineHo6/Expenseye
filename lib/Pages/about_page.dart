@@ -19,7 +19,7 @@ class AboutPage extends StatelessWidget {
             const SizedBox(height: 10),
             Text(
               Strings.appBy,
-              style: Theme.of(context).textTheme.headline,
+              style: Theme.of(context).textTheme.headline5,
             ),
           ],
         ),

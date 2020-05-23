@@ -54,7 +54,7 @@ class _EditExpense extends State<EditExpensePage> {
                         child: Text(
                           '${Strings.name} :',
                           textAlign: TextAlign.left,
-                          style: Theme.of(context).textTheme.title,
+                          style: Theme.of(context).textTheme.headline6,
                         ),
                       ),
                       NameTextField(
@@ -75,7 +75,7 @@ class _EditExpense extends State<EditExpensePage> {
                         child: Text(
                           '${Strings.price} :',
                           textAlign: TextAlign.left,
-                          style: Theme.of(context).textTheme.title,
+                          style: Theme.of(context).textTheme.headline6,
                         ),
                       ),
                       PriceTextField(

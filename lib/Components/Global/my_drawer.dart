@@ -37,7 +37,7 @@ class _MyDrawerState extends State<MyDrawer> {
               child: Column(
                 children: <Widget>[
                   Container(
-                    margin: const EdgeInsets.only(bottom: 25),
+                    margin: const EdgeInsets.only(bottom: 13),
                     child: Align(
                       alignment: Alignment.topLeft,
                       child: Row(
@@ -48,7 +48,7 @@ class _MyDrawerState extends State<MyDrawer> {
                           ),
                           Text(
                             Strings.appName,
-                            style: Theme.of(context).textTheme.headline,
+                            style: Theme.of(context).textTheme.headline1,
                           ),
                         ],
                       ),
@@ -73,7 +73,7 @@ class _MyDrawerState extends State<MyDrawer> {
                                 color: MyColors.black06dp,
                                 child: Text(
                                   Strings.signOut,
-                                  style: Theme.of(context).textTheme.body1,
+                                  style: Theme.of(context).textTheme.bodyText2,
                                 ),
                                 onPressed: () {
                                   if (_logOutFirstPress) {
@@ -95,7 +95,7 @@ class _MyDrawerState extends State<MyDrawer> {
                                 ),
                               ),
                               const SizedBox(
-                                height: 10,
+                                height: 5,
                               ),
                               Row(
                                 children: <Widget>[
@@ -139,18 +139,17 @@ class _MyDrawerState extends State<MyDrawer> {
               ),
             ),
             ListTile(
-              title: Row(
-                children: <Widget>[
-                  Icon(MdiIcons.calendarBlank, color: Colors.white),
-                  const SizedBox(width: 6),
-                  const Text(Strings.monthly),
-                ],
-              ),
-              onTap: () {
-                Navigator.of(context).pop(context);
-                openMonthlyPage(context);
-              } 
-            ),
+                title: Row(
+                  children: <Widget>[
+                    Icon(MdiIcons.calendarBlank, color: Colors.white),
+                    const SizedBox(width: 6),
+                    const Text(Strings.monthly),
+                  ],
+                ),
+                onTap: () {
+                  Navigator.of(context).pop(context);
+                  openMonthlyPage(context);
+                }),
             ListTile(
               title: Row(
                 children: <Widget>[
@@ -165,18 +164,17 @@ class _MyDrawerState extends State<MyDrawer> {
               },
             ),
             ListTile(
-              title: Row(
-                children: <Widget>[
-                  Icon(MdiIcons.viewGrid, color: Colors.white),
-                  const SizedBox(width: 6),
-                  const Text(Strings.categories),
-                ],
-              ),
-              onTap: () {
-                Navigator.of(context).pop(context);
-                openCategoriesPage(context);
-              } 
-            ),
+                title: Row(
+                  children: <Widget>[
+                    Icon(MdiIcons.viewGrid, color: Colors.white),
+                    const SizedBox(width: 6),
+                    const Text(Strings.categories),
+                  ],
+                ),
+                onTap: () {
+                  Navigator.of(context).pop(context);
+                  openCategoriesPage(context);
+                }),
             ListTile(
                 title: Row(
                   children: <Widget>[

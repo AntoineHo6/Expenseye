@@ -19,8 +19,8 @@ class ItemsHeader extends StatelessWidget {
             Container(
               margin: const EdgeInsets.only(bottom: 25),
               child: Text(
-                pageModel.getTitle(),
-                style: Theme.of(context).textTheme.display2,
+                pageModel.getTitle(context),
+                style: Theme.of(context).textTheme.headline1,
               ),
             ),
             Container(
@@ -40,7 +40,7 @@ class ItemsHeader extends StatelessWidget {
                         const SizedBox(height: 5),
                         Text(
                           '${pageModel.currentIncomeTotal.toStringAsFixed(2)} \$',
-                          style: Theme.of(context).textTheme.headline,
+                          style: Theme.of(context).textTheme.headline5,
                         ),
                       ],
                     ),
@@ -58,7 +58,7 @@ class ItemsHeader extends StatelessWidget {
                         const SizedBox(height: 5),
                         Text(
                           '${pageModel.currentExpenseTotal.toStringAsFixed(2)} \$',
-                          style: Theme.of(context).textTheme.headline,
+                          style: Theme.of(context).textTheme.headline5,
                         ),
                       ],
                     ),
@@ -76,7 +76,7 @@ class ItemsHeader extends StatelessWidget {
                         const SizedBox(height: 5),
                         Text(
                           '${pageModel.currentTotal.toStringAsFixed(2)} \$',
-                          style: Theme.of(context).textTheme.headline,
+                          style: Theme.of(context).textTheme.headline5,
                         ),
                       ],
                     ),

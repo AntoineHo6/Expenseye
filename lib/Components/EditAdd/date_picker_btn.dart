@@ -26,7 +26,7 @@ class DatePickerBtn extends StatelessWidget {
               width: 5,
             ),
             Text(
-              DateTimeUtil.formattedDate(date),
+              DateTimeUtil.formattedDate(context, date),
             ),
           ],
         ),

@@ -45,7 +45,7 @@ class StatsPage extends StatelessWidget {
                                       Text(Strings.expenses,
                                           style: Theme.of(context)
                                               .textTheme
-                                              .headline),
+                                              .headline5),
                                       Container(
                                         child: SizedBox(
                                           height: 250.0,
@@ -70,8 +70,8 @@ class StatsPage extends StatelessWidget {
                             margin: const EdgeInsets.all(15),
                             child: CategoryStatsContainer(
                               data: aggregatedItems[0].data,
-                              totalCost: calcExpensesTotal(
-                                  aggregatedItems[0].data),
+                              totalCost:
+                                  calcExpensesTotal(aggregatedItems[0].data),
                             ),
                           ),
                         ],

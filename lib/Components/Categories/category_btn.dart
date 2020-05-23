@@ -28,7 +28,7 @@ class CategoryBtn extends StatelessWidget {
             fit: BoxFit.fitWidth,
             child: Text(
               category.name,
-              style: Theme.of(context).textTheme.subhead,
+              style: Theme.of(context).textTheme.button,
             ),
           ),
         ],

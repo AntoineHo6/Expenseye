@@ -25,14 +25,14 @@ class _MyBottomNavBarState extends State<MyBottomNavBar> {
           icon: const Icon(Icons.list),
           title: Text(
             Strings.expenses,
-            style: Theme.of(context).textTheme.body1,
+            style: Theme.of(context).textTheme.bodyText2,
           ),
         ),
         BottomNavigationBarItem(
           icon: const Icon(Icons.pie_chart),
           title: Text(
             Strings.stats,
-            style: Theme.of(context).textTheme.body1,
+            style: Theme.of(context).textTheme.bodyText2,
           ),
         ),
       ],

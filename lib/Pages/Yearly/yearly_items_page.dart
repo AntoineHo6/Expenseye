@@ -7,6 +7,7 @@ import 'package:Expenseye/Providers/Global/item_model.dart';
 import 'package:Expenseye/Providers/yearly_model.dart';
 import 'package:Expenseye/Resources/Themes/Colors.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
+import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -104,8 +105,8 @@ class YearlyItemsPage extends StatelessWidget {
                     mainAxisSize: MainAxisSize.max,
                     children: <Widget>[
                       Text(
-                        DateTimeUtil.monthNames[expenseList[0].date.month],
-                        style: Theme.of(context).textTheme.title,
+                        AppLocalizations.of(context).translate(DateTimeUtil.monthNames[expenseList[0].date.month]),
+                        style: Theme.of(context).textTheme.headline5,
                       ),
                       Container(
                         margin: EdgeInsets.only(right: 16),

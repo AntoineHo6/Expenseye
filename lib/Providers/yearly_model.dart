@@ -49,7 +49,7 @@ class YearlyModel extends ChangeNotifier {
     }
   }
 
-  String getTitle() {
+  String getTitle(BuildContext context) {
     return year;
   }
 

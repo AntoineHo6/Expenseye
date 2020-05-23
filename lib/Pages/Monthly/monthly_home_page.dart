@@ -26,7 +26,7 @@ class _MonthlyHomePageState extends State<MonthlyHomePage> {
       child: Consumer<MonthlyModel>(
         builder: (context, monthlyModel, child) => Scaffold(
           appBar: AppBar(
-            title: Text(Strings.monthly),
+            title: const Text(Strings.monthly),
             actions: <Widget>[
               FlatButton(
                 textColor: Colors.white,

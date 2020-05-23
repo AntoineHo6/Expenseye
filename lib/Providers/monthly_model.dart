@@ -1,6 +1,7 @@
 import 'package:Expenseye/Models/Item.dart';
 import 'package:Expenseye/Pages/Monthly/monthly_table_calendar_page.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
+import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class MonthlyModel extends ChangeNotifier {
@@ -31,8 +32,8 @@ class MonthlyModel extends ChangeNotifier {
 
   /// Returns the current date's month's full name and it's year in string
   /// format. E.g: 'January 2020'.
-  String getTitle() {
-    return '${DateTimeUtil.monthNames[currentDate.month]} ${currentDate.year}';
+  String getTitle(BuildContext context) {
+    return '${AppLocalizations.of(context).translate(DateTimeUtil.monthNames[currentDate.month])} ${currentDate.year}';
   }
 
   /// Returns nested lists of expenses seperated by day.

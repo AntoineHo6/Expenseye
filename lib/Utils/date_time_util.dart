@@ -1,34 +1,35 @@
+import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class DateTimeUtil {
   static const Map<int, String> monthAbb = {
-    1: 'Jan.',
-    2: 'Feb.',
-    3: 'Mar.',
-    4: 'Apr.',
-    5: 'May.',
-    6: 'Jun.',
-    7: 'jul.',
-    8: 'Aug.',
-    9: 'Sep.',
-    10: 'Oct.',
-    11: 'Nov.',
-    12: 'Dec.'
+    1: 'janAbbr',
+    2: 'febAbbr',
+    3: 'marAbbr',
+    4: 'aprAbbr',
+    5: 'mayAbbr',
+    6: 'junAbbr',
+    7: 'julAbbr',
+    8: 'augAbbr',
+    9: 'sepAbbr',
+    10: 'octAbbr',
+    11: 'novAbbr',
+    12: 'decAbbr'
   };
 
   static const Map<int, String> monthNames = {
-    1: 'January',
-    2: 'February',
-    3: 'March',
-    4: 'April',
-    5: 'May',
-    6: 'June',
-    7: 'july',
-    8: 'August',
-    9: 'September',
-    10: 'October',
-    11: 'November',
-    12: 'December'
+    1: 'jan',
+    2: 'feb',
+    3: 'mar',
+    4: 'apr',
+    5: 'may',
+    6: 'jun',
+    7: 'jul',
+    8: 'aug',
+    9: 'sep',
+    10: 'oct',
+    11: 'nov',
+    12: 'dec'
   };
 
   /// Keep DateTimes throughout the app uniform, that is without time.
@@ -78,7 +79,7 @@ class DateTimeUtil {
     return newDate;
   }
 
-  static String formattedDate(DateTime date) {
-    return '${DateTimeUtil.monthAbb[date.month]} ${date.day}, ${date.year}';
+  static String formattedDate(BuildContext context, DateTime date) {
+    return '${AppLocalizations.of(context).translate(DateTimeUtil.monthAbb[date.month])} ${date.day}, ${date.year}';
   }
 }

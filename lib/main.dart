@@ -2,9 +2,12 @@ import 'package:Expenseye/Pages/daily_page.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:Expenseye/Providers/Global/item_model.dart';
 import 'package:Expenseye/Resources/Themes/Colors.dart';
+import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter/cupertino.dart';
 
 void main() => runApp(MyApp());
 
@@ -19,6 +22,13 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider<DbModel>(create: (_) => DbModel())
         ],
         child: MaterialApp(
+          supportedLocales: [Locale('en'), Locale('fr')],
+          localizationsDelegates: [
+            AppLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            DefaultCupertinoLocalizations.delegate
+          ],
           home: Scaffold(
             body: DailyPage(),
           ),

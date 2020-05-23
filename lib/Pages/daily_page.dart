@@ -7,6 +7,7 @@ import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:Expenseye/Providers/Global/item_model.dart';
 import 'package:Expenseye/Resources/Themes/Colors.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
+import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -87,9 +88,7 @@ class _DailyPageState extends State<DailyPage> with WidgetsBindingObserver {
           expandedHeight: 160,
           pinned: true,
           flexibleSpace: FlexibleSpaceBar(
-            title: Text(
-              DateTimeUtil.formattedDate(widget.day),
-            ),
+            title: Text(DateTimeUtil.formattedDate(context, widget.day)),
             centerTitle: true,
           ),
         ),

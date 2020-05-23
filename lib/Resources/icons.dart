@@ -53,7 +53,10 @@ class MyIcons {
     MdiIcons.toyBrick,
     MdiIcons.telescope,
     MdiIcons.spotify,
-    MdiIcons.origin
+    MdiIcons.origin,
+    MdiIcons.dumbbell,
+    MdiIcons.hanger,
+    MdiIcons.tshirtCrew
   ];
 
   static const List<IconData> incomeIcons = [

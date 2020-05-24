@@ -1,4 +1,3 @@
-import 'package:Expenseye/Resources/Strings.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 
@@ -10,7 +9,7 @@ class DeleteConfirmDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text(Strings.confirm),
+      title: Text(AppLocalizations.of(context).translate('confirm')),
       content: Text(msg),
       actions: <Widget>[
         FlatButton(

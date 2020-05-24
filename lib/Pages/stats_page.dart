@@ -5,6 +5,7 @@ import 'package:Expenseye/Components/Stats/simple_pie_chart.dart';
 import 'package:Expenseye/Models/Item.dart';
 import 'package:Expenseye/Resources/Strings.dart';
 import 'package:Expenseye/Utils/chart_util.dart';
+import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 typedef GetItems = Future<List<Item>> Function();
@@ -42,7 +43,9 @@ class StatsPage extends StatelessWidget {
                                   margin: const EdgeInsets.only(top: 20),
                                   child: Column(
                                     children: <Widget>[
-                                      Text(Strings.expenses,
+                                      Text(
+                                          AppLocalizations.of(context)
+                                              .translate('expenses'),
                                           style: Theme.of(context)
                                               .textTheme
                                               .headline5),
@@ -83,7 +86,7 @@ class StatsPage extends StatelessWidget {
             } else {
               return Align(
                 alignment: Alignment.center,
-                child: const Text(Strings.noData),
+                child: Text(AppLocalizations.of(context).translate('noData')),
               );
             }
           } else {

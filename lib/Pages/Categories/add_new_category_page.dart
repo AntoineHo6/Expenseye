@@ -28,11 +28,13 @@ class _AddNewCategoryPageState extends State<AddNewCategoryPage> {
 
   @override
   Widget build(BuildContext context) {
+    final title = widget.type == ItemType.expense
+        ? AppLocalizations.of(context).translate('expense')
+        : AppLocalizations.of(context).translate('income');
+
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          widget.type == ItemType.expense ? Strings.expense : Strings.income,
-        ),
+        title: Text(title),
       ),
       body: Column(
         mainAxisSize: MainAxisSize.min,
@@ -53,7 +55,7 @@ class _AddNewCategoryPageState extends State<AddNewCategoryPage> {
                 ),
                 Column(
                   children: <Widget>[
-                    const Text(Strings.color),
+                    Text(AppLocalizations.of(context).translate('color')),
                     ButtonTheme(
                       minWidth: 50,
                       height: 40,
@@ -121,7 +123,7 @@ class _AddNewCategoryPageState extends State<AddNewCategoryPage> {
     showDialog(
       context: context,
       child: AlertDialog(
-        title: const Text(Strings.pickAColor),
+        title: Text(AppLocalizations.of(context).translate('pickAColor')),
         content: SingleChildScrollView(
           child: ColorPicker(
             pickerColor: pickerColor,

@@ -53,7 +53,7 @@ class _EditExpense extends State<EditExpensePage> {
                       SizedBox(
                         width: double.infinity,
                         child: Text(
-                          '${Strings.name} :',
+                          '${AppLocalizations.of(context).translate('name')} :',
                           textAlign: TextAlign.left,
                           style: Theme.of(context).textTheme.headline6,
                         ),
@@ -74,7 +74,7 @@ class _EditExpense extends State<EditExpensePage> {
                       SizedBox(
                         width: double.infinity,
                         child: Text(
-                          '${Strings.price} :',
+                          '${AppLocalizations.of(context).translate('price')} :',
                           textAlign: TextAlign.left,
                           style: Theme.of(context).textTheme.headline6,
                         ),
@@ -82,7 +82,8 @@ class _EditExpense extends State<EditExpensePage> {
                       PriceTextField(
                         controller: _priceController,
                         isPriceInvalid: model.isPriceInvalid,
-                        hintText: Strings.value,
+                        hintText:
+                            AppLocalizations.of(context).translate('value'),
                         onChanged: model.infoChanged,
                       ),
                     ],

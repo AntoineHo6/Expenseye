@@ -1,5 +1,6 @@
 import 'package:Expenseye/Resources/Strings.dart';
 import 'package:Expenseye/Resources/Themes/Colors.dart';
+import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class NameTextField extends StatelessWidget {
@@ -17,7 +18,7 @@ class NameTextField extends StatelessWidget {
     return Theme(
       data: ThemeData(
         textTheme: Theme.of(context).textTheme,
-        hintColor: Colors.white,  // for the char counter
+        hintColor: Colors.white, // for the char counter
       ),
       child: TextField(
         maxLength: 50,
@@ -25,10 +26,11 @@ class NameTextField extends StatelessWidget {
         onChanged: onChanged, // required for editExpensePage for save button
         decoration: InputDecoration(
           border: InputBorder.none,
-          hintText: Strings.name,
+          hintText: AppLocalizations.of(context).translate('name'),
           hintStyle: TextStyle(color: MyColors.black24dp),
-          errorText:
-              isNameInvalid ? '${Strings.name} ${Strings.isInvalid}' : null,
+          errorText: isNameInvalid
+              ? '${AppLocalizations.of(context).translate('nameIsInvalid')}'
+              : null,
         ),
       ),
     );

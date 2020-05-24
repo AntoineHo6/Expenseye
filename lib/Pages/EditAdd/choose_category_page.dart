@@ -2,6 +2,7 @@ import 'package:Expenseye/Components/Categories/category_btn.dart';
 import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:Expenseye/Resources/Strings.dart';
+import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class ChooseCategoryPage extends StatelessWidget {
@@ -21,7 +22,7 @@ class ChooseCategoryPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(Strings.icons),
+        title: Text(AppLocalizations.of(context).translate('icons')),
       ),
       body: GridView.count(
         primary: false,

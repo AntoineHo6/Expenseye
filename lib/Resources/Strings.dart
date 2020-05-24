@@ -3,38 +3,8 @@ class Strings {
   static const String versionNumber = '1.2.4';
 
   static const String appBy = 'App by Antoine Ho, 2020';
-  static const String total = 'Total';
-  static const String name = 'Name';
-  static const String price = 'Price';
-  static const String value = 'Value';
-  static const String amount = 'Amount';
-  static const String icons = 'Icons';
-  static const String noData = 'No expenses to show in the statistics page!';
-  static const String confirm = 'Confirm';
-  static const String incomes = 'Incomes';
-  static const String expenses = 'Expenses';
-  static const String stats = 'Stats';
-  static const String categories = 'Categories';
-  static const String about = 'About';
-  static const String balance = 'Balance';
-  static const String color = 'Color';
-
-  // * QUESTIONS
-  static const String confirmMsg = 'Are you sure you want to delete?';
-
-  static const String confirmDeleteCategory =
-      'Deleting this category will subsequently delete all items of this type. Are you sure you want to delete?';
-
-  // * INSTRUCTIONS
-  static const String pickADate = 'Pick a date';
-  static const String pickAMonth = 'Pick a month';
-  static const String addAnExpense = 'Add an expense!';
-  static const String signInToAvoidLosingData =
-      'Sign In to avoid losing your data!';
-  static const String pickAColor = 'Pick a color';
 
   // * EXPENSE categories
-  static const String expense = 'Expense';
   static const String food = 'Food';
   static const String transportation = 'Transportation';
   static const String shopping = 'Shopping';
@@ -49,7 +19,6 @@ class Strings {
   static const String otherExpenses = 'Other Expenses';
 
   // * INCOME categories
-  static const String income = 'Income';
   static const String salary = 'Salary';
   static const String gift = 'Gift';
   static const String business = 'Business';
@@ -58,10 +27,6 @@ class Strings {
   static const String investment = 'Investment';
   static const String refund = 'Refund';
   static const String otherIncomes = 'Other Incomes';
-
-  // * DRAWER options
-  static const String monthly = 'Monthly';
-  static const String yearly = 'Yearly';
 
   // * ERROR messages
   static const String cantBeEmpty = 'can\'t be empty';

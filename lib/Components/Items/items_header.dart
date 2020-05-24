@@ -1,5 +1,6 @@
 import 'package:Expenseye/Resources/Strings.dart';
 import 'package:Expenseye/Resources/Themes/Colors.dart';
+import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class ItemsHeader extends StatelessWidget {
@@ -36,7 +37,7 @@ class ItemsHeader extends StatelessWidget {
                     padding: const EdgeInsets.all(10),
                     child: Column(
                       children: <Widget>[
-                        const Text(Strings.income),
+                        Text(AppLocalizations.of(context).translate('income')),
                         const SizedBox(height: 5),
                         Text(
                           '${pageModel.currentIncomeTotal.toStringAsFixed(2)} \$',
@@ -54,7 +55,7 @@ class ItemsHeader extends StatelessWidget {
                     padding: const EdgeInsets.all(10),
                     child: Column(
                       children: <Widget>[
-                        const Text(Strings.expense),
+                        Text(AppLocalizations.of(context).translate('expense')),
                         const SizedBox(height: 5),
                         Text(
                           '${pageModel.currentExpenseTotal.toStringAsFixed(2)} \$',
@@ -72,7 +73,7 @@ class ItemsHeader extends StatelessWidget {
                     padding: const EdgeInsets.all(10),
                     child: Column(
                       children: <Widget>[
-                        const Text(Strings.balance),
+                        Text(AppLocalizations.of(context).translate('balance')),
                         const SizedBox(height: 5),
                         Text(
                           '${pageModel.currentTotal.toStringAsFixed(2)} \$',

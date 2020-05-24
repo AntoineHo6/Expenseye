@@ -28,7 +28,7 @@ class _MonthlyTableCalendarPage extends State<MonthlyTableCalendarPage>
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text(Strings.pickAMonth),
+        title: Text(AppLocalizations.of(context).translate('pickAMonth')),
       ),
       body: FutureBuilder<List<Item>>(
         future: _dbModel.queryAllItems(),

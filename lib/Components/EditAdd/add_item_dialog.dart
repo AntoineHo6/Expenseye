@@ -57,7 +57,7 @@ class _AddItemDialogState extends State<AddItemDialog> {
                 PriceTextField(
                   controller: _priceController,
                   isPriceInvalid: model.isPriceInvalid,
-                  hintText: Strings.price,
+                  hintText: AppLocalizations.of(context).translate('price'),
                 ),
                 Container(
                   margin: const EdgeInsets.only(top: 20),

@@ -4,6 +4,7 @@ import 'package:Expenseye/Pages/stats_page.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:Expenseye/Providers/monthly_model.dart';
 import 'package:Expenseye/Resources/Strings.dart';
+import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -26,7 +27,7 @@ class _MonthlyHomePageState extends State<MonthlyHomePage> {
       child: Consumer<MonthlyModel>(
         builder: (context, monthlyModel, child) => Scaffold(
           appBar: AppBar(
-            title: const Text(Strings.monthly),
+            title: Text(AppLocalizations.of(context).translate('monthly')),
             actions: <Widget>[
               FlatButton(
                 textColor: Colors.white,

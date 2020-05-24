@@ -1,5 +1,6 @@
 import 'package:Expenseye/Resources/Strings.dart';
 import 'package:Expenseye/Resources/Themes/Colors.dart';
+import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class PriceTextField extends StatelessWidget {
@@ -29,8 +30,9 @@ class PriceTextField extends StatelessWidget {
           border: InputBorder.none,
           hintText: hintText,
           hintStyle: const TextStyle(color: MyColors.black24dp),
-          errorText:
-              isPriceInvalid ? '${Strings.price} ${Strings.isInvalid}' : null,
+          errorText: isPriceInvalid
+              ? '${AppLocalizations.of(context).translate('priceIsInvalid')}'
+              : null,
         ),
         keyboardType: TextInputType.numberWithOptions(decimal: true),
       ),

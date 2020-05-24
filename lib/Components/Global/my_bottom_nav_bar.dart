@@ -1,5 +1,6 @@
 import 'package:Expenseye/Resources/Strings.dart';
 import 'package:Expenseye/Resources/Themes/Colors.dart';
+import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class MyBottomNavBar extends StatefulWidget {
@@ -24,14 +25,14 @@ class _MyBottomNavBarState extends State<MyBottomNavBar> {
         BottomNavigationBarItem(
           icon: const Icon(Icons.list),
           title: Text(
-            Strings.expenses,
+            AppLocalizations.of(context).translate('list'),
             style: Theme.of(context).textTheme.bodyText2,
           ),
         ),
         BottomNavigationBarItem(
           icon: const Icon(Icons.pie_chart),
           title: Text(
-            Strings.stats,
+            AppLocalizations.of(context).translate('stats'),
             style: Theme.of(context).textTheme.bodyText2,
           ),
         ),

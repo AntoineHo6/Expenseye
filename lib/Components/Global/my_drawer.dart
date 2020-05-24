@@ -37,105 +37,106 @@ class _MyDrawerState extends State<MyDrawer> {
               ),
               child: Column(
                 children: <Widget>[
-                  Container(
-                    margin: const EdgeInsets.only(bottom: 13),
-                    child: Align(
-                      alignment: Alignment.topLeft,
-                      child: Row(
-                        children: <Widget>[
-                          Icon(Icons.remove_red_eye, color: Colors.white),
-                          const SizedBox(
-                            width: 15,
-                          ),
-                          Text(
-                            Strings.appName,
-                            style: Theme.of(context).textTheme.headline1,
-                          ),
-                        ],
+                  Expanded(
+                    child: Container(
+                      margin: const EdgeInsets.only(bottom: 13),
+                      child: Align(
+                        alignment: Alignment.topLeft,
+                        child: Row(
+                          children: <Widget>[
+                            Icon(Icons.remove_red_eye, color: Colors.white),
+                            const SizedBox(
+                              width: 15,
+                            ),
+                            Text(
+                              Strings.appName,
+                              style: Theme.of(context).textTheme.headline1,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
-                  Expanded(
-                    child: StreamBuilder(
-                      stream: FirebaseAuth.instance.onAuthStateChanged,
-                      builder: (context, AsyncSnapshot<FirebaseUser> snapshot) {
-                        if (snapshot.hasData && snapshot.data != null) {
-                          return Row(
-                            children: <Widget>[
-                              CircleAvatar(
-                                backgroundImage:
-                                    NetworkImage(snapshot.data.photoUrl),
-                                radius: 25,
+                  StreamBuilder(
+                    stream: FirebaseAuth.instance.onAuthStateChanged,
+                    builder: (context, AsyncSnapshot<FirebaseUser> snapshot) {
+                      if (snapshot.hasData && snapshot.data != null) {
+                        return Row(
+                          children: <Widget>[
+                            CircleAvatar(
+                              backgroundImage:
+                                  NetworkImage(snapshot.data.photoUrl),
+                              radius: 25,
+                            ),
+                            const SizedBox(
+                              width: 25,
+                            ),
+                            RaisedButton(
+                              color: MyColors.black06dp,
+                              child: Text(
+                                AppLocalizations.of(context)
+                                    .translate('signOut'),
+                                style: Theme.of(context).textTheme.bodyText2,
                               ),
-                              const SizedBox(
-                                width: 25,
+                              onPressed: () {
+                                if (_logOutFirstPress) {
+                                  _logOutFirstPress = false;
+                                  _logoutReset(context);
+                                }
+                              },
+                            ),
+                          ],
+                        );
+                      } else {
+                        return Column(
+                          children: <Widget>[
+                            SizedBox(
+                              width: double.infinity,
+                              child: Text(
+                                AppLocalizations.of(context)
+                                    .translate('signInToAvoidLosingData'),
+                                style: TextStyle(color: Colors.red),
                               ),
-                              RaisedButton(
-                                color: MyColors.black06dp,
-                                child: Text(
-                                  AppLocalizations.of(context)
-                                      .translate('signOut'),
-                                  style: Theme.of(context).textTheme.bodyText2,
+                            ),
+                            const SizedBox(
+                              height: 5,
+                            ),
+                            Row(
+                              children: <Widget>[
+                                CircleAvatar(
+                                  backgroundColor: Colors.white,
+                                  child: Icon(Icons.person),
+                                  radius: 25,
                                 ),
-                                onPressed: () {
-                                  if (_logOutFirstPress) {
-                                    _logOutFirstPress = false;
-                                    _logoutReset(context);
-                                  }
-                                },
-                              ),
-                            ],
-                          );
-                        } else {
-                          return Column(
-                            children: <Widget>[
-                              SizedBox(
-                                width: double.infinity,
-                                child: Text(
-                                  Strings.signInToAvoidLosingData,
-                                  style: TextStyle(color: Colors.red),
+                                const SizedBox(
+                                  width: 25,
                                 ),
-                              ),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              Row(
-                                children: <Widget>[
-                                  CircleAvatar(
-                                    backgroundColor: Colors.white,
-                                    child: Icon(Icons.person),
-                                    radius: 25,
+                                RaisedButton(
+                                  padding: const EdgeInsets.all(0),
+                                  color: MyColors.black06dp,
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: <Widget>[
+                                      Image.asset(
+                                        'assets/btn_google_img.png',
+                                        width: 180,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ],
                                   ),
-                                  const SizedBox(
-                                    width: 25,
-                                  ),
-                                  RaisedButton(
-                                    padding: const EdgeInsets.all(0),
-                                    color: MyColors.black06dp,
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: <Widget>[
-                                        Image.asset(
-                                          'assets/btn_google_img.png',
-                                          width: 180,
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ],
-                                    ),
-                                    onPressed: () {
-                                      if (_logInFirstPress) {
-                                        _logInFirstPress = false;
-                                        _loginInit(context);
-                                      }
-                                    },
-                                  ),
-                                ],
-                              ),
-                            ],
-                          );
-                        }
-                      },
-                    ),
+                                  onPressed: () {
+                                    if (_logInFirstPress) {
+                                      _logInFirstPress = false;
+                                      _loginInit(context);
+                                    }
+                                  },
+                                ),
+                              ],
+                            ),
+                          ],
+                        );
+                      }
+                    },
                   ),
                 ],
               ),
@@ -145,7 +146,7 @@ class _MyDrawerState extends State<MyDrawer> {
                   children: <Widget>[
                     Icon(MdiIcons.calendarBlank, color: Colors.white),
                     const SizedBox(width: 6),
-                    const Text(Strings.monthly),
+                    Text(AppLocalizations.of(context).translate('monthly')),
                   ],
                 ),
                 onTap: () {
@@ -157,7 +158,7 @@ class _MyDrawerState extends State<MyDrawer> {
                 children: <Widget>[
                   Icon(MdiIcons.calendarBlankMultiple, color: Colors.white),
                   const SizedBox(width: 6),
-                  const Text(Strings.yearly),
+                  Text(AppLocalizations.of(context).translate('yearly')),
                 ],
               ),
               onTap: () {
@@ -170,7 +171,7 @@ class _MyDrawerState extends State<MyDrawer> {
                   children: <Widget>[
                     Icon(MdiIcons.viewGrid, color: Colors.white),
                     const SizedBox(width: 6),
-                    const Text(Strings.categories),
+                    Text(AppLocalizations.of(context).translate('categories')),
                   ],
                 ),
                 onTap: () {
@@ -182,7 +183,7 @@ class _MyDrawerState extends State<MyDrawer> {
                   children: <Widget>[
                     Icon(Icons.info_outline, color: Colors.white),
                     const SizedBox(width: 6),
-                    const Text(Strings.about),
+                    Text(AppLocalizations.of(context).translate('about')),
                   ],
                 ),
                 onTap: () {

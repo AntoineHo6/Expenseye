@@ -1,6 +1,7 @@
 import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Pages/Categories/categories_page.dart';
 import 'package:Expenseye/Resources/Strings.dart';
+import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class CatHomePage extends StatefulWidget {
@@ -32,15 +33,15 @@ class _CatHomePageState extends State<CatHomePage>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(Strings.categories),
+        title: Text(AppLocalizations.of(context).translate('categories')),
         bottom: TabBar(controller: _tabController, tabs: <Widget>[
           Container(
             margin: const EdgeInsets.only(bottom: 15, top: 8),
-            child: const Text(Strings.expenses),
+            child: Text(AppLocalizations.of(context).translate('expenses')),
           ),
           Container(
             margin: const EdgeInsets.only(bottom: 15, top: 8),
-            child: const Text(Strings.incomes),
+            child: Text(AppLocalizations.of(context).translate('incomes')),
           ),
         ]),
       ),

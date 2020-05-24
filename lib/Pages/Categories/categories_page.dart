@@ -4,6 +4,7 @@ import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Pages/Categories/add_new_category_page.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:Expenseye/Resources/Themes/Colors.dart';
+import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -74,7 +75,9 @@ class _ItemsPageState extends State<CategoriesPage> {
   void _selectedCategory(int index, DbModel dbModel) async {
     bool confirmed = await showDialog(
       context: context,
-      builder: (_) => DeleteConfirmDialog(Strings.confirmDeleteCategory),
+      builder: (_) => DeleteConfirmDialog(
+        AppLocalizations.of(context).translate('confirmDeleteCategory'),
+      ),
     );
 
     if (confirmed != null && confirmed) {

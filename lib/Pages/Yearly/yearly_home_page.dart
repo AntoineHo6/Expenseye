@@ -4,6 +4,7 @@ import 'package:Expenseye/Pages/stats_page.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:Expenseye/Providers/yearly_model.dart';
 import 'package:Expenseye/Resources/Strings.dart';
+import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -12,7 +13,7 @@ class YearlyHomePage extends StatefulWidget {
   _YearlyHomePageState createState() => _YearlyHomePageState();
 }
 
-class _YearlyHomePageState extends State<YearlyHomePage>{
+class _YearlyHomePageState extends State<YearlyHomePage> {
   @override
   Widget build(BuildContext context) {
     final _dbModel = Provider.of<DbModel>(context, listen: false);
@@ -22,7 +23,7 @@ class _YearlyHomePageState extends State<YearlyHomePage>{
       child: Consumer<YearlyModel>(
         builder: (context, yearlyModel, child) => Scaffold(
           appBar: AppBar(
-            title: Text(Strings.yearly),
+            title: Text(AppLocalizations.of(context).translate('yearly')),
             actions: <Widget>[
               FlatButton(
                 textColor: Colors.white,
@@ -42,8 +43,7 @@ class _YearlyHomePageState extends State<YearlyHomePage>{
                 YearlyItemsPage(),
                 StatsPage(
                   localModel: yearlyModel,
-                  future: () =>
-                      _dbModel.queryItemsInYear(yearlyModel.year),
+                  future: () => _dbModel.queryItemsInYear(yearlyModel.year),
                 ),
               ],
             ),

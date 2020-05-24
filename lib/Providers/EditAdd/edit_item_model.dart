@@ -4,6 +4,7 @@ import 'package:Expenseye/Models/Item.dart';
 import 'package:Expenseye/Pages/EditAdd/choose_category_page.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
+import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -38,8 +39,7 @@ class EditItemModel extends ChangeNotifier {
     updateDate(newDate);
   }
 
-  void editItem(
-      BuildContext context, int id, String newName, String newPrice) {
+  void editItem(BuildContext context, int id, String newName, String newPrice) {
     bool areFieldsInvalid = _checkFieldsInvalid(newName, newPrice);
 
     // if all the fields are valid, update and quit
@@ -47,8 +47,7 @@ class EditItemModel extends ChangeNotifier {
       Item newItem = new Item.withId(
           id, newName, double.parse(newPrice), date, type, category);
 
-      Provider.of<DbModel>(context, listen: false)
-          .editItem(newItem);
+      Provider.of<DbModel>(context, listen: false).editItem(newItem);
       Navigator.pop(context, 1);
     }
   }
@@ -56,12 +55,13 @@ class EditItemModel extends ChangeNotifier {
   void delete(BuildContext context, int expenseId) async {
     bool confirmed = await showDialog(
       context: context,
-      builder: (_) => DeleteConfirmDialog(Strings.confirmMsg),
+      builder: (_) => DeleteConfirmDialog(
+        AppLocalizations.of(context).translate('confirmDeleteMsg'),
+      ),
     );
 
     if (confirmed != null && confirmed) {
-      Provider.of<DbModel>(context, listen: false)
-          .deleteItem(expenseId);
+      Provider.of<DbModel>(context, listen: false).deleteItem(expenseId);
       Navigator.pop(context, 2);
     }
   }

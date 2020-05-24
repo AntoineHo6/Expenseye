@@ -28,15 +28,6 @@ class Strings {
   static const String refund = 'Refund';
   static const String otherIncomes = 'Other Incomes';
 
-  // * ERROR messages
-  static const String cantBeEmpty = 'can\'t be empty';
-  static const String isInvalid = 'is invalid';
-
-  // * SNACKBAR messages
-  static const String succAdded = 'Successfully added';
-  static const String succEdited = 'Successfully edited';
-  static const String succDeleted = 'Successfully deleted';
-
   // * ITEM DATABASE table and column names
   static const String dbFileName = 'itemsDb.db';
   static const String tableItems = 'items';

@@ -56,5 +56,9 @@
     "signInToAvoidLosingData": "Connectez-vous pour éviter de perdre vos données!",
     "pickAColor": "Choisissez une couleur",
     "monthly": "Mensuel",
-    "yearly": "Annuel"
+    "yearly": "Annuel",
+    "succAdded": "Ajouté avec succès",
+    "succEdited": "Modifié avec succès",
+    "succDeleted": "Supprimé avec succès",
+    "foodName": "Nourriture"
 }

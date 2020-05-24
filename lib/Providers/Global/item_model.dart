@@ -3,10 +3,10 @@ import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Models/Item.dart';
 import 'package:Expenseye/Pages/EditAdd/edit_expense_page.dart';
 import 'package:Expenseye/Resources/Strings.dart';
+import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class ItemModel extends ChangeNotifier {
-  
   ItemModel();
 
   void showAddExpense(BuildContext context, DateTime initialDate) async {
@@ -33,7 +33,7 @@ class ItemModel extends ChangeNotifier {
 
   void showSuccAddedSnackBar(BuildContext context) {
     final snackBar = SnackBar(
-      content: Text(Strings.succAdded),
+      content: Text(AppLocalizations.of(context).translate('succAdded')),
       backgroundColor: Colors.grey.withOpacity(0.5),
     );
 
@@ -48,8 +48,9 @@ class ItemModel extends ChangeNotifier {
 
     if (action != null) {
       final snackBar = SnackBar(
-        content:
-            action == 1 ? Text(Strings.succEdited) : Text(Strings.succDeleted),
+        content: action == 1
+            ? Text(AppLocalizations.of(context).translate('succEdited'))
+            : Text(AppLocalizations.of(context).translate('succDeleted')),
         backgroundColor: Colors.grey.withOpacity(0.5),
       );
 

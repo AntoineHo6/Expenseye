@@ -56,5 +56,8 @@
     "signInToAvoidLosingData": "Sign In to avoid losing your data!",
     "pickAColor": "Pick a color",
     "monthly": "Monthly",
-    "yearly": "Yearly"
+    "yearly": "Yearly",
+    "succAdded": "Successfully added",
+    "succEdited": "Successfully edited",
+    "succDeleted": "Successfully deleted"
 }

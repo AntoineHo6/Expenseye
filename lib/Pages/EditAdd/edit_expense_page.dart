@@ -5,6 +5,7 @@ import 'package:Expenseye/Components/EditAdd/date_picker_btn.dart';
 import 'package:Expenseye/Models/Item.dart';
 import 'package:Expenseye/Providers/EditAdd/edit_item_model.dart';
 import 'package:Expenseye/Resources/Strings.dart';
+import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -106,8 +107,8 @@ class _EditExpense extends State<EditExpensePage> {
                 ),
                 RaisedButton(
                   textTheme: ButtonTextTheme.primary,
-                  child: const Text(
-                    Strings.saveCaps,
+                  child: Text(
+                    AppLocalizations.of(context).translate('saveCaps'),
                   ),
                   onPressed: model.didInfoChange
                       ? () => model.editItem(

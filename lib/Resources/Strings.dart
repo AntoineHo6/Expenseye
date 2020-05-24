@@ -1,20 +1,8 @@
 class Strings {
   static const String appName = 'Expenseye';
-  static const String versionNumber = '1.2.3';
-
-  // * BUTTON messages
-  static const String addCaps = 'ADD';
-  static const String submitCaps = 'SUBMIT';
-  static const String cancelCaps = 'CANCEL';
-  static const String saveCaps = 'SAVE';
-  static const String confirmCaps = 'CONFIRM';
-  static const String chooseMonthCaps = 'CHOOSE MONTH';
-  static const String signInWithGoogle = 'Sign in with Google';
-  static const String signOut = 'Sign Out';
+  static const String versionNumber = '1.2.4';
 
   static const String appBy = 'App by Antoine Ho, 2020';
-  static const String newExpense = 'New Expense';
-  static const String newIncome = 'New Income';
   static const String total = 'Total';
   static const String name = 'Name';
   static const String price = 'Price';

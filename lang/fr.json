@@ -22,5 +22,14 @@
     "sep": "Septembre",
     "oct": "Octobre",
     "nov": "Novembre",
-    "dec": "Decembre"
+    "dec": "Decembre",
+    "addCaps": "AJOUTER",
+    "submitCaps": "SOUMETTRE",
+    "cancelCaps": "ANNULER",
+    "saveCaps": "SAUVEGARDER",
+    "confirmCaps": "CONFIRMER",
+    "selectMonthCaps": "SÉLECTIONNEZ LE MOIS",
+    "signOut": "Déconnexion",
+    "newExpense": "Nouvelle Dépense",
+    "newIncome": "Nouveau Revenu"
 }

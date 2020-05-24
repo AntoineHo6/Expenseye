@@ -5,6 +5,7 @@ import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Providers/EditAdd/add_item_model.dart';
 import 'package:Expenseye/Components/EditAdd/date_picker_btn.dart';
 import 'package:Expenseye/Resources/Strings.dart';
+import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -27,10 +28,10 @@ class _AddItemDialogState extends State<AddItemDialog> {
     String title;
     Icon icon;
     if (widget.type == ItemType.expense) {
-      title = Strings.newExpense;
+      title = AppLocalizations.of(context).translate('newExpense');
       icon = Icon(Icons.attach_money, color: Colors.white);
     } else {
-      title = Strings.newIncome;
+      title = AppLocalizations.of(context).translate('newIncome');
       icon = Icon(Icons.account_balance_wallet, color: Colors.white);
     }
 
@@ -82,12 +83,12 @@ class _AddItemDialogState extends State<AddItemDialog> {
           actions: <Widget>[
             FlatButton(
               textColor: Colors.white,
-              child: Text(Strings.cancelCaps),
+              child: Text(AppLocalizations.of(context).translate('cancelCaps')),
               onPressed: () => Navigator.pop(context, false),
             ),
             FlatButton(
               textColor: Colors.white,
-              child: Text(Strings.submitCaps),
+              child: Text(AppLocalizations.of(context).translate('submitCaps')),
               onPressed: () => model.addItem(
                   context, _nameController.text, _priceController.text),
             ),

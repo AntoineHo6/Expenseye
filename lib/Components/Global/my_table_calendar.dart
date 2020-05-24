@@ -1,5 +1,6 @@
 import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:Expenseye/Resources/Themes/Colors.dart';
+import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -18,6 +19,7 @@ class MyTableCalendar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TableCalendar(
+      locale: AppLocalizations.of(context).locale.languageCode,
       headerStyle: HeaderStyle(
         leftChevronIcon: const Icon(Icons.chevron_left, color: Colors.white),
         rightChevronIcon: const Icon(Icons.chevron_right, color: Colors.white),

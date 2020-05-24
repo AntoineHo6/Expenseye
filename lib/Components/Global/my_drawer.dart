@@ -6,6 +6,7 @@ import 'package:Expenseye/Pages/about_page.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:Expenseye/Resources/Strings.dart';
 import 'package:Expenseye/Resources/Themes/Colors.dart';
+import 'package:Expenseye/app_localizations.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -72,7 +73,8 @@ class _MyDrawerState extends State<MyDrawer> {
                               RaisedButton(
                                 color: MyColors.black06dp,
                                 child: Text(
-                                  Strings.signOut,
+                                  AppLocalizations.of(context)
+                                      .translate('signOut'),
                                   style: Theme.of(context).textTheme.bodyText2,
                                 ),
                                 onPressed: () {

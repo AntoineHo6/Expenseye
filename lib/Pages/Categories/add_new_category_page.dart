@@ -6,6 +6,7 @@ import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:Expenseye/Resources/Strings.dart';
 import 'package:Expenseye/Resources/Themes/Colors.dart';
 import 'package:Expenseye/Resources/icons.dart';
+import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
@@ -81,8 +82,8 @@ class _AddNewCategoryPageState extends State<AddNewCategoryPage> {
             child: SizedBox(
               width: double.infinity,
               child: RaisedButton(
-                child: const Text(
-                  Strings.addCaps,
+                child: Text(
+                  AppLocalizations.of(context).translate('addCaps'),
                   style: TextStyle(color: Colors.white),
                 ),
                 onPressed: (selectedIconIndex != null && isNameInvalid == false)
@@ -133,7 +134,7 @@ class _AddNewCategoryPageState extends State<AddNewCategoryPage> {
         actions: <Widget>[
           FlatButton(
             textColor: Colors.white,
-            child: const Text(Strings.confirmCaps),
+            child: Text(AppLocalizations.of(context).translate('confirmCaps')),
             onPressed: () {
               setState(() => currentColor = pickerColor);
               Navigator.of(context).pop();

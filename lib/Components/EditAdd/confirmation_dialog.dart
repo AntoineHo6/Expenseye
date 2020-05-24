@@ -1,4 +1,5 @@
 import 'package:Expenseye/Resources/Strings.dart';
+import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class DeleteConfirmDialog extends StatelessWidget {
@@ -15,16 +16,12 @@ class DeleteConfirmDialog extends StatelessWidget {
         FlatButton(
           onPressed: () => Navigator.pop(context, false),
           textColor: Colors.white,
-          child: const Text(
-            Strings.cancelCaps,
-          ),
+          child: Text(AppLocalizations.of(context).translate('cancelCaps')),
         ),
         FlatButton(
           onPressed: () => Navigator.pop(context, true),
           textColor: Colors.white,
-          child: const Text(
-            Strings.confirmCaps,
-          ),
+          child: Text(AppLocalizations.of(context).translate('confirmCaps')),
         ),
       ],
     );

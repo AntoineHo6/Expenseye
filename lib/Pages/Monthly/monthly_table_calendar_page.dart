@@ -4,6 +4,7 @@ import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:Expenseye/Resources/Strings.dart';
 import 'package:Expenseye/Resources/Themes/Colors.dart';
 import 'package:Expenseye/Utils/table_calendar_util.dart';
+import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -49,7 +50,9 @@ class _MonthlyTableCalendarPage extends State<MonthlyTableCalendarPage>
                   RaisedButton(
                     color: MyColors.black02dp,
                     textTheme: ButtonTextTheme.primary,
-                    child: Text(Strings.chooseMonthCaps),
+                    child: Text(
+                      AppLocalizations.of(context).translate('selectMonthCaps'),
+                    ),
                     onPressed: _quit,
                   ),
                 ],

@@ -29,6 +29,14 @@ class MyApp extends StatelessWidget {
             GlobalWidgetsLocalizations.delegate,
             DefaultCupertinoLocalizations.delegate
           ],
+          localeResolutionCallback: (locale, supportedLocales) {
+            for (var supportedLocale in supportedLocales) {
+              if (supportedLocale.languageCode == locale.languageCode) {
+                return supportedLocale;
+              }
+            }
+            return supportedLocales.first;
+          },
           home: Scaffold(
             body: DailyPage(),
           ),
@@ -43,7 +51,7 @@ class MyApp extends StatelessWidget {
               backgroundColor: MyColors.secondary,
             ),
             textTheme: TextTheme(
-              headline1: TextStyle(fontSize: 40, color: Colors.white),
+              headline1: TextStyle(fontSize: 32, color: Colors.white),
               headline2: TextStyle(color: Colors.white),
               headline3: TextStyle(color: Colors.white),
               headline4: TextStyle(color: Colors.white),

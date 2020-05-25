@@ -18,7 +18,7 @@ class AboutPage extends StatelessWidget {
             const Text('Version: ${Strings.versionNumber}'),
             const SizedBox(height: 10),
             Text(
-              Strings.appBy,
+              AppLocalizations.of(context).translate("appBy"),
               style: Theme.of(context).textTheme.headline5,
             ),
           ],

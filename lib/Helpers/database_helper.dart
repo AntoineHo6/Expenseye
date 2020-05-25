@@ -66,6 +66,7 @@ class DatabaseHelper {
           )
           ''');
 
+    print('Inserting default categories');
     await _insertDefaultCategories(db);
 
     print('Creating reccurrent expenses table');
@@ -252,7 +253,7 @@ class DatabaseHelper {
         peopleName,
         educationName,
         otherExpensesName;
-
+    // Incomes
     String salaryName,
         giftName,
         businessName,
@@ -263,153 +264,180 @@ class DatabaseHelper {
         otherIncomesName;
 
     switch (languageCode) {
-      case 'fr':
-        foodName = 'Nourriture';
-        break;
       case 'en':
-        foodName = Strings.food;
-        transportationName = Strings.transportation;
-        entertainmentName = Strings.entertainment;
-        activityName = Strings.activity;
-        medicalName = Strings.medical;
-        homeName = Strings.home;
-        travelName = Strings.travel;
-        peopleName = Strings.people;
-        educationName = Strings.education;
-        otherExpensesName = Strings.otherExpenses;
+        foodName = Strings.foodEN;
+        transportationName = Strings.transportationEN;
+        shoppingName = Strings.shoppingEN;
+        entertainmentName = Strings.entertainmentEN;
+        activityName = Strings.activityEN;
+        medicalName = Strings.medicalEN;
+        homeName = Strings.homeEN;
+        travelName = Strings.travelEN;
+        peopleName = Strings.peopleEN;
+        educationName = Strings.educationEN;
+        otherExpensesName = Strings.otherExpensesEN;
+        salaryName = Strings.salaryEN;
+        giftName = Strings.giftEN;
+        businessName = Strings.businessEN;
+        insuranceName = Strings.insuranceEN;
+        realEstateName = Strings.realEstateEN;
+        investmentName = Strings.investmentEN;
+        refundName = Strings.refundEN;
+        otherIncomesName = Strings.otherIncomesEN;
+        break;
+      case 'fr':
+        foodName = Strings.foodFR;
+        transportationName = Strings.transportationFR;
+        shoppingName = Strings.shoppingFR;
+        entertainmentName = Strings.entertainmentFR;
+        activityName = Strings.activityFR;
+        medicalName = Strings.medicalFR;
+        homeName = Strings.homeFR;
+        travelName = Strings.travelFR;
+        peopleName = Strings.peopleFR;
+        educationName = Strings.educationFR;
+        otherExpensesName = Strings.otherExpensesFR;
+        salaryName = Strings.salaryFR;
+        giftName = Strings.giftFR;
+        businessName = Strings.businessFR;
+        insuranceName = Strings.insuranceFR;
+        realEstateName = Strings.realEstateFR;
+        investmentName = Strings.investmentFR;
+        refundName = Strings.refundFR;
+        otherIncomesName = Strings.otherIncomesFR;
         break;
     }
 
     return [
       Category(
-        id: Strings.food.toLowerCase(),
+        id: Strings.foodEN.toLowerCase(),
         name: foodName,
         iconData: MdiIcons.silverware,
         color: Color(0xffff8533),
         type: ItemType.expense,
       ),
       Category(
-        id: Strings.transportation.toLowerCase(),
+        id: Strings.transportationEN.toLowerCase(),
         name: transportationName,
         iconData: MdiIcons.car,
         color: Colors.yellow,
         type: ItemType.expense,
       ),
       Category(
-        id: Strings.shopping.toLowerCase(),
+        id: Strings.shoppingEN.toLowerCase(),
         name: shoppingName,
         iconData: MdiIcons.cart,
         color: Color(0xffac3973),
         type: ItemType.expense,
       ),
       Category(
-        id: Strings.entertainment.toLowerCase(),
+        id: Strings.entertainmentEN.toLowerCase(),
         name: entertainmentName,
         iconData: MdiIcons.movie,
         color: Color(0xff66ccff),
         type: ItemType.expense,
       ),
       Category(
-        id: Strings.activity.toLowerCase(),
+        id: Strings.activityEN.toLowerCase(),
         name: activityName,
         iconData: MdiIcons.emoticonOutline,
         color: Color(0xffff66cc),
         type: ItemType.expense,
       ),
       Category(
-        id: Strings.medical.toLowerCase(),
+        id: Strings.medicalEN.toLowerCase(),
         name: medicalName,
         iconData: MdiIcons.medicalBag,
         color: Color(0xffff3333),
         type: ItemType.expense,
       ),
       Category(
-        id: Strings.home.toLowerCase(),
+        id: Strings.homeEN.toLowerCase(),
         name: homeName,
         iconData: MdiIcons.home,
         color: Color(0xffcc9966),
         type: ItemType.expense,
       ),
       Category(
-        id: Strings.travel.toLowerCase(),
+        id: Strings.travelEN.toLowerCase(),
         name: travelName,
         iconData: MdiIcons.airplane,
         color: Color(0xffcc6600),
         type: ItemType.expense,
       ),
       Category(
-        id: Strings.people.toLowerCase(),
+        id: Strings.peopleEN.toLowerCase(),
         name: peopleName,
         iconData: MdiIcons.accountMultiple,
         color: Color(0xff3377ff),
         type: ItemType.expense,
       ),
       Category(
-        id: Strings.education.toLowerCase(),
+        id: Strings.educationEN.toLowerCase(),
         name: educationName,
         iconData: MdiIcons.school,
         color: Color(0xff9933ff),
         type: ItemType.expense,
       ),
       Category(
-        id: Strings.otherExpenses.toLowerCase(),
+        id: Strings.otherExpensesEN.toLowerCase(),
         name: otherExpensesName,
         iconData: MdiIcons.folderDownload,
         color: Colors.white,
         type: ItemType.expense,
       ),
       Category(
-        id: Strings.salary.toLowerCase(),
-        name: Strings.salary,
+        id: Strings.salaryEN.toLowerCase(),
+        name: salaryName,
         iconData: MdiIcons.currencyUsd,
         color: Colors.green,
         type: ItemType.income,
       ),
       Category(
-        id: Strings.gift.toLowerCase(),
-        name: Strings.gift,
+        id: Strings.giftEN.toLowerCase(),
+        name: giftName,
         iconData: MdiIcons.walletGiftcard,
         color: Color(0xffb84dff),
         type: ItemType.income,
       ),
       Category(
-        id: Strings.business.toLowerCase(),
-        name: Strings.business,
+        id: Strings.businessEN.toLowerCase(),
+        name: businessName,
         iconData: MdiIcons.briefcase,
         color: Color(0xff1a8cff),
         type: ItemType.income,
       ),
       Category(
-        id: Strings.insurance.toLowerCase(),
-        name: Strings.insurance,
+        id: Strings.insuranceEN.toLowerCase(),
+        name: insuranceName,
         iconData: MdiIcons.bank,
         color: Color(0xff6666ff),
         type: ItemType.income,
       ),
       Category(
-        id: Strings.realEstate.toLowerCase(),
-        name: Strings.realEstate,
+        id: Strings.realEstateEN.toLowerCase(),
+        name: realEstateName,
         iconData: MdiIcons.homeGroup,
         color: Color(0xffccccff),
         type: ItemType.income,
       ),
       Category(
-        id: Strings.investment.toLowerCase(),
-        name: Strings.investment,
+        id: Strings.investmentEN.toLowerCase(),
+        name: investmentName,
         iconData: MdiIcons.trendingUp,
         color: Color(0xff00e673),
         type: ItemType.income,
       ),
       Category(
-        id: Strings.refund.toLowerCase(),
-        name: Strings.refund,
+        id: Strings.refundEN.toLowerCase(),
+        name: refundName,
         iconData: MdiIcons.swapVerticalBold,
         color: Color(0xff66ffff),
         type: ItemType.income,
       ),
       Category(
-        id: Strings.otherIncomes.toLowerCase(),
-        name: Strings.otherIncomes,
+        id: Strings.otherIncomesEN.toLowerCase(),
+        name: otherIncomesName,
         iconData: MdiIcons.folderUpload,
         color: Colors.white,
         type: ItemType.income,

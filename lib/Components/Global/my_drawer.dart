@@ -49,7 +49,7 @@ class _MyDrawerState extends State<MyDrawer> {
                               width: 15,
                             ),
                             Text(
-                              Strings.appName,
+                              AppLocalizations.of(context).translate("appName"),
                               style: Theme.of(context).textTheme.headline1,
                             ),
                           ],

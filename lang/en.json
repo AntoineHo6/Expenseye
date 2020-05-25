@@ -60,5 +60,6 @@
     "succAdded": "Successfully added",
     "succEdited": "Successfully edited",
     "succDeleted": "Successfully deleted",
-    "foodName": "Food"
+    "appBy": "App by Antoine Ho, 2020",
+    "appName": "Expenseye"
 }

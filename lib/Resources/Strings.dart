@@ -1,32 +1,49 @@
 class Strings {
-  static const String appName = 'Expenseye';
   static const String versionNumber = '1.2.4';
 
-  static const String appBy = 'App by Antoine Ho, 2020';
+  // * EXPENSE categories EN
+  static const String foodEN = 'Food';
+  static const String transportationEN = 'Transport';
+  static const String shoppingEN = 'Shopping';
+  static const String entertainmentEN = 'Entertainment';
+  static const String activityEN = 'Activity';
+  static const String medicalEN = 'Medical';
+  static const String homeEN = 'Home';
+  static const String travelEN = 'Travel';
+  static const String peopleEN = 'People';
+  static const String educationEN = 'Education';
+  static const String otherExpensesEN = 'Other Expenses';
+  // * EXPENSE categories FR
+  static const String foodFR = 'Nourriture';
+  static const String transportationFR = 'Transportation';
+  static const String shoppingFR = 'Magazinage';
+  static const String entertainmentFR = 'Divertissement';
+  static const String activityFR = 'Activité';
+  static const String medicalFR = 'Médical';
+  static const String homeFR = 'Domicile';
+  static const String travelFR = 'Voyage';
+  static const String peopleFR = 'Gens'; 
+  static const String educationFR = 'Éducation';
+  static const String otherExpensesFR = 'Autres Dépenses';
 
-  // * EXPENSE categories
-  static const String food = 'Food';
-  static const String transportation = 'Transportation';
-  static const String shopping = 'Shopping';
-  static const String entertainment = 'Entertainment';
-  static const String activity = 'Activity';
-  static const String medical = 'Medical';
-  static const String home = 'Home';
-  static const String travel = 'Travel';
-  static const String people = 'People';
-  static const String education = 'Education';
-  static const String others = 'Others';
-  static const String otherExpenses = 'Other Expenses';
-
-  // * INCOME categories
-  static const String salary = 'Salary';
-  static const String gift = 'Gift';
-  static const String business = 'Business';
-  static const String insurance = 'Insurance';
-  static const String realEstate = 'Real Estate';
-  static const String investment = 'Investment';
-  static const String refund = 'Refund';
-  static const String otherIncomes = 'Other Incomes';
+  // * INCOME categories EN
+  static const String salaryEN = 'Salary';
+  static const String giftEN = 'Gift';
+  static const String businessEN = 'Business';
+  static const String insuranceEN = 'Insurance';
+  static const String realEstateEN = 'Real Estate';
+  static const String investmentEN = 'Investment';
+  static const String refundEN = 'Refund';
+  static const String otherIncomesEN = 'Other Incomes';
+  // * INCOME categories FR
+  static const String salaryFR = 'Salaire';
+  static const String giftFR = 'Cadeau';
+  static const String businessFR = 'Affaire';
+  static const String insuranceFR = 'Assurance';
+  static const String realEstateFR = 'Immobilier';
+  static const String investmentFR = 'Investissement';
+  static const String refundFR = 'Remboursement';
+  static const String otherIncomesFR = 'Autres Revenus';
 
   // * ITEM DATABASE table and column names
   static const String dbFileName = 'itemsDb.db';

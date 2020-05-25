@@ -59,5 +59,6 @@
     "yearly": "Yearly",
     "succAdded": "Successfully added",
     "succEdited": "Successfully edited",
-    "succDeleted": "Successfully deleted"
+    "succDeleted": "Successfully deleted",
+    "foodName": "Food"
 }

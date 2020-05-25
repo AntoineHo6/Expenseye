@@ -1,3 +1,4 @@
+import 'package:Expenseye/Helpers/database_helper.dart';
 import 'package:Expenseye/Pages/daily_page.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:Expenseye/Providers/Global/item_model.dart';
@@ -32,9 +33,11 @@ class MyApp extends StatelessWidget {
           localeResolutionCallback: (locale, supportedLocales) {
             for (var supportedLocale in supportedLocales) {
               if (supportedLocale.languageCode == locale.languageCode) {
+                DatabaseHelper.instance.languageCode = locale.languageCode;
                 return supportedLocale;
               }
             }
+            DatabaseHelper.instance.languageCode = supportedLocales.first.languageCode;
             return supportedLocales.first;
           },
           home: Scaffold(

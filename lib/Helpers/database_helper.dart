@@ -1,8 +1,11 @@
 import 'dart:io';
+import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Models/Category.dart';
 import 'package:Expenseye/Models/Item.dart';
 import 'package:Expenseye/Resources/Strings.dart';
-import 'package:Expenseye/Utils/default_categories.dart';
+import 'package:Expenseye/app_localizations.dart';
+import 'package:flutter/material.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
@@ -20,6 +23,9 @@ class DatabaseHelper {
 
   // Only allow a single open connection to the database.
   static Database _database;
+
+  String languageCode;
+
   Future<Database> get database async {
     if (_database != null) return _database;
     _database = await _initDatabase();
@@ -184,14 +190,14 @@ class DatabaseHelper {
   }
 
   Future<void> _insertDefaultCategories(Database db) async {
-    for (var category in DefaultCategories.categories) {
+    for (var category in defaultCategories()) {
       await db.insert(Strings.tableCategories, category.toMap());
     }
   }
 
   Future<void> insertDefaultCategories() async {
     Database db = await database;
-    for (var category in DefaultCategories.categories) {
+    for (var category in defaultCategories()) {
       await db.insert(Strings.tableCategories, category.toMap());
     }
   }
@@ -231,5 +237,183 @@ class DatabaseHelper {
   Future<void> deleteAllCategories() async {
     Database db = await database;
     await db.rawQuery('DELETE FROM ${Strings.tableCategories}');
+  }
+
+  List<Category> defaultCategories() {
+    // Expenses
+    String foodName,
+        transportationName,
+        shoppingName,
+        entertainmentName,
+        activityName,
+        medicalName,
+        homeName,
+        travelName,
+        peopleName,
+        educationName,
+        otherExpensesName;
+
+    String salaryName,
+        giftName,
+        businessName,
+        insuranceName,
+        realEstateName,
+        investmentName,
+        refundName,
+        otherIncomesName;
+
+    switch (languageCode) {
+      case 'fr':
+        foodName = 'Nourriture';
+        break;
+      case 'en':
+        foodName = Strings.food;
+        transportationName = Strings.transportation;
+        entertainmentName = Strings.entertainment;
+        activityName = Strings.activity;
+        medicalName = Strings.medical;
+        homeName = Strings.home;
+        travelName = Strings.travel;
+        peopleName = Strings.people;
+        educationName = Strings.education;
+        otherExpensesName = Strings.otherExpenses;
+        break;
+    }
+
+    return [
+      Category(
+        id: Strings.food.toLowerCase(),
+        name: foodName,
+        iconData: MdiIcons.silverware,
+        color: Color(0xffff8533),
+        type: ItemType.expense,
+      ),
+      Category(
+        id: Strings.transportation.toLowerCase(),
+        name: transportationName,
+        iconData: MdiIcons.car,
+        color: Colors.yellow,
+        type: ItemType.expense,
+      ),
+      Category(
+        id: Strings.shopping.toLowerCase(),
+        name: shoppingName,
+        iconData: MdiIcons.cart,
+        color: Color(0xffac3973),
+        type: ItemType.expense,
+      ),
+      Category(
+        id: Strings.entertainment.toLowerCase(),
+        name: entertainmentName,
+        iconData: MdiIcons.movie,
+        color: Color(0xff66ccff),
+        type: ItemType.expense,
+      ),
+      Category(
+        id: Strings.activity.toLowerCase(),
+        name: activityName,
+        iconData: MdiIcons.emoticonOutline,
+        color: Color(0xffff66cc),
+        type: ItemType.expense,
+      ),
+      Category(
+        id: Strings.medical.toLowerCase(),
+        name: medicalName,
+        iconData: MdiIcons.medicalBag,
+        color: Color(0xffff3333),
+        type: ItemType.expense,
+      ),
+      Category(
+        id: Strings.home.toLowerCase(),
+        name: homeName,
+        iconData: MdiIcons.home,
+        color: Color(0xffcc9966),
+        type: ItemType.expense,
+      ),
+      Category(
+        id: Strings.travel.toLowerCase(),
+        name: travelName,
+        iconData: MdiIcons.airplane,
+        color: Color(0xffcc6600),
+        type: ItemType.expense,
+      ),
+      Category(
+        id: Strings.people.toLowerCase(),
+        name: peopleName,
+        iconData: MdiIcons.accountMultiple,
+        color: Color(0xff3377ff),
+        type: ItemType.expense,
+      ),
+      Category(
+        id: Strings.education.toLowerCase(),
+        name: educationName,
+        iconData: MdiIcons.school,
+        color: Color(0xff9933ff),
+        type: ItemType.expense,
+      ),
+      Category(
+        id: Strings.otherExpenses.toLowerCase(),
+        name: otherExpensesName,
+        iconData: MdiIcons.folderDownload,
+        color: Colors.white,
+        type: ItemType.expense,
+      ),
+      Category(
+        id: Strings.salary.toLowerCase(),
+        name: Strings.salary,
+        iconData: MdiIcons.currencyUsd,
+        color: Colors.green,
+        type: ItemType.income,
+      ),
+      Category(
+        id: Strings.gift.toLowerCase(),
+        name: Strings.gift,
+        iconData: MdiIcons.walletGiftcard,
+        color: Color(0xffb84dff),
+        type: ItemType.income,
+      ),
+      Category(
+        id: Strings.business.toLowerCase(),
+        name: Strings.business,
+        iconData: MdiIcons.briefcase,
+        color: Color(0xff1a8cff),
+        type: ItemType.income,
+      ),
+      Category(
+        id: Strings.insurance.toLowerCase(),
+        name: Strings.insurance,
+        iconData: MdiIcons.bank,
+        color: Color(0xff6666ff),
+        type: ItemType.income,
+      ),
+      Category(
+        id: Strings.realEstate.toLowerCase(),
+        name: Strings.realEstate,
+        iconData: MdiIcons.homeGroup,
+        color: Color(0xffccccff),
+        type: ItemType.income,
+      ),
+      Category(
+        id: Strings.investment.toLowerCase(),
+        name: Strings.investment,
+        iconData: MdiIcons.trendingUp,
+        color: Color(0xff00e673),
+        type: ItemType.income,
+      ),
+      Category(
+        id: Strings.refund.toLowerCase(),
+        name: Strings.refund,
+        iconData: MdiIcons.swapVerticalBold,
+        color: Color(0xff66ffff),
+        type: ItemType.income,
+      ),
+      Category(
+        id: Strings.otherIncomes.toLowerCase(),
+        name: Strings.otherIncomes,
+        iconData: MdiIcons.folderUpload,
+        color: Colors.white,
+        type: ItemType.income,
+      )
+    ];
   }
 }

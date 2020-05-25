@@ -209,7 +209,7 @@ class _MyDrawerState extends State<MyDrawer> {
     List<Category> localCategories = await _dbModel.queryCategories();
 
     bool isLoggedIn = await _firebaseModel.loginWithGoogle();
-    await _dbModel.initCategoriesMap();
+    await _dbModel.initUserCategoriesMap();
 
     List<Category> accCategories = await _dbModel.queryCategories();
 

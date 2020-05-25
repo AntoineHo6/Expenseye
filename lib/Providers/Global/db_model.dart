@@ -8,10 +8,11 @@ import 'package:flutter/material.dart';
 class DbModel extends ChangeNotifier {
   final DatabaseHelper _dbHelper = DatabaseHelper.instance;
   static Map<String, Category> catMap = new Map();
+  static List<Category> categories = new List();
 
   DbModel() {
     initConnectedUser();
-    initCategoriesMap();
+    initUserCategoriesMap();
   }
 
   void initConnectedUser() async {
@@ -49,7 +50,7 @@ class DbModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> initCategoriesMap() async {
+  Future<void> initUserCategoriesMap() async {
     List<Category> categories = await _dbHelper.queryCategories();
     catMap.clear();
     for (var category in categories) {
@@ -96,7 +97,7 @@ class DbModel extends ChangeNotifier {
 
   Future<void> deleteCategory(String categoryId) async {
     await _dbHelper.deleteCategory(categoryId);
-    await initCategoriesMap();
+    await initUserCategoriesMap();
     notifyListeners();
   }
 
@@ -108,7 +109,7 @@ class DbModel extends ChangeNotifier {
   Future<void> _resetCategories() async {
     await _dbHelper.deleteAllCategories();
     await _dbHelper.insertDefaultCategories();
-    await initCategoriesMap();
+    await initUserCategoriesMap();
     notifyListeners();
   }
 

@@ -69,7 +69,9 @@ class _ItemsPageState extends State<CategoriesPage> {
       MaterialPageRoute(
         builder: (context) => AddNewCategoryPage(widget.type),
       ),
-    );
+    ).then((value) {
+      setState(() {});  // to update categories when a new one is added
+    });
   }
 
   void _selectedCategory(int index, DbModel dbModel) async {

@@ -8,8 +8,6 @@ import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../Resources/Strings.dart';
-
 class EditItemModel extends ChangeNotifier {
   bool didInfoChange = false;
   bool isNameInvalid = false;

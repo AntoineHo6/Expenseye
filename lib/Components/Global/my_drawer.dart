@@ -38,22 +38,19 @@ class _MyDrawerState extends State<MyDrawer> {
               child: Column(
                 children: <Widget>[
                   Expanded(
-                    child: Container(
-                      margin: const EdgeInsets.only(bottom: 13),
-                      child: Align(
-                        alignment: Alignment.topLeft,
-                        child: Row(
-                          children: <Widget>[
-                            Icon(Icons.remove_red_eye, color: Colors.white),
-                            const SizedBox(
-                              width: 15,
-                            ),
-                            Text(
-                              AppLocalizations.of(context).translate("appName"),
-                              style: Theme.of(context).textTheme.headline1,
-                            ),
-                          ],
-                        ),
+                    child: Align(
+                      alignment: Alignment.topLeft,
+                      child: Row(
+                        children: <Widget>[
+                          Icon(Icons.remove_red_eye, color: Colors.white),
+                          const SizedBox(
+                            width: 15,
+                          ),
+                          Text(
+                            AppLocalizations.of(context).translate("appName"),
+                            style: Theme.of(context).textTheme.headline1,
+                          ),
+                        ],
                       ),
                     ),
                   ),

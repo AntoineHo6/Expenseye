@@ -1,6 +1,7 @@
 import 'package:Expenseye/Components/Global/add_item_fab.dart';
 import 'package:Expenseye/Components/Global/my_drawer.dart';
 import 'package:Expenseye/Components/Items/item_list_tile.dart';
+import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Helpers/google_firebase_helper.dart';
 import 'package:Expenseye/Models/Item.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
@@ -102,7 +103,9 @@ class _DailyPageState extends State<DailyPage> with WidgetsBindingObserver {
                     padding: EdgeInsets.all(15),
                     margin: EdgeInsets.fromLTRB(10, 20, 10, 0),
                     decoration: BoxDecoration(
-                      color: MyColors.black06dp,
+                      color: item.type == ItemType.expense
+                          ? MyColors.expenseColor
+                          : MyColors.incomeColor,
                       borderRadius: BorderRadius.circular(15),
                     ),
                     child: ItemListTile(

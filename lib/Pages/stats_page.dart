@@ -1,4 +1,4 @@
-import 'package:Expenseye/Components/Global/my_drawer.dart';
+import 'package:Expenseye/Components/Drawer/my_drawer.dart';
 import 'package:Expenseye/Components/Stats/category_stats_container.dart';
 import 'package:Expenseye/Components/Stats/legend_container.dart';
 import 'package:Expenseye/Components/Stats/simple_pie_chart.dart';

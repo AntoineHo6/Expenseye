@@ -17,10 +17,10 @@ class ItemsHeader extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Container(
-              margin: const EdgeInsets.only(bottom: 25),
+              margin: const EdgeInsets.only(bottom: 15),
               child: Text(
                 pageModel.getTitle(context),
-                style: Theme.of(context).textTheme.headline1,
+                style: TextStyle(fontSize: 50, fontWeight: FontWeight.w100),
               ),
             ),
             Container(

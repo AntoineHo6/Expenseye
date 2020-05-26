@@ -75,7 +75,6 @@ class MonthlyItemsPage extends StatelessWidget {
     );
   }
 
-  // ? Move to components?
   List<Container> _expensesSplitByDayToContainers(
       BuildContext context, List<List<Item>> expensesSplitByDay) {
     // ? pass models by arg?

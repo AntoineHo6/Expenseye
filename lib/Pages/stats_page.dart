@@ -3,7 +3,6 @@ import 'package:Expenseye/Components/Stats/category_stats_container.dart';
 import 'package:Expenseye/Components/Stats/legend_container.dart';
 import 'package:Expenseye/Components/Stats/simple_pie_chart.dart';
 import 'package:Expenseye/Models/Item.dart';
-import 'package:Expenseye/Resources/Strings.dart';
 import 'package:Expenseye/Utils/chart_util.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';

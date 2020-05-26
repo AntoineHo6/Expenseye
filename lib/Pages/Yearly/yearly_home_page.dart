@@ -3,7 +3,6 @@ import 'package:Expenseye/Pages/Yearly/yearly_items_page.dart';
 import 'package:Expenseye/Pages/stats_page.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:Expenseye/Providers/yearly_model.dart';
-import 'package:Expenseye/Resources/Strings.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

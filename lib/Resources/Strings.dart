@@ -1,9 +1,9 @@
 class Strings {
-  static const String versionNumber = '1.3.1';
+  static const String versionNumber = '1.3.2';
 
   // * EXPENSE categories EN
   static const String foodEN = 'Food';
-  static const String transportationEN = 'Transport';
+  static const String transportationEN = 'Transportation';
   static const String shoppingEN = 'Shopping';
   static const String entertainmentEN = 'Entertainment';
   static const String activityEN = 'Activity';
@@ -15,7 +15,7 @@ class Strings {
   static const String otherExpensesEN = 'Other Expenses';
   // * EXPENSE categories FR
   static const String foodFR = 'Nourriture';
-  static const String transportationFR = 'Transportation';
+  static const String transportationFR = 'Transport';
   static const String shoppingFR = 'Magazinage';
   static const String entertainmentFR = 'Divertissement';
   static const String activityFR = 'Activité';

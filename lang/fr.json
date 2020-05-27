@@ -61,5 +61,6 @@
     "succEdited": "Modifié avec succès",
     "succDeleted": "Supprimé avec succès",
     "appBy": "Application créé par Antoine Ho, 2020",
-    "appName": "Expenseye"
+    "appName": "Expenseye",
+    "recurrentItems": "Éléments Récurrents"
 }

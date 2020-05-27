@@ -61,5 +61,6 @@
     "succEdited": "Successfully edited",
     "succDeleted": "Successfully deleted",
     "appBy": "App by Antoine Ho, 2020",
-    "appName": "Expenseye"
+    "appName": "Expenseye",
+    "recurrentItems": "Recurrent Items"
 }

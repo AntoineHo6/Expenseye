@@ -3,6 +3,7 @@ import 'package:Expenseye/Pages/Categories/cat_home_page.dart';
 import 'package:Expenseye/Pages/Monthly/monthly_home_page.dart';
 import 'package:Expenseye/Pages/Yearly/yearly_home_page.dart';
 import 'package:Expenseye/Pages/about_page.dart';
+import 'package:Expenseye/Pages/recurrent_items_page.dart';
 import 'package:Expenseye/Resources/Themes/Colors.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
@@ -20,13 +21,15 @@ class MyDrawer extends StatelessWidget {
             MyDrawerHeader(),
             ListTile(
               leading: Icon(MdiIcons.calendarBlank, color: Colors.white),
-                title: Text(AppLocalizations.of(context).translate('monthly')),
-                onTap: () {
-                  Navigator.of(context).pop(context);
-                  openMonthlyPage(context);
-                }),
+              title: Text(AppLocalizations.of(context).translate('monthly')),
+              onTap: () {
+                Navigator.of(context).pop(context);
+                openMonthlyPage(context);
+              },
+            ),
             ListTile(
-              leading: Icon(MdiIcons.calendarBlankMultiple, color: Colors.white),
+              leading:
+                  Icon(MdiIcons.calendarBlankMultiple, color: Colors.white),
               title: Text(AppLocalizations.of(context).translate('yearly')),
               onTap: () {
                 Navigator.of(context).pop(context);
@@ -35,18 +38,29 @@ class MyDrawer extends StatelessWidget {
             ),
             ListTile(
               leading: Icon(MdiIcons.viewGrid, color: Colors.white),
-                title: Text(AppLocalizations.of(context).translate('categories')),
-                onTap: () {
-                  Navigator.of(context).pop(context);
-                  openCategoriesPage(context);
-                }),
+              title: Text(AppLocalizations.of(context).translate('categories')),
+              onTap: () {
+                Navigator.of(context).pop(context);
+                openCategoriesPage(context);
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.autorenew, color: Colors.white),
+              title: Text(
+                  AppLocalizations.of(context).translate('recurrentItems')),
+              onTap: () {
+                Navigator.of(context).pop(context);
+                openRecurrentItemsPage(context);
+              },
+            ),
             ListTile(
               leading: Icon(Icons.info_outline, color: Colors.white),
-                title: Text(AppLocalizations.of(context).translate('about')),
-                onTap: () {
-                  Navigator.of(context).pop(context);
-                  openAboutPage(context);
-                }),
+              title: Text(AppLocalizations.of(context).translate('about')),
+              onTap: () {
+                Navigator.of(context).pop(context);
+                openAboutPage(context);
+              },
+            ),
           ],
         ),
       ),
@@ -78,6 +92,13 @@ class MyDrawer extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => CatHomePage()),
+    );
+  }
+
+  void openRecurrentItemsPage(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => RecurrentItemsPage()),
     );
   }
 }

@@ -37,7 +37,8 @@ class MyApp extends StatelessWidget {
                 return supportedLocale;
               }
             }
-            DatabaseHelper.instance.languageCode = supportedLocales.first.languageCode;
+            DatabaseHelper.instance.languageCode =
+                supportedLocales.first.languageCode;
             return supportedLocales.first;
           },
           home: Scaffold(

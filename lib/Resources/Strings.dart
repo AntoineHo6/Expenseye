@@ -68,7 +68,8 @@ class Strings {
   static const String recurrentItemColumnId = 'recurrent_item_id';
   static const String recurrentItemColumnName = 'name';
   static const String recurrentItemColumnValue = 'value';
-  static const String recurrentItemColumnDay = 'day';
-  static const String recurrentItemColumnCategory = 'category';
+  static const String recurrentItemColumnDate = 'date';
   static const String recurrentItemColumnIsAdded = 'is_added';
+  static const String recurrentItemColumnType = 'type';
+  static const String recurrentItemColumnCategory = 'category';
 }

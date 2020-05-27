@@ -14,7 +14,7 @@ class DatabaseHelper {
   // This is the actual database filename that is saved in the docs directory.
   static const _databaseName = Strings.dbFileName;
   // Increment this version when you need to change the schema.
-  static final _databaseVersion = 6;
+  static final _databaseVersion = 7;
 
   // Make this a singleton class.
   DatabaseHelper._privateConstructor();
@@ -68,21 +68,37 @@ class DatabaseHelper {
     print('Inserting default categories');
     await _insertDefaultCategories(db);
 
-    print('Creating reccurrent expenses table');
+    print('Creating recurrent items table');
     await db.execute('''
             CREATE TABLE ${Strings.tableRecurrentItems} (
               ${Strings.recurrentItemColumnId} INTEGER PRIMARY KEY AUTOINCREMENT,
               ${Strings.recurrentItemColumnName} TEXT NOT NULL,
               ${Strings.recurrentItemColumnValue} DOUBLE NOT NULL,
-              ${Strings.recurrentItemColumnDay} INTEGER NOT NULL,
+              ${Strings.recurrentItemColumnDate} INTEGER NOT NULL,
               ${Strings.recurrentItemColumnIsAdded} INTEGER NOT NULL,
+              ${Strings.recurrentItemColumnType} INTEGER NOT NULL,
               ${Strings.recurrentItemColumnCategory} TEXT NOT NULL,
               FOREIGN KEY(${Strings.recurrentItemColumnCategory}) REFERENCES ${Strings.tableCategories}(${Strings.categoryColumnId})
             )
             ''');
   }
 
-  Future _onUpgrade(Database db, int oldVersion, int newVersion) async {}
+  Future _onUpgrade(Database db, int oldVersion, int newVersion) async {
+    print("UPGRADINNNG");
+    await db.execute('DROP TABLE ${Strings.tableRecurrentItems}');
+    await db.execute('''
+            CREATE TABLE ${Strings.tableRecurrentItems} (
+              ${Strings.recurrentItemColumnId} INTEGER PRIMARY KEY AUTOINCREMENT,
+              ${Strings.recurrentItemColumnName} TEXT NOT NULL,
+              ${Strings.recurrentItemColumnValue} DOUBLE NOT NULL,
+              ${Strings.recurrentItemColumnDate} INTEGER NOT NULL,
+              ${Strings.recurrentItemColumnIsAdded} INTEGER NOT NULL,
+              ${Strings.recurrentItemColumnType} INTEGER NOT NULL,
+              ${Strings.recurrentItemColumnCategory} TEXT NOT NULL,
+              FOREIGN KEY(${Strings.recurrentItemColumnCategory}) REFERENCES ${Strings.tableCategories}(${Strings.categoryColumnId})
+            )
+            ''');
+  }
 
   Future<int> insertItem(Item expense) async {
     Database db = await database;

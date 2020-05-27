@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Models/Category.dart';
 import 'package:Expenseye/Models/Item.dart';
+import 'package:Expenseye/Models/recurrent_item.dart';
 import 'package:Expenseye/Resources/Strings.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -253,6 +254,11 @@ class DatabaseHelper {
   Future<void> deleteAllCategories() async {
     Database db = await database;
     await db.rawQuery('DELETE FROM ${Strings.tableCategories}');
+  }
+
+  Future<void> insertRecurrentItem(RecurrentItem recurrentItem) async {
+    Database db = await database;
+    await db.insert(Strings.tableRecurrentItems, recurrentItem.toMap());
   }
 
   List<Category> defaultCategories() {

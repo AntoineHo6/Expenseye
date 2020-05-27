@@ -2,6 +2,7 @@ import 'package:Expenseye/Helpers/database_helper.dart';
 import 'package:Expenseye/Helpers/google_firebase_helper.dart';
 import 'package:Expenseye/Models/Category.dart';
 import 'package:Expenseye/Models/Item.dart';
+import 'package:Expenseye/Models/recurrent_item.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
 import 'package:flutter/material.dart';
 
@@ -115,5 +116,10 @@ class DbModel extends ChangeNotifier {
 
   Future<List<Item>> queryItemsInYear(String year) async {
     return await _dbHelper.queryItemsInYear(year);
+  }
+
+  Future<void> insertRecurrentItem(RecurrentItem recurrentItem) async {
+    await _dbHelper.insertRecurrentItem(recurrentItem);
+    notifyListeners();
   }
 }

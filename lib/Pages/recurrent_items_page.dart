@@ -1,10 +1,17 @@
+import 'package:Expenseye/Enums/recurrent_item_type.dart';
+import 'package:Expenseye/Models/recurrent_item.dart';
+import 'package:Expenseye/Providers/Global/db_model.dart';
+import 'package:Expenseye/Utils/date_time_util.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class RecurrentItemsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final _dbModel = Provider.of<DbModel>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text(AppLocalizations.of(context).translate('recurrentItems')),

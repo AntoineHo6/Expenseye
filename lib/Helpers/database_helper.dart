@@ -223,7 +223,7 @@ class DatabaseHelper {
 
   List<RecurrentItem> convertMapsToRecurrentItems(List<Map> maps) {
     List<RecurrentItem> recurrentItems = new List();
-    
+
     if (maps.length > 0) {
       for (Map row in maps) {
         recurrentItems.add(new RecurrentItem.fromMap(row));
@@ -231,6 +231,13 @@ class DatabaseHelper {
     }
 
     return recurrentItems;
+  }
+
+  Future<void> deleteRecurrentItem(int id) async {
+    Database db = await database;
+
+    return await db.delete(Strings.tableRecurrentItems,
+        where: '${Strings.recurrentItemColumnId} = ?', whereArgs: [id]);
   }
 
   // * CATEGORIES

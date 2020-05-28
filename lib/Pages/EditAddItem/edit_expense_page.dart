@@ -1,9 +1,9 @@
-import 'package:Expenseye/Components/EditAdd/icon_btn.dart';
-import 'package:Expenseye/Components/EditAdd/name_text_field.dart';
-import 'package:Expenseye/Components/EditAdd/price_text_field.dart';
-import 'package:Expenseye/Components/EditAdd/date_picker_btn.dart';
+import 'package:Expenseye/Components/EditAddItem/icon_btn.dart';
+import 'package:Expenseye/Components/EditAddItem/name_text_field.dart';
+import 'package:Expenseye/Components/EditAddItem/price_text_field.dart';
+import 'package:Expenseye/Components/EditAddItem/date_picker_btn.dart';
 import 'package:Expenseye/Models/Item.dart';
-import 'package:Expenseye/Providers/EditAdd/edit_item_model.dart';
+import 'package:Expenseye/Providers/EditAddItem/edit_item_model.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

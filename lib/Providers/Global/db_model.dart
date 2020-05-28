@@ -126,4 +126,9 @@ class DbModel extends ChangeNotifier {
   Future<List<RecurrentItem>> queryRecurrentItems() async {
     return await _dbHelper.queryRecurrentItems();
   }
+
+  Future<void> deleteRecurrentItem(int id) async {
+    await _dbHelper.deleteRecurrentItem(id);
+    notifyListeners();
+  }
 }

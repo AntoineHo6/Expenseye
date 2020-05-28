@@ -53,7 +53,7 @@ class EditItemModel extends ChangeNotifier {
   void delete(BuildContext context, int expenseId) async {
     bool confirmed = await showDialog(
       context: context,
-      builder: (_) => DeleteConfirmDialog(
+      builder: (_) => ConfirmationDialog(
         AppLocalizations.of(context).translate('confirmDeleteMsg'),
       ),
     );

@@ -1,3 +1,4 @@
+import 'package:Expenseye/Components/EditAddItem/confirmation_dialog.dart';
 import 'package:Expenseye/Components/RecurrentItems/my_divider.dart';
 import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Enums/recurrent_item_type.dart';
@@ -139,10 +140,26 @@ List<Container> _recurrentItemsContainers(BuildContext context,
             '${recurrentItem.value.toStringAsFixed(2)} \$',
           ),
           isThreeLine: true,
+          onLongPress: () => _deleteRecurrentItem(context, recurrentItem),
         ),
       );
     },
   ).toList();
+}
+
+void _deleteRecurrentItem(
+    BuildContext context, RecurrentItem recurrentItem) async {
+  bool confirmed = await showDialog(
+    context: context,
+    builder: (_) => ConfirmationDialog(
+      AppLocalizations.of(context).translate('confirmDeleteMsg'),
+    ),
+  );
+
+  if (confirmed != null && confirmed) {
+    await Provider.of<DbModel>(context, listen: false)
+        .deleteRecurrentItem(recurrentItem.id);
+  }
 }
 
 Text _subtitleText(BuildContext context, RecurrentItem recurrentItem) {

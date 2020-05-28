@@ -1,10 +1,10 @@
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 
-class DeleteConfirmDialog extends StatelessWidget {
+class ConfirmationDialog extends StatelessWidget {
   final String msg;
 
-  const DeleteConfirmDialog(this.msg);
+  const ConfirmationDialog(this.msg);
 
   @override
   Widget build(BuildContext context) {

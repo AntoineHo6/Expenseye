@@ -75,7 +75,7 @@ class _ItemsPageState extends State<CategoriesPage> {
   void _selectedCategory(int index, DbModel dbModel) async {
     bool confirmed = await showDialog(
       context: context,
-      builder: (_) => DeleteConfirmDialog(
+      builder: (_) => ConfirmationDialog(
         AppLocalizations.of(context).translate('confirmDeleteCategory'),
       ),
     );

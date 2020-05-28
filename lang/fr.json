@@ -65,5 +65,6 @@
     "succDeleted": "Supprimé avec succès",
     "appBy": "Application créé par Antoine Ho, 2020",
     "appName": "Expenseye",
-    "recurrentItems": "Éléments Récurrents"
+    "recurrentItems": "Éléments Récurrents",
+    "nextDueDate": "Prochaine date d'échéance"
 }

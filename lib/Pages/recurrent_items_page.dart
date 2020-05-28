@@ -18,6 +18,16 @@ class RecurrentItemsPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(AppLocalizations.of(context).translate('recurrentItems')),
+        actions: <Widget>[
+          FlatButton(
+            textColor: Colors.white,
+            onPressed: () => null,
+            child: const Icon(Icons.add),
+            shape: const CircleBorder(
+              side: const BorderSide(color: Colors.transparent),
+            ),
+          ),
+        ],
       ),
       body: FutureBuilder<List<RecurrentItem>>(
         future: _dbModel.queryRecurrentItems(),
@@ -51,7 +61,7 @@ class RecurrentItemsPage extends StatelessWidget {
                             ),
                           ),
                           Container(
-                            margin: const EdgeInsets.only(left: 10),
+                            margin: const EdgeInsets.only(left: 10, top: 10),
                             child: Text(
                               AppLocalizations.of(context).translate('incomes'),
                               style: Theme.of(context).textTheme.headline1,
@@ -157,7 +167,8 @@ Text _subtitleText(BuildContext context, RecurrentItem recurrentItem) {
   }
 
   return Text(
-      '$type\nNext due date: ${DateTimeUtil.formattedDate(context, recurrentItem.date)}');
+    '$type\n${AppLocalizations.of(context).translate('nextDueDate')}: ${DateTimeUtil.formattedDate(context, recurrentItem.date)}',
+  );
 }
 
 // ListView(

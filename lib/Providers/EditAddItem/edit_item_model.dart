@@ -1,31 +1,34 @@
+import 'package:Expenseye/Components/EditAddItem/confirmation_dialog.dart';
 import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Models/Item.dart';
-import 'package:Expenseye/Pages/EditAdd/choose_category_page.dart';
+import 'package:Expenseye/Pages/EditAddItem/choose_category_page.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
-import 'package:Expenseye/Resources/Strings.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
+import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class AddItemModel extends ChangeNotifier {
+class EditItemModel extends ChangeNotifier {
+  bool didInfoChange = false;
   bool isNameInvalid = false;
   bool isPriceInvalid = false;
-
   DateTime date;
-  ItemType type;
   String category;
+  ItemType type;
 
-  AddItemModel(this.date, this.type) {
-    type == ItemType.expense
-        ? category = Strings.foodEN.toLowerCase()
-        : category = Strings.salaryEN.toLowerCase();
+  EditItemModel(this.date, this.category, this.type);
+
+  // Will make the save button clickable
+  void infoChanged(String text) {
+    didInfoChange = true;
+    notifyListeners();
   }
 
   // Will make the save button clickable
   void updateDate(DateTime newDate) {
     if (newDate != null) {
       date = newDate;
-      notifyListeners();
+      infoChanged(null);
     }
   }
 
@@ -34,19 +37,30 @@ class AddItemModel extends ChangeNotifier {
     updateDate(newDate);
   }
 
-  void addItem(BuildContext context, String newName, String newPrice) {
-    // make sure to remove time before adding to db
-    final DateTime newDate = DateTimeUtil.timeToZeroInDate(date);
-
+  void editItem(BuildContext context, int id, String newName, String newPrice) {
     bool areFieldsInvalid = _checkFieldsInvalid(newName, newPrice);
 
-    // if all the fields are valid, add and quit
+    // if all the fields are valid, update and quit
     if (!areFieldsInvalid) {
-      Item newItem =
-          new Item(newName, double.parse(newPrice), newDate, type, category);
+      Item newItem = new Item.withId(
+          id, newName, double.parse(newPrice), date, type, category);
 
-      Provider.of<DbModel>(context, listen: false).addItem(newItem);
-      Navigator.pop(context, true);
+      Provider.of<DbModel>(context, listen: false).editItem(newItem);
+      Navigator.pop(context, 1);
+    }
+  }
+
+  void delete(BuildContext context, int expenseId) async {
+    bool confirmed = await showDialog(
+      context: context,
+      builder: (_) => DeleteConfirmDialog(
+        AppLocalizations.of(context).translate('confirmDeleteMsg'),
+      ),
+    );
+
+    if (confirmed != null && confirmed) {
+      Provider.of<DbModel>(context, listen: false).deleteItem(expenseId);
+      Navigator.pop(context, 2);
     }
   }
 
@@ -62,7 +76,7 @@ class AddItemModel extends ChangeNotifier {
 
     if (result != null) {
       category = result;
-      notifyListeners();
+      infoChanged(null);
     }
   }
 

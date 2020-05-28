@@ -15,7 +15,7 @@ class DatabaseHelper {
   // This is the actual database filename that is saved in the docs directory.
   static const _databaseName = Strings.dbFileName;
   // Increment this version when you need to change the schema.
-  static final _databaseVersion = 7;
+  static final _databaseVersion = 8;
 
   // Make this a singleton class.
   DatabaseHelper._privateConstructor();
@@ -101,6 +101,7 @@ class DatabaseHelper {
             ''');
   }
 
+  // * ITEMS
   Future<int> insertItem(Item expense) async {
     Database db = await database;
     int id = await db.insert(Strings.tableItems, expense.toMap());
@@ -206,6 +207,33 @@ class DatabaseHelper {
     return items;
   }
 
+  // * RECURRENT ITEMS
+  Future<void> insertRecurrentItem(RecurrentItem recurrentItem) async {
+    Database db = await database;
+    await db.insert(Strings.tableRecurrentItems, recurrentItem.toMap());
+  }
+
+  Future<List<RecurrentItem>> queryRecurrentItems() async {
+    Database db = await database;
+
+    List<Map> maps = await db.query(Strings.tableRecurrentItems);
+
+    return convertMapsToRecurrentItems(maps);
+  }
+
+  List<RecurrentItem> convertMapsToRecurrentItems(List<Map> maps) {
+    List<RecurrentItem> recurrentItems = new List();
+    
+    if (maps.length > 0) {
+      for (Map row in maps) {
+        recurrentItems.add(new RecurrentItem.fromMap(row));
+      }
+    }
+
+    return recurrentItems;
+  }
+
+  // * CATEGORIES
   Future<void> _insertDefaultCategories(Database db) async {
     for (var category in defaultCategories()) {
       await db.insert(Strings.tableCategories, category.toMap());
@@ -240,7 +268,6 @@ class DatabaseHelper {
 
   Future<void> insertCategory(Category category) async {
     Database db = await database;
-
     await db.insert(Strings.tableCategories, category.toMap());
   }
 
@@ -254,11 +281,6 @@ class DatabaseHelper {
   Future<void> deleteAllCategories() async {
     Database db = await database;
     await db.rawQuery('DELETE FROM ${Strings.tableCategories}');
-  }
-
-  Future<void> insertRecurrentItem(RecurrentItem recurrentItem) async {
-    Database db = await database;
-    await db.insert(Strings.tableRecurrentItems, recurrentItem.toMap());
   }
 
   List<Category> defaultCategories() {

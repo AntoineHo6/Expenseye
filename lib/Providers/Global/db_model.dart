@@ -122,4 +122,8 @@ class DbModel extends ChangeNotifier {
     await _dbHelper.insertRecurrentItem(recurrentItem);
     notifyListeners();
   }
+
+  Future<List<RecurrentItem>> queryRecurrentItems() async {
+    return await _dbHelper.queryRecurrentItems();
+  }
 }

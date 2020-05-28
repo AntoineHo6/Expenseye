@@ -93,8 +93,8 @@ class YearlyItemsPage extends StatelessWidget {
               padding: const EdgeInsets.all(12),
               margin: const EdgeInsets.only(
                 top: 4,
-                left: 15,
-                right: 15,
+                left: 10,
+                right: 10,
                 bottom: 15,
               ),
               child: Column(

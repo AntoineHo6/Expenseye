@@ -89,7 +89,7 @@ class MonthlyItemsPage extends StatelessWidget {
             ),
             padding: const EdgeInsets.all(12),
             margin:
-                const EdgeInsets.only(left: 15, right: 15, top: 5, bottom: 15),
+                const EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 15),
             child: Column(
               children: <Widget>[
                 Row(

@@ -12,7 +12,7 @@ class ItemsHeader extends StatelessWidget {
     return FittedBox(
       fit: BoxFit.fitWidth,
       child: Container(
-        margin: const EdgeInsets.symmetric(vertical: 17, horizontal: 10),
+        margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[

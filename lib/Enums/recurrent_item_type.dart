@@ -1,7 +1,7 @@
 enum RecurrentItemType {
   daily,
   weekly,
-  biWeekly,
+  biweekly,
   monthly,
   yearly
 }

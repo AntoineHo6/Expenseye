@@ -31,7 +31,7 @@ class _ItemsPageState extends State<CategoriesPage> {
     }
 
     return GridView.count(
-      padding: const EdgeInsets.all(15),
+      padding: const EdgeInsets.all(10),
       crossAxisSpacing: 7,
       mainAxisSpacing: 7,
       crossAxisCount: 4,

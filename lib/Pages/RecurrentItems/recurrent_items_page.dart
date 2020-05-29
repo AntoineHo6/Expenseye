@@ -34,7 +34,7 @@ class RecurrentItemsPage extends StatelessWidget {
           // ),
           PopupMenuButton(
             icon: const Icon(Icons.add),
-            color: MyColors.black24dp,
+            color: MyColors.black12dp,
             onSelected: (choice) => _popupMenuChoiceAction(context, choice),
             itemBuilder: (_) {
               return [
@@ -125,19 +125,19 @@ class RecurrentItemsPage extends StatelessWidget {
   }
 
   void _popupMenuChoiceAction(BuildContext context, String action) {
-    ItemType itemType;
-    switch(action) {
+    ItemType type;
+    switch (action) {
       case expense:
-        itemType = ItemType.expense;
+        type = ItemType.expense;
         break;
       case income:
-        itemType = ItemType.income;
+        type = ItemType.income;
         break;
     }
 
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => AddRecurrentItemPage()),
+      MaterialPageRoute(builder: (context) => AddRecurrentItemPage(type)),
     );
   }
 

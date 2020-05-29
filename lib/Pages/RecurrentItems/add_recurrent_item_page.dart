@@ -1,11 +1,16 @@
 import 'package:Expenseye/Components/Global/name_text_field.dart';
 import 'package:Expenseye/Components/Global/price_text_field.dart';
+import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Providers/RecurrentItems/add_recurrent_item_model.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class AddRecurrentItemPage extends StatefulWidget {
+  ItemType type;
+
+  AddRecurrentItemPage(this.type);
+
   @override
   _AddRecurrentItemPageState createState() => _AddRecurrentItemPageState();
 }
@@ -34,7 +39,7 @@ class _AddRecurrentItemPageState extends State<AddRecurrentItemPage> {
                   ),
                 ),
                 _textFieldContainer(
-                  AppLocalizations.of(context).translate('amount'), // TODO:
+                  AppLocalizations.of(context).translate('amount'),
                   PriceTextField(
                     controller: _amountController,
                     isPriceInvalid: model.isPriceInvalid,

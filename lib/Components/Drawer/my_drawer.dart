@@ -20,45 +20,45 @@ class MyDrawer extends StatelessWidget {
           children: <Widget>[
             MyDrawerHeader(),
             ListTile(
-              leading: Icon(MdiIcons.calendarBlank, color: Colors.white),
+              leading: Icon(MdiIcons.calendarBlank, color: MyColors.secondary),
               title: Text(AppLocalizations.of(context).translate('monthly')),
               onTap: () {
                 Navigator.of(context).pop(context);
-                openMonthlyPage(context);
+                _openMonthlyPage(context);
               },
             ),
             ListTile(
               leading:
-                  Icon(MdiIcons.calendarBlankMultiple, color: Colors.white),
+                  Icon(MdiIcons.calendarBlankMultiple, color: MyColors.secondary),
               title: Text(AppLocalizations.of(context).translate('yearly')),
               onTap: () {
                 Navigator.of(context).pop(context);
-                openYearlyPage(context);
+                _openYearlyPage(context);
               },
             ),
             ListTile(
-              leading: Icon(MdiIcons.viewGrid, color: Colors.white),
+              leading: Icon(MdiIcons.viewGrid, color: MyColors.secondary),
               title: Text(AppLocalizations.of(context).translate('categories')),
               onTap: () {
                 Navigator.of(context).pop(context);
-                openCategoriesPage(context);
+                _openCategoriesPage(context);
               },
             ),
             ListTile(
-              leading: Icon(Icons.autorenew, color: Colors.white),
+              leading: Icon(Icons.autorenew, color: MyColors.secondary),
               title: Text(
                   AppLocalizations.of(context).translate('recurrentItems')),
               onTap: () {
                 Navigator.of(context).pop(context);
-                openRecurrentItemsPage(context);
+                _openRecurrentItemsPage(context);
               },
             ),
             ListTile(
-              leading: Icon(Icons.info_outline, color: Colors.white),
+              leading: Icon(Icons.info_outline, color: MyColors.secondary),
               title: Text(AppLocalizations.of(context).translate('about')),
               onTap: () {
                 Navigator.of(context).pop(context);
-                openAboutPage(context);
+                _openAboutPage(context);
               },
             ),
           ],
@@ -68,35 +68,35 @@ class MyDrawer extends StatelessWidget {
   }
 
   // TODO: make these functions private
-  void openMonthlyPage(BuildContext context) {
+  void _openMonthlyPage(BuildContext context) {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => MonthlyHomePage(DateTime.now())),
     );
   }
 
-  void openYearlyPage(BuildContext context) {
+  void _openYearlyPage(BuildContext context) {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => YearlyHomePage()),
     );
   }
 
-  void openAboutPage(BuildContext context) {
+  void _openAboutPage(BuildContext context) {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => const AboutPage()),
     );
   }
 
-  void openCategoriesPage(BuildContext context) {
+  void _openCategoriesPage(BuildContext context) {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => CatHomePage()),
     );
   }
 
-  void openRecurrentItemsPage(BuildContext context) {
+  void _openRecurrentItemsPage(BuildContext context) {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => RecurrentItemsPage()),

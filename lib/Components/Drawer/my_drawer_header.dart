@@ -24,7 +24,7 @@ class MyDrawerHeader extends StatelessWidget {
               alignment: Alignment.topLeft,
               child: Row(
                 children: <Widget>[
-                  Icon(Icons.remove_red_eye, color: Colors.white),
+                  Icon(Icons.remove_red_eye, color: MyColors.secondary),
                   const SizedBox(
                     width: 15,
                   ),
@@ -67,16 +67,13 @@ class MyDrawerHeader extends StatelessWidget {
               } else {
                 return Column(
                   children: <Widget>[
-                    SizedBox(
-                      width: double.infinity,
-                      child: Text(
-                        AppLocalizations.of(context)
-                            .translate('signInToAvoidLosingData'),
-                        style: TextStyle(color: Colors.red),
-                      ),
+                    Text(
+                      AppLocalizations.of(context)
+                          .translate('signInToAvoidLosingData'),
+                      style: TextStyle(color: Colors.red, fontSize: 11),
                     ),
                     const SizedBox(
-                      height: 5,
+                      height: 7,
                     ),
                     Row(
                       children: <Widget>[
@@ -114,6 +111,7 @@ class MyDrawerHeader extends StatelessWidget {
               }
             },
           ),
+          const SizedBox(height: 15),
         ],
       ),
     );

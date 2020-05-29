@@ -80,7 +80,7 @@ class EditItemModel extends ChangeNotifier {
     }
   }
 
-  /// Will check and show error msg if a field is invalid.
+  // Will check and show error msg if a field is invalid.
   bool _checkFieldsInvalid(String newName, String newPrice) {
     // check NAME field
     isNameInvalid = newName.isEmpty ? true : false;

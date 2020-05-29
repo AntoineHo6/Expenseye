@@ -66,5 +66,6 @@
     "appName": "Expenseye",
     "recurrentItems": "Recurrent Items",
     "nextDueDate": "Next due date",
-    "amount": "Amount"
+    "amount": "Amount",
+    "next": "Next"
 }

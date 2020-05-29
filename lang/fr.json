@@ -66,5 +66,6 @@
     "appName": "Expenseye",
     "recurrentItems": "Éléments Récurrents",
     "nextDueDate": "Prochaine date d'échéance",
-    "amount": "Montant"
+    "amount": "Montant",
+    "next": "Suivant"
 }

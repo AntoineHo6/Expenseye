@@ -3,7 +3,7 @@ import 'package:Expenseye/Components/RecurrentItems/my_divider.dart';
 import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Enums/periodicity.dart';
 import 'package:Expenseye/Models/recurrent_item.dart';
-import 'package:Expenseye/Pages/RecurrentItems/add_recurrent_item_page.dart';
+import 'package:Expenseye/Pages/RecurrentItems/add_recurrent_item_home_page.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:Expenseye/Resources/Themes/Colors.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
@@ -137,7 +137,7 @@ class RecurrentItemsPage extends StatelessWidget {
 
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => AddRecurrentItemPage(type)),
+      MaterialPageRoute(builder: (context) => AddRecurrentItemHomePage(type)),
     );
   }
 

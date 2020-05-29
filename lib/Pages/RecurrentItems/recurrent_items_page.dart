@@ -1,7 +1,7 @@
 import 'package:Expenseye/Components/EditAddItem/confirmation_dialog.dart';
 import 'package:Expenseye/Components/RecurrentItems/my_divider.dart';
 import 'package:Expenseye/Enums/item_type.dart';
-import 'package:Expenseye/Enums/recurrent_item_type.dart';
+import 'package:Expenseye/Enums/periodicity.dart';
 import 'package:Expenseye/Models/recurrent_item.dart';
 import 'package:Expenseye/Pages/RecurrentItems/add_recurrent_item_page.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
@@ -205,27 +205,27 @@ class RecurrentItemsPage extends StatelessWidget {
 
   Text _subtitleText(BuildContext context, RecurrentItem recurrentItem) {
     // TODO: use richText
-    String type;
-    switch (recurrentItem.type) {
-      case RecurrentItemType.daily:
-        type = AppLocalizations.of(context).translate('daily');
+    String periodicity;
+    switch (recurrentItem.periodicity) {
+      case Periodicity.daily:
+        periodicity = AppLocalizations.of(context).translate('daily');
         break;
-      case RecurrentItemType.weekly:
-        type = AppLocalizations.of(context).translate('weekly');
+      case Periodicity.weekly:
+        periodicity = AppLocalizations.of(context).translate('weekly');
         break;
-      case RecurrentItemType.biweekly:
-        type = AppLocalizations.of(context).translate('biWeekly');
+      case Periodicity.biweekly:
+        periodicity = AppLocalizations.of(context).translate('biWeekly');
         break;
-      case RecurrentItemType.monthly:
-        type = AppLocalizations.of(context).translate('monthly');
+      case Periodicity.monthly:
+        periodicity = AppLocalizations.of(context).translate('monthly');
         break;
-      case RecurrentItemType.yearly:
-        type = type = AppLocalizations.of(context).translate('yearly');
+      case Periodicity.yearly:
+        periodicity = AppLocalizations.of(context).translate('yearly');
         break;
     }
 
     return Text(
-      '$type\n${AppLocalizations.of(context).translate('nextDueDate')}: ${DateTimeUtil.formattedDate(context, recurrentItem.date)}',
+      '$periodicity\n${AppLocalizations.of(context).translate('nextDueDate')}: ${DateTimeUtil.formattedDate(context, recurrentItem.date)}',
     );
   }
 }

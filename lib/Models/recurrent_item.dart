@@ -1,4 +1,4 @@
-import 'package:Expenseye/Enums/recurrent_item_type.dart';
+import 'package:Expenseye/Enums/periodicity.dart';
 import 'package:Expenseye/Resources/Strings.dart';
 
 class RecurrentItem {
@@ -7,14 +7,14 @@ class RecurrentItem {
   double value;
   DateTime date;  // corresponds to the next date the item is due for
   int isAdded;
-  RecurrentItemType type; // daily, weekly, bi-weekly, monthly, yearly
+  Periodicity periodicity; // daily, weekly, bi-weekly, monthly, yearly
   String category;
 
   RecurrentItem(
-      this.name, this.value, this.date, this.isAdded, this.category, this.type);
+      this.name, this.value, this.date, this.isAdded, this.category, this.periodicity);
 
   RecurrentItem.withId(this.id, this.name, this.value, this.date, this.isAdded,
-      this.category, this.type);
+      this.category, this.periodicity);
   
   RecurrentItem.fromMap(Map<String, dynamic> map) {
     id = map[Strings.recurrentItemColumnId];
@@ -22,7 +22,7 @@ class RecurrentItem {
     value = map[Strings.recurrentItemColumnValue];
     date = DateTime.parse(map[Strings.recurrentItemColumnDate]);
     isAdded = map[Strings.recurrentItemColumnIsAdded];
-    type = RecurrentItemType.values[map[Strings.recurrentItemColumnType]];
+    periodicity = Periodicity.values[map[Strings.recurrentItemColumnPeriodicity]];
     category = map[Strings.recurrentItemColumnCategory];
   }
 
@@ -32,7 +32,7 @@ class RecurrentItem {
       Strings.recurrentItemColumnValue: value,
       Strings.recurrentItemColumnDate: date.toIso8601String(),
       Strings.recurrentItemColumnIsAdded: isAdded,
-      Strings.recurrentItemColumnType: type.index,
+      Strings.recurrentItemColumnPeriodicity: periodicity.index,
       Strings.recurrentItemColumnCategory: category
     };
     if (id != null) {

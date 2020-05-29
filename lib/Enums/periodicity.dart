@@ -1,4 +1,4 @@
-enum RecurrentItemType {
+enum Periodicity {
   daily,
   weekly,
   biweekly,

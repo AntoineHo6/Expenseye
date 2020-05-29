@@ -77,7 +77,7 @@ class DatabaseHelper {
               ${Strings.recurrentItemColumnValue} DOUBLE NOT NULL,
               ${Strings.recurrentItemColumnDate} INTEGER NOT NULL,
               ${Strings.recurrentItemColumnIsAdded} INTEGER NOT NULL,
-              ${Strings.recurrentItemColumnType} INTEGER NOT NULL,
+              ${Strings.recurrentItemColumnPeriodicity} INTEGER NOT NULL,
               ${Strings.recurrentItemColumnCategory} TEXT NOT NULL,
               FOREIGN KEY(${Strings.recurrentItemColumnCategory}) REFERENCES ${Strings.tableCategories}(${Strings.categoryColumnId})
             )
@@ -94,7 +94,7 @@ class DatabaseHelper {
               ${Strings.recurrentItemColumnValue} DOUBLE NOT NULL,
               ${Strings.recurrentItemColumnDate} INTEGER NOT NULL,
               ${Strings.recurrentItemColumnIsAdded} INTEGER NOT NULL,
-              ${Strings.recurrentItemColumnType} INTEGER NOT NULL,
+              ${Strings.recurrentItemColumnPeriodicity} INTEGER NOT NULL,
               ${Strings.recurrentItemColumnCategory} TEXT NOT NULL,
               FOREIGN KEY(${Strings.recurrentItemColumnCategory}) REFERENCES ${Strings.tableCategories}(${Strings.categoryColumnId})
             )

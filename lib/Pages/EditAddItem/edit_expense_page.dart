@@ -1,6 +1,6 @@
 import 'package:Expenseye/Components/EditAddItem/icon_btn.dart';
-import 'package:Expenseye/Components/EditAddItem/name_text_field.dart';
-import 'package:Expenseye/Components/EditAddItem/price_text_field.dart';
+import 'package:Expenseye/Components/Global/name_text_field.dart';
+import 'package:Expenseye/Components/Global/price_text_field.dart';
 import 'package:Expenseye/Components/EditAddItem/date_picker_btn.dart';
 import 'package:Expenseye/Models/Item.dart';
 import 'package:Expenseye/Providers/EditAddItem/edit_item_model.dart';
@@ -15,6 +15,7 @@ class EditExpensePage extends StatefulWidget {
 
   EditExpensePage(this.expense);
 
+  // TODO: rename state
   @override
   _EditExpense createState() => _EditExpense();
 }
@@ -46,9 +47,10 @@ class _EditExpense extends State<EditExpensePage> {
           body: SingleChildScrollView(
             child: Column(
               children: <Widget>[
+                // TODO: refactor redundant code
                 Container(
                   padding: const EdgeInsets.all(20),
-                  margin: const EdgeInsets.symmetric(horizontal: 20),
+                  margin: const EdgeInsets.symmetric(horizontal: 10),
                   child: Column(
                     children: <Widget>[
                       SizedBox(
@@ -69,13 +71,13 @@ class _EditExpense extends State<EditExpensePage> {
                 ),
                 Container(
                   padding: const EdgeInsets.all(20),
-                  margin: const EdgeInsets.symmetric(horizontal: 20),
+                  margin: const EdgeInsets.symmetric(horizontal: 10),
                   child: Column(
                     children: <Widget>[
                       SizedBox(
                         width: double.infinity,
                         child: Text(
-                          '${AppLocalizations.of(context).translate('price')} :',
+                          '${AppLocalizations.of(context).translate('amount')} :',
                           textAlign: TextAlign.left,
                           style: Theme.of(context).textTheme.headline6,
                         ),
@@ -83,8 +85,6 @@ class _EditExpense extends State<EditExpensePage> {
                       PriceTextField(
                         controller: _priceController,
                         isPriceInvalid: model.isPriceInvalid,
-                        hintText:
-                            AppLocalizations.of(context).translate('value'),
                         onChanged: model.infoChanged,
                       ),
                     ],

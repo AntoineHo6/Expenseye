@@ -14,6 +14,7 @@ class CategoriesPage extends StatefulWidget {
 
   CategoriesPage(this.type);
 
+  // TODO: rename state
   @override
   _ItemsPageState createState() => _ItemsPageState();
 }

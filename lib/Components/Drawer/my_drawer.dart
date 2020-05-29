@@ -3,7 +3,7 @@ import 'package:Expenseye/Pages/Categories/cat_home_page.dart';
 import 'package:Expenseye/Pages/Monthly/monthly_home_page.dart';
 import 'package:Expenseye/Pages/Yearly/yearly_home_page.dart';
 import 'package:Expenseye/Pages/about_page.dart';
-import 'package:Expenseye/Pages/recurrent_items_page.dart';
+import 'package:Expenseye/Pages/RecurrentItems/recurrent_items_page.dart';
 import 'package:Expenseye/Resources/Themes/Colors.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
@@ -67,6 +67,7 @@ class MyDrawer extends StatelessWidget {
     );
   }
 
+  // TODO: make these functions private
   void openMonthlyPage(BuildContext context) {
     Navigator.push(
       context,

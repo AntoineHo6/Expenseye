@@ -31,7 +31,6 @@
     "selectMonthCaps": "SÉLECTIONNEZ LE MOIS",
     "signOut": "Déconnexion",
     "name": "Nom",
-    "price": "Prix",
     "nameIsInvalid": "Le nom est invalide",
     "priceIsInvalid": "Le prix est invalide",
     "value": "Valeur",
@@ -66,5 +65,6 @@
     "appBy": "Application créé par Antoine Ho, 2020",
     "appName": "Expenseye",
     "recurrentItems": "Éléments Récurrents",
-    "nextDueDate": "Prochaine date d'échéance"
+    "nextDueDate": "Prochaine date d'échéance",
+    "amount": "Montant"
 }

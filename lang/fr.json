@@ -68,5 +68,6 @@
     "recurrentItems": "Éléments Récurrents",
     "nextDueDate": "Prochaine date d'échéance",
     "amount": "Montant",
-    "createRecurrentItem": "CRÉER L'ÉLÉMENT RÉCURRENT"
+    "createRecurrentItem": "CRÉER L'ÉLÉMENT RÉCURRENT",
+    "anErrorHasOccurred": "Une erreur est survenue"
 }

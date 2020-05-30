@@ -1,5 +1,6 @@
 import 'package:Expenseye/Components/Categories/category_btn.dart';
 import 'package:Expenseye/Components/RecurrentItems/bottom_nav_button.dart';
+import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
@@ -22,7 +23,9 @@ class CategoryAddRecItemPage extends StatelessWidget {
       bottomNavigationBar: BottomAppBar(
         color: Colors.transparent,
         child: BottomNavButton(
-          color: Colors.green,
+          color: _model.type == ItemType.expense
+              ? Colors.red
+              : Colors.green,
           text: AppLocalizations.of(context).translate('createRecurrentItem'),
           onPressed: () => null,
         ),
@@ -33,9 +36,9 @@ class CategoryAddRecItemPage extends StatelessWidget {
             child: GridView.count(
               primary: false,
               padding: const EdgeInsets.all(10),
-              crossAxisSpacing: 5,
-              mainAxisSpacing: 5,
-              crossAxisCount: 5,
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 10,
+              crossAxisCount: 3,
               children: List.generate(
                 categorieKeys.length,
                 (index) {

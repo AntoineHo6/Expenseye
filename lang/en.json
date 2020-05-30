@@ -68,5 +68,6 @@
     "recurrentItems": "Recurrent Items",
     "nextDueDate": "Next due date",
     "amount": "Amount",
-    "createRecurrentItem": "CREATE RECURRENT ITEM"
+    "createRecurrentItem": "CREATE RECURRENT ITEM",
+    "anErrorHasOccurred": "An error has occurred"
 }

@@ -1,6 +1,7 @@
 import 'package:Expenseye/Components/Global/name_text_field.dart';
 import 'package:Expenseye/Components/Global/price_text_field.dart';
 import 'package:Expenseye/Components/RecurrentItems/bottom_nav_button.dart';
+import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Providers/RecurrentItems/add_recurrent_item_model.dart';
 import 'package:Expenseye/Resources/Themes/Colors.dart';
 import 'package:Expenseye/app_localizations.dart';
@@ -25,7 +26,9 @@ class _NameAmountAddRecItemPageState extends State<NameAmountAddRecItemPage> {
       bottomNavigationBar: BottomAppBar(
         color: Colors.transparent,
         child: BottomNavButton(
-          color: MyColors.secondaryDarker,
+          color: _model.type == ItemType.expense
+              ? MyColors.expenseColor
+              : MyColors.incomeColor,
           text: AppLocalizations.of(context).translate('nextCaps'),
           onPressed: () => _model.goNextFromNameAmountPage(
             _nameController.text,

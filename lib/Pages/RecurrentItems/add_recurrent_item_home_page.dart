@@ -4,6 +4,7 @@ import 'package:Expenseye/Pages/RecurrentItems/category_add_rec_item_page.dart';
 import 'package:Expenseye/Pages/RecurrentItems/date_add_rec_item_page.dart';
 import 'package:Expenseye/Pages/RecurrentItems/name_amount_add_rec_item_page.dart';
 import 'package:Expenseye/Providers/RecurrentItems/add_recurrent_item_model.dart';
+import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -29,13 +30,18 @@ class AddRecurrentItemHomePage extends StatelessWidget {
 
   Widget _currentStep(BuildContext context) {
     final _addRecurrentItemModel = Provider.of<AddRecurrentItemModel>(context);
-    switch(_addRecurrentItemModel.step) {
+    switch (_addRecurrentItemModel.step) {
       case 1:
         return NameAmountAddRecItemPage();
       case 2:
         return DateAddRecItemPage();
       case 3:
         return CategoryAddRecItemPage();
+      default:
+        return Align(
+          alignment: Alignment.center,
+          child: Text(AppLocalizations.of(context).translate('anErrorHasOccurred')),
+        );
     }
   }
 }

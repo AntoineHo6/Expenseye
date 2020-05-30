@@ -1,5 +1,6 @@
 import 'package:Expenseye/Components/Global/my_table_calendar.dart';
 import 'package:Expenseye/Components/RecurrentItems/bottom_nav_button.dart';
+import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Providers/RecurrentItems/add_recurrent_item_model.dart';
 import 'package:Expenseye/Resources/Themes/Colors.dart';
 import 'package:Expenseye/app_localizations.dart';
@@ -23,7 +24,9 @@ class _DateAddRecItemPageState extends State<DateAddRecItemPage>
       bottomNavigationBar: BottomAppBar(
         color: Colors.transparent,
         child: BottomNavButton(
-          color: MyColors.secondaryDarker,
+          color: _model.type == ItemType.expense
+              ? MyColors.expenseColor
+              : MyColors.incomeColor,
           text: AppLocalizations.of(context).translate('nextCaps'),
           onPressed: () =>
               _model.goNextFromDatePage(_calendarController.focusedDay),

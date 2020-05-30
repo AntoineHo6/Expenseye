@@ -14,10 +14,11 @@ class MonthlyTableCalendarPage extends StatefulWidget {
   MonthlyTableCalendarPage(this.initialDate);
 
   @override
-  _MonthlyTableCalendarPage createState() => _MonthlyTableCalendarPage();
+  _MonthlyTableCalendarPageState createState() =>
+      _MonthlyTableCalendarPageState();
 }
 
-class _MonthlyTableCalendarPage extends State<MonthlyTableCalendarPage>
+class _MonthlyTableCalendarPageState extends State<MonthlyTableCalendarPage>
     with TickerProviderStateMixin {
   CalendarController _calendarController;
 

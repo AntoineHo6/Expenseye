@@ -29,6 +29,7 @@
     "saveCaps": "SAUVEGARDER",
     "confirmCaps": "CONFIRMER",
     "selectMonthCaps": "SÉLECTIONNEZ LE MOIS",
+    "nextCaps": "SUIVANT",
     "signOut": "Déconnexion",
     "name": "Nom",
     "nameIsInvalid": "Le nom est invalide",
@@ -67,5 +68,5 @@
     "recurrentItems": "Éléments Récurrents",
     "nextDueDate": "Prochaine date d'échéance",
     "amount": "Montant",
-    "next": "Suivant"
+    "createRecurrentItem": "CRÉER L'ÉLÉMENT RÉCURRENT"
 }

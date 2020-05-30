@@ -1,27 +1,31 @@
 import 'package:Expenseye/Enums/item_type.dart';
-import 'package:Expenseye/Pages/RecurrentItems/date_add_rec_item_page.dart';
+import 'package:Expenseye/Utils/date_time_util.dart';
 import 'package:flutter/material.dart';
 
 class AddRecurrentItemModel extends ChangeNotifier {
+  int step = 1;
   String name;
   double amount;
+  DateTime startingDay;
   bool isNameInvalid = false;
   bool isAmountInvalid = false;
   ItemType type;
 
   AddRecurrentItemModel(this.type);
 
-  void goDateRecItemPage(BuildContext context, String name, String amount) {
+  void goNextFromNameAmountPage(String name, String amount) {
     bool areFieldsInvalid = _checkFieldsInvalid(name, amount);
 
     if (!areFieldsInvalid) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => DateAddRecItemPage(),
-        ),
-      );
+      this.step++;
+      notifyListeners();
     }
+  }
+
+  void goNextFromDatePage(DateTime startingDay) {
+    this.startingDay = DateTimeUtil.timeToZeroInDate(startingDay);
+    this.step++;
+    notifyListeners();
   }
 
   // Will check and show error msg if a field is invalid.

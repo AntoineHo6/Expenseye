@@ -29,6 +29,7 @@
     "saveCaps": "SAVE",
     "confirmCaps": "CONFIRM",
     "selectMonthCaps": "SELECT MONTH",
+    "nextCaps": "NEXT",
     "signOut": "Sign Out",
     "name": "Name",
     "nameIsInvalid": "Invalid name",
@@ -67,5 +68,5 @@
     "recurrentItems": "Recurrent Items",
     "nextDueDate": "Next due date",
     "amount": "Amount",
-    "next": "Next"
+    "createRecurrentItem": "CREATE RECURRENT ITEM"
 }

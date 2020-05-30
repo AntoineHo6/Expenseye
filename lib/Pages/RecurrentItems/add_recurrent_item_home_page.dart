@@ -1,4 +1,7 @@
 import 'package:Expenseye/Enums/item_type.dart';
+import 'package:Expenseye/Pages/EditAddItem/choose_category_page.dart';
+import 'package:Expenseye/Pages/RecurrentItems/category_add_rec_item_page.dart';
+import 'package:Expenseye/Pages/RecurrentItems/date_add_rec_item_page.dart';
 import 'package:Expenseye/Pages/RecurrentItems/name_amount_add_rec_item_page.dart';
 import 'package:Expenseye/Providers/RecurrentItems/add_recurrent_item_model.dart';
 import 'package:flutter/material.dart';
@@ -18,9 +21,21 @@ class AddRecurrentItemHomePage extends StatelessWidget {
           appBar: AppBar(
             title: Text('Add new recurrent Item'), // TODO: use localization
           ),
-          body: NameAmountAddRecItemPage(),
+          body: _currentStep(context),
         ),
       ),
     );
+  }
+
+  Widget _currentStep(BuildContext context) {
+    final _addRecurrentItemModel = Provider.of<AddRecurrentItemModel>(context);
+    switch(_addRecurrentItemModel.step) {
+      case 1:
+        return NameAmountAddRecItemPage();
+      case 2:
+        return DateAddRecItemPage();
+      case 3:
+        return CategoryAddRecItemPage();
+    }
   }
 }

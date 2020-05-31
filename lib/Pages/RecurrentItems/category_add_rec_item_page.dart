@@ -7,7 +7,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:Expenseye/Providers/RecurrentItems/add_recurrent_item_model.dart';
 
-class CategoryAddRecItemPage extends StatelessWidget {
+class CategoryAddRecItemPage extends StatefulWidget {
+  @override
+  _CategoryAddRecItemPageState createState() => _CategoryAddRecItemPageState();
+}
+
+class _CategoryAddRecItemPageState extends State<CategoryAddRecItemPage> {
+  int selectedIconIndex;
+
   @override
   Widget build(BuildContext context) {
     final _model = Provider.of<AddRecurrentItemModel>(context, listen: false);
@@ -23,11 +30,13 @@ class CategoryAddRecItemPage extends StatelessWidget {
       bottomNavigationBar: BottomAppBar(
         color: Colors.transparent,
         child: BottomNavButton(
-          color: _model.type == ItemType.expense
-              ? Colors.red
-              : Colors.green,
+          color: _model.type == ItemType.expense ? Colors.red : Colors.green,
           text: AppLocalizations.of(context).translate('createRecurrentItem'),
-          onPressed: () => null,
+          onPressed: () {
+            if (selectedIconIndex != null) {
+              _model.createRecurrentItem(context);
+            }
+          },
         ),
       ),
       body: Column(
@@ -43,9 +52,26 @@ class CategoryAddRecItemPage extends StatelessWidget {
                 categorieKeys.length,
                 (index) {
                   String key = categorieKeys[index];
+                  if (selectedIconIndex != null && index == selectedIconIndex) {
+                    return Container(
+                      color: DbModel.catMap[key].color,
+                      padding: const EdgeInsets.all(4),
+                      child: CategoryBtn(
+                        category: DbModel.catMap[key],
+                        onPressed: () {
+                          _model.category = DbModel.catMap[key].id;
+                          setState(() => selectedIconIndex = index);
+                        },
+                      ),
+                    );
+                  }
+                  // other unselected categories
                   return CategoryBtn(
                     category: DbModel.catMap[key],
-                    onPressed: () => null,
+                    onPressed: () {
+                      _model.category = DbModel.catMap[key].id;
+                      setState(() => selectedIconIndex = index);
+                    },
                   );
                 },
               ),

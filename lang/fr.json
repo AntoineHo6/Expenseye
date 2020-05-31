@@ -69,5 +69,6 @@
     "nextDueDate": "Prochaine date d'échéance",
     "amount": "Montant",
     "createRecurrentItem": "CRÉER L'ÉLÉMENT RÉCURRENT",
-    "anErrorHasOccurred": "Une erreur est survenue"
+    "anErrorHasOccurred": "Une erreur est survenue",
+    "errorSelectDayBetween1-28": "ERREUR: veuillez sélectionner un jour entre le 1er et le 28 inclusivement"
 }

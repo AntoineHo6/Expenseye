@@ -69,5 +69,6 @@
     "nextDueDate": "Next due date",
     "amount": "Amount",
     "createRecurrentItem": "CREATE RECURRENT ITEM",
-    "anErrorHasOccurred": "An error has occurred"
+    "anErrorHasOccurred": "An error has occurred",
+    "errorSelectDayBetween1-28": "ERROR: please select a day between the 1st and the 28th"
 }

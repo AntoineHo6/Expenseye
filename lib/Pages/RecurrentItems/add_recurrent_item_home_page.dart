@@ -3,6 +3,7 @@ import 'package:Expenseye/Pages/EditAddItem/choose_category_page.dart';
 import 'package:Expenseye/Pages/RecurrentItems/category_add_rec_item_page.dart';
 import 'package:Expenseye/Pages/RecurrentItems/date_add_rec_item_page.dart';
 import 'package:Expenseye/Pages/RecurrentItems/name_amount_add_rec_item_page.dart';
+import 'package:Expenseye/Pages/RecurrentItems/periodicity_add_rec_item_page.dart';
 import 'package:Expenseye/Providers/RecurrentItems/add_recurrent_item_model.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
@@ -32,10 +33,12 @@ class AddRecurrentItemHomePage extends StatelessWidget {
     final _addRecurrentItemModel = Provider.of<AddRecurrentItemModel>(context);
     switch (_addRecurrentItemModel.step) {
       case 1:
-        return NameAmountAddRecItemPage();
+        return PeriodicityAddRecItemPage();
       case 2:
-        return DateAddRecItemPage();
+        return DateAddRecItemPage(_addRecurrentItemModel.periodicity);
       case 3:
+        return NameAmountAddRecItemPage();
+      case 4:
         return CategoryAddRecItemPage();
       default:
         return Align(

@@ -23,39 +23,46 @@ class _DateAddRecItemPageState extends State<DateAddRecItemPage>
     with TickerProviderStateMixin {
   CalendarController _calendarController;
   bool monthlyPeriodicityError = false;
+  AnimationController _animationController;
+  Animation _animation;
 
   @override
   Widget build(BuildContext context) {
     final _model = Provider.of<AddRecurrentItemModel>(context, listen: false);
+    _animationController.forward();
 
-    return Scaffold(
-      bottomNavigationBar: BottomAppBar(
-        color: Colors.transparent,
-        child: BottomNavButton(
-          color: _model.type == ItemType.expense
-              ? MyColors.expenseColor
-              : MyColors.incomeColor,
-          text: AppLocalizations.of(context).translate('nextCaps'),
-          onPressed: () {
-            if (_model.periodicity == Periodicity.monthly &&
-                _calendarController.focusedDay.day > 28) {
-              setState(() {
-                monthlyPeriodicityError = true;
-              });
-            } else {
-              _model.goNextFromDatePage(_calendarController.focusedDay);
-            }
-          },
+    return FadeTransition(
+      opacity: _animation,
+      child: Scaffold(
+        bottomNavigationBar: BottomAppBar(
+          color: Colors.transparent,
+          child: BottomNavButton(
+            color: _model.type == ItemType.expense
+                ? MyColors.expenseColor
+                : MyColors.incomeColor,
+            text: AppLocalizations.of(context).translate('nextCaps'),
+            onPressed: () {
+              if (_model.periodicity == Periodicity.monthly &&
+                  _calendarController.focusedDay.day > 28) {
+                setState(() {
+                  monthlyPeriodicityError = true;
+                });
+              } else {
+                _model.goNextFromDatePage(_calendarController.focusedDay);
+              }
+            },
+          ),
         ),
-      ),
-      body: Column(
-        children: <Widget>[
-          AddRecItemStepsHeader(
-              AppLocalizations.of(context).translate('selectAStartingDate')),
-          monthlyPeriodicityError
-              ? _monthlyPeriodicityErrorPage(context)
-              : _noMonthlyPeriodicityErrorPage()
-        ],
+        body: Column(
+          children: <Widget>[
+            AddRecItemStepsHeader(
+              '2. ${AppLocalizations.of(context).translate('selectAStartingDate')}',
+            ),
+            monthlyPeriodicityError
+                ? _monthlyPeriodicityErrorPage(context)
+                : _noMonthlyPeriodicityErrorPage()
+          ],
+        ),
       ),
     );
   }
@@ -91,13 +98,23 @@ class _DateAddRecItemPageState extends State<DateAddRecItemPage>
 
   @override
   void initState() {
-    super.initState();
     _calendarController = CalendarController();
+    _animationController = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: 1),
+    );
+
+    _animation = Tween(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(_animationController);
+    super.initState();
   }
 
   @override
   void dispose() {
     _calendarController.dispose();
+    _animationController.dispose();
     super.dispose();
   }
 }

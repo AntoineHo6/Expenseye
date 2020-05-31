@@ -11,7 +11,9 @@ class PeriodicityAddRecItemPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        AddRecItemStepsHeader(AppLocalizations.of(context).translate('selectAPeriodicity')),
+        AddRecItemStepsHeader(
+          '1. ${AppLocalizations.of(context).translate('selectAPeriodicity')}',
+        ),
         Expanded(
           child: ListView(
             children: <Widget>[

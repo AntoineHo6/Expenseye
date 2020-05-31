@@ -15,53 +15,60 @@ class NameAmountAddRecItemPage extends StatefulWidget {
       _NameAmountAddRecItemPageState();
 }
 
-class _NameAmountAddRecItemPageState extends State<NameAmountAddRecItemPage> {
-  final _nameController = TextEditingController();
-  final _amountController = TextEditingController();
+class _NameAmountAddRecItemPageState extends State<NameAmountAddRecItemPage>
+    with TickerProviderStateMixin {
+  TextEditingController _nameController;
+  TextEditingController _amountController;
+  AnimationController _animationController;
+  Animation _animation;
 
   @override
   Widget build(BuildContext context) {
     final _model = Provider.of<AddRecurrentItemModel>(context, listen: false);
+    _animationController.forward();
 
-    return Scaffold(
-      bottomNavigationBar: BottomAppBar(
-        color: Colors.transparent,
-        child: BottomNavButton(
-          color: _model.type == ItemType.expense
-              ? MyColors.expenseColor
-              : MyColors.incomeColor,
-          text: AppLocalizations.of(context).translate('nextCaps'),
-          onPressed: () => _model.goNextFromNameAmountPage(
-            _nameController.text,
-            _amountController.text,
+    return FadeTransition(
+      opacity: _animation,
+      child: Scaffold(
+        bottomNavigationBar: BottomAppBar(
+          color: Colors.transparent,
+          child: BottomNavButton(
+            color: _model.type == ItemType.expense
+                ? MyColors.expenseColor
+                : MyColors.incomeColor,
+            text: AppLocalizations.of(context).translate('nextCaps'),
+            onPressed: () => _model.goNextFromNameAmountPage(
+              _nameController.text,
+              _amountController.text,
+            ),
           ),
         ),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            AddRecItemStepsHeader(
-              AppLocalizations.of(context).translate('chooseANameAndAnAmount'),
-            ),
-            Column(
-              children: <Widget>[
-                _textFieldContainer(
-                  AppLocalizations.of(context).translate('name'),
-                  NameTextField(
-                    controller: _nameController,
-                    isNameInvalid: _model.isNameInvalid,
+        body: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              AddRecItemStepsHeader(
+                '3. ${AppLocalizations.of(context).translate('chooseANameAndAnAmount')}',
+              ),
+              Column(
+                children: <Widget>[
+                  _textFieldContainer(
+                    AppLocalizations.of(context).translate('name'),
+                    NameTextField(
+                      controller: _nameController,
+                      isNameInvalid: _model.isNameInvalid,
+                    ),
                   ),
-                ),
-                _textFieldContainer(
-                  AppLocalizations.of(context).translate('amount'),
-                  PriceTextField(
-                    controller: _amountController,
-                    isPriceInvalid: _model.isAmountInvalid,
+                  _textFieldContainer(
+                    AppLocalizations.of(context).translate('amount'),
+                    PriceTextField(
+                      controller: _amountController,
+                      isPriceInvalid: _model.isAmountInvalid,
+                    ),
                   ),
-                ),
-              ],
-            ),
-          ],
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -88,9 +95,27 @@ class _NameAmountAddRecItemPageState extends State<NameAmountAddRecItemPage> {
   }
 
   @override
+  void initState() {
+    _nameController = TextEditingController();
+    _amountController = TextEditingController();
+
+    _animationController = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: 1),
+    );
+
+    _animation = Tween(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(_animationController);
+    super.initState();
+  }
+
+  @override
   void dispose() {
     _nameController.dispose();
     _amountController.dispose();
+    _animationController.dispose();
     super.dispose();
   }
 }

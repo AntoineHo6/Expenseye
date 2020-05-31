@@ -5,6 +5,7 @@ import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:Expenseye/Pages/RecurrentItems/date_add_rec_item_page.dart';
 
 class AddRecurrentItemModel extends ChangeNotifier {
   int step = 1;
@@ -13,14 +14,20 @@ class AddRecurrentItemModel extends ChangeNotifier {
   DateTime startingDay;
   Periodicity periodicity;
   String category;
+  ItemType type;
   bool isNameInvalid = false;
   bool isAmountInvalid = false;
-  ItemType type;
 
   AddRecurrentItemModel(this.type);
 
   void goNextFromPeriodicityPage(Periodicity periodicity) {
     this.periodicity = periodicity;
+    this.step++;
+    notifyListeners();
+  }
+
+  void goNextFromDatePage(DateTime startingDay) {
+    this.startingDay = DateTimeUtil.timeToZeroInDate(startingDay);
     this.step++;
     notifyListeners();
   }
@@ -32,12 +39,6 @@ class AddRecurrentItemModel extends ChangeNotifier {
       this.step++;
       notifyListeners();
     }
-  }
-
-  void goNextFromDatePage(DateTime startingDay) {
-    this.startingDay = DateTimeUtil.timeToZeroInDate(startingDay);
-    this.step++;
-    notifyListeners();
   }
 
   // Will check and show error msg if a field is invalid.

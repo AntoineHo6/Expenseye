@@ -1,5 +1,6 @@
 import 'package:Expenseye/Components/Global/name_text_field.dart';
 import 'package:Expenseye/Components/Global/price_text_field.dart';
+import 'package:Expenseye/Components/RecurrentItems/add_rec_item_steps_header.dart';
 import 'package:Expenseye/Components/RecurrentItems/bottom_nav_button.dart';
 import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Providers/RecurrentItems/add_recurrent_item_model.dart';
@@ -39,6 +40,9 @@ class _NameAmountAddRecItemPageState extends State<NameAmountAddRecItemPage> {
       body: SingleChildScrollView(
         child: Column(
           children: <Widget>[
+            AddRecItemStepsHeader(
+              AppLocalizations.of(context).translate('chooseANameAndAnAmount'),
+            ),
             Column(
               children: <Widget>[
                 _textFieldContainer(

@@ -43,7 +43,8 @@ class AddRecurrentItemHomePage extends StatelessWidget {
       default:
         return Align(
           alignment: Alignment.center,
-          child: Text(AppLocalizations.of(context).translate('anErrorHasOccurred')),
+          child: Text(
+              AppLocalizations.of(context).translate('anErrorHasOccurred')),
         );
     }
   }

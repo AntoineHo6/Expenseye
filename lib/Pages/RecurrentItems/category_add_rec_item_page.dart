@@ -1,4 +1,5 @@
 import 'package:Expenseye/Components/Categories/category_btn.dart';
+import 'package:Expenseye/Components/RecurrentItems/add_rec_item_steps_header.dart';
 import 'package:Expenseye/Components/RecurrentItems/bottom_nav_button.dart';
 import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
@@ -41,18 +42,22 @@ class _CategoryAddRecItemPageState extends State<CategoryAddRecItemPage> {
       ),
       body: Column(
         children: <Widget>[
+          AddRecItemStepsHeader(
+            AppLocalizations.of(context).translate('selectACategory'),
+          ),
           Expanded(
             child: GridView.count(
               primary: false,
               padding: const EdgeInsets.all(10),
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
-              crossAxisCount: 3,
+              crossAxisSpacing: 5,
+              mainAxisSpacing: 5,
+              crossAxisCount: 4,
               children: List.generate(
                 categorieKeys.length,
                 (index) {
                   String key = categorieKeys[index];
-                  if (selectedIconIndex != null && index == selectedIconIndex) {
+                  if (selectedIconIndex != null &&
+                      index == selectedIconIndex) {
                     return Container(
                       color: DbModel.catMap[key].color,
                       padding: const EdgeInsets.all(4),

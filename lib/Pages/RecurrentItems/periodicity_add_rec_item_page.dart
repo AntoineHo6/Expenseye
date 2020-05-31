@@ -1,3 +1,4 @@
+import 'package:Expenseye/Components/RecurrentItems/add_rec_item_steps_header.dart';
 import 'package:Expenseye/Enums/periodicity.dart';
 import 'package:Expenseye/Providers/RecurrentItems/add_recurrent_item_model.dart';
 import 'package:Expenseye/Resources/Themes/Colors.dart';
@@ -8,9 +9,9 @@ import 'package:provider/provider.dart';
 class PeriodicityAddRecItemPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-
     return Column(
       children: <Widget>[
+        AddRecItemStepsHeader(AppLocalizations.of(context).translate('selectAPeriodicity')),
         Expanded(
           child: ListView(
             children: <Widget>[
@@ -53,9 +54,9 @@ class PeriodicityAddRecItemPage extends StatelessWidget {
       color: MyColors.black12dp,
       child: ListTile(
         title: Text(title),
-        onTap: () => {
+        onTap: () {
           Provider.of<AddRecurrentItemModel>(context, listen: false)
-              .goNextFromPeriodicityPage(periodicity)
+              .goNextFromPeriodicityPage(periodicity);
         },
       ),
     );

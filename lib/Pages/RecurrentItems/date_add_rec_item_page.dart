@@ -1,4 +1,5 @@
 import 'package:Expenseye/Components/Global/my_table_calendar.dart';
+import 'package:Expenseye/Components/RecurrentItems/add_rec_item_steps_header.dart';
 import 'package:Expenseye/Components/RecurrentItems/bottom_nav_button.dart';
 import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Enums/periodicity.dart';
@@ -28,28 +29,35 @@ class _DateAddRecItemPageState extends State<DateAddRecItemPage>
     final _model = Provider.of<AddRecurrentItemModel>(context, listen: false);
 
     return Scaffold(
-        bottomNavigationBar: BottomAppBar(
-          color: Colors.transparent,
-          child: BottomNavButton(
-            color: _model.type == ItemType.expense
-                ? MyColors.expenseColor
-                : MyColors.incomeColor,
-            text: AppLocalizations.of(context).translate('nextCaps'),
-            onPressed: () {
-              if (_model.periodicity == Periodicity.monthly &&
-                  _calendarController.focusedDay.day > 28) {
-                setState(() {
-                  monthlyPeriodicityError = true;
-                });
-              } else {
-                _model.goNextFromDatePage(_calendarController.focusedDay);
-              }
-            },
-          ),
+      bottomNavigationBar: BottomAppBar(
+        color: Colors.transparent,
+        child: BottomNavButton(
+          color: _model.type == ItemType.expense
+              ? MyColors.expenseColor
+              : MyColors.incomeColor,
+          text: AppLocalizations.of(context).translate('nextCaps'),
+          onPressed: () {
+            if (_model.periodicity == Periodicity.monthly &&
+                _calendarController.focusedDay.day > 28) {
+              setState(() {
+                monthlyPeriodicityError = true;
+              });
+            } else {
+              _model.goNextFromDatePage(_calendarController.focusedDay);
+            }
+          },
         ),
-        body: monthlyPeriodicityError
-            ? _monthlyPeriodicityErrorPage(context)
-            : _noMonthlyPeriodicityErrorPage());
+      ),
+      body: Column(
+        children: <Widget>[
+          AddRecItemStepsHeader(
+              AppLocalizations.of(context).translate('selectAStartingDate')),
+          monthlyPeriodicityError
+              ? _monthlyPeriodicityErrorPage(context)
+              : _noMonthlyPeriodicityErrorPage()
+        ],
+      ),
+    );
   }
 
   MyTableCalendar _noMonthlyPeriodicityErrorPage() {
@@ -67,19 +75,15 @@ class _DateAddRecItemPageState extends State<DateAddRecItemPage>
           calendarController: _calendarController,
         ),
         const SizedBox(
-          height: 10,
+          height: 15,
         ),
-        Align(
-          alignment: Alignment.bottomRight,
-          child: Text(
-            AppLocalizations.of(context)
-                .translate('errorSelectDayBetween1-28'),
-            style: TextStyle(
-              color: Colors.red,
-              fontSize: 15,
-            ),
-            textAlign: TextAlign.center,
+        Text(
+          AppLocalizations.of(context).translate('errorSelectDayBetween1-28'),
+          style: TextStyle(
+            color: Colors.red,
+            fontSize: 15,
           ),
+          textAlign: TextAlign.center,
         ),
       ],
     );

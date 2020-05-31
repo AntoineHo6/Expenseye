@@ -70,5 +70,9 @@
     "amount": "Montant",
     "createRecurrentItem": "CRÉER L'ÉLÉMENT RÉCURRENT",
     "anErrorHasOccurred": "Une erreur est survenue",
-    "errorSelectDayBetween1-28": "ERREUR: veuillez sélectionner un jour entre le 1er et le 28 inclusivement"
+    "errorSelectDayBetween1-28": "ERREUR: veuillez sélectionner un jour entre le 1er et le 28 inclusivement",
+    "selectAPeriodicity": "Sélectionnez une périodicité",
+    "selectAStartingDate": "Sélectionnez une date de départ",
+    "chooseANameAndAnAmount": "Choisissez un nom et un montant",
+    "selectACategory": "Choisissez une catégorie"
 }

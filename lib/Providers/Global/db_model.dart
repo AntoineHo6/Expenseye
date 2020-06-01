@@ -39,34 +39,12 @@ class DbModel extends ChangeNotifier {
     for (var recurrentItem in recurrentItems) {
       // if same date and not added yet
       if (recurrentItem.dueDate.compareTo(today) == 0) {
-        // 1. insert item
-        Item newItem = Item(
-          recurrentItem.name,
-          recurrentItem.value,
-          recurrentItem.dueDate,
-          catMap[recurrentItem.category].type,
-          recurrentItem.category,
-        );
-        await _dbHelper.insertItem(newItem);
-        // 2. update recurrent item's date
-        recurrentItem.updateDueDate();
-        await _dbHelper.updateRecurrentItem(recurrentItem);
-      } else if (recurrentItem.dueDate.compareTo(today) == -1) {
-        // else if recurrentItem's date is before today
+        await insRecItemInstanceAndUpdate(recurrentItem);
+      }
+      // else if recurrentItem's date is before today
+      else if (recurrentItem.dueDate.compareTo(today) == -1) {
         while (recurrentItem.dueDate.compareTo(today) != 1) {
-          // 1. insert item
-          Item newItem = Item(
-            recurrentItem.name,
-            recurrentItem.value,
-            recurrentItem.dueDate,
-            catMap[recurrentItem.category].type,
-            recurrentItem.category,
-          );
-          await _dbHelper.insertItem(newItem);
-
-          // 2. update recurrent item's date
-          recurrentItem.updateDueDate();
-          await _dbHelper.updateRecurrentItem(recurrentItem);
+          await insRecItemInstanceAndUpdate(recurrentItem);
         }
       }
     }
@@ -74,7 +52,20 @@ class DbModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  // Future<void>
+  Future<void> insRecItemInstanceAndUpdate(RecurrentItem recurrentItem) async {
+    // 1. insert item
+    Item newItem = Item(
+      recurrentItem.name,
+      recurrentItem.value,
+      recurrentItem.dueDate,
+      catMap[recurrentItem.category].type,
+      recurrentItem.category,
+    );
+    await _dbHelper.insertItem(newItem);
+    // 2. update recurrent item's date
+    recurrentItem.updateDueDate();
+    await _dbHelper.updateRecurrentItem(recurrentItem);
+  }
 
   Future<void> addLocalItems(List<Item> localItems,
       List<Category> localCategories, List<Category> accCategories) async {

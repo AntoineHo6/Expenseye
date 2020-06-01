@@ -34,8 +34,8 @@ class _NameAmountAddRecItemPageState extends State<NameAmountAddRecItemPage>
           color: Colors.transparent,
           child: BottomNavButton(
             color: _model.type == ItemType.expense
-                ? MyColors.expenseColor
-                : MyColors.incomeColor,
+                ? MyColors.expenseBGColor
+                : MyColors.incomeBGColor,
             text: AppLocalizations.of(context).translate('nextCaps'),
             onPressed: () => _model.goNextFromNameAmountPage(
               _nameController.text,

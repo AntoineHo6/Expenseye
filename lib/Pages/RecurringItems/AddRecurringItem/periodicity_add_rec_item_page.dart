@@ -1,4 +1,5 @@
 import 'package:Expenseye/Components/RecurringItems/add_rec_item_steps_header.dart';
+import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Enums/periodicity.dart';
 import 'package:Expenseye/Providers/RecurringItems/add_recurring_item_model.dart';
 import 'package:Expenseye/Resources/Themes/Colors.dart';
@@ -19,6 +20,7 @@ class _PeriodicityAddRecItemPageState extends State<PeriodicityAddRecItemPage>
 
   @override
   Widget build(BuildContext context) {
+    final _model = Provider.of<AddRecurringItemModel>(context, listen: false);
     _animationController.forward();
 
     return FadeTransition(
@@ -34,30 +36,30 @@ class _PeriodicityAddRecItemPageState extends State<PeriodicityAddRecItemPage>
             child: ListView(
               children: <Widget>[
                 _listViewItem(
-                  context,
-                  AppLocalizations.of(context).translate('daily'),
-                  Periodicity.daily,
-                ),
+                    context,
+                    AppLocalizations.of(context).translate('daily'),
+                    Periodicity.daily,
+                    _model.type),
                 _listViewItem(
-                  context,
-                  AppLocalizations.of(context).translate('weekly'),
-                  Periodicity.weekly,
-                ),
+                    context,
+                    AppLocalizations.of(context).translate('weekly'),
+                    Periodicity.weekly,
+                    _model.type),
                 _listViewItem(
-                  context,
-                  AppLocalizations.of(context).translate('biWeekly'),
-                  Periodicity.biweekly,
-                ),
+                    context,
+                    AppLocalizations.of(context).translate('biWeekly'),
+                    Periodicity.biweekly,
+                    _model.type),
                 _listViewItem(
-                  context,
-                  AppLocalizations.of(context).translate('monthly'),
-                  Periodicity.monthly,
-                ),
+                    context,
+                    AppLocalizations.of(context).translate('monthly'),
+                    Periodicity.monthly,
+                    _model.type),
                 _listViewItem(
-                  context,
-                  AppLocalizations.of(context).translate('yearly'),
-                  Periodicity.yearly,
-                ),
+                    context,
+                    AppLocalizations.of(context).translate('yearly'),
+                    Periodicity.yearly,
+                    _model.type),
               ],
             ),
           ),
@@ -66,11 +68,13 @@ class _PeriodicityAddRecItemPageState extends State<PeriodicityAddRecItemPage>
     );
   }
 
-  Container _listViewItem(
-      BuildContext context, String title, Periodicity periodicity) {
+  Container _listViewItem(BuildContext context, String title,
+      Periodicity periodicity, ItemType type) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 2, horizontal: 10),
-      color: MyColors.black12dp,
+      color: type == ItemType.expense
+          ? MyColors.expenseColor
+          : MyColors.incomeColor,
       child: ListTile(
         title: Text(title),
         onTap: () {

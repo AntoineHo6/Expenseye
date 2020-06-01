@@ -1,5 +1,6 @@
 import 'package:Expenseye/Enums/periodicity.dart';
 import 'package:Expenseye/Resources/Strings.dart';
+import 'package:Expenseye/Utils/date_time_util.dart';
 
 class RecurringItem {
   int id;
@@ -29,13 +30,13 @@ class RecurringItem {
   void updateDueDate() {
     switch (periodicity) {
       case Periodicity.daily:
-        dueDate = dueDate.add(Duration(days: 1));
+        dueDate = DateTimeUtil.timeToZeroInDate(dueDate.add(Duration(days: 1)));
         break;
       case Periodicity.weekly:
-        dueDate = dueDate.add(Duration(days: 7));
+        dueDate = DateTimeUtil.timeToZeroInDate(dueDate.add(Duration(days: 7)));
         break;
       case Periodicity.biweekly:
-        dueDate = dueDate.add(Duration(days: 14));
+        dueDate = DateTimeUtil.timeToZeroInDate(dueDate.add(Duration(days: 14)));
         break;
       case Periodicity.monthly:
         int newMonth;
@@ -46,10 +47,10 @@ class RecurringItem {
         } else {
           newMonth = dueDate.month + 1;
         }
-        dueDate = DateTime(newYear, newMonth, dueDate.day);
+        dueDate = DateTimeUtil.timeToZeroInDate(DateTime(newYear, newMonth, dueDate.day));
         break;
       case Periodicity.yearly:
-        dueDate = DateTime(dueDate.year + 1, dueDate.month, dueDate.day);
+        dueDate = DateTimeUtil.timeToZeroInDate(DateTime(dueDate.year + 1, dueDate.month, dueDate.day));
         break;
     }
   }

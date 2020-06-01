@@ -116,8 +116,8 @@ class MonthlyItemsPage extends StatelessWidget {
                         (item) => Card(
                           margin: const EdgeInsets.symmetric(vertical: 4),
                           color: item.type == ItemType.expense
-                              ? MyColors.expenseColor
-                              : MyColors.incomeColor,
+                              ? MyColors.expenseBGColor
+                              : MyColors.incomeBGColor,
                           child: ItemListTile(
                             item,
                             onTap: () => _itemModel.openEditItem(context, item),

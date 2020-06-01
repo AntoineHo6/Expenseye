@@ -104,8 +104,8 @@ class _DailyPageState extends State<DailyPage> with WidgetsBindingObserver {
                     margin: EdgeInsets.fromLTRB(10, 20, 10, 0),
                     decoration: BoxDecoration(
                       color: item.type == ItemType.expense
-                          ? MyColors.expenseColor
-                          : MyColors.incomeColor,
+                          ? MyColors.expenseBGColor
+                          : MyColors.incomeBGColor,
                       borderRadius: BorderRadius.circular(15),
                     ),
                     child: ItemListTile(

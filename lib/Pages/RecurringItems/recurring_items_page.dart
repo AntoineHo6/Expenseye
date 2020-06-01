@@ -135,8 +135,8 @@ class RecurringItemsPage extends StatelessWidget {
           margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
           decoration: BoxDecoration(
             color: itemType == ItemType.expense
-                ? MyColors.expenseColor
-                : MyColors.incomeColor,
+                ? MyColors.expenseBGColor
+                : MyColors.incomeBGColor,
             borderRadius: BorderRadius.circular(5),
           ),
           child: ListTile(

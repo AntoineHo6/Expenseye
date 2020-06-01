@@ -30,7 +30,7 @@ class ItemsHeader extends StatelessWidget {
                 children: <Widget>[
                   Container(
                     decoration: BoxDecoration(
-                      color: MyColors.incomeColor,
+                      color: MyColors.incomeBGColor,
                       borderRadius: BorderRadius.circular(10),
                     ),
                     padding: const EdgeInsets.all(10),
@@ -48,7 +48,7 @@ class ItemsHeader extends StatelessWidget {
                   const SizedBox(width: 30),
                   Container(
                     decoration: BoxDecoration(
-                      color: MyColors.expenseColor,
+                      color: MyColors.expenseBGColor,
                       borderRadius: BorderRadius.circular(10),
                     ),
                     padding: const EdgeInsets.all(10),

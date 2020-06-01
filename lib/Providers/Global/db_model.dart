@@ -12,9 +12,13 @@ class DbModel extends ChangeNotifier {
   static List<Category> categories = new List();
 
   DbModel() {
-    initConnectedUser();
-    initUserCategoriesMap();
-    initCheckRecurringItems();
+    initializeUser();
+  }
+
+  Future<void> initializeUser() async {
+    await initConnectedUser();
+    await initUserCategoriesMap();
+    await initCheckRecurringItems();
   }
 
   Future<void> initConnectedUser() async {

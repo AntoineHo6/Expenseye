@@ -12,7 +12,9 @@ class MyColors {
   static const Color secondary = Color(0xff33B4A8);
   static const Color secondaryDarker = Color(0xff227069);
 
-  static const incomeColor = Color(0xff1C231B);
-  static const expenseColor = Color(0xff231B1B);
+  static const incomeBGColor = Color(0xff1C231B);
+  static const incomeColor = Color(0xff316B28);
+  static const expenseBGColor = Color(0xff231B1B);
+  static const expenseColor = Color(0xff692626);
   static const balanceColor = Color(0xff2B2B1E);
 }

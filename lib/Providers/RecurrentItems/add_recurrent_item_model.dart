@@ -66,7 +66,7 @@ class AddRecurrentItemModel extends ChangeNotifier {
 
   void createRecurrentItem(BuildContext context) {
     RecurrentItem newRecurrentItem = new RecurrentItem(this.name, this.amount,
-        this.startingDay, 0, this.category, periodicity);
+        this.startingDay, this.category, periodicity);
     Provider.of<DbModel>(context, listen: false)
         .insertRecurrentItem(newRecurrentItem);
     Navigator.pop(context);

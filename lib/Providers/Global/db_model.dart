@@ -38,12 +38,12 @@ class DbModel extends ChangeNotifier {
 
     for (var recurrentItem in recurrentItems) {
       // if same date and not added yet
-      if (recurrentItem.date.compareTo(today) == 0) {
+      if (recurrentItem.dueDate.compareTo(today) == 0) {
         // 1. insert item
         Item newItem = Item(
           recurrentItem.name,
           recurrentItem.value,
-          recurrentItem.date,
+          recurrentItem.dueDate,
           catMap[recurrentItem.category].type,
           recurrentItem.category,
         );

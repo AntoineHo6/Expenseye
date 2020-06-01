@@ -15,7 +15,7 @@ class DatabaseHelper {
   // This is the actual database filename that is saved in the docs directory.
   static const _databaseName = Strings.dbFileName;
   // Increment this version when you need to change the schema.
-  static final _databaseVersion = 8;
+  static final _databaseVersion = 9;
 
   // Make this a singleton class.
   DatabaseHelper._privateConstructor();
@@ -75,8 +75,7 @@ class DatabaseHelper {
               ${Strings.recurrentItemColumnId} INTEGER PRIMARY KEY AUTOINCREMENT,
               ${Strings.recurrentItemColumnName} TEXT NOT NULL,
               ${Strings.recurrentItemColumnValue} DOUBLE NOT NULL,
-              ${Strings.recurrentItemColumnDate} INTEGER NOT NULL,
-              ${Strings.recurrentItemColumnIsAdded} INTEGER NOT NULL,
+              ${Strings.recurrentItemColumnDueDate} INTEGER NOT NULL,
               ${Strings.recurrentItemColumnPeriodicity} INTEGER NOT NULL,
               ${Strings.recurrentItemColumnCategory} TEXT NOT NULL,
               FOREIGN KEY(${Strings.recurrentItemColumnCategory}) REFERENCES ${Strings.tableCategories}(${Strings.categoryColumnId})
@@ -92,8 +91,7 @@ class DatabaseHelper {
               ${Strings.recurrentItemColumnId} INTEGER PRIMARY KEY AUTOINCREMENT,
               ${Strings.recurrentItemColumnName} TEXT NOT NULL,
               ${Strings.recurrentItemColumnValue} DOUBLE NOT NULL,
-              ${Strings.recurrentItemColumnDate} INTEGER NOT NULL,
-              ${Strings.recurrentItemColumnIsAdded} INTEGER NOT NULL,
+              ${Strings.recurrentItemColumnDueDate} INTEGER NOT NULL,
               ${Strings.recurrentItemColumnPeriodicity} INTEGER NOT NULL,
               ${Strings.recurrentItemColumnCategory} TEXT NOT NULL,
               FOREIGN KEY(${Strings.recurrentItemColumnCategory}) REFERENCES ${Strings.tableCategories}(${Strings.categoryColumnId})

@@ -225,7 +225,7 @@ class RecurrentItemsPage extends StatelessWidget {
     }
 
     return Text(
-      '$periodicity\n${AppLocalizations.of(context).translate('nextDueDate')}: ${DateTimeUtil.formattedDate(context, recurrentItem.date)}',
+      '$periodicity\n${AppLocalizations.of(context).translate('nextDueDate')}: ${DateTimeUtil.formattedDate(context, recurrentItem.dueDate)}',
     );
   }
 }

@@ -51,9 +51,27 @@ class DbModel extends ChangeNotifier {
         // 2. update recurrent item's date
         recurrentItem.updateDueDate();
         await _dbHelper.updateRecurrentItem(recurrentItem);
-        notifyListeners();
-      } 
+      } else if (recurrentItem.dueDate.compareTo(today) == -1) {
+        // else if recurrentItem's date is before today
+        while (recurrentItem.dueDate.compareTo(today) != 1) {
+          // 1. insert item
+          Item newItem = Item(
+            recurrentItem.name,
+            recurrentItem.value,
+            recurrentItem.dueDate,
+            catMap[recurrentItem.category].type,
+            recurrentItem.category,
+          );
+          await _dbHelper.insertItem(newItem);
+
+          // 2. update recurrent item's date
+          recurrentItem.updateDueDate();
+          await _dbHelper.updateRecurrentItem(recurrentItem);
+        }
+      }
     }
+
+    notifyListeners();
   }
 
   // Future<void>

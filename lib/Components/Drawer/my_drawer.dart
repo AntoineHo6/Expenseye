@@ -20,7 +20,7 @@ class MyDrawer extends StatelessWidget {
           children: <Widget>[
             MyDrawerHeader(),
             ListTile(
-              leading: Icon(MdiIcons.calendarBlank, color: MyColors.secondary),
+              leading: Icon(MdiIcons.calendarBlank, color: Colors.white),
               title: Text(AppLocalizations.of(context).translate('monthly')),
               onTap: () {
                 Navigator.of(context).pop(context);
@@ -29,7 +29,7 @@ class MyDrawer extends StatelessWidget {
             ),
             ListTile(
               leading:
-                  Icon(MdiIcons.calendarBlankMultiple, color: MyColors.secondary),
+                  Icon(MdiIcons.calendarBlankMultiple, color: Colors.white),
               title: Text(AppLocalizations.of(context).translate('yearly')),
               onTap: () {
                 Navigator.of(context).pop(context);
@@ -37,7 +37,7 @@ class MyDrawer extends StatelessWidget {
               },
             ),
             ListTile(
-              leading: Icon(MdiIcons.viewGrid, color: MyColors.secondary),
+              leading: Icon(MdiIcons.viewGrid, color: Colors.white),
               title: Text(AppLocalizations.of(context).translate('categories')),
               onTap: () {
                 Navigator.of(context).pop(context);
@@ -45,7 +45,7 @@ class MyDrawer extends StatelessWidget {
               },
             ),
             ListTile(
-              leading: Icon(Icons.autorenew, color: MyColors.secondary),
+              leading: Icon(Icons.autorenew, color: Colors.white),
               title: Text(
                   AppLocalizations.of(context).translate('recurrentItems')),
               onTap: () {
@@ -54,7 +54,7 @@ class MyDrawer extends StatelessWidget {
               },
             ),
             ListTile(
-              leading: Icon(Icons.info_outline, color: MyColors.secondary),
+              leading: Icon(Icons.info_outline, color: Colors.white),
               title: Text(AppLocalizations.of(context).translate('about')),
               onTap: () {
                 Navigator.of(context).pop(context);

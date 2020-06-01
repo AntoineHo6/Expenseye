@@ -12,7 +12,8 @@ class PeriodicityAddRecItemPage extends StatelessWidget {
     return Column(
       children: <Widget>[
         AddRecItemStepsHeader(
-          '1. ${AppLocalizations.of(context).translate('selectAPeriodicity')}',
+          title: '1. ${AppLocalizations.of(context).translate('selectAPeriodicity')}',
+          percent: 0.25,
         ),
         Expanded(
           child: ListView(

@@ -14,9 +14,10 @@ class DbModel extends ChangeNotifier {
   DbModel() {
     initConnectedUser();
     initUserCategoriesMap();
+    initCheckRecurrentItems();
   }
 
-  void initConnectedUser() async {
+  Future<void> initConnectedUser() async {
     await GoogleFirebaseHelper.initConnectedUser();
   }
 
@@ -30,6 +31,32 @@ class DbModel extends ChangeNotifier {
     await _deleteAllItems();
     await _resetCategories();
   }
+
+  Future<void> initCheckRecurrentItems() async {
+    List<RecurrentItem> recurrentItems = await queryRecurrentItems();
+    DateTime today = DateTimeUtil.timeToZeroInDate(DateTime.now());
+
+    for (var recurrentItem in recurrentItems) {
+      // if same date and not added yet
+      if (recurrentItem.date.compareTo(today) == 0) {
+        // 1. insert item
+        Item newItem = Item(
+          recurrentItem.name,
+          recurrentItem.value,
+          recurrentItem.date,
+          catMap[recurrentItem.category].type,
+          recurrentItem.category,
+        );
+        await _dbHelper.insertItem(newItem);
+        // 2. update recurrent item's date
+        recurrentItem.updateDueDate();
+        await _dbHelper.updateRecurrentItem(recurrentItem);
+        notifyListeners();
+      } 
+    }
+  }
+
+  // Future<void>
 
   Future<void> addLocalItems(List<Item> localItems,
       List<Category> localCategories, List<Category> accCategories) async {

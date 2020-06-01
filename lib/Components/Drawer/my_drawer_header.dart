@@ -24,7 +24,7 @@ class MyDrawerHeader extends StatelessWidget {
               alignment: Alignment.topLeft,
               child: Row(
                 children: <Widget>[
-                  Icon(Icons.remove_red_eye, color: MyColors.secondary),
+                  Icon(Icons.remove_red_eye, color: Colors.white),
                   const SizedBox(
                     width: 15,
                   ),

@@ -56,7 +56,8 @@ class MyIcons {
     MdiIcons.origin,
     MdiIcons.dumbbell,
     MdiIcons.hanger,
-    MdiIcons.tshirtCrew
+    MdiIcons.tshirtCrew,
+    MdiIcons.fish,
   ];
 
   static const List<IconData> incomeIcons = [

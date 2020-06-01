@@ -6,8 +6,6 @@ import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class ItemModel extends ChangeNotifier {
-  ItemModel();
-
   void showAddExpense(BuildContext context, DateTime initialDate) async {
     bool confirmed = await showDialog(
       context: context,

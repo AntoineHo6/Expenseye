@@ -42,7 +42,8 @@ class _DateAddRecItemPageState extends State<DateAddRecItemPage>
                 : MyColors.incomeColor,
             text: AppLocalizations.of(context).translate('nextCaps'),
             onPressed: () {
-              if (_model.periodicity == Periodicity.monthly &&
+              if ((_model.periodicity == Periodicity.monthly ||
+                      _model.periodicity == Periodicity.yearly) &&
                   _calendarController.focusedDay.day > 28) {
                 setState(() {
                   monthlyPeriodicityError = true;
@@ -56,7 +57,9 @@ class _DateAddRecItemPageState extends State<DateAddRecItemPage>
         body: Column(
           children: <Widget>[
             AddRecItemStepsHeader(
-              '2. ${AppLocalizations.of(context).translate('selectAStartingDate')}',
+              title:
+                  '2. ${AppLocalizations.of(context).translate('selectAStartingDate')}',
+              percent: 0.5,
             ),
             monthlyPeriodicityError
                 ? _monthlyPeriodicityErrorPage(context)

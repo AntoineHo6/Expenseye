@@ -240,6 +240,13 @@ class DatabaseHelper {
         where: '${Strings.recurrentItemColumnId} = ?', whereArgs: [id]);
   }
 
+  Future<int> updateRecurrentItem(RecurrentItem recurrentItem) async {
+    Database db = await database;
+
+    return await db.update(Strings.tableRecurrentItems, recurrentItem.toMap(),
+        where: '${Strings.recurrentItemColumnId} = ?', whereArgs: [recurrentItem.id]);
+  }
+
   // * CATEGORIES
   Future<void> _insertDefaultCategories(Database db) async {
     for (var category in defaultCategories()) {

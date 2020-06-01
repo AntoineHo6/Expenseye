@@ -47,7 +47,8 @@ class _NameAmountAddRecItemPageState extends State<NameAmountAddRecItemPage>
           child: Column(
             children: <Widget>[
               AddRecItemStepsHeader(
-                '3. ${AppLocalizations.of(context).translate('chooseANameAndAnAmount')}',
+                title: '3. ${AppLocalizations.of(context).translate('chooseANameAndAnAmount')}',
+                percent: 0.75,
               ),
               Column(
                 children: <Widget>[

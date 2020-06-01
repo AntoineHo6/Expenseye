@@ -49,7 +49,8 @@ class _CategoryAddRecItemPageState extends State<CategoryAddRecItemPage>
         body: Column(
           children: <Widget>[
             AddRecItemStepsHeader(
-              '4. ${AppLocalizations.of(context).translate('selectACategory')}',
+              title: '4. ${AppLocalizations.of(context).translate('selectACategory')}',
+              percent: 1,
             ),
             Expanded(
               child: GridView.count(

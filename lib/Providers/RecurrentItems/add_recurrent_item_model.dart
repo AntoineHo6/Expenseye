@@ -5,7 +5,6 @@ import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:Expenseye/Pages/RecurrentItems/date_add_rec_item_page.dart';
 
 class AddRecurrentItemModel extends ChangeNotifier {
   int step = 1;

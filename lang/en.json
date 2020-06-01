@@ -65,15 +65,16 @@
     "succDeleted": "Successfully deleted",
     "appBy": "App by Antoine Ho, 2020",
     "appName": "Expenseye",
-    "recurrentItems": "Recurrent Items",
+    "recurringItems": "Recurring Items",
     "nextDueDate": "Next due date",
     "amount": "Amount",
-    "createRecurrentItem": "CREATE RECURRENT ITEM",
+    "createRecurringItem": "CREATE RECURRING ITEM",
     "anErrorHasOccurred": "An error has occurred",
     "errorSelectDayBetween1-28": "ERROR: please select a day between the 1st and the 28th",
     "selectAPeriodicity": "Select a periodicity",
     "selectAStartingDate": "Select a starting date",
     "chooseANameAndAnAmount": "Choose a name and an amount",
     "selectACategory": "Select a category",
-    "selectTheType": "Select the type"
+    "selectTheType": "Select the type",
+    "addNewRecurringItem": "Add new recurring item"
 }

@@ -2,7 +2,7 @@ import 'package:Expenseye/Helpers/database_helper.dart';
 import 'package:Expenseye/Helpers/google_firebase_helper.dart';
 import 'package:Expenseye/Models/Category.dart';
 import 'package:Expenseye/Models/Item.dart';
-import 'package:Expenseye/Models/recurrent_item.dart';
+import 'package:Expenseye/Models/recurring_item.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
 import 'package:flutter/material.dart';
 
@@ -14,7 +14,7 @@ class DbModel extends ChangeNotifier {
   DbModel() {
     initConnectedUser();
     initUserCategoriesMap();
-    initCheckRecurrentItems();
+    initCheckRecurringItems();
   }
 
   Future<void> initConnectedUser() async {
@@ -32,19 +32,19 @@ class DbModel extends ChangeNotifier {
     await _resetCategories();
   }
 
-  Future<void> initCheckRecurrentItems() async {
-    List<RecurrentItem> recurrentItems = await queryRecurrentItems();
+  Future<void> initCheckRecurringItems() async {
+    List<RecurringItem> recurringItems = await queryRecurringItems();
     DateTime today = DateTimeUtil.timeToZeroInDate(DateTime.now());
 
-    for (var recurrentItem in recurrentItems) {
+    for (var recurringItem in recurringItems) {
       // if same date and not added yet
-      if (recurrentItem.dueDate.compareTo(today) == 0) {
-        await insRecItemInstanceAndUpdate(recurrentItem);
+      if (recurringItem.dueDate.compareTo(today) == 0) {
+        await insRecItemInstanceAndUpdate(recurringItem);
       }
-      // else if recurrentItem's date is before today
-      else if (recurrentItem.dueDate.compareTo(today) == -1) {
-        while (recurrentItem.dueDate.compareTo(today) != 1) {
-          await insRecItemInstanceAndUpdate(recurrentItem);
+      // else if recurringItem's date is before today
+      else if (recurringItem.dueDate.compareTo(today) == -1) {
+        while (recurringItem.dueDate.compareTo(today) != 1) {
+          await insRecItemInstanceAndUpdate(recurringItem);
         }
       }
     }
@@ -52,19 +52,19 @@ class DbModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> insRecItemInstanceAndUpdate(RecurrentItem recurrentItem) async {
+  Future<void> insRecItemInstanceAndUpdate(RecurringItem recurringItem) async {
     // 1. insert item
     Item newItem = Item(
-      recurrentItem.name,
-      recurrentItem.value,
-      recurrentItem.dueDate,
-      catMap[recurrentItem.category].type,
-      recurrentItem.category,
+      recurringItem.name,
+      recurringItem.value,
+      recurringItem.dueDate,
+      catMap[recurringItem.category].type,
+      recurringItem.category,
     );
     await _dbHelper.insertItem(newItem);
-    // 2. update recurrent item's date
-    recurrentItem.updateDueDate();
-    await _dbHelper.updateRecurrentItem(recurrentItem);
+    // 2. update recurring item's date
+    recurringItem.updateDueDate();
+    await _dbHelper.updateRecurringItem(recurringItem);
   }
 
   Future<void> addLocalItems(List<Item> localItems,
@@ -154,17 +154,17 @@ class DbModel extends ChangeNotifier {
     return await _dbHelper.queryItemsInYear(year);
   }
 
-  Future<void> insertRecurrentItem(RecurrentItem recurrentItem) async {
-    await _dbHelper.insertRecurrentItem(recurrentItem);
+  Future<void> insertRecurringItem(RecurringItem recurringItem) async {
+    await _dbHelper.insertRecurringItem(recurringItem);
     notifyListeners();
   }
 
-  Future<List<RecurrentItem>> queryRecurrentItems() async {
-    return await _dbHelper.queryRecurrentItems();
+  Future<List<RecurringItem>> queryRecurringItems() async {
+    return await _dbHelper.queryRecurringItems();
   }
 
-  Future<void> deleteRecurrentItem(int id) async {
-    await _dbHelper.deleteRecurrentItem(id);
+  Future<void> deleteRecurringItem(int id) async {
+    await _dbHelper.deleteRecurringItem(id);
     notifyListeners();
   }
 }

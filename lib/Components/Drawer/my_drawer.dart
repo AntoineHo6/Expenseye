@@ -3,7 +3,7 @@ import 'package:Expenseye/Pages/Categories/cat_home_page.dart';
 import 'package:Expenseye/Pages/Monthly/monthly_home_page.dart';
 import 'package:Expenseye/Pages/Yearly/yearly_home_page.dart';
 import 'package:Expenseye/Pages/about_page.dart';
-import 'package:Expenseye/Pages/RecurrentItems/recurrent_items_page.dart';
+import 'package:Expenseye/Pages/RecurringItems/recurring_items_page.dart';
 import 'package:Expenseye/Resources/Themes/Colors.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
@@ -47,10 +47,10 @@ class MyDrawer extends StatelessWidget {
             ListTile(
               leading: Icon(Icons.autorenew, color: Colors.white),
               title: Text(
-                  AppLocalizations.of(context).translate('recurrentItems')),
+                  AppLocalizations.of(context).translate('recurringItems')),
               onTap: () {
                 Navigator.of(context).pop(context);
-                _openRecurrentItemsPage(context);
+                _openRecurringItemsPage(context);
               },
             ),
             ListTile(
@@ -95,10 +95,10 @@ class MyDrawer extends StatelessWidget {
     );
   }
 
-  void _openRecurrentItemsPage(BuildContext context) {
+  void _openRecurringItemsPage(BuildContext context) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => RecurrentItemsPage()),
+      MaterialPageRoute(builder: (context) => RecurringItemsPage()),
     );
   }
 }

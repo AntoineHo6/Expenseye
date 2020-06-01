@@ -1,6 +1,6 @@
-import 'package:Expenseye/Components/RecurrentItems/add_rec_item_steps_header.dart';
+import 'package:Expenseye/Components/RecurringItems/add_rec_item_steps_header.dart';
 import 'package:Expenseye/Enums/item_type.dart';
-import 'package:Expenseye/Providers/RecurrentItems/add_recurrent_item_model.dart';
+import 'package:Expenseye/Providers/RecurringItems/add_recurring_item_model.dart';
 import 'package:Expenseye/Resources/Themes/Colors.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
@@ -40,7 +40,7 @@ class _TypeAddRecItemPageState extends State<TypeAddRecItemPage>
                     title:
                         Text(AppLocalizations.of(context).translate('expense')),
                     onTap: () {
-                      Provider.of<AddRecurrentItemModel>(context, listen: false)
+                      Provider.of<AddRecurringItemModel>(context, listen: false)
                           .goNextFromTypePage(ItemType.expense);
                     },
                   ),
@@ -53,7 +53,7 @@ class _TypeAddRecItemPageState extends State<TypeAddRecItemPage>
                     title:
                         Text(AppLocalizations.of(context).translate('income')),
                     onTap: () {
-                      Provider.of<AddRecurrentItemModel>(context, listen: false)
+                      Provider.of<AddRecurringItemModel>(context, listen: false)
                           .goNextFromTypePage(ItemType.income);
                     },
                   ),

@@ -1,12 +1,12 @@
 import 'package:Expenseye/Components/Categories/category_btn.dart';
-import 'package:Expenseye/Components/RecurrentItems/add_rec_item_steps_header.dart';
-import 'package:Expenseye/Components/RecurrentItems/bottom_nav_button.dart';
+import 'package:Expenseye/Components/RecurringItems/add_rec_item_steps_header.dart';
+import 'package:Expenseye/Components/RecurringItems/bottom_nav_button.dart';
 import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:Expenseye/Providers/RecurrentItems/add_recurrent_item_model.dart';
+import 'package:Expenseye/Providers/RecurringItems/add_recurring_item_model.dart';
 
 class CategoryAddRecItemPage extends StatefulWidget {
   @override
@@ -21,7 +21,7 @@ class _CategoryAddRecItemPageState extends State<CategoryAddRecItemPage>
 
   @override
   Widget build(BuildContext context) {
-    final _model = Provider.of<AddRecurrentItemModel>(context, listen: false);
+    final _model = Provider.of<AddRecurringItemModel>(context, listen: false);
     List<String> categorieKeys = new List();
 
     for (var key in DbModel.catMap.keys) {
@@ -38,10 +38,10 @@ class _CategoryAddRecItemPageState extends State<CategoryAddRecItemPage>
           color: Colors.transparent,
           child: BottomNavButton(
             color: _model.type == ItemType.expense ? Colors.red : Colors.green,
-            text: AppLocalizations.of(context).translate('createRecurrentItem'),
+            text: AppLocalizations.of(context).translate('createRecurringItem'),
             onPressed: () {
               if (selectedIconIndex != null) {
-                _model.createRecurrentItem(context);
+                _model.createRecurringItem(context);
               }
             },
           ),

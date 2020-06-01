@@ -64,11 +64,11 @@ class Strings {
   static const String categoryColumnType = 'type';
 
   // * RECCURENT ITEMS DATABASE table and extra column names
-  static const String tableRecurrentItems = 'recurrent_items';
-  static const String recurrentItemColumnId = 'recurrent_item_id';
-  static const String recurrentItemColumnName = 'name';
-  static const String recurrentItemColumnValue = 'value';
-  static const String recurrentItemColumnDueDate = 'due_date';
-  static const String recurrentItemColumnPeriodicity = 'periodicity';
-  static const String recurrentItemColumnCategory = 'category';
+  static const String tableRecurringItems = 'recurring_items';
+  static const String recurringItemColumnId = 'recurring_item_id';
+  static const String recurringItemColumnName = 'name';
+  static const String recurringItemColumnValue = 'value';
+  static const String recurringItemColumnDueDate = 'due_date';
+  static const String recurringItemColumnPeriodicity = 'periodicity';
+  static const String recurringItemColumnCategory = 'category';
 }

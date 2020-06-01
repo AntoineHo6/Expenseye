@@ -1,9 +1,9 @@
 import 'package:Expenseye/Components/Global/my_table_calendar.dart';
-import 'package:Expenseye/Components/RecurrentItems/add_rec_item_steps_header.dart';
-import 'package:Expenseye/Components/RecurrentItems/bottom_nav_button.dart';
+import 'package:Expenseye/Components/RecurringItems/add_rec_item_steps_header.dart';
+import 'package:Expenseye/Components/RecurringItems/bottom_nav_button.dart';
 import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Enums/periodicity.dart';
-import 'package:Expenseye/Providers/RecurrentItems/add_recurrent_item_model.dart';
+import 'package:Expenseye/Providers/RecurringItems/add_recurring_item_model.dart';
 import 'package:Expenseye/Resources/Themes/Colors.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +28,7 @@ class _DateAddRecItemPageState extends State<DateAddRecItemPage>
 
   @override
   Widget build(BuildContext context) {
-    final _model = Provider.of<AddRecurrentItemModel>(context, listen: false);
+    final _model = Provider.of<AddRecurringItemModel>(context, listen: false);
     _animationController.forward();
 
     return FadeTransition(

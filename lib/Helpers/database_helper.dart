@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Models/Category.dart';
 import 'package:Expenseye/Models/Item.dart';
-import 'package:Expenseye/Models/recurrent_item.dart';
+import 'package:Expenseye/Models/recurring_item.dart';
 import 'package:Expenseye/Resources/Strings.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -15,7 +15,7 @@ class DatabaseHelper {
   // This is the actual database filename that is saved in the docs directory.
   static const _databaseName = Strings.dbFileName;
   // Increment this version when you need to change the schema.
-  static final _databaseVersion = 9;
+  static final _databaseVersion = 11;
 
   // Make this a singleton class.
   DatabaseHelper._privateConstructor();
@@ -69,32 +69,32 @@ class DatabaseHelper {
     print('Inserting default categories');
     await _insertDefaultCategories(db);
 
-    print('Creating recurrent items table');
+    print('Creating recurring items table');
     await db.execute('''
-            CREATE TABLE ${Strings.tableRecurrentItems} (
-              ${Strings.recurrentItemColumnId} INTEGER PRIMARY KEY AUTOINCREMENT,
-              ${Strings.recurrentItemColumnName} TEXT NOT NULL,
-              ${Strings.recurrentItemColumnValue} DOUBLE NOT NULL,
-              ${Strings.recurrentItemColumnDueDate} INTEGER NOT NULL,
-              ${Strings.recurrentItemColumnPeriodicity} INTEGER NOT NULL,
-              ${Strings.recurrentItemColumnCategory} TEXT NOT NULL,
-              FOREIGN KEY(${Strings.recurrentItemColumnCategory}) REFERENCES ${Strings.tableCategories}(${Strings.categoryColumnId})
+            CREATE TABLE ${Strings.tableRecurringItems} (
+              ${Strings.recurringItemColumnId} INTEGER PRIMARY KEY AUTOINCREMENT,
+              ${Strings.recurringItemColumnName} TEXT NOT NULL,
+              ${Strings.recurringItemColumnValue} DOUBLE NOT NULL,
+              ${Strings.recurringItemColumnDueDate} INTEGER NOT NULL,
+              ${Strings.recurringItemColumnPeriodicity} INTEGER NOT NULL,
+              ${Strings.recurringItemColumnCategory} TEXT NOT NULL,
+              FOREIGN KEY(${Strings.recurringItemColumnCategory}) REFERENCES ${Strings.tableCategories}(${Strings.categoryColumnId})
             )
             ''');
   }
 
   Future _onUpgrade(Database db, int oldVersion, int newVersion) async {
     print("UPGRADINNNG");
-    await db.execute('DROP TABLE ${Strings.tableRecurrentItems}');
+    await db.execute('DROP TABLE recurrent_items');
     await db.execute('''
-            CREATE TABLE ${Strings.tableRecurrentItems} (
-              ${Strings.recurrentItemColumnId} INTEGER PRIMARY KEY AUTOINCREMENT,
-              ${Strings.recurrentItemColumnName} TEXT NOT NULL,
-              ${Strings.recurrentItemColumnValue} DOUBLE NOT NULL,
-              ${Strings.recurrentItemColumnDueDate} INTEGER NOT NULL,
-              ${Strings.recurrentItemColumnPeriodicity} INTEGER NOT NULL,
-              ${Strings.recurrentItemColumnCategory} TEXT NOT NULL,
-              FOREIGN KEY(${Strings.recurrentItemColumnCategory}) REFERENCES ${Strings.tableCategories}(${Strings.categoryColumnId})
+            CREATE TABLE ${Strings.tableRecurringItems} (
+              ${Strings.recurringItemColumnId} INTEGER PRIMARY KEY AUTOINCREMENT,
+              ${Strings.recurringItemColumnName} TEXT NOT NULL,
+              ${Strings.recurringItemColumnValue} DOUBLE NOT NULL,
+              ${Strings.recurringItemColumnDueDate} INTEGER NOT NULL,
+              ${Strings.recurringItemColumnPeriodicity} INTEGER NOT NULL,
+              ${Strings.recurringItemColumnCategory} TEXT NOT NULL,
+              FOREIGN KEY(${Strings.recurringItemColumnCategory}) REFERENCES ${Strings.tableCategories}(${Strings.categoryColumnId})
             )
             ''');
   }
@@ -191,7 +191,7 @@ class DatabaseHelper {
   Future<void> deleteAllItems() async {
     Database db = await database;
     await db.rawQuery('DELETE FROM ${Strings.tableItems}');
-    await db.rawQuery('DELETE FROM ${Strings.tableRecurrentItems}');
+    await db.rawQuery('DELETE FROM ${Strings.tableRecurringItems}');
   }
 
   List<Item> convertMapsToItems(List<Map> maps) {
@@ -205,44 +205,44 @@ class DatabaseHelper {
     return items;
   }
 
-  // * RECURRENT ITEMS
-  Future<void> insertRecurrentItem(RecurrentItem recurrentItem) async {
+  // * RECURRING ITEMS
+  Future<void> insertRecurringItem(RecurringItem recurringItem) async {
     Database db = await database;
-    await db.insert(Strings.tableRecurrentItems, recurrentItem.toMap());
+    await db.insert(Strings.tableRecurringItems, recurringItem.toMap());
   }
 
-  Future<List<RecurrentItem>> queryRecurrentItems() async {
+  Future<List<RecurringItem>> queryRecurringItems() async {
     Database db = await database;
 
-    List<Map> maps = await db.query(Strings.tableRecurrentItems);
+    List<Map> maps = await db.query(Strings.tableRecurringItems);
 
-    return convertMapsToRecurrentItems(maps);
+    return convertMapsToRecurringItems(maps);
   }
 
-  List<RecurrentItem> convertMapsToRecurrentItems(List<Map> maps) {
-    List<RecurrentItem> recurrentItems = new List();
+  List<RecurringItem> convertMapsToRecurringItems(List<Map> maps) {
+    List<RecurringItem> recurringItems = new List();
 
     if (maps.length > 0) {
       for (Map row in maps) {
-        recurrentItems.add(new RecurrentItem.fromMap(row));
+        recurringItems.add(new RecurringItem.fromMap(row));
       }
     }
 
-    return recurrentItems;
+    return recurringItems;
   }
 
-  Future<void> deleteRecurrentItem(int id) async {
+  Future<void> deleteRecurringItem(int id) async {
     Database db = await database;
 
-    return await db.delete(Strings.tableRecurrentItems,
-        where: '${Strings.recurrentItemColumnId} = ?', whereArgs: [id]);
+    return await db.delete(Strings.tableRecurringItems,
+        where: '${Strings.recurringItemColumnId} = ?', whereArgs: [id]);
   }
 
-  Future<int> updateRecurrentItem(RecurrentItem recurrentItem) async {
+  Future<int> updateRecurringItem(RecurringItem recurringItem) async {
     Database db = await database;
 
-    return await db.update(Strings.tableRecurrentItems, recurrentItem.toMap(),
-        where: '${Strings.recurrentItemColumnId} = ?', whereArgs: [recurrentItem.id]);
+    return await db.update(Strings.tableRecurringItems, recurringItem.toMap(),
+        where: '${Strings.recurringItemColumnId} = ?', whereArgs: [recurringItem.id]);
   }
 
   // * CATEGORIES

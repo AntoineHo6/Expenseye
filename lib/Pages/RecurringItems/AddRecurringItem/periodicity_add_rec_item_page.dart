@@ -1,6 +1,6 @@
-import 'package:Expenseye/Components/RecurrentItems/add_rec_item_steps_header.dart';
+import 'package:Expenseye/Components/RecurringItems/add_rec_item_steps_header.dart';
 import 'package:Expenseye/Enums/periodicity.dart';
-import 'package:Expenseye/Providers/RecurrentItems/add_recurrent_item_model.dart';
+import 'package:Expenseye/Providers/RecurringItems/add_recurring_item_model.dart';
 import 'package:Expenseye/Resources/Themes/Colors.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
@@ -74,7 +74,7 @@ class _PeriodicityAddRecItemPageState extends State<PeriodicityAddRecItemPage>
       child: ListTile(
         title: Text(title),
         onTap: () {
-          Provider.of<AddRecurrentItemModel>(context, listen: false)
+          Provider.of<AddRecurringItemModel>(context, listen: false)
               .goNextFromPeriodicityPage(periodicity);
         },
       ),

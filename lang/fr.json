@@ -65,15 +65,16 @@
     "succDeleted": "Supprimé avec succès",
     "appBy": "Application créé par Antoine Ho, 2020",
     "appName": "Expenseye",
-    "recurrentItems": "Éléments Récurrents",
+    "recurringItems": "Éléments Récurrents",
     "nextDueDate": "Prochaine date d'échéance",
     "amount": "Montant",
-    "createRecurrentItem": "CRÉER L'ÉLÉMENT RÉCURRENT",
+    "createRecurringItem": "CRÉER L'ÉLÉMENT RÉCURRENT",
     "anErrorHasOccurred": "Une erreur est survenue",
     "errorSelectDayBetween1-28": "ERREUR: veuillez sélectionner un jour entre le 1er et le 28 inclusivement",
     "selectAPeriodicity": "Sélectionnez une périodicité",
     "selectAStartingDate": "Sélectionnez une date de départ",
     "chooseANameAndAnAmount": "Choisissez un nom et un montant",
     "selectACategory": "Choisissez une catégorie",
-    "selectTheType": "Sélectionnez le type"
+    "selectTheType": "Sélectionnez le type",
+    "addNewRecurringItem": "Ajouter un nouvel élément récurrent"
 }

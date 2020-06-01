@@ -1,9 +1,9 @@
 import 'package:Expenseye/Components/EditAddItem/confirmation_dialog.dart';
-import 'package:Expenseye/Components/RecurrentItems/my_divider.dart';
+import 'package:Expenseye/Components/RecurringItems/my_divider.dart';
 import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Enums/periodicity.dart';
-import 'package:Expenseye/Models/recurrent_item.dart';
-import 'package:Expenseye/Pages/RecurrentItems/AddRecurrentItem/add_recurrent_item_home_page.dart';
+import 'package:Expenseye/Models/recurring_item.dart';
+import 'package:Expenseye/Pages/RecurringItems/AddRecurringItem/add_recurring_item_home_page.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:Expenseye/Resources/Themes/Colors.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
@@ -15,14 +15,14 @@ import 'package:provider/provider.dart';
 const String expense = 'expense';
 const String income = 'income';
 
-class RecurrentItemsPage extends StatelessWidget {
+class RecurringItemsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _dbModel = Provider.of<DbModel>(context);
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context).translate('recurrentItems')),
+        title: Text(AppLocalizations.of(context).translate('recurringItems')),
         actions: <Widget>[
           RaisedButton(
             textColor: Colors.white,
@@ -30,7 +30,7 @@ class RecurrentItemsPage extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => AddRecurrentItemHomePage()),
+                    builder: (context) => AddRecurringItemHomePage()),
               );
             },
             child: const Icon(Icons.add),
@@ -41,12 +41,12 @@ class RecurrentItemsPage extends StatelessWidget {
           ),
         ],
       ),
-      body: FutureBuilder<List<RecurrentItem>>(
-        future: _dbModel.queryRecurrentItems(),
+      body: FutureBuilder<List<RecurringItem>>(
+        future: _dbModel.queryRecurringItems(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data != null && snapshot.data.length > 0) {
-              List<List<RecurrentItem>> recurrentItemsByCategoryType =
+              List<List<RecurringItem>> recurringItemsByCategoryType =
                   _splitItemsByCategoryType(snapshot.data);
               return Column(
                 mainAxisSize: MainAxisSize.min,
@@ -66,9 +66,9 @@ class RecurrentItemsPage extends StatelessWidget {
                           ),
                           MyDivider(),
                           Column(
-                            children: _recurrentItemsContainers(
+                            children: _recurringItemsContainers(
                               context,
-                              recurrentItemsByCategoryType[0],
+                              recurringItemsByCategoryType[0],
                               ItemType.expense,
                             ),
                           ),
@@ -81,9 +81,9 @@ class RecurrentItemsPage extends StatelessWidget {
                           ),
                           MyDivider(),
                           Column(
-                            children: _recurrentItemsContainers(
+                            children: _recurringItemsContainers(
                               context,
-                              recurrentItemsByCategoryType[1],
+                              recurringItemsByCategoryType[1],
                               ItemType.income,
                             ),
                           ),
@@ -110,27 +110,27 @@ class RecurrentItemsPage extends StatelessWidget {
     );
   }
 
-  List<List<RecurrentItem>> _splitItemsByCategoryType(
-      List<RecurrentItem> recurrentItems) {
-    List<List<RecurrentItem>> recurrentItemsByCategoryType = new List(2);
-    recurrentItemsByCategoryType[0] = new List(); // expenses
-    recurrentItemsByCategoryType[1] = new List(); // incomes
+  List<List<RecurringItem>> _splitItemsByCategoryType(
+      List<RecurringItem> recurringItems) {
+    List<List<RecurringItem>> recurringItemsByCategoryType = new List(2);
+    recurringItemsByCategoryType[0] = new List(); // expenses
+    recurringItemsByCategoryType[1] = new List(); // incomes
 
-    for (RecurrentItem recurrentItem in recurrentItems) {
-      if (DbModel.catMap[recurrentItem.category].type == ItemType.expense) {
-        recurrentItemsByCategoryType[0].add(recurrentItem);
+    for (RecurringItem recurringItem in recurringItems) {
+      if (DbModel.catMap[recurringItem.category].type == ItemType.expense) {
+        recurringItemsByCategoryType[0].add(recurringItem);
       } else {
-        recurrentItemsByCategoryType[1].add(recurrentItem);
+        recurringItemsByCategoryType[1].add(recurringItem);
       }
     }
 
-    return recurrentItemsByCategoryType;
+    return recurringItemsByCategoryType;
   }
 
-  List<Container> _recurrentItemsContainers(BuildContext context,
-      List<RecurrentItem> recurrentItems, ItemType itemType) {
-    return recurrentItems.map(
-      (recurrentItem) {
+  List<Container> _recurringItemsContainers(BuildContext context,
+      List<RecurringItem> recurringItems, ItemType itemType) {
+    return recurringItems.map(
+      (recurringItem) {
         return Container(
           margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
           decoration: BoxDecoration(
@@ -141,24 +141,24 @@ class RecurrentItemsPage extends StatelessWidget {
           ),
           child: ListTile(
             leading: Icon(
-              DbModel.catMap[recurrentItem.category].iconData,
-              color: DbModel.catMap[recurrentItem.category].color,
+              DbModel.catMap[recurringItem.category].iconData,
+              color: DbModel.catMap[recurringItem.category].color,
             ),
-            title: Text(recurrentItem.name),
-            subtitle: _subtitleText(context, recurrentItem),
+            title: Text(recurringItem.name),
+            subtitle: _subtitleText(context, recurringItem),
             trailing: Text(
-              '${recurrentItem.value.toStringAsFixed(2)} \$',
+              '${recurringItem.value.toStringAsFixed(2)} \$',
             ),
             isThreeLine: true,
-            onLongPress: () => _deleteRecurrentItem(context, recurrentItem),
+            onLongPress: () => _deleteRecurringItem(context, recurringItem),
           ),
         );
       },
     ).toList();
   }
 
-  void _deleteRecurrentItem(
-      BuildContext context, RecurrentItem recurrentItem) async {
+  void _deleteRecurringItem(
+      BuildContext context, RecurringItem recurringItem) async {
     bool confirmed = await showDialog(
       context: context,
       builder: (_) => ConfirmationDialog(
@@ -168,14 +168,14 @@ class RecurrentItemsPage extends StatelessWidget {
 
     if (confirmed != null && confirmed) {
       await Provider.of<DbModel>(context, listen: false)
-          .deleteRecurrentItem(recurrentItem.id);
+          .deleteRecurringItem(recurringItem.id);
     }
   }
 
-  Text _subtitleText(BuildContext context, RecurrentItem recurrentItem) {
+  Text _subtitleText(BuildContext context, RecurringItem recurringItem) {
     // TODO: use richText
     String periodicity;
-    switch (recurrentItem.periodicity) {
+    switch (recurringItem.periodicity) {
       case Periodicity.daily:
         periodicity = AppLocalizations.of(context).translate('daily');
         break;
@@ -194,7 +194,7 @@ class RecurrentItemsPage extends StatelessWidget {
     }
 
     return Text(
-      '$periodicity\n${AppLocalizations.of(context).translate('nextDueDate')}: ${DateTimeUtil.formattedDate(context, recurrentItem.dueDate)}',
+      '$periodicity\n${AppLocalizations.of(context).translate('nextDueDate')}: ${DateTimeUtil.formattedDate(context, recurringItem.dueDate)}',
     );
   }
 }

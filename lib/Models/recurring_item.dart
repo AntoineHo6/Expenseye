@@ -1,7 +1,7 @@
 import 'package:Expenseye/Enums/periodicity.dart';
 import 'package:Expenseye/Resources/Strings.dart';
 
-class RecurrentItem {
+class RecurringItem {
   int id;
   String name;
   double value;
@@ -9,7 +9,7 @@ class RecurrentItem {
   Periodicity periodicity; // daily, weekly, bi-weekly, monthly, yearly
   String category;
 
-  RecurrentItem(
+  RecurringItem(
     this.name,
     this.value,
     this.dueDate,
@@ -17,7 +17,7 @@ class RecurrentItem {
     this.periodicity,
   );
 
-  RecurrentItem.withId(
+  RecurringItem.withId(
     this.id,
     this.name,
     this.value,
@@ -54,26 +54,26 @@ class RecurrentItem {
     }
   }
 
-  RecurrentItem.fromMap(Map<String, dynamic> map) {
-    id = map[Strings.recurrentItemColumnId];
-    name = map[Strings.recurrentItemColumnName];
-    value = map[Strings.recurrentItemColumnValue];
-    dueDate = DateTime.parse(map[Strings.recurrentItemColumnDueDate]);
+  RecurringItem.fromMap(Map<String, dynamic> map) {
+    id = map[Strings.recurringItemColumnId];
+    name = map[Strings.recurringItemColumnName];
+    value = map[Strings.recurringItemColumnValue];
+    dueDate = DateTime.parse(map[Strings.recurringItemColumnDueDate]);
     periodicity =
-        Periodicity.values[map[Strings.recurrentItemColumnPeriodicity]];
-    category = map[Strings.recurrentItemColumnCategory];
+        Periodicity.values[map[Strings.recurringItemColumnPeriodicity]];
+    category = map[Strings.recurringItemColumnCategory];
   }
 
   Map<String, dynamic> toMap() {
     var map = <String, dynamic>{
-      Strings.recurrentItemColumnName: name,
-      Strings.recurrentItemColumnValue: value,
-      Strings.recurrentItemColumnDueDate: dueDate.toIso8601String(),
-      Strings.recurrentItemColumnPeriodicity: periodicity.index,
-      Strings.recurrentItemColumnCategory: category
+      Strings.recurringItemColumnName: name,
+      Strings.recurringItemColumnValue: value,
+      Strings.recurringItemColumnDueDate: dueDate.toIso8601String(),
+      Strings.recurringItemColumnPeriodicity: periodicity.index,
+      Strings.recurringItemColumnCategory: category
     };
     if (id != null) {
-      map[Strings.recurrentItemColumnId] = id;
+      map[Strings.recurringItemColumnId] = id;
     }
     return map;
   }

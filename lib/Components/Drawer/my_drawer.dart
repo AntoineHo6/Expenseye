@@ -67,7 +67,6 @@ class MyDrawer extends StatelessWidget {
     );
   }
 
-  // TODO: make these functions private
   void _openMonthlyPage(BuildContext context) {
     Navigator.push(
       context,

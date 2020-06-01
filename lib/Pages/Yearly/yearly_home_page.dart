@@ -1,3 +1,4 @@
+import 'package:Expenseye/Components/Global/calendar_flat_button.dart';
 import 'package:Expenseye/Components/Global/my_bottom_nav_bar.dart';
 import 'package:Expenseye/Pages/Yearly/yearly_items_page.dart';
 import 'package:Expenseye/Pages/stats_page.dart';
@@ -24,13 +25,8 @@ class _YearlyHomePageState extends State<YearlyHomePage> {
           appBar: AppBar(
             title: Text(AppLocalizations.of(context).translate('yearly')),
             actions: <Widget>[
-              FlatButton(
-                textColor: Colors.white,
+              CalendarFlatButton(
                 onPressed: () => yearlyModel.calendarFunc(context),
-                child: const Icon(Icons.calendar_today),
-                shape: const CircleBorder(
-                  side: const BorderSide(color: Colors.transparent),
-                ),
               ),
             ],
           ),

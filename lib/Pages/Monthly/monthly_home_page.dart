@@ -1,3 +1,4 @@
+import 'package:Expenseye/Components/Global/calendar_flat_button.dart';
 import 'package:Expenseye/Components/Global/my_bottom_nav_bar.dart';
 import 'package:Expenseye/Pages/Monthly/monthly_items_page.dart';
 import 'package:Expenseye/Pages/stats_page.dart';
@@ -28,13 +29,8 @@ class _MonthlyHomePageState extends State<MonthlyHomePage> {
           appBar: AppBar(
             title: Text(AppLocalizations.of(context).translate('monthly')),
             actions: <Widget>[
-              FlatButton(
-                textColor: Colors.white,
+              CalendarFlatButton(
                 onPressed: () => monthlyModel.calendarFunc(context),
-                child: const Icon(Icons.calendar_today),
-                shape: const CircleBorder(
-                  side: const BorderSide(color: Colors.transparent),
-                ),
               ),
             ],
           ),

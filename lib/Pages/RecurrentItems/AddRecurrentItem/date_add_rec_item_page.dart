@@ -58,8 +58,8 @@ class _DateAddRecItemPageState extends State<DateAddRecItemPage>
           children: <Widget>[
             AddRecItemStepsHeader(
               title:
-                  '2. ${AppLocalizations.of(context).translate('selectAStartingDate')}',
-              percent: 0.5,
+                  '3. ${AppLocalizations.of(context).translate('selectAStartingDate')}',
+              percent: 0.6,
             ),
             monthlyPeriodicityError
                 ? _monthlyPeriodicityErrorPage(context)

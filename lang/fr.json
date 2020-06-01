@@ -74,5 +74,6 @@
     "selectAPeriodicity": "Sélectionnez une périodicité",
     "selectAStartingDate": "Sélectionnez une date de départ",
     "chooseANameAndAnAmount": "Choisissez un nom et un montant",
-    "selectACategory": "Choisissez une catégorie"
+    "selectACategory": "Choisissez une catégorie",
+    "selectTheType": "Sélectionnez le type"
 }

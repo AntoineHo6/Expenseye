@@ -17,17 +17,23 @@ class AddRecurrentItemModel extends ChangeNotifier {
   bool isNameInvalid = false;
   bool isAmountInvalid = false;
 
-  AddRecurrentItemModel(this.type);
+  AddRecurrentItemModel();
+
+  void goNextFromTypePage(ItemType type) {
+    this.type = type;
+    step++;
+    notifyListeners();
+  }
 
   void goNextFromPeriodicityPage(Periodicity periodicity) {
     this.periodicity = periodicity;
-    this.step++;
+    step++;
     notifyListeners();
   }
 
   void goNextFromDatePage(DateTime startingDay) {
     this.startingDay = DateTimeUtil.timeToZeroInDate(startingDay);
-    this.step++;
+    step++;
     notifyListeners();
   }
 
@@ -35,7 +41,7 @@ class AddRecurrentItemModel extends ChangeNotifier {
     bool areFieldsInvalid = _checkFieldsInvalid(name, amount);
 
     if (!areFieldsInvalid) {
-      this.step++;
+      step++;
       notifyListeners();
     }
   }

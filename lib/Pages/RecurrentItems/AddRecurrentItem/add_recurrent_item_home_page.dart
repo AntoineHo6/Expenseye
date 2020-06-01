@@ -1,17 +1,16 @@
 import 'package:Expenseye/Enums/item_type.dart';
-import 'package:Expenseye/Pages/RecurrentItems/category_add_rec_item_page.dart';
-import 'package:Expenseye/Pages/RecurrentItems/date_add_rec_item_page.dart';
-import 'package:Expenseye/Pages/RecurrentItems/name_amount_add_rec_item_page.dart';
-import 'package:Expenseye/Pages/RecurrentItems/periodicity_add_rec_item_page.dart';
+import 'package:Expenseye/Pages/RecurrentItems/AddRecurrentItem/category_add_rec_item_page.dart';
+import 'package:Expenseye/Pages/RecurrentItems/AddRecurrentItem/date_add_rec_item_page.dart';
+import 'package:Expenseye/Pages/RecurrentItems/AddRecurrentItem/name_amount_add_rec_item_page.dart';
+import 'package:Expenseye/Pages/RecurrentItems/AddRecurrentItem/periodicity_add_rec_item_page.dart';
+import 'package:Expenseye/Pages/RecurrentItems/AddRecurrentItem/type_add_rec_item_page.dart';
 import 'package:Expenseye/Providers/RecurrentItems/add_recurrent_item_model.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class AddRecurrentItemHomePage extends StatefulWidget {
-  final ItemType type;
-
-  AddRecurrentItemHomePage(this.type);
+  AddRecurrentItemHomePage();
 
   @override
   _AddRecurrentItemHomePageState createState() =>
@@ -22,7 +21,7 @@ class _AddRecurrentItemHomePageState extends State<AddRecurrentItemHomePage> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => AddRecurrentItemModel(widget.type),
+      create: (_) => AddRecurrentItemModel(),
       child: Consumer<AddRecurrentItemModel>(
         builder: (context, model, child) => Scaffold(
           appBar: AppBar(
@@ -38,12 +37,14 @@ class _AddRecurrentItemHomePageState extends State<AddRecurrentItemHomePage> {
     final _addRecurrentItemModel = Provider.of<AddRecurrentItemModel>(context);
     switch (_addRecurrentItemModel.step) {
       case 1:
-        return PeriodicityAddRecItemPage();
+        return TypeAddRecItemPage();
       case 2:
-        return DateAddRecItemPage(_addRecurrentItemModel.periodicity);
+        return PeriodicityAddRecItemPage();
       case 3:
-        return NameAmountAddRecItemPage();
+        return DateAddRecItemPage(_addRecurrentItemModel.periodicity);
       case 4:
+        return NameAmountAddRecItemPage();
+      case 5:
         return CategoryAddRecItemPage();
       default:
         return Align(

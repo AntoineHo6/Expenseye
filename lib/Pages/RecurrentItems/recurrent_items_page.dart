@@ -3,7 +3,7 @@ import 'package:Expenseye/Components/RecurrentItems/my_divider.dart';
 import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Enums/periodicity.dart';
 import 'package:Expenseye/Models/recurrent_item.dart';
-import 'package:Expenseye/Pages/RecurrentItems/add_recurrent_item_home_page.dart';
+import 'package:Expenseye/Pages/RecurrentItems/AddRecurrentItem/add_recurrent_item_home_page.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:Expenseye/Resources/Themes/Colors.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
@@ -24,35 +24,21 @@ class RecurrentItemsPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(AppLocalizations.of(context).translate('recurrentItems')),
         actions: <Widget>[
-          // FlatButton(
-          //   textColor: Colors.white,
-          //   onPressed: () => _openAddRecurrentItemPage(context),
-          //   child: const Icon(Icons.add),
-          //   shape: const CircleBorder(
-          //     side: const BorderSide(color: Colors.transparent),
-          //   ),
-          // ),
-          PopupMenuButton(
-            icon: const Icon(Icons.add),
-            color: MyColors.black12dp,
-            onSelected: (choice) => _popupMenuChoiceAction(context, choice),
-            itemBuilder: (_) {
-              return [
-                PopupMenuItem<String>(
-                  value: expense,
-                  child: Text(
-                    AppLocalizations.of(context).translate('expense'),
-                  ),
-                ),
-                PopupMenuItem<String>(
-                  value: income,
-                  child: Text(
-                    AppLocalizations.of(context).translate('income'),
-                  ),
-                ),
-              ];
+          RaisedButton(
+            textColor: Colors.white,
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => AddRecurrentItemHomePage()),
+              );
             },
-          )
+            child: const Icon(Icons.add),
+            shape: const CircleBorder(
+              side: const BorderSide(color: Colors.transparent),
+            ),
+            elevation: 8,
+          ),
         ],
       ),
       body: FutureBuilder<List<RecurrentItem>>(
@@ -121,23 +107,6 @@ class RecurrentItemsPage extends StatelessWidget {
           }
         },
       ),
-    );
-  }
-
-  void _popupMenuChoiceAction(BuildContext context, String action) {
-    ItemType type;
-    switch (action) {
-      case expense:
-        type = ItemType.expense;
-        break;
-      case income:
-        type = ItemType.income;
-        break;
-    }
-
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => AddRecurrentItemHomePage(type)),
     );
   }
 

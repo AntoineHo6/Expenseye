@@ -11,6 +11,10 @@ class CalendarFlatButton extends StatelessWidget {
       textColor: Colors.white,
       onPressed: onPressed,
       child: const Icon(Icons.calendar_today),
+      shape: const CircleBorder(
+        side: const BorderSide(color: Colors.transparent),
+      ),
+      elevation: 8,
     );
   }
 }

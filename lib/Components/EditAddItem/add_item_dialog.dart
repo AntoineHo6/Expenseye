@@ -1,6 +1,6 @@
 import 'package:Expenseye/Components/EditAddItem/icon_btn.dart';
 import 'package:Expenseye/Components/Global/name_text_field.dart';
-import 'package:Expenseye/Components/Global/price_text_field.dart';
+import 'package:Expenseye/Components/Global/amount_text_field.dart';
 import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Providers/EditAddItem/add_item_model.dart';
 import 'package:Expenseye/Components/EditAddItem/date_picker_btn.dart';
@@ -20,7 +20,7 @@ class AddItemDialog extends StatefulWidget {
 
 class _AddItemDialogState extends State<AddItemDialog> {
   final _nameController = TextEditingController();
-  final _priceController = TextEditingController();
+  final _amountController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -53,9 +53,9 @@ class _AddItemDialogState extends State<AddItemDialog> {
                   controller: _nameController,
                   isNameInvalid: model.isNameInvalid,
                 ),
-                PriceTextField(
-                  controller: _priceController,
-                  isPriceInvalid: model.isPriceInvalid,
+                AmountTextField(
+                  controller: _amountController,
+                  isAmountInvalid: model.isAmountInvalid,
                 ),
                 Container(
                   margin: const EdgeInsets.only(top: 20),
@@ -88,7 +88,7 @@ class _AddItemDialogState extends State<AddItemDialog> {
               textColor: Colors.white,
               child: Text(AppLocalizations.of(context).translate('submitCaps')),
               onPressed: () => model.addItem(
-                  context, _nameController.text, _priceController.text),
+                  context, _nameController.text, _amountController.text),
             ),
           ],
         ),
@@ -99,7 +99,7 @@ class _AddItemDialogState extends State<AddItemDialog> {
   @override
   void dispose() {
     _nameController.dispose();
-    _priceController.dispose();
+    _amountController.dispose();
     super.dispose();
   }
 }

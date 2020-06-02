@@ -9,7 +9,7 @@ import 'package:provider/provider.dart';
 
 class AddItemModel extends ChangeNotifier {
   bool isNameInvalid = false;
-  bool isPriceInvalid = false;
+  bool isAmountInvalid = false;
 
   DateTime date;
   ItemType type;
@@ -34,16 +34,16 @@ class AddItemModel extends ChangeNotifier {
     updateDate(newDate);
   }
 
-  void addItem(BuildContext context, String newName, String newPrice) {
+  void addItem(BuildContext context, String newName, String newAmount) {
     // make sure to remove time before adding to db
     final DateTime newDate = DateTimeUtil.timeToZeroInDate(date);
 
-    bool areFieldsInvalid = _checkFieldsInvalid(newName, newPrice);
+    bool areFieldsInvalid = _checkFieldsInvalid(newName, newAmount);
 
     // if all the fields are valid, add and quit
     if (!areFieldsInvalid) {
       Item newItem =
-          new Item(newName, double.parse(newPrice), newDate, type, category);
+          new Item(newName, double.parse(newAmount), newDate, type, category);
 
       Provider.of<DbModel>(context, listen: false).addItem(newItem);
       Navigator.pop(context, true);
@@ -67,22 +67,22 @@ class AddItemModel extends ChangeNotifier {
   }
 
   /// Will check and show error msg if a field is invalid.
-  bool _checkFieldsInvalid(String newName, String newPrice) {
+  bool _checkFieldsInvalid(String newName, String newAmount) {
     // check NAME field
     isNameInvalid = newName.isEmpty ? true : false;
 
-    // check PRICE field
+    // check AMOUNT field
     try {
-      double.parse(newPrice);
-      isPriceInvalid = false;
+      double.parse(newAmount);
+      isAmountInvalid = false;
     } on FormatException {
-      isPriceInvalid = true;
+      isAmountInvalid = true;
     }
 
     notifyListeners();
 
     // update areFieldsInvalid
-    if (!isNameInvalid && !isPriceInvalid) {
+    if (!isNameInvalid && !isAmountInvalid) {
       return false;
     }
     return true;

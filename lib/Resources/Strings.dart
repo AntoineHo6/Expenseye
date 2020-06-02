@@ -50,7 +50,7 @@ class Strings {
   static const String tableItems = 'items';
   static const String itemColumnId = 'expense_id'; // TODO: rename to item id
   static const String itemColumnName = 'name';
-  static const String itemColumnValue = 'value';
+  static const String itemColumnValue = 'value'; // TODO: rename to amount
   static const String itemColumnDate = 'date';
   static const String itemColumnCategory = 'category';
   static const String itemColumnType = 'type';
@@ -67,7 +67,7 @@ class Strings {
   static const String tableRecurringItems = 'recurring_items';
   static const String recurringItemColumnId = 'recurring_item_id';
   static const String recurringItemColumnName = 'name';
-  static const String recurringItemColumnValue = 'value';
+  static const String recurringItemColumnAmount = 'amount';
   static const String recurringItemColumnDueDate = 'due_date';
   static const String recurringItemColumnPeriodicity = 'periodicity';
   static const String recurringItemColumnCategory = 'category';

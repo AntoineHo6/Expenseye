@@ -4,20 +4,20 @@ import 'package:Expenseye/Resources/Strings.dart';
 class Item {
   int id;
   String name;
-  double value;
+  double amount;
   DateTime date;
   String category;
   ItemType type;
 
-  Item(this.name, this.value, this.date, this.type, this.category);
+  Item(this.name, this.amount, this.date, this.type, this.category);
 
   Item.withId(
-      this.id, this.name, this.value, this.date, this.type, this.category);
+      this.id, this.name, this.amount, this.date, this.type, this.category);
 
   Item.fromMap(Map<String, dynamic> map) {
     id = map[Strings.itemColumnId];
     name = map[Strings.itemColumnName];
-    value = map[Strings.itemColumnValue];
+    amount = map[Strings.itemColumnValue];
     date = DateTime.parse(map[Strings.itemColumnDate]);
     category = map[Strings.itemColumnCategory];
     type = ItemType.values[map[Strings.itemColumnType]];
@@ -26,7 +26,7 @@ class Item {
   Map<String, dynamic> toMap() {
     var map = <String, dynamic>{
       Strings.itemColumnName: name,
-      Strings.itemColumnValue: value,
+      Strings.itemColumnValue: amount,
       Strings.itemColumnDate: date.toIso8601String(),
       Strings.itemColumnCategory: category,
       Strings.itemColumnType: type.index

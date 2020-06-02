@@ -74,7 +74,7 @@ class DatabaseHelper {
             CREATE TABLE ${Strings.tableRecurringItems} (
               ${Strings.recurringItemColumnId} INTEGER PRIMARY KEY AUTOINCREMENT,
               ${Strings.recurringItemColumnName} TEXT NOT NULL,
-              ${Strings.recurringItemColumnValue} DOUBLE NOT NULL,
+              ${Strings.recurringItemColumnAmount} DOUBLE NOT NULL,
               ${Strings.recurringItemColumnDueDate} INTEGER NOT NULL,
               ${Strings.recurringItemColumnPeriodicity} INTEGER NOT NULL,
               ${Strings.recurringItemColumnCategory} TEXT NOT NULL,
@@ -90,7 +90,7 @@ class DatabaseHelper {
             CREATE TABLE ${Strings.tableRecurringItems} (
               ${Strings.recurringItemColumnId} INTEGER PRIMARY KEY AUTOINCREMENT,
               ${Strings.recurringItemColumnName} TEXT NOT NULL,
-              ${Strings.recurringItemColumnValue} DOUBLE NOT NULL,
+              ${Strings.recurringItemColumnAmount} DOUBLE NOT NULL,
               ${Strings.recurringItemColumnDueDate} INTEGER NOT NULL,
               ${Strings.recurringItemColumnPeriodicity} INTEGER NOT NULL,
               ${Strings.recurringItemColumnCategory} TEXT NOT NULL,

@@ -1,16 +1,15 @@
-import 'package:Expenseye/Resources/Themes/Colors.dart';
+import 'package:Expenseye/Resources/Themes/MyColors.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 
-// TODO: rename to AmountTextField
-class PriceTextField extends StatelessWidget {
+class AmountTextField extends StatelessWidget {
   final TextEditingController controller;
-  final bool isPriceInvalid;
+  final bool isAmountInvalid;
   final Function onChanged;
 
-  const PriceTextField({
+  const AmountTextField({
     @required this.controller,
-    @required this.isPriceInvalid,
+    @required this.isAmountInvalid,
     this.onChanged,
   });
 
@@ -29,8 +28,8 @@ class PriceTextField extends StatelessWidget {
           border: InputBorder.none,
           hintText: AppLocalizations.of(context).translate('amount'),
           hintStyle: const TextStyle(color: MyColors.black24dp),
-          errorText: isPriceInvalid
-              ? '${AppLocalizations.of(context).translate('priceIsInvalid')}'
+          errorText: isAmountInvalid
+              ? '${AppLocalizations.of(context).translate('amountIsInvalid')}'
               : null,
         ),
         keyboardType: TextInputType.numberWithOptions(decimal: true),

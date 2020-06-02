@@ -51,7 +51,7 @@ class AddRecurringItemModel extends ChangeNotifier {
     // check NAME field
     this.isNameInvalid = name.isEmpty ? true : false;
 
-    // check PRICE field
+    // check AMOUNT field
     try {
       double.parse(amount);
       this.isAmountInvalid = false;

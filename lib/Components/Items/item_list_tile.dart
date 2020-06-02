@@ -17,7 +17,7 @@ class ItemListTile extends StatelessWidget {
         item.name,
       ),
       trailing: Text(
-        '${item.value.toStringAsFixed(2)} \$',
+        '${item.amount.toStringAsFixed(2)} \$',
       ),
       // subtitle: Text(item.category),
       onTap: onTap,

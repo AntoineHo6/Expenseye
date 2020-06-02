@@ -1,6 +1,6 @@
 import 'package:Expenseye/Components/EditAddItem/icon_btn.dart';
 import 'package:Expenseye/Components/Global/name_text_field.dart';
-import 'package:Expenseye/Components/Global/price_text_field.dart';
+import 'package:Expenseye/Components/Global/amount_text_field.dart';
 import 'package:Expenseye/Components/EditAddItem/date_picker_btn.dart';
 import 'package:Expenseye/Models/Item.dart';
 import 'package:Expenseye/Providers/EditAddItem/edit_item_model.dart';
@@ -9,20 +9,18 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 
-// TODO: rename to editItemPage
-class EditExpensePage extends StatefulWidget {
+class EditItemPage extends StatefulWidget {
   final Item expense;
 
-  EditExpensePage(this.expense);
+  EditItemPage(this.expense);
 
-  // TODO: rename state
   @override
-  _EditExpense createState() => _EditExpense();
+  _EditItemPageState createState() => _EditItemPageState();
 }
 
-class _EditExpense extends State<EditExpensePage> {
+class _EditItemPageState extends State<EditItemPage> {
   final _nameController = TextEditingController();
-  final _priceController = TextEditingController();
+  final _amountController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -82,9 +80,9 @@ class _EditExpense extends State<EditExpensePage> {
                           style: Theme.of(context).textTheme.headline6,
                         ),
                       ),
-                      PriceTextField(
-                        controller: _priceController,
-                        isPriceInvalid: model.isPriceInvalid,
+                      AmountTextField(
+                        controller: _amountController,
+                        isAmountInvalid: model.isAmountInvalid,
                         onChanged: model.infoChanged,
                       ),
                     ],
@@ -117,7 +115,7 @@ class _EditExpense extends State<EditExpensePage> {
                             context,
                             widget.expense.id,
                             _nameController.text,
-                            _priceController.text,
+                            _amountController.text,
                           )
                       : null,
                 ),
@@ -132,14 +130,14 @@ class _EditExpense extends State<EditExpensePage> {
   @override
   void dispose() {
     _nameController.dispose();
-    _priceController.dispose();
+    _amountController.dispose();
     super.dispose();
   }
 
   @override
   void initState() {
     _nameController.text = widget.expense.name;
-    _priceController.text = widget.expense.value.toString();
+    _amountController.text = widget.expense.amount.toString();
     super.initState();
   }
 }

@@ -33,7 +33,7 @@
     "signOut": "Sign Out",
     "name": "Name",
     "nameIsInvalid": "Invalid name",
-    "priceIsInvalid": "Invalid price",
+    "amountIsInvalid": "Invalid amount",
     "value": "Value",
     "icons": "Icons",
     "noData": "No data to use!",

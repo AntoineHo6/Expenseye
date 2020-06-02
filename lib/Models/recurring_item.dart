@@ -58,7 +58,7 @@ class RecurringItem {
   RecurringItem.fromMap(Map<String, dynamic> map) {
     id = map[Strings.recurringItemColumnId];
     name = map[Strings.recurringItemColumnName];
-    value = map[Strings.recurringItemColumnValue];
+    value = map[Strings.recurringItemColumnAmount];
     dueDate = DateTime.parse(map[Strings.recurringItemColumnDueDate]);
     periodicity =
         Periodicity.values[map[Strings.recurringItemColumnPeriodicity]];
@@ -68,7 +68,7 @@ class RecurringItem {
   Map<String, dynamic> toMap() {
     var map = <String, dynamic>{
       Strings.recurringItemColumnName: name,
-      Strings.recurringItemColumnValue: value,
+      Strings.recurringItemColumnAmount: value,
       Strings.recurringItemColumnDueDate: dueDate.toIso8601String(),
       Strings.recurringItemColumnPeriodicity: periodicity.index,
       Strings.recurringItemColumnCategory: category

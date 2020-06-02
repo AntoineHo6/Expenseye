@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-// TODO: rename file to my_colors
 class MyColors {
   static const Color black00dp = Color(0xff121212);
   static const Color black01dp = Color(0xff1d1d1d);

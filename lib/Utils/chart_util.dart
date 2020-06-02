@@ -13,7 +13,7 @@ class ChartUtil {
         if (!aggregatedExpenses.containsKey(item.category)) {
           aggregatedExpenses[item.category] = ExpenseGroup(item.category);
         }
-        aggregatedExpenses[item.category].total += item.value;
+        aggregatedExpenses[item.category].total += item.amount;
       }
     }
 

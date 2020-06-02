@@ -1,5 +1,5 @@
 import 'package:Expenseye/Components/Global/name_text_field.dart';
-import 'package:Expenseye/Components/Global/price_text_field.dart';
+import 'package:Expenseye/Components/Global/amount_text_field.dart';
 import 'package:Expenseye/Components/RecurringItems/add_rec_item_steps_header.dart';
 import 'package:Expenseye/Components/RecurringItems/bottom_nav_button.dart';
 import 'package:Expenseye/Enums/item_type.dart';
@@ -61,9 +61,9 @@ class _NameAmountAddRecItemPageState extends State<NameAmountAddRecItemPage>
                   ),
                   _textFieldContainer(
                     AppLocalizations.of(context).translate('amount'),
-                    PriceTextField(
+                    AmountTextField(
                       controller: _amountController,
-                      isPriceInvalid: _model.isAmountInvalid,
+                      isAmountInvalid: _model.isAmountInvalid,
                     ),
                   ),
                 ],

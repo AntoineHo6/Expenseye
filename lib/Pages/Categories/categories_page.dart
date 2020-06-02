@@ -14,12 +14,11 @@ class CategoriesPage extends StatefulWidget {
 
   CategoriesPage(this.type);
 
-  // TODO: rename state
   @override
-  _ItemsPageState createState() => _ItemsPageState();
+  _CategoriesPageState createState() => _CategoriesPageState();
 }
 
-class _ItemsPageState extends State<CategoriesPage> {
+class _CategoriesPageState extends State<CategoriesPage> {
   @override
   Widget build(BuildContext context) {
     final _dbModel = Provider.of<DbModel>(context);

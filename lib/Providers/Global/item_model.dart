@@ -1,7 +1,7 @@
 import 'package:Expenseye/Components/EditAddItem/add_item_dialog.dart';
 import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Models/Item.dart';
-import 'package:Expenseye/Pages/EditAddItem/edit_expense_page.dart';
+import 'package:Expenseye/Pages/EditAddItem/edit_item_page.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 
@@ -40,7 +40,7 @@ class ItemModel extends ChangeNotifier {
   void openEditItem(BuildContext context, Item item) async {
     int action = await Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => EditExpensePage(item)),
+      MaterialPageRoute(builder: (context) => EditItemPage(item)),
     );
 
     if (action != null) {
@@ -63,12 +63,12 @@ class ItemModel extends ChangeNotifier {
     for (var item in items) {
       switch (item.type) {
         case ItemType.expense:
-          expenseTotal += item.value;
-          total -= item.value;
+          expenseTotal += item.amount;
+          total -= item.amount;
           break;
         case ItemType.income:
-          incomeTotal += item.value;
-          total += item.value;
+          incomeTotal += item.amount;
+          total += item.amount;
           break;
       }
     }
@@ -86,10 +86,10 @@ class ItemModel extends ChangeNotifier {
     for (var item in items) {
       switch (item.type) {
         case ItemType.expense:
-          total -= item.value;
+          total -= item.amount;
           break;
         case ItemType.income:
-          total += item.value;
+          total += item.amount;
           break;
       }
     }

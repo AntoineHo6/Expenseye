@@ -24,7 +24,7 @@ class _AddRecurringItemHomePageState extends State<AddRecurringItemHomePage> {
       child: Consumer<AddRecurringItemModel>(
         builder: (context, model, child) => Scaffold(
           appBar: AppBar(
-            title: Text('Add new recurring Item'), // TODO: use localization
+            title: Text(AppLocalizations.of(context).translate('addNewRecurringItem')),
           ),
           body: _currentStep(context),
         ),

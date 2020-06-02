@@ -1,4 +1,4 @@
-import 'package:Expenseye/Resources/Themes/Colors.dart';
+import 'package:Expenseye/Resources/Themes/MyColors.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 

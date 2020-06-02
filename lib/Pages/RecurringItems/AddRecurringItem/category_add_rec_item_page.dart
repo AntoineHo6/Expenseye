@@ -3,7 +3,7 @@ import 'package:Expenseye/Components/RecurringItems/add_rec_item_steps_header.da
 import 'package:Expenseye/Components/RecurringItems/bottom_nav_button.dart';
 import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
-import 'package:Expenseye/Resources/Themes/Colors.dart';
+import 'package:Expenseye/Resources/Themes/MyColors.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

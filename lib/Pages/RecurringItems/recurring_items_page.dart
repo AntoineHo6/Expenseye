@@ -5,7 +5,7 @@ import 'package:Expenseye/Enums/periodicity.dart';
 import 'package:Expenseye/Models/recurring_item.dart';
 import 'package:Expenseye/Pages/RecurringItems/AddRecurringItem/add_recurring_item_home_page.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
-import 'package:Expenseye/Resources/Themes/Colors.dart';
+import 'package:Expenseye/Resources/Themes/MyColors.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/cupertino.dart';
@@ -96,7 +96,11 @@ class RecurringItemsPage extends StatelessWidget {
             } else {
               return Align(
                 alignment: Alignment.center,
-                child: Text(AppLocalizations.of(context).translate('noData')),
+                child: Text(
+                  AppLocalizations.of(context)
+                      .translate('addYourFirstRecurringItem'),
+                      style: Theme.of(context).textTheme.headline6,
+                ),
               );
             }
           } else {

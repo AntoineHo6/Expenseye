@@ -76,5 +76,6 @@
     "chooseANameAndAnAmount": "Choisissez un nom et un montant",
     "selectACategory": "Choisissez une catégorie",
     "selectTheType": "Sélectionnez le type",
-    "addNewRecurringItem": "Ajouter un nouvel élément récurrent"
+    "addNewRecurringItem": "Ajouter un nouvel élément récurrent",
+    "addYourFirstRecurringItem": "Ajoutez votre premier élément récurrent!"
 }

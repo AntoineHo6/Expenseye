@@ -76,5 +76,6 @@
     "chooseANameAndAnAmount": "Choose a name and an amount",
     "selectACategory": "Select a category",
     "selectTheType": "Select the type",
-    "addNewRecurringItem": "Add new recurring item"
+    "addNewRecurringItem": "Add new recurring item",
+    "addYourFirstRecurringItem": "Add your first recurring item!"
 }

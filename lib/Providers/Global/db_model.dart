@@ -5,6 +5,7 @@ import 'package:Expenseye/Models/Item.dart';
 import 'package:Expenseye/Models/recurring_item.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
 import 'package:flutter/material.dart';
+import 'dart:async';
 
 class DbModel extends ChangeNotifier {
   final DatabaseHelper _dbHelper = DatabaseHelper.instance;
@@ -92,8 +93,8 @@ class DbModel extends ChangeNotifier {
   }
 
   Future<void> initUserCategoriesMap() async {
-    List<Category> categories = await _dbHelper.queryCategories();
     catMap.clear();
+    List<Category> categories = await _dbHelper.queryCategories();
     for (var category in categories) {
       catMap[category.id] = category;
     }

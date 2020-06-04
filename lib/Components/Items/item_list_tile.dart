@@ -11,8 +11,10 @@ class ItemListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: Icon(DbModel.catMap[item.category].iconData,
-          color: DbModel.catMap[item.category].color),
+      leading: Icon(
+        DbModel.catMap[item.category].iconData,
+        color: DbModel.catMap[item.category].color,
+      ),
       title: Text(
         item.name,
       ),

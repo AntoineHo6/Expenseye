@@ -24,30 +24,20 @@ class MonthlyItemsPage extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data != null && snapshot.data.length > 0) {
-              var expensesSplitByDay =
+              var itemsSplitByDay =
                   _monthlyModel.splitItemsByDay(snapshot.data);
 
               _itemModel.calcTotals(_monthlyModel, snapshot.data);
 
-              return Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Expanded(
-                    child: SingleChildScrollView(
-                      child: Column(
-                        children: <Widget>[
-                          ItemsHeader(
-                            pageModel: _monthlyModel,
-                          ),
-                          Column(
-                            children: _expensesSplitByDayToContainers(
-                                context, expensesSplitByDay),
-                          ),
-                        ],
-                      ),
+              return SingleChildScrollView(
+                child: Column(
+                  children: <Widget>[
+                    ItemsHeader(
+                      pageModel: _monthlyModel,
                     ),
-                  ),
-                ],
+                    _itemsListView(context, itemsSplitByDay),
+                  ],
+                ),
               );
             } else {
               _itemModel.calcTotals(_monthlyModel, snapshot.data);
@@ -75,61 +65,67 @@ class MonthlyItemsPage extends StatelessWidget {
     );
   }
 
-  List<Container> _expensesSplitByDayToContainers(
-      BuildContext context, List<List<Item>> expensesSplitByDay) {
-    // ? pass models by arg?
+  ListView _itemsListView(
+      BuildContext context, List<List<Item>> itemsSplitByDay) {
     final _itemModel = Provider.of<ItemModel>(context, listen: false);
 
-    return expensesSplitByDay
-        .map(
-          (itemList) => Container(
-            decoration: BoxDecoration(
-              color: MyColors.black06dp,
-              borderRadius: BorderRadius.circular(15),
-            ),
-            padding: const EdgeInsets.all(12),
-            margin:
-                const EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 15),
-            child: Column(
-              children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  mainAxisSize: MainAxisSize.max,
-                  children: <Widget>[
-                    Text(
-                      DateTimeUtil.formattedDate(context, itemList[0].date),
-                      style: Theme.of(context).textTheme.headline5,
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(right: 16),
-                      child: Text(_itemModel
-                          .totalString(_itemModel.calcItemsTotal(itemList))),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Column(
-                  children: itemList
-                      .map(
-                        (item) => Card(
-                          margin: const EdgeInsets.symmetric(vertical: 4),
-                          color: item.type == ItemType.expense
-                              ? MyColors.expenseBGColor
-                              : MyColors.incomeBGColor,
-                          child: ItemListTile(
-                            item,
-                            onTap: () => _itemModel.openEditItem(context, item),
-                          ),
-                        ),
-                      )
-                      .toList(),
-                ),
-              ],
-            ),
+    return ListView.builder(
+      addAutomaticKeepAlives: false,
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+      itemCount: itemsSplitByDay.length,
+      itemBuilder: (context, i) {
+        return Container(
+          decoration: BoxDecoration(
+            color: MyColors.black06dp,
+            borderRadius: BorderRadius.circular(10),
           ),
-        )
-        .toList();
+          padding: const EdgeInsets.all(12),
+          margin:
+              const EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 15),
+          child: Column(
+            children: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                // mainAxisSize: MainAxisSize.max,
+                children: <Widget>[
+                  Text(
+                    DateTimeUtil.formattedDate(
+                        context, itemsSplitByDay[i][0].date),
+                    style: Theme.of(context).textTheme.headline5,
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(right: 16),
+                    child: Text(_itemModel.totalString(
+                        _itemModel.calcItemsTotal(itemsSplitByDay[i]))),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 10,
+              ),
+              ListView(
+                physics: NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                children: itemsSplitByDay[i]
+                    .map(
+                      (item) => Card(
+                        margin: const EdgeInsets.symmetric(vertical: 4),
+                        color: item.type == ItemType.expense
+                            ? MyColors.expenseBGColor
+                            : MyColors.incomeBGColor,
+                        child: ItemListTile(
+                          item,
+                          onTap: () => _itemModel.openEditItem(context, item),
+                        ),
+                      ),
+                    )
+                    .toList(),
+              ),
+            ],
+          ),
+        );
+      },
+    );
   }
 }

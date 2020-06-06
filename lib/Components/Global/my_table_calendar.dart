@@ -42,7 +42,7 @@ class MyTableCalendar extends StatelessWidget {
             margin: const EdgeInsets.symmetric(horizontal: 0.3),
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              color: DbModel.catMap[expense.category].color,
+              color: expense.category.color,
             ),
           );
         },

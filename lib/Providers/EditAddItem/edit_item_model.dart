@@ -1,6 +1,5 @@
 import 'package:Expenseye/Components/EditAddItem/confirmation_dialog.dart';
 import 'package:Expenseye/Enums/item_type.dart';
-import 'package:Expenseye/Models/Category.dart';
 import 'package:Expenseye/Models/Item.dart';
 import 'package:Expenseye/Pages/EditAddItem/choose_category_page.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
@@ -14,7 +13,7 @@ class EditItemModel extends ChangeNotifier {
   bool isNameInvalid = false;
   bool isAmountInvalid = false;
   DateTime date;
-  Category category;
+  String category;
   ItemType type;
 
   EditItemModel(this.date, this.category, this.type);

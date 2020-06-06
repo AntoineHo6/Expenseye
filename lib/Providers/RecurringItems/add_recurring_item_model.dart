@@ -1,5 +1,6 @@
 import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Enums/periodicity.dart';
+import 'package:Expenseye/Models/Category.dart';
 import 'package:Expenseye/Models/recurring_item.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
@@ -12,7 +13,7 @@ class AddRecurringItemModel extends ChangeNotifier {
   double amount;
   DateTime startingDay;
   Periodicity periodicity;
-  String category;
+  Category category;
   ItemType type;
   bool isNameInvalid = false;
   bool isAmountInvalid = false;
@@ -71,8 +72,8 @@ class AddRecurringItemModel extends ChangeNotifier {
   }
 
   void createRecurringItem(BuildContext context) {
-    RecurringItem newRecurringItem = new RecurringItem(
-        this.name, this.amount, this.startingDay, this.category, periodicity);
+    RecurringItem newRecurringItem =
+        new RecurringItem(name, amount, startingDay, category, periodicity);
     Provider.of<DbModel>(context, listen: false)
         .insertRecurringItem(newRecurringItem);
 

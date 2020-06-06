@@ -132,7 +132,7 @@ class DatabaseHelper {
     List<Map> maps = await db.query(Strings.tableItems,
         where: '${Strings.itemColumnDate} LIKE \'$dateStrToFind%\'');
 
-    return convertMapsToItems(maps);
+    return await convertMapsToItems(maps);
   }
 
   Future<List<Item>> queryItemsByMonth(String yearMonth) async {
@@ -144,7 +144,7 @@ class DatabaseHelper {
       orderBy: '${Strings.itemColumnDate} DESC',
     );
 
-    return convertMapsToItems(maps);
+    return await convertMapsToItems(maps);
   }
 
   Future<List<Item>> queryItemsInYear(String year) async {
@@ -156,7 +156,7 @@ class DatabaseHelper {
       orderBy: '${Strings.itemColumnDate} DESC',
     );
 
-    return convertMapsToItems(maps);
+    return await convertMapsToItems(maps);
   }
 
   Future<List<Item>> queryAllItems() async {
@@ -164,7 +164,7 @@ class DatabaseHelper {
 
     List<Map> maps = await db.query(Strings.tableItems);
 
-    return convertMapsToItems(maps);
+    return await convertMapsToItems(maps);
   }
 
   Future<int> updateItem(Item item) async {
@@ -194,11 +194,11 @@ class DatabaseHelper {
     await db.rawQuery('DELETE FROM ${Strings.tableRecurringItems}');
   }
 
-  List<Item> convertMapsToItems(List<Map> maps) {
+  Future<List<Item>> convertMapsToItems(List<Map> maps) async {
     List<Item> items = new List();
     if (maps.length > 0) {
       for (Map row in maps) {
-        items.add(new Item.fromMap(row));
+        items.add(await Item.fromMap(row));
       }
     }
 
@@ -216,15 +216,15 @@ class DatabaseHelper {
 
     List<Map> maps = await db.query(Strings.tableRecurringItems);
 
-    return convertMapsToRecurringItems(maps);
+    return await convertMapsToRecurringItems(maps);
   }
 
-  List<RecurringItem> convertMapsToRecurringItems(List<Map> maps) {
+  Future<List<RecurringItem>> convertMapsToRecurringItems(List<Map> maps) async {
     List<RecurringItem> recurringItems = new List();
 
     if (maps.length > 0) {
       for (Map row in maps) {
-        recurringItems.add(new RecurringItem.fromMap(row));
+        recurringItems.add(await RecurringItem.fromMap(row));
       }
     }
 
@@ -242,10 +242,30 @@ class DatabaseHelper {
     Database db = await database;
 
     return await db.update(Strings.tableRecurringItems, recurringItem.toMap(),
-        where: '${Strings.recurringItemColumnId} = ?', whereArgs: [recurringItem.id]);
+        where: '${Strings.recurringItemColumnId} = ?',
+        whereArgs: [recurringItem.id]);
   }
 
   // * CATEGORIES
+  Future<Category> queryCategoryById(String id) async {
+    Database db = await database;
+    List<Map> maps = await db.query(Strings.tableCategories,
+        columns: [
+          Strings.categoryColumnId,
+          Strings.categoryColumnName,
+          Strings.categoryColumnIconCodePoint,
+          Strings.categoryColumnColor,
+          Strings.categoryColumnType,
+        ],
+        where: '${Strings.categoryColumnId} = ?',
+        whereArgs: [id]);
+
+    if (maps.length > 0) {
+      return Category.fromMap(maps.first);
+    }
+    return null;
+  }
+
   Future<void> _insertDefaultCategories(Database db) async {
     for (var category in defaultCategories()) {
       await db.insert(Strings.tableCategories, category.toMap());

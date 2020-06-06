@@ -1,8 +1,8 @@
 import 'package:Expenseye/Enums/item_type.dart';
+import 'package:Expenseye/Models/Category.dart';
 import 'package:Expenseye/Models/Item.dart';
 import 'package:Expenseye/Pages/EditAddItem/choose_category_page.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
-import 'package:Expenseye/Resources/Strings.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -13,12 +13,12 @@ class AddItemModel extends ChangeNotifier {
 
   DateTime date;
   ItemType type;
-  String category;
+  Category category;
 
   AddItemModel(this.date, this.type) {
     type == ItemType.expense
-        ? category = Strings.foodEN.toLowerCase()
-        : category = Strings.salaryEN.toLowerCase();
+        ? category = DbModel.catMap['food']
+        : category = DbModel.catMap['salary'];
   }
 
   // Will make the save button clickable

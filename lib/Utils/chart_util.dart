@@ -11,9 +11,9 @@ class ChartUtil {
     for (Item item in items) {
       if (item.type == ItemType.expense) {
         if (!aggregatedExpenses.containsKey(item.category)) {
-          aggregatedExpenses[item.category.id] = ExpenseGroup(item.category.id);
+          aggregatedExpenses[item.category] = ExpenseGroup(item.category);
         }
-        aggregatedExpenses[item.category.id].total += item.amount;
+        aggregatedExpenses[item.category].total += item.amount;
       }
     }
 

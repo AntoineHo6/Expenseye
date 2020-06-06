@@ -71,7 +71,7 @@ class _CategoryAddRecItemPageState extends State<CategoryAddRecItemPage>
                         child: CategoryBtn(
                           category: DbModel.catMap[key],
                           onPressed: () {
-                            _model.category = DbModel.catMap[key];
+                            _model.category = DbModel.catMap[key].id;
                             setState(() => selectedIconIndex = index);
                           },
                         ),
@@ -81,7 +81,7 @@ class _CategoryAddRecItemPageState extends State<CategoryAddRecItemPage>
                     return CategoryBtn(
                       category: DbModel.catMap[key],
                       onPressed: () {
-                        _model.category = DbModel.catMap[key];
+                        _model.category = DbModel.catMap[key].id;
                         setState(() => selectedIconIndex = index);
                       },
                     );

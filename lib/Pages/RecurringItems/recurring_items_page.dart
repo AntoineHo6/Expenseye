@@ -121,7 +121,7 @@ class RecurringItemsPage extends StatelessWidget {
     recurringItemsByCategoryType[1] = new List(); // incomes
 
     for (RecurringItem recurringItem in recurringItems) {
-      if (DbModel.catMap[recurringItem.category].type == ItemType.expense) {
+      if (recurringItem.category.type == ItemType.expense) {
         recurringItemsByCategoryType[0].add(recurringItem);
       } else {
         recurringItemsByCategoryType[1].add(recurringItem);
@@ -145,8 +145,8 @@ class RecurringItemsPage extends StatelessWidget {
           ),
           child: ListTile(
             leading: Icon(
-              DbModel.catMap[recurringItem.category].iconData,
-              color: DbModel.catMap[recurringItem.category].color,
+              recurringItem.category.iconData,
+              color: recurringItem.category.color,
             ),
             title: Text(recurringItem.name),
             subtitle: _subtitleText(context, recurringItem),

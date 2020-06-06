@@ -75,16 +75,6 @@ class _DailyPageState extends State<DailyPage> with WidgetsBindingObserver {
     return CustomScrollView(
       slivers: <Widget>[
         SliverAppBar(
-          // actions: <Widget>[
-          //   FlatButton(
-          //     textColor: Colors.white,
-          //     onPressed: () => null,
-          //     child: const Icon(Icons.calendar_today),
-          //     shape: const CircleBorder(
-          //       side: const BorderSide(color: Colors.transparent),
-          //     ),
-          //   ),
-          // ],
           expandedHeight: 160,
           pinned: true,
           flexibleSpace: FlexibleSpaceBar(

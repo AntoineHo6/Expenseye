@@ -32,7 +32,6 @@ class _DateAddRecItemPageState extends State<DateAddRecItemPage>
 
   @override
   Widget build(BuildContext context) {
-    // TODO: fix pixelOverflow for example May 2020
     final _model = Provider.of<AddRecurringItemModel>(context, listen: false);
     _animationController.forward();
 
@@ -69,17 +68,19 @@ class _DateAddRecItemPageState extends State<DateAddRecItemPage>
             },
           ),
         ),
-        body: Column(
-          children: <Widget>[
-            AddRecItemStepsHeader(
-              title:
-                  '3. ${AppLocalizations.of(context).translate('selectAStartingDate')}',
-              percent: 0.6,
-            ),
-            monthlyPeriodicityError
-                ? _monthlyPeriodicityErrorPage(context)
-                : _noMonthlyPeriodicityErrorPage()
-          ],
+        body: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              AddRecItemStepsHeader(
+                title:
+                    '3. ${AppLocalizations.of(context).translate('selectAStartingDate')}',
+                percent: 0.6,
+              ),
+              monthlyPeriodicityError
+                  ? _monthlyPeriodicityErrorPage(context)
+                  : _noMonthlyPeriodicityErrorPage()
+            ],
+          ),
         ),
       ),
     );

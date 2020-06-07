@@ -1,6 +1,4 @@
 import 'package:Expenseye/Enums/item_type.dart';
-import 'package:Expenseye/Helpers/database_helper.dart';
-import 'package:Expenseye/Models/Category.dart';
 import 'package:Expenseye/Pages/EditAddItem/edit_item_page.dart';
 import 'package:Expenseye/Resources/Strings.dart';
 import 'package:Expenseye/app_localizations.dart';

@@ -30,6 +30,7 @@ class MyTableCalendar extends StatelessWidget {
       calendarController: calendarController,
       initialSelectedDay: initialDate,
       onDaySelected: onDaySelected,
+      availableGestures: AvailableGestures.horizontalSwipe,
     );
   }
 }

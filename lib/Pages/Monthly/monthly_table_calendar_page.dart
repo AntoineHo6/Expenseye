@@ -2,7 +2,6 @@ import 'package:Expenseye/Components/Global/my_table_calendar.dart';
 import 'package:Expenseye/Models/Item.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:Expenseye/Resources/Themes/MyColors.dart';
-import 'package:Expenseye/Utils/table_calendar_util.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -35,13 +34,10 @@ class _MonthlyTableCalendarPageState extends State<MonthlyTableCalendarPage>
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data != null) {
-              Map<DateTime, List> _events =
-                  TableCalendarUtil.expensesToEvents(snapshot.data);
               return Column(
                 children: <Widget>[
                   MyTableCalendar(
                     initialDate: widget.initialDate,
-                    events: _events,
                     calendarController: _calendarController,
                   ),
                   const SizedBox(

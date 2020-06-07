@@ -1,20 +1,18 @@
-import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:Expenseye/Resources/Themes/MyColors.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class MyTableCalendar extends StatelessWidget {
-  final Map<DateTime, List<dynamic>> events;
   final DateTime initialDate;
   final CalendarController calendarController;
   final onDaySelected;
 
-  MyTableCalendar(
-      {@required this.initialDate,
-      @required this.calendarController,
-      this.events,
-      this.onDaySelected});
+  MyTableCalendar({
+    @required this.initialDate,
+    @required this.calendarController,
+    this.onDaySelected,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -31,22 +29,8 @@ class MyTableCalendar extends StatelessWidget {
         markersColor: Colors.white,
       ),
       calendarController: calendarController,
-      events: events,
       initialSelectedDay: initialDate,
       onDaySelected: onDaySelected,
-      builders: CalendarBuilders(
-        singleMarkerBuilder: (context, date, expense) {
-          return Container(
-            width: 8.0,
-            height: 8.0,
-            margin: const EdgeInsets.symmetric(horizontal: 0.3),
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: expense.category.color,
-            ),
-          );
-        },
-      ),
     );
   }
 }

@@ -26,7 +26,6 @@ class MyTableCalendar extends StatelessWidget {
       calendarStyle: CalendarStyle(
         todayColor: MyColors.black01dp,
         selectedColor: MyColors.black24dp,
-        markersColor: Colors.white,
       ),
       calendarController: calendarController,
       initialSelectedDay: initialDate,

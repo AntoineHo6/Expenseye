@@ -75,16 +75,6 @@ class _DailyPageState extends State<DailyPage> with WidgetsBindingObserver {
     return CustomScrollView(
       slivers: <Widget>[
         SliverAppBar(
-          // actions: <Widget>[
-          //   FlatButton(
-          //     textColor: Colors.white,
-          //     onPressed: () => null,
-          //     child: const Icon(Icons.calendar_today),
-          //     shape: const CircleBorder(
-          //       side: const BorderSide(color: Colors.transparent),
-          //     ),
-          //   ),
-          // ],
           expandedHeight: 160,
           pinned: true,
           flexibleSpace: FlexibleSpaceBar(
@@ -96,25 +86,24 @@ class _DailyPageState extends State<DailyPage> with WidgetsBindingObserver {
           ),
         ),
         SliverList(
-          delegate: SliverChildListDelegate(
-            items
-                .map(
-                  (item) => Container(
-                    padding: EdgeInsets.all(15),
-                    margin: EdgeInsets.fromLTRB(10, 20, 10, 0),
-                    decoration: BoxDecoration(
-                      color: item.type == ItemType.expense
-                          ? MyColors.expenseBGColor
-                          : MyColors.incomeBGColor,
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    child: ItemListTile(
-                      item,
-                      onTap: () => itemModel.openEditItem(context, item),
-                    ),
-                  ),
-                )
-                .toList(),
+          delegate: SliverChildBuilderDelegate(
+            (context, index) {
+              return Container(
+                padding: EdgeInsets.all(15),
+                margin: EdgeInsets.fromLTRB(10, 20, 10, 0),
+                decoration: BoxDecoration(
+                  color: items[index].type == ItemType.expense
+                      ? MyColors.expenseBGColor
+                      : MyColors.incomeBGColor,
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: ItemListTile(
+                  items[index],
+                  onTap: () => itemModel.openEditItem(context, items[index]),
+                ),
+              );
+            },
+            childCount: items.length,
           ),
         ),
       ],

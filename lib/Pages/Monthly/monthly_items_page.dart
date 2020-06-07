@@ -41,7 +41,7 @@ class MonthlyItemsPage extends StatelessWidget {
                             pageModel: _monthlyModel,
                           );
                         }
-                        return _DayContainer(itemsSplitByDay, i - 1);
+                        return _DayContainer(itemsSplitByDay[i - 1]);
                       },
                     ),
                   ),
@@ -75,10 +75,9 @@ class MonthlyItemsPage extends StatelessWidget {
 }
 
 class _DayContainer extends StatelessWidget {
-  final List<List<Item>> itemsSplitByDay;
-  final int index;
+  final List<Item> items;
 
-  _DayContainer(this.itemsSplitByDay, this.index);
+  _DayContainer(this.items);
 
   @override
   Widget build(BuildContext context) {
@@ -97,15 +96,14 @@ class _DayContainer extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Text(
-                DateTimeUtil.formattedDate(
-                    context, itemsSplitByDay[index][0].date),
+                DateTimeUtil.formattedDate(context, items[0].date),
                 style: Theme.of(context).textTheme.headline5,
               ),
               Container(
                 margin: const EdgeInsets.only(right: 16),
                 child: Text(
                   _itemModel.totalString(
-                    _itemModel.calcItemsTotal(itemsSplitByDay[index]),
+                    _itemModel.calcItemsTotal(items),
                   ),
                 ),
               ),
@@ -115,7 +113,7 @@ class _DayContainer extends StatelessWidget {
             height: 10,
           ),
           Column(
-            children: itemsSplitByDay[index]
+            children: items
                 .map(
                   (item) => Card(
                     margin: const EdgeInsets.symmetric(vertical: 4),

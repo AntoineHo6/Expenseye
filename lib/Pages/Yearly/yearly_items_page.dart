@@ -24,31 +24,22 @@ class YearlyItemsPage extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data != null && snapshot.data.length > 0) {
-              var expensesSplitByMonth =
+              var itemsSplitByMonth =
                   _yearlyModel.splitItemByMonth(snapshot.data);
-
               _itemModel.calcTotals(_yearlyModel, snapshot.data);
-
               return Column(
-                mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   Expanded(
-                    child: SingleChildScrollView(
-                      child: Column(
-                        children: <Widget>[
-                          ItemsHeader(
+                    child: ListView.builder(
+                      itemCount: itemsSplitByMonth.length + 1,
+                      itemBuilder: (context, i) {
+                        if (i == 0) {
+                          return ItemsHeader(
                             pageModel: _yearlyModel,
-                          ),
-                          Column(
-                            children: _expensesSplitByMonthToContainers(
-                              context,
-                              expensesSplitByMonth,
-                              _itemModel,
-                              _yearlyModel,
-                            ),
-                          ),
-                        ],
-                      ),
+                          );
+                        }
+                        return _MonthContainer(itemsSplitByMonth[i - 1]);
+                      },
                     ),
                   ),
                 ],
@@ -72,74 +63,75 @@ class YearlyItemsPage extends StatelessWidget {
       ),
     );
   }
+}
 
-  List<InkWell> _expensesSplitByMonthToContainers(
-      BuildContext context,
-      List<List<Item>> expensesSplitByMonth,
-      ItemModel itemModel,
-      YearlyModel yearlyModel) {
-    return expensesSplitByMonth
-        .map(
-          (expenseList) => InkWell(
-            onTap: () {
-              openMonthsPage(context, expenseList[0].date);
-            },
-            borderRadius: BorderRadius.circular(15),
-            child: Container(
-              decoration: BoxDecoration(
-                color: MyColors.black06dp,
-                borderRadius: BorderRadius.circular(15),
-              ),
-              padding: const EdgeInsets.all(12),
-              margin: const EdgeInsets.only(
-                top: 4,
-                left: 10,
-                right: 10,
-                bottom: 15,
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    mainAxisSize: MainAxisSize.max,
-                    children: <Widget>[
-                      Text(
-                        AppLocalizations.of(context).translate(
-                            DateTimeUtil.monthNames[expenseList[0].date.month]),
-                        style: Theme.of(context).textTheme.headline5,
-                      ),
-                      Container(
-                        margin: EdgeInsets.only(right: 16),
-                        child: Text(
-                          itemModel.totalString(
-                              itemModel.calcItemsTotal(expenseList)),
-                        ),
-                      ),
-                    ],
+class _MonthContainer extends StatelessWidget {
+  final List<Item> items;
+
+  _MonthContainer(this.items);
+
+  @override
+  Widget build(BuildContext context) {
+    final _itemModel = Provider.of<ItemModel>(context);
+    return InkWell(
+      onTap: () {
+        openMonthsPage(context, items[0].date);
+      },
+      borderRadius: BorderRadius.circular(15),
+      child: Container(
+        decoration: BoxDecoration(
+          color: MyColors.black06dp,
+          borderRadius: BorderRadius.circular(15),
+        ),
+        padding: const EdgeInsets.all(12),
+        margin: const EdgeInsets.only(
+          top: 4,
+          left: 10,
+          right: 10,
+          bottom: 15,
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisSize: MainAxisSize.max,
+              children: <Widget>[
+                Text(
+                  AppLocalizations.of(context)
+                      .translate(DateTimeUtil.monthNames[items[0].date.month]),
+                  style: Theme.of(context).textTheme.headline5,
+                ),
+                Container(
+                  margin: EdgeInsets.only(right: 16),
+                  child: Text(
+                    _itemModel.totalString(_itemModel.calcItemsTotal(items)),
                   ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: Wrap(
-                      spacing: 5,
-                      runSpacing: 5,
-                      children: List.generate(expenseList.length, (index) {
-                        return ColoredDot(
-                          color:
-                              DbModel.catMap[expenseList[index].category].color,
-                        );
-                      }),
-                    ),
-                  ),
-                ],
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Align(
+              alignment: Alignment.topLeft,
+              child: Wrap(
+                spacing: 5,
+                runSpacing: 5,
+                children: List.generate(
+                  items.length,
+                  (index) {
+                    return ColoredDot(
+                      color: DbModel.catMap[items[index].category].color,
+                    );
+                  },
+                ),
               ),
             ),
-          ),
-        )
-        .toList();
+          ],
+        ),
+      ),
+    );
   }
 
   void openMonthsPage(BuildContext context, DateTime date) {

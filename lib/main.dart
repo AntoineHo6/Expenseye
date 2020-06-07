@@ -19,8 +19,8 @@ class MyApp extends StatelessWidget {
 
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<ItemModel>(create: (_) => ItemModel()),
-        ChangeNotifierProvider<DbModel>(create: (_) => DbModel())
+        ChangeNotifierProvider<DbModel>(create: (_) => DbModel()),
+        ChangeNotifierProvider<ItemModel>(create: (_) => ItemModel())
       ],
       child: MaterialApp(
         supportedLocales: [Locale('en'), Locale('fr')],

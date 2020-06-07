@@ -118,6 +118,7 @@ class MyDrawerHeader extends StatelessWidget {
   }
 }
 
+// TODO: move out to dbModel
 Future<void> _logoutReset(BuildContext context, _logInFirstPress) async {
   await Provider.of<DbModel>(context, listen: false).logOutFromGoogle();
   _logInFirstPress = true;

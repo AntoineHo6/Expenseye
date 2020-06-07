@@ -12,9 +12,12 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 class MyDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Drawer(
-      child: Container(
-        color: MyColors.black00dp,
+    return Theme(
+      data: Theme.of(context).copyWith(
+        canvasColor:
+            MyColors.black00dp,
+      ),
+      child: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[

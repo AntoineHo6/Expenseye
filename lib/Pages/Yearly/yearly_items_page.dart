@@ -105,7 +105,8 @@ class YearlyItemsPage extends StatelessWidget {
                     mainAxisSize: MainAxisSize.max,
                     children: <Widget>[
                       Text(
-                        AppLocalizations.of(context).translate(DateTimeUtil.monthNames[expenseList[0].date.month]),
+                        AppLocalizations.of(context).translate(
+                            DateTimeUtil.monthNames[expenseList[0].date.month]),
                         style: Theme.of(context).textTheme.headline5,
                       ),
                       Container(
@@ -128,7 +129,7 @@ class YearlyItemsPage extends StatelessWidget {
                       children: List.generate(expenseList.length, (index) {
                         return ColoredDot(
                           color:
-                              expenseList[index].category.color,
+                              DbModel.catMap[expenseList[index].category].color,
                         );
                       }),
                     ),

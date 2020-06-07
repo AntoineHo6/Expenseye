@@ -11,7 +11,7 @@ class Item {
   String name;
   double amount;
   DateTime date;
-  Category category;
+  String category;
   ItemType type;
 
   Item(this.name, this.amount, this.date, this.type, this.category);
@@ -19,32 +19,21 @@ class Item {
   Item.withId(
       this.id, this.name, this.amount, this.date, this.type, this.category);
 
-  static Future<Item> fromMap(Map<String, dynamic> map) async {
-    int id = map[Strings.itemColumnId];
-    String name = map[Strings.itemColumnName];
-    double amount = map[Strings.itemColumnValue];
-    DateTime date = DateTime.parse(map[Strings.itemColumnDate]);
-    Category category = await DatabaseHelper.instance.queryCategoryById(map[Strings.itemColumnCategory]);
-    ItemType type = ItemType.values[map[Strings.itemColumnType]];
-
-    return Item.withId(id, name, amount, date, type, category);
+  Item.fromMap(Map<String, dynamic> map) {
+    id = map[Strings.itemColumnId];
+    name = map[Strings.itemColumnName];
+    amount = map[Strings.itemColumnValue];
+    date = DateTime.parse(map[Strings.itemColumnDate]);
+    category = map[Strings.itemColumnCategory];
+    type = ItemType.values[map[Strings.itemColumnType]];
   }
-
-  // Item.fromMap(Map<String, dynamic> map) {
-  //   id = map[Strings.itemColumnId];
-  //   name = map[Strings.itemColumnName];
-  //   amount = map[Strings.itemColumnValue];
-  //   date = DateTime.parse(map[Strings.itemColumnDate]);
-  //   category = await DatabaseHelper.instance.queryCategoryById(map[Strings.itemColumnCategory]);
-  //   type = ItemType.values[map[Strings.itemColumnType]];
-  // }
 
   Map<String, dynamic> toMap() {
     var map = <String, dynamic>{
       Strings.itemColumnName: name,
       Strings.itemColumnValue: amount,
       Strings.itemColumnDate: date.toIso8601String(),
-      Strings.itemColumnCategory: category.id,
+      Strings.itemColumnCategory: category,
       Strings.itemColumnType: type.index
     };
     if (id != null) {

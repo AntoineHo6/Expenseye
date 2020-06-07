@@ -71,6 +71,7 @@
     "createRecurringItem": "CRÉER L'ÉLÉMENT RÉCURRENT",
     "anErrorHasOccurred": "Une erreur est survenue",
     "errorSelectDayBetween1-28": "ERREUR: veuillez sélectionner un jour entre le 1er et le 28 inclusivement",
+    "errorSelectDayWithin62DaysInThePast": "ERREUR: la sélection d'un jour dans le passé doit se faire dans les 62 dernier jours",
     "selectAPeriodicity": "Sélectionnez une périodicité",
     "selectAStartingDate": "Sélectionnez une date de départ",
     "chooseANameAndAnAmount": "Choisissez un nom et un montant",

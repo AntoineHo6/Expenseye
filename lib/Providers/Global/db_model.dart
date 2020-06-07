@@ -18,7 +18,10 @@ class DbModel extends ChangeNotifier {
 
   Future<void> initializeUser() async {
     await initConnectedUser();
+
+    // TODO: deprecated. Remove.
     await initUserCategoriesMap();
+
     await initCheckRecurringItems();
   }
 

@@ -10,6 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 
+enum Error { above28th, above62DaysInPast }
+
 class DateAddRecItemPage extends StatefulWidget {
   final Periodicity periodicity;
 
@@ -25,9 +27,12 @@ class _DateAddRecItemPageState extends State<DateAddRecItemPage>
   bool monthlyPeriodicityError = false;
   AnimationController _animationController;
   Animation _animation;
+  Error error;
+  DateTime selectedDate = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
+    // TODO: fix pixelOverflow for example May 2020
     final _model = Provider.of<AddRecurringItemModel>(context, listen: false);
     _animationController.forward();
 
@@ -42,14 +47,24 @@ class _DateAddRecItemPageState extends State<DateAddRecItemPage>
                 : MyColors.incomeColor,
             text: AppLocalizations.of(context).translate('nextCaps'),
             onPressed: () {
+              selectedDate = _calendarController.focusedDay;
               if ((_model.periodicity == Periodicity.monthly ||
                       _model.periodicity == Periodicity.yearly) &&
                   _calendarController.focusedDay.day > 28) {
+                error = Error.above28th;
+                setState(() {
+                  monthlyPeriodicityError = true;
+                });
+              } else if (DateTime.now()
+                      .difference(_calendarController.focusedDay)
+                      .inDays >
+                  62) {
+                error = Error.above62DaysInPast;
                 setState(() {
                   monthlyPeriodicityError = true;
                 });
               } else {
-                _model.goNextFromDatePage(_calendarController.focusedDay);
+                _model.goNextFromDatePage(selectedDate);
               }
             },
           ),
@@ -72,7 +87,7 @@ class _DateAddRecItemPageState extends State<DateAddRecItemPage>
 
   MyTableCalendar _noMonthlyPeriodicityErrorPage() {
     return MyTableCalendar(
-      initialDate: DateTime.now(),
+      initialDate: selectedDate,
       calendarController: _calendarController,
     );
   }
@@ -80,20 +95,24 @@ class _DateAddRecItemPageState extends State<DateAddRecItemPage>
   Column _monthlyPeriodicityErrorPage(BuildContext context) {
     return Column(
       children: <Widget>[
-        MyTableCalendar(
-          initialDate: DateTime.now(),
-          calendarController: _calendarController,
-        ),
-        const SizedBox(
-          height: 15,
-        ),
         Text(
-          AppLocalizations.of(context).translate('errorSelectDayBetween1-28'),
+          error == Error.above28th
+              ? AppLocalizations.of(context)
+                  .translate('errorSelectDayBetween1-28')
+              : AppLocalizations.of(context)
+                  .translate('errorSelectDayWithin62DaysInThePast'),
           style: TextStyle(
             color: Colors.red,
             fontSize: 15,
           ),
           textAlign: TextAlign.center,
+        ),
+        MyTableCalendar(
+          initialDate: selectedDate,
+          calendarController: _calendarController,
+        ),
+        const SizedBox(
+          height: 15,
         ),
       ],
     );

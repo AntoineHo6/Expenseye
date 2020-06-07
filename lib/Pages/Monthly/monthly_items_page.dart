@@ -14,13 +14,13 @@ import 'package:provider/provider.dart';
 class MonthlyItemsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final _itemModel = Provider.of<ItemModel>(context);
-    final _monthlyModel = Provider.of<MonthlyModel>(context);
-    final _dbModel = Provider.of<DbModel>(context);
+    final _itemModel = Provider.of<ItemModel>(context, listen: false);
+    final _monthlyModel = Provider.of<MonthlyModel>(context, listen: false);
 
     return Scaffold(
       body: FutureBuilder<List<Item>>(
-        future: _dbModel.queryItemsByMonth(_monthlyModel.yearMonth),
+        future: Provider.of<DbModel>(context)
+            .queryItemsByMonth(_monthlyModel.yearMonth),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data != null && snapshot.data.length > 0) {
@@ -29,15 +29,23 @@ class MonthlyItemsPage extends StatelessWidget {
 
               _itemModel.calcTotals(_monthlyModel, snapshot.data);
 
-              return SingleChildScrollView(
-                child: Column(
-                  children: <Widget>[
-                    ItemsHeader(
-                      pageModel: _monthlyModel,
+              return Column(
+                children: <Widget>[
+                  Expanded(
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      itemCount: itemsSplitByDay.length + 1,
+                      itemBuilder: (context, i) {
+                        if (i == 0) {
+                          return ItemsHeader(
+                            pageModel: _monthlyModel,
+                          );
+                        }
+                        return _DayContainer(itemsSplitByDay, i - 1);
+                      },
                     ),
-                    _itemsListView(context, itemsSplitByDay),
-                  ],
-                ),
+                  ),
+                ],
               );
             } else {
               _itemModel.calcTotals(_monthlyModel, snapshot.data);
@@ -64,68 +72,66 @@ class MonthlyItemsPage extends StatelessWidget {
       ),
     );
   }
+}
 
-  ListView _itemsListView(
-      BuildContext context, List<List<Item>> itemsSplitByDay) {
+class _DayContainer extends StatelessWidget {
+  final List<List<Item>> itemsSplitByDay;
+  final int index;
+
+  _DayContainer(this.itemsSplitByDay, this.index);
+
+  @override
+  Widget build(BuildContext context) {
     final _itemModel = Provider.of<ItemModel>(context, listen: false);
 
-    return ListView.builder(
-      addAutomaticKeepAlives: false,
-      shrinkWrap: true,
-      physics: NeverScrollableScrollPhysics(),
-      itemCount: itemsSplitByDay.length,
-      itemBuilder: (context, i) {
-        return Container(
-          decoration: BoxDecoration(
-            color: MyColors.black06dp,
-            borderRadius: BorderRadius.circular(10),
-          ),
-          padding: const EdgeInsets.all(12),
-          margin:
-              const EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 15),
-          child: Column(
+    return Container(
+      decoration: BoxDecoration(
+        color: MyColors.black06dp,
+        borderRadius: BorderRadius.circular(10),
+      ),
+      padding: const EdgeInsets.all(12),
+      margin: const EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 15),
+      child: Column(
+        children: <Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                // mainAxisSize: MainAxisSize.max,
-                children: <Widget>[
-                  Text(
-                    DateTimeUtil.formattedDate(
-                        context, itemsSplitByDay[i][0].date),
-                    style: Theme.of(context).textTheme.headline5,
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(right: 16),
-                    child: Text(_itemModel.totalString(
-                        _itemModel.calcItemsTotal(itemsSplitByDay[i]))),
-                  ),
-                ],
+              Text(
+                DateTimeUtil.formattedDate(
+                    context, itemsSplitByDay[index][0].date),
+                style: Theme.of(context).textTheme.headline5,
               ),
-              const SizedBox(
-                height: 10,
-              ),
-              ListView(
-                physics: NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                children: itemsSplitByDay[i]
-                    .map(
-                      (item) => Card(
-                        margin: const EdgeInsets.symmetric(vertical: 4),
-                        color: item.type == ItemType.expense
-                            ? MyColors.expenseBGColor
-                            : MyColors.incomeBGColor,
-                        child: ItemListTile(
-                          item,
-                          onTap: () => _itemModel.openEditItem(context, item),
-                        ),
-                      ),
-                    )
-                    .toList(),
+              Container(
+                margin: const EdgeInsets.only(right: 16),
+                child: Text(
+                  _itemModel.totalString(
+                    _itemModel.calcItemsTotal(itemsSplitByDay[index]),
+                  ),
+                ),
               ),
             ],
           ),
-        );
-      },
+          const SizedBox(
+            height: 10,
+          ),
+          Column(
+            children: itemsSplitByDay[index]
+                .map(
+                  (item) => Card(
+                    margin: const EdgeInsets.symmetric(vertical: 4),
+                    color: item.type == ItemType.expense
+                        ? MyColors.expenseBGColor
+                        : MyColors.incomeBGColor,
+                    child: ItemListTile(
+                      item,
+                      onTap: () => item.openEditItemPage(context, item),
+                    ),
+                  ),
+                )
+                .toList(),
+          ),
+        ],
+      ),
     );
   }
 }

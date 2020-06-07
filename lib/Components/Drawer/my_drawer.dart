@@ -14,8 +14,7 @@ class MyDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Theme(
       data: Theme.of(context).copyWith(
-        canvasColor:
-            MyColors.black00dp,
+        canvasColor: MyColors.black00dp,
       ),
       child: Drawer(
         child: ListView(

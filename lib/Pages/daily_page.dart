@@ -49,7 +49,7 @@ class _DailyPageState extends State<DailyPage> with WidgetsBindingObserver {
       body: FutureBuilder<List<Item>>(
         future: _dbModel.queryItemsByDay(widget.day),
         builder: (context, snapshot) {
-          if (snapshot.hasData) {
+          if (snapshot.hasData && DbModel.catMap.length > 0) {
             if (snapshot.data != null && snapshot.data.length > 0) {
               return mySliverView(snapshot.data, _itemModel, context);
             } else {

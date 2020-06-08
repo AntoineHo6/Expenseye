@@ -1,4 +1,5 @@
 import 'package:Expenseye/Components/Global/name_text_field.dart';
+import 'package:Expenseye/Components/RecurringItems/bottom_nav_button.dart';
 import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Helpers/database_helper.dart';
 import 'package:Expenseye/Models/Category.dart';
@@ -34,6 +35,15 @@ class _AddNewCategoryPageState extends State<AddNewCategoryPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
+      ),
+      bottomNavigationBar: BottomAppBar(
+        color: Colors.transparent,
+        child: BottomNavButton(
+            color: widget.type == ItemType.expense
+                ? MyColors.expenseColor
+                : MyColors.incomeColor,
+            text: AppLocalizations.of(context).translate('addCaps'),
+            onPressed: () => _addNewCategory(context)),
       ),
       body: Column(
         mainAxisSize: MainAxisSize.min,
@@ -78,21 +88,27 @@ class _AddNewCategoryPageState extends State<AddNewCategoryPage> {
               children: _iconList(),
             ),
           ),
-          Container(
-            margin: const EdgeInsets.symmetric(horizontal: 15),
-            child: SizedBox(
-              width: double.infinity,
-              child: RaisedButton(
-                child: Text(
-                  AppLocalizations.of(context).translate('addCaps'),
-                  style: TextStyle(color: Colors.white),
-                ),
-                onPressed: (selectedIconIndex != null && isNameInvalid == false)
-                    ? () => _addNewCategory(context)
-                    : null,
-              ),
-            ),
-          ),
+          // Container(
+          //   margin: const EdgeInsets.symmetric(horizontal: 15),
+          //   child: SizedBox(
+          //     width: double.infinity,
+          //     child: RaisedButton(
+          //       color: widget.type == ItemType.expense
+          //           ? MyColors.expenseColor
+          //           : MyColors.incomeColor,
+          //       disabledColor: widget.type == ItemType.expense
+          //           ? MyColors.expenseBGColor
+          //           : MyColors.incomeBGColor,
+          //       child: Text(
+          //         AppLocalizations.of(context).translate('addCaps'),
+          //         style: TextStyle(color: Colors.white),
+          //       ),
+          //       onPressed: (selectedIconIndex != null && isNameInvalid == false)
+          //           ? () => _addNewCategory(context)
+          //           : null,
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );
@@ -147,22 +163,24 @@ class _AddNewCategoryPageState extends State<AddNewCategoryPage> {
   }
 
   void _addNewCategory(BuildContext context) async {
-    final DatabaseHelper dbHelper = DatabaseHelper.instance;
+    if (selectedIconIndex != null && _nameController.text.trim().isNotEmpty) {
+      final DatabaseHelper dbHelper = DatabaseHelper.instance;
 
-    Category newCategory = Category(
-      id: _nameController.text.toLowerCase(),
-      name: _nameController.text,
-      iconData: (widget.type == ItemType.expense)
-          ? MyIcons.expenseIcons[selectedIconIndex]
-          : MyIcons.incomeIcons[selectedIconIndex],
-      color: currentColor,
-      type: widget.type,
-    );
+      Category newCategory = Category(
+        id: _nameController.text.toLowerCase().trim(),
+        name: _nameController.text.trim(),
+        iconData: (widget.type == ItemType.expense)
+            ? MyIcons.expenseIcons[selectedIconIndex]
+            : MyIcons.incomeIcons[selectedIconIndex],
+        color: currentColor,
+        type: widget.type,
+      );
 
-    DbModel.catMap[newCategory.id] = newCategory;
-    await dbHelper.insertCategory(newCategory);
+      DbModel.catMap[newCategory.id] = newCategory;
+      await dbHelper.insertCategory(newCategory);
 
-    Navigator.pop(context);
+      Navigator.pop(context);
+    }
   }
 
   List<Widget> _iconList() {

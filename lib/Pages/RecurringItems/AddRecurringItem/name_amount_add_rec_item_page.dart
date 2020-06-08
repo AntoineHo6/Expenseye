@@ -38,8 +38,8 @@ class _NameAmountAddRecItemPageState extends State<NameAmountAddRecItemPage>
                 : MyColors.incomeColor,
             text: AppLocalizations.of(context).translate('nextCaps'),
             onPressed: () => _model.goNextFromNameAmountPage(
-              _nameController.text,
-              _amountController.text,
+              _nameController.text.trim(),
+              _amountController.text.trim(),
             ),
           ),
         ),

@@ -10,7 +10,6 @@ import 'dart:async';
 class DbModel extends ChangeNotifier {
   final DatabaseHelper _dbHelper = DatabaseHelper.instance;
   static Map<String, Category> catMap = new Map();
-  static List<Category> categories = new List();
 
   DbModel() {
     initializeUser();

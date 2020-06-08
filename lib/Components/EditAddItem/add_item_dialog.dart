@@ -88,7 +88,10 @@ class _AddItemDialogState extends State<AddItemDialog> {
               textColor: Colors.white,
               child: Text(AppLocalizations.of(context).translate('submitCaps')),
               onPressed: () => model.addItem(
-                  context, _nameController.text, _amountController.text),
+                context,
+                _nameController.text.trim(),
+                _amountController.text.trim(),
+              ),
             ),
           ],
         ),

@@ -37,7 +37,7 @@ class AddItemModel extends ChangeNotifier {
   void addItem(BuildContext context, String newName, String newAmount) {
     // make sure to remove time before adding to db
     final DateTime newDate = DateTimeUtil.timeToZeroInDate(date);
-
+    
     bool areFieldsInvalid = _checkFieldsInvalid(newName, newAmount);
 
     // if all the fields are valid, add and quit
@@ -69,7 +69,7 @@ class AddItemModel extends ChangeNotifier {
   /// Will check and show error msg if a field is invalid.
   bool _checkFieldsInvalid(String newName, String newAmount) {
     // check NAME field
-    isNameInvalid = newName.isEmpty ? true : false;
+    isNameInvalid = newName.trim().isEmpty ? true : false;
 
     // check AMOUNT field
     try {

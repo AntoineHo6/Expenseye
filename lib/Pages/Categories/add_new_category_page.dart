@@ -24,7 +24,7 @@ class _AddNewCategoryPageState extends State<AddNewCategoryPage> {
   Color currentColor = MyColors.secondary;
   int selectedIconIndex;
   final _nameController = TextEditingController();
-  bool isNameInvalid = true;
+  bool isNameInvalid = false;
 
   @override
   Widget build(BuildContext context) {
@@ -43,13 +43,16 @@ class _AddNewCategoryPageState extends State<AddNewCategoryPage> {
                 ? MyColors.expenseColor
                 : MyColors.incomeColor,
             text: AppLocalizations.of(context).translate('addCaps'),
-            onPressed: () => _addNewCategory(context)),
+            onPressed: () {
+              _checkNameInvalid(_nameController.text);
+              _addNewCategory(context);
+            }),
       ),
       body: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           Container(
-            margin: const EdgeInsets.fromLTRB(15, 0, 15, 12),
+            margin: const EdgeInsets.fromLTRB(10, 0, 10, 13),
             child: Row(
               children: <Widget>[
                 Expanded(
@@ -88,33 +91,13 @@ class _AddNewCategoryPageState extends State<AddNewCategoryPage> {
               children: _iconList(),
             ),
           ),
-          // Container(
-          //   margin: const EdgeInsets.symmetric(horizontal: 15),
-          //   child: SizedBox(
-          //     width: double.infinity,
-          //     child: RaisedButton(
-          //       color: widget.type == ItemType.expense
-          //           ? MyColors.expenseColor
-          //           : MyColors.incomeColor,
-          //       disabledColor: widget.type == ItemType.expense
-          //           ? MyColors.expenseBGColor
-          //           : MyColors.incomeBGColor,
-          //       child: Text(
-          //         AppLocalizations.of(context).translate('addCaps'),
-          //         style: TextStyle(color: Colors.white),
-          //       ),
-          //       onPressed: (selectedIconIndex != null && isNameInvalid == false)
-          //           ? () => _addNewCategory(context)
-          //           : null,
-          //     ),
-          //   ),
-          // ),
         ],
       ),
     );
   }
 
   void _checkNameInvalid(String newName) {
+    newName = newName.trim();
     setState(() {
       if (DbModel.catMap.containsKey(newName.toLowerCase())) {
         isNameInvalid = true;

@@ -1,6 +1,6 @@
 import 'package:Expenseye/Components/Categories/category_btn.dart';
 import 'package:Expenseye/Components/RecurringItems/add_rec_item_steps_header.dart';
-import 'package:Expenseye/Components/RecurringItems/bottom_nav_button.dart';
+import 'package:Expenseye/Components/Global/bottom_nav_button.dart';
 import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:Expenseye/Resources/Themes/MyColors.dart';

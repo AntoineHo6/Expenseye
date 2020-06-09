@@ -1,5 +1,5 @@
 import 'package:Expenseye/Components/Categories/category_btn.dart';
-import 'package:Expenseye/Components/EditAddItem/confirmation_dialog.dart';
+import 'package:Expenseye/Components/Global/confirmation_dialog.dart';
 import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Pages/Categories/add_new_category_page.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';

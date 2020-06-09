@@ -1,5 +1,5 @@
-import 'package:Expenseye/Components/Global/name_text_field.dart';
-import 'package:Expenseye/Components/RecurringItems/bottom_nav_button.dart';
+import 'package:Expenseye/Components/EditAdd/name_text_field.dart';
+import 'package:Expenseye/Components/Global/bottom_nav_button.dart';
 import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Helpers/database_helper.dart';
 import 'package:Expenseye/Models/Category.dart';

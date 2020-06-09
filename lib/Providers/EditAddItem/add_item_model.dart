@@ -13,6 +13,7 @@ class AddItemModel extends ChangeNotifier {
 
   DateTime date;
   ItemType type;
+  // TODO: rename to categoryId
   String category;
 
   AddItemModel(this.date, this.type) {

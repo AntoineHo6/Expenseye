@@ -1,13 +1,14 @@
-import 'package:Expenseye/Components/EditAddItem/icon_btn.dart';
-import 'package:Expenseye/Components/Global/name_text_field.dart';
-import 'package:Expenseye/Components/Global/amount_text_field.dart';
-import 'package:Expenseye/Components/EditAddItem/date_picker_btn.dart';
+import 'package:Expenseye/Components/EditAdd/Item/category_picker_btn.dart';
+import 'package:Expenseye/Components/EditAdd/date_picker_btn.dart';
+import 'package:Expenseye/Components/Global/bottom_nav_button.dart';
+import 'package:Expenseye/Components/EditAdd/name_text_field.dart';
+import 'package:Expenseye/Components/EditAdd/amount_text_field.dart';
 import 'package:Expenseye/Models/Item.dart';
 import 'package:Expenseye/Providers/EditAddItem/edit_item_model.dart';
+import 'package:Expenseye/Resources/Themes/MyColors.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 
 class EditItemPage extends StatefulWidget {
   final Item expense;
@@ -42,12 +43,36 @@ class _EditItemPageState extends State<EditItemPage> {
               ),
             ],
           ),
+          bottomNavigationBar: BottomAppBar(
+            color: Colors.transparent,
+            child: BottomNavButton(
+              color: MyColors.secondaryDarker,
+              disabledColor: MyColors.secondaryDisabled,
+              text: AppLocalizations.of(context).translate('saveCaps'),
+              onPressed: model.didInfoChange
+                  ? () => model.editItem(
+                        context,
+                        widget.expense.id,
+                        _nameController.text,
+                        _amountController.text,
+                      )
+                  : null,
+              // onPressed: () => model.editItem(
+              //   context,
+              //   widget.expense.id,
+              //   _nameController.text,
+              //   _amountController.text,
+              // ),
+            ),
+          ),
           body: SingleChildScrollView(
             child: Column(
+              mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 // TODO: refactor redundant code
                 Container(
-                  padding: const EdgeInsets.all(20),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
                   margin: const EdgeInsets.symmetric(horizontal: 10),
                   child: Column(
                     children: <Widget>[
@@ -68,8 +93,10 @@ class _EditItemPageState extends State<EditItemPage> {
                   ),
                 ),
                 Container(
-                  padding: const EdgeInsets.all(20),
-                  margin: const EdgeInsets.symmetric(horizontal: 10),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  margin:
+                      const EdgeInsets.only(left: 10, right: 10, bottom: 30),
                   child: Column(
                     children: <Widget>[
                       SizedBox(
@@ -89,35 +116,29 @@ class _EditItemPageState extends State<EditItemPage> {
                   ),
                 ),
                 Container(
-                  margin: const EdgeInsets.all(40),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    mainAxisSize: MainAxisSize.max,
-                    children: <Widget>[
-                      IconBtn(
-                        model.category,
-                        () => model.openChooseCategoryPage(context),
-                      ),
-                      DatePickerBtn(
-                        model.date,
-                        function: () => model.chooseDate(context, model.date),
-                      ),
-                    ],
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  child: DatePickerBtn(
+                    minWidth: double.infinity,
+                    height: 80,
+                    date: model.date,
+                    iconSize: 32,
+                    spaceBetweenSize: 15,
+                    fontSize: 20,
+                    onPressed: () => model.chooseDate(context, model.date),
                   ),
                 ),
-                RaisedButton(
-                  textTheme: ButtonTextTheme.primary,
-                  child: Text(
-                    AppLocalizations.of(context).translate('saveCaps'),
+                Container(
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  child: CategoryPickerBtn(
+                    categoryId: model.category,
+                    onPressed: () => model.openChooseCategoryPage(context),
+                    minWidth: double.infinity,
+                    height: 80,
+                    iconSize: 160,
+                    iconBottomPosition: -70,
                   ),
-                  onPressed: model.didInfoChange
-                      ? () => model.editItem(
-                            context,
-                            widget.expense.id,
-                            _nameController.text,
-                            _amountController.text,
-                          )
-                      : null,
                 ),
               ],
             ),

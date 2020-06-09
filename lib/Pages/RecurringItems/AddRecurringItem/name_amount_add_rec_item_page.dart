@@ -1,7 +1,7 @@
-import 'package:Expenseye/Components/Global/name_text_field.dart';
-import 'package:Expenseye/Components/Global/amount_text_field.dart';
+import 'package:Expenseye/Components/EditAdd/name_text_field.dart';
+import 'package:Expenseye/Components/EditAdd/amount_text_field.dart';
 import 'package:Expenseye/Components/RecurringItems/add_rec_item_steps_header.dart';
-import 'package:Expenseye/Components/RecurringItems/bottom_nav_button.dart';
+import 'package:Expenseye/Components/Global/bottom_nav_button.dart';
 import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Providers/RecurringItems/add_recurring_item_model.dart';
 import 'package:Expenseye/Resources/Themes/MyColors.dart';

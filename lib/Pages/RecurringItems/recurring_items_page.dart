@@ -1,4 +1,4 @@
-import 'package:Expenseye/Components/EditAddItem/confirmation_dialog.dart';
+import 'package:Expenseye/Components/Global/confirmation_dialog.dart';
 import 'package:Expenseye/Components/RecurringItems/my_divider.dart';
 import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Enums/periodicity.dart';

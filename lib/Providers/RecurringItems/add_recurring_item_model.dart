@@ -12,6 +12,7 @@ class AddRecurringItemModel extends ChangeNotifier {
   double amount;
   DateTime startingDay;
   Periodicity periodicity;
+  // TODO: rename to categoryId
   String category;
   ItemType type;
   bool isNameInvalid = false;

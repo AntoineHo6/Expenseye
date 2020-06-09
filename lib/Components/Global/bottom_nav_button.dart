@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 
 class BottomNavButton extends StatelessWidget {
   final Color color; 
+  final Color disabledColor;
   final String text;
   final Function onPressed;
 
-  BottomNavButton({@required this.text, @required this.onPressed, this.color});
+  BottomNavButton({@required this.text, @required this.onPressed, this.color, this.disabledColor});
 
   @override
   Widget build(BuildContext context) {
@@ -17,6 +18,7 @@ class BottomNavButton extends StatelessWidget {
         this.text,
       ),
       onPressed: this.onPressed,
+      disabledColor: disabledColor,
     );
   }
 }

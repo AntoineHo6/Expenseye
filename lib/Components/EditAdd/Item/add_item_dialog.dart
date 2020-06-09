@@ -1,9 +1,9 @@
-import 'package:Expenseye/Components/EditAddItem/icon_btn.dart';
-import 'package:Expenseye/Components/Global/name_text_field.dart';
-import 'package:Expenseye/Components/Global/amount_text_field.dart';
+import 'package:Expenseye/Components/EditAdd/Item/category_picker_btn.dart';
+import 'package:Expenseye/Components/EditAdd/date_picker_btn.dart';
+import 'package:Expenseye/Components/EditAdd/name_text_field.dart';
+import 'package:Expenseye/Components/EditAdd/amount_text_field.dart';
 import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Providers/EditAddItem/add_item_model.dart';
-import 'package:Expenseye/Components/EditAddItem/date_picker_btn.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -47,7 +47,6 @@ class _AddItemDialogState extends State<AddItemDialog> {
           ),
           content: SingleChildScrollView(
             child: Column(
-              mainAxisSize: MainAxisSize.min,
               children: [
                 NameTextField(
                   controller: _nameController,
@@ -57,23 +56,26 @@ class _AddItemDialogState extends State<AddItemDialog> {
                   controller: _amountController,
                   isAmountInvalid: model.isAmountInvalid,
                 ),
-                Container(
-                  margin: const EdgeInsets.only(top: 20),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    mainAxisSize: MainAxisSize.max,
-                    children: <Widget>[
-                      IconBtn(
-                        model.category,
-                        () => model.openChooseCategoryPage(context),
-                      ),
-                      DatePickerBtn(
-                        model.date,
-                        function: () =>
-                            model.chooseDate(context, widget.initialDate),
-                      ),
-                    ],
+                const SizedBox(
+                  height: 20,
+                ),
+                DatePickerBtn(
+                  minWidth: double.infinity,
+                  height: 40,
+                  date: model.date,
+                  onPressed: () => model.chooseDate(
+                    context,
+                    widget.initialDate,
                   ),
+                ),
+                CategoryPickerBtn(
+                  minWidth: double.infinity,
+                  height: 40,
+                  iconSize: 30,
+                  iconBottomPosition: null,
+                  categoryId: model.category,
+                  onPressed: () => model.openChooseCategoryPage(context),
+                  borderRadiusSize: 5,
                 ),
               ],
             ),

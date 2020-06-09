@@ -55,34 +55,5 @@ class CategoryPickerBtn extends StatelessWidget {
         ),
       ),
     );
-    // return SizedBox(
-    //   width: width,
-    //   height: height,
-    //   child: Stack(
-    //     alignment: Alignment.center,
-    //     overflow: Overflow.clip,
-    //     children: <Widget>[
-    //       Positioned(
-    //         bottom: iconBottomPosition,
-    //         child: Icon(
-    //           DbModel.catMap[categoryId].iconData,
-    //           color: DbModel.catMap[categoryId].color,
-    //           size: iconSize,
-    //         ),
-    //       ),
-    //       InkWell(
-    //         highlightColor: DbModel.catMap[categoryId].color.withOpacity(0.2),
-    //         splashColor: DbModel.catMap[categoryId].color.withOpacity(0.2),
-    //         child: Ink(
-    //           decoration: BoxDecoration(
-    //             color: Theme.of(context).buttonColor,
-    //             borderRadius: BorderRadius.circular(borderRadiusSize),
-    //           ),
-    //         ),
-    //         onTap: onTap,
-    //       ),
-    //     ],
-    //   ),
-    // );
   }
 }

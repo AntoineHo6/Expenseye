@@ -1,4 +1,4 @@
-import 'package:Expenseye/Components/EditAdd/Item/category_picker_btn.dart';
+import 'package:Expenseye/Components/EditAdd/category_picker_btn.dart';
 import 'package:Expenseye/Components/EditAdd/date_picker_btn.dart';
 import 'package:Expenseye/Components/Global/bottom_nav_button.dart';
 import 'package:Expenseye/Components/EditAdd/name_text_field.dart';
@@ -57,12 +57,6 @@ class _EditItemPageState extends State<EditItemPage> {
                         _amountController.text,
                       )
                   : null,
-              // onPressed: () => model.editItem(
-              //   context,
-              //   widget.expense.id,
-              //   _nameController.text,
-              //   _amountController.text,
-              // ),
             ),
           ),
           body: SingleChildScrollView(

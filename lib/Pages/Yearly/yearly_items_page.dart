@@ -5,7 +5,6 @@ import 'package:Expenseye/Pages/Monthly/monthly_home_page.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:Expenseye/Providers/Global/item_model.dart';
 import 'package:Expenseye/Providers/yearly_model.dart';
-import 'package:Expenseye/Resources/Themes/MyColors.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
@@ -16,11 +15,10 @@ class YearlyItemsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final _itemModel = Provider.of<ItemModel>(context);
     final _yearlyModel = Provider.of<YearlyModel>(context);
-    final _dbModel = Provider.of<DbModel>(context);
 
     return Scaffold(
       body: FutureBuilder<List<Item>>(
-        future: _dbModel.queryItemsInYear(_yearlyModel.year),
+        future: Provider.of<DbModel>(context).queryItemsInYear(_yearlyModel.year),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data != null && snapshot.data.length > 0) {
@@ -73,29 +71,24 @@ class _MonthContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _itemModel = Provider.of<ItemModel>(context);
-    return InkWell(
-      onTap: () {
-        openMonthsPage(context, items[0].date);
-      },
-      borderRadius: BorderRadius.circular(15),
-      child: Container(
-        decoration: BoxDecoration(
-          color: MyColors.black06dp,
-          borderRadius: BorderRadius.circular(15),
+
+    return Container(
+      margin: const EdgeInsets.only(
+        top: 4,
+        left: 10,
+        right: 10,
+        bottom: 15,
+      ),
+      child: RaisedButton(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
         ),
         padding: const EdgeInsets.all(12),
-        margin: const EdgeInsets.only(
-          top: 4,
-          left: 10,
-          right: 10,
-          bottom: 15,
-        ),
+        onPressed: () => openMonthsPage(context, items[0].date),
         child: Column(
-          mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              mainAxisSize: MainAxisSize.max,
               children: <Widget>[
                 Text(
                   AppLocalizations.of(context)
@@ -105,7 +98,10 @@ class _MonthContainer extends StatelessWidget {
                 Container(
                   margin: EdgeInsets.only(right: 16),
                   child: Text(
-                    _itemModel.totalString(_itemModel.calcItemsTotal(items)),
+                    _itemModel.totalString(
+                      _itemModel.calcItemsTotal(items),
+                    ),
+                    style: Theme.of(context).textTheme.subtitle1,
                   ),
                 ),
               ],

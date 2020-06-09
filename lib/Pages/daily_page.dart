@@ -1,12 +1,10 @@
 import 'package:Expenseye/Components/Global/add_item_fab.dart';
 import 'package:Expenseye/Components/Drawer/my_drawer.dart';
 import 'package:Expenseye/Components/Items/item_list_tile.dart';
-import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Helpers/google_firebase_helper.dart';
 import 'package:Expenseye/Models/Item.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:Expenseye/Providers/Global/item_model.dart';
-import 'package:Expenseye/Resources/Themes/MyColors.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -89,17 +87,12 @@ class _DailyPageState extends State<DailyPage> with WidgetsBindingObserver {
           delegate: SliverChildBuilderDelegate(
             (context, index) {
               return Container(
-                padding: EdgeInsets.all(15),
                 margin: EdgeInsets.fromLTRB(10, 20, 10, 0),
-                decoration: BoxDecoration(
-                  color: items[index].type == ItemType.expense
-                      ? MyColors.expenseBGColor
-                      : MyColors.incomeBGColor,
-                  borderRadius: BorderRadius.circular(15),
-                ),
                 child: ItemListTile(
                   items[index],
-                  onTap: () => itemModel.openEditItem(context, items[index]),
+                  contentPadding: const EdgeInsets.all(15),
+                  onPressed: () =>
+                      itemModel.openEditItem(context, items[index]),
                 ),
               );
             },

@@ -9,6 +9,7 @@ class MyThemeData {
     dialogBackgroundColor: MyColors.black00dp,
     scaffoldBackgroundColor: MyColors.black00dp,
     buttonColor: MyColors.black02dp,
+    cardColor: MyColors.black06dp,
     floatingActionButtonTheme: FloatingActionButtonThemeData(
       backgroundColor: MyColors.secondary,
     ),

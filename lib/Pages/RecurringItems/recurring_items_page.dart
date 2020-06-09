@@ -66,7 +66,7 @@ class RecurringItemsPage extends StatelessWidget {
                           ),
                           MyDivider(),
                           Column(
-                            children: _recurringItemsContainers(
+                            children: _recurringItems(
                               context,
                               recurringItemsByCategoryType[0],
                               ItemType.expense,
@@ -81,7 +81,7 @@ class RecurringItemsPage extends StatelessWidget {
                           ),
                           MyDivider(),
                           Column(
-                            children: _recurringItemsContainers(
+                            children: _recurringItems(
                               context,
                               recurringItemsByCategoryType[1],
                               ItemType.income,
@@ -99,7 +99,7 @@ class RecurringItemsPage extends StatelessWidget {
                 child: Text(
                   AppLocalizations.of(context)
                       .translate('addYourFirstRecurringItem'),
-                      style: Theme.of(context).textTheme.headline6,
+                  style: Theme.of(context).textTheme.headline6,
                 ),
               );
             }
@@ -131,30 +131,41 @@ class RecurringItemsPage extends StatelessWidget {
     return recurringItemsByCategoryType;
   }
 
-  List<Container> _recurringItemsContainers(BuildContext context,
+  List<Widget> _recurringItems(BuildContext context,
       List<RecurringItem> recurringItems, ItemType itemType) {
     return recurringItems.map(
       (recurringItem) {
         return Container(
           margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-          decoration: BoxDecoration(
-            color: itemType == ItemType.expense
-                ? MyColors.expenseBGColor
-                : MyColors.incomeBGColor,
-            borderRadius: BorderRadius.circular(5),
-          ),
-          child: ListTile(
-            leading: Icon(
-              DbModel.catMap[recurringItem.category].iconData,
-              color: DbModel.catMap[recurringItem.category].color,
+          child: RaisedButton(
+            color:
+                DbModel.catMap[recurringItem.category].type == ItemType.expense
+                    ? MyColors.expenseBGColor
+                    : MyColors.incomeBGColor,
+            highlightColor:
+                DbModel.catMap[recurringItem.category].color.withOpacity(0.2),
+            splashColor:
+                DbModel.catMap[recurringItem.category].color.withOpacity(0.2),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
             ),
-            title: Text(recurringItem.name),
-            subtitle: _subtitleText(context, recurringItem),
-            trailing: Text(
-              '${recurringItem.value.toStringAsFixed(2)} \$',
+            onPressed: () => _deleteRecurringItem(context, recurringItem),
+            child: ListTile(
+              leading: Icon(
+                DbModel.catMap[recurringItem.category].iconData,
+                color: DbModel.catMap[recurringItem.category].color,
+              ),
+              title: Text(
+                recurringItem.name,
+                style: Theme.of(context).textTheme.subtitle1,
+              ),
+              subtitle: _subtitleText(context, recurringItem),
+              trailing: Text(
+                '${recurringItem.value.toStringAsFixed(2)} \$',
+                style: Theme.of(context).textTheme.subtitle2,
+              ),
+              isThreeLine: true,
             ),
-            isThreeLine: true,
-            onLongPress: () => _deleteRecurringItem(context, recurringItem),
           ),
         );
       },

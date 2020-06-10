@@ -1,42 +1,41 @@
+import 'package:Expenseye/Components/EditAdd/RecurringItem/periodicity_picker_btn.dart';
+import 'package:Expenseye/Components/EditAdd/amount_text_field.dart';
 import 'package:Expenseye/Components/EditAdd/category_picker_btn.dart';
 import 'package:Expenseye/Components/EditAdd/date_picker_btn.dart';
 import 'package:Expenseye/Components/EditAdd/delete_btn.dart';
-import 'package:Expenseye/Components/Global/bottom_nav_button.dart';
 import 'package:Expenseye/Components/EditAdd/name_text_field.dart';
-import 'package:Expenseye/Components/EditAdd/amount_text_field.dart';
-import 'package:Expenseye/Models/Item.dart';
-import 'package:Expenseye/Providers/EditAddItem/edit_item_model.dart';
+import 'package:Expenseye/Components/Global/bottom_nav_button.dart';
+import 'package:Expenseye/Models/recurring_item.dart';
+import 'package:Expenseye/Providers/RecurringItems/edit_recurring_item_model.dart';
 import 'package:Expenseye/Resources/Themes/MyColors.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-// TODO: rename expense to item
-class EditItemPage extends StatefulWidget {
-  final Item expense;
+class EditRecurringItemPage extends StatefulWidget {
+  final RecurringItem recurringItem;
 
-  EditItemPage(this.expense);
+  EditRecurringItemPage(this.recurringItem);
 
   @override
-  _EditItemPageState createState() => _EditItemPageState();
+  _EditRecurringItemPageState createState() => _EditRecurringItemPageState();
 }
 
-class _EditItemPageState extends State<EditItemPage> {
+class _EditRecurringItemPageState extends State<EditRecurringItemPage> {
   final _nameController = TextEditingController();
   final _amountController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => EditItemModel(
-          widget.expense.date, widget.expense.category, widget.expense.type),
-      child: Consumer<EditItemModel>(
+      create: (_) => EditRecurringItemModel(widget.recurringItem),
+      child: Consumer<EditRecurringItemModel>(
         builder: (context, model, child) => Scaffold(
           appBar: AppBar(
-            title: Text(widget.expense.name),
+            title: Text(widget.recurringItem.name),
             actions: <Widget>[
               DeleteBtn(
-                onPressed: () => model.delete(context, widget.expense.id),
+                onPressed: () => model.delete(context),
               ),
             ],
           ),
@@ -47,9 +46,8 @@ class _EditItemPageState extends State<EditItemPage> {
               disabledColor: MyColors.secondaryDisabled,
               text: AppLocalizations.of(context).translate('saveCaps'),
               onPressed: model.didInfoChange
-                  ? () async => await model.editItem(
+                  ? () async => await model.editRecurringItem(
                         context,
-                        widget.expense.id,
                         _nameController.text,
                         _amountController.text,
                       )
@@ -103,14 +101,9 @@ class _EditItemPageState extends State<EditItemPage> {
                     ],
                   ),
                 ),
-                Container(
-                  margin: EdgeInsets.only(left: 10),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                        '${AppLocalizations.of(context).translate('date')} :',
-                        style: Theme.of(context).textTheme.headline6),
-                  ),
+                _btnTitle(
+                  context,
+                  AppLocalizations.of(context).translate('nextDueDate'),
                 ),
                 Container(
                   margin:
@@ -118,27 +111,22 @@ class _EditItemPageState extends State<EditItemPage> {
                   child: DatePickerBtn(
                     minWidth: double.infinity,
                     height: 80,
-                    date: model.date,
+                    date: model.recurringItem.dueDate,
                     iconSize: 32,
                     spaceBetweenSize: 15,
                     fontSize: 20,
-                    onPressed: () => model.chooseDate(context, model.date),
+                    onPressed: () => model.chooseDate(context),
                   ),
                 ),
-                Container(
-                  margin: EdgeInsets.only(left: 10),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                        '${AppLocalizations.of(context).translate('category')} :',
-                        style: Theme.of(context).textTheme.headline6),
-                  ),
+                _btnTitle(
+                  context,
+                  AppLocalizations.of(context).translate('category'),
                 ),
                 Container(
                   margin:
                       const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                   child: CategoryPickerBtn(
-                    categoryId: model.category,
+                    categoryId: model.recurringItem.category,
                     onPressed: () => model.openChooseCategoryPage(context),
                     minWidth: double.infinity,
                     height: 80,
@@ -146,10 +134,37 @@ class _EditItemPageState extends State<EditItemPage> {
                     iconBottomPosition: -75,
                   ),
                 ),
+                _btnTitle(
+                  context,
+                  AppLocalizations.of(context).translate('periodicity'),
+                ),
+                Container(
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  child: PeriodicityPickerBtn(
+                    onPressed: () => model.openPeriodicityPickerPage(context),
+                    minWidth: double.infinity,
+                    height: 80,
+                    periodicity: model.recurringItem.periodicity,
+                    spaceBetweenSize: 15,
+                    fontSize: 20,
+                    iconSize: 32,
+                  ),
+                ),
               ],
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _btnTitle(BuildContext context, String title) {
+    return Container(
+      margin: EdgeInsets.only(left: 10),
+      child: Align(
+        alignment: Alignment.centerLeft,
+        child: Text('$title :', style: Theme.of(context).textTheme.headline6),
       ),
     );
   }
@@ -163,8 +178,8 @@ class _EditItemPageState extends State<EditItemPage> {
 
   @override
   void initState() {
-    _nameController.text = widget.expense.name;
-    _amountController.text = widget.expense.amount.toString();
+    _nameController.text = widget.recurringItem.name;
+    _amountController.text = widget.recurringItem.value.toString();
     super.initState();
   }
 }

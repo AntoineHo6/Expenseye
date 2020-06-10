@@ -71,12 +71,15 @@
     "createRecurringItem": "CRÉER L'ÉLÉMENT RÉCURRENT",
     "anErrorHasOccurred": "Une erreur est survenue",
     "errorSelectDayBetween1-28": "ERREUR: veuillez sélectionner un jour entre le 1er et le 28 inclusivement",
-    "errorSelectDayWithin62DaysInThePast": "ERREUR: la sélection d'un jour dans le passé doit se faire dans les 62 dernier jours",
+    "errorSelectDayWithin62DaysInThePast": "ERREUR: la sélection d'un jour avant aujourd'hui doit se faire dans les 62 derniers jours",
     "selectAPeriodicity": "Sélectionnez une périodicité",
     "selectAStartingDate": "Sélectionnez une date de départ",
     "chooseANameAndAnAmount": "Choisissez un nom et un montant",
     "selectACategory": "Choisissez une catégorie",
     "selectTheType": "Sélectionnez le type",
     "addNewRecurringItem": "Ajouter un nouvel élément récurrent",
-    "addYourFirstRecurringItem": "Ajoutez votre premier élément récurrent!"
+    "addYourFirstRecurringItem": "Ajoutez votre premier élément récurrent!",
+    "date": "Date",
+    "category": "Catégorie",
+    "periodicity": "Périodicité"
 }

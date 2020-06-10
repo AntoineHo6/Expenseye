@@ -9,7 +9,6 @@ class CategoryPickerBtn extends StatelessWidget {
   final double height;
   final double iconSize;
   final double iconBottomPosition;
-  final double borderRadiusSize;
 
   CategoryPickerBtn({
     @required this.categoryId,
@@ -17,8 +16,7 @@ class CategoryPickerBtn extends StatelessWidget {
     this.minWidth = 100,
     this.height = 50,
     this.iconSize = 70,
-    this.iconBottomPosition = -25,
-    this.borderRadiusSize = 5,
+    this.iconBottomPosition = -25
   });
 
   @override
@@ -32,7 +30,7 @@ class CategoryPickerBtn extends StatelessWidget {
         highlightColor: DbModel.catMap[categoryId].color.withOpacity(0.2),
         splashColor: DbModel.catMap[categoryId].color.withOpacity(0.2),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(borderRadiusSize),
+          borderRadius: BorderRadius.circular(10),
         ),
         onPressed: onPressed,
         child: SizedBox(

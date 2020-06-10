@@ -91,8 +91,8 @@ class _DailyPageState extends State<DailyPage> with WidgetsBindingObserver {
                 child: ItemListTile(
                   items[index],
                   contentPadding: const EdgeInsets.all(15),
-                  onPressed: () =>
-                      itemModel.openEditItem(context, items[index]),
+                  onPressed: () async =>
+                      await itemModel.openEditItem(context, items[index]),
                 ),
               );
             },

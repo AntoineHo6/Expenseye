@@ -8,6 +8,7 @@ import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+// TODO: asynchronity here
 class EditItemModel extends ChangeNotifier {
   bool didInfoChange = false;
   bool isNameInvalid = false;
@@ -17,6 +18,7 @@ class EditItemModel extends ChangeNotifier {
   String category;
   ItemType type;
 
+  // TODO: refactor: take only the item as parameter
   EditItemModel(this.date, this.category, this.type);
 
   // Will make the save button clickable
@@ -25,20 +27,17 @@ class EditItemModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  // Will make the save button clickable
-  void updateDate(DateTime newDate) {
+  void chooseDate(BuildContext context, DateTime initialDate) async {
+    DateTime newDate = await DateTimeUtil.chooseDate(context, initialDate);
     if (newDate != null) {
       date = newDate;
       infoChanged(null);
     }
   }
 
-  void chooseDate(BuildContext context, DateTime initialDate) async {
-    DateTime newDate = await DateTimeUtil.chooseDate(context, initialDate);
-    updateDate(newDate);
-  }
-
-  void editItem(BuildContext context, int id, String newName, String newAmount) {
+  Future<void> editItem(
+      BuildContext context, int id, String newName, String newAmount) async {
+    newName = newName.trim();
     bool areFieldsInvalid = _checkFieldsInvalid(newName, newAmount);
 
     // if all the fields are valid, update and quit
@@ -46,7 +45,7 @@ class EditItemModel extends ChangeNotifier {
       Item newItem = new Item.withId(
           id, newName, double.parse(newAmount), date, type, category);
 
-      Provider.of<DbModel>(context, listen: false).editItem(newItem);
+      await Provider.of<DbModel>(context, listen: false).editItem(newItem);
       Navigator.pop(context, 1);
     }
   }

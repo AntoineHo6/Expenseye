@@ -5,6 +5,7 @@ import 'package:Expenseye/Utils/date_time_util.dart';
 class RecurringItem {
   int id;
   String name;
+  // TODO: change var name to amount
   double value;
   DateTime dueDate; // corresponds to the next dueDate the item is due for
   Periodicity periodicity; // daily, weekly, bi-weekly, monthly, yearly

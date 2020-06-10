@@ -1,9 +1,9 @@
-import 'package:Expenseye/Components/Global/confirmation_dialog.dart';
 import 'package:Expenseye/Components/RecurringItems/my_divider.dart';
 import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Enums/periodicity.dart';
 import 'package:Expenseye/Models/recurring_item.dart';
 import 'package:Expenseye/Pages/RecurringItems/AddRecurringItem/add_recurring_item_home_page.dart';
+import 'package:Expenseye/Pages/RecurringItems/edit_recurring_item_page.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:Expenseye/Resources/Themes/MyColors.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
@@ -12,14 +12,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-const String expense = 'expense';
-const String income = 'income';
+class RecurringItemsPage extends StatefulWidget {
+  @override
+  _RecurringItemsPageState createState() => _RecurringItemsPageState();
+}
 
-class RecurringItemsPage extends StatelessWidget {
+class _RecurringItemsPageState extends State<RecurringItemsPage> {
   @override
   Widget build(BuildContext context) {
-    final _dbModel = Provider.of<DbModel>(context);
-
     return Scaffold(
       appBar: AppBar(
         title: Text(AppLocalizations.of(context).translate('recurringItems')),
@@ -42,7 +42,7 @@ class RecurringItemsPage extends StatelessWidget {
         ],
       ),
       body: FutureBuilder<List<RecurringItem>>(
-        future: _dbModel.queryRecurringItems(),
+        future: Provider.of<DbModel>(context).queryRecurringItems(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data != null && snapshot.data.length > 0) {
@@ -149,7 +149,8 @@ class RecurringItemsPage extends StatelessWidget {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.0),
             ),
-            onPressed: () => _deleteRecurringItem(context, recurringItem),
+            // onPressed: () => _deleteRecurringItem(context, recurringItem),
+            onPressed: () => _openEditRecurringItemPage(context, recurringItem),
             child: ListTile(
               leading: Icon(
                 DbModel.catMap[recurringItem.category].iconData,
@@ -172,44 +173,38 @@ class RecurringItemsPage extends StatelessWidget {
     ).toList();
   }
 
-  void _deleteRecurringItem(
+  void _openEditRecurringItemPage(
       BuildContext context, RecurringItem recurringItem) async {
-    bool confirmed = await showDialog(
-      context: context,
-      builder: (_) => ConfirmationDialog(
-        AppLocalizations.of(context).translate('confirmDeleteMsg'),
+    int action = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => EditRecurringItemPage(recurringItem),
       ),
     );
 
-    if (confirmed != null && confirmed) {
-      await Provider.of<DbModel>(context, listen: false)
-          .deleteRecurringItem(recurringItem.id);
+    if (action != null) {
+      final snackBar = SnackBar(
+        content: action == 1
+            ? Text(AppLocalizations.of(context).translate('succEdited'))
+            : Text(AppLocalizations.of(context).translate('succDeleted')),
+        backgroundColor: Colors.grey.withOpacity(0.5),
+      );
+
+      Scaffold.of(context).showSnackBar(snackBar);
+      
+      // update page
+      setState(() {});
     }
   }
 
   Text _subtitleText(BuildContext context, RecurringItem recurringItem) {
     // TODO: use richText
-    String periodicity;
-    switch (recurringItem.periodicity) {
-      case Periodicity.daily:
-        periodicity = AppLocalizations.of(context).translate('daily');
-        break;
-      case Periodicity.weekly:
-        periodicity = AppLocalizations.of(context).translate('weekly');
-        break;
-      case Periodicity.biweekly:
-        periodicity = AppLocalizations.of(context).translate('biWeekly');
-        break;
-      case Periodicity.monthly:
-        periodicity = AppLocalizations.of(context).translate('monthly');
-        break;
-      case Periodicity.yearly:
-        periodicity = AppLocalizations.of(context).translate('yearly');
-        break;
-    }
+    String periodicityTitle;
+    periodicityTitle =
+        PeriodicityHelper.getString(context, recurringItem.periodicity);
 
     return Text(
-      '$periodicity\n${AppLocalizations.of(context).translate('nextDueDate')}: ${DateTimeUtil.formattedDate(context, recurringItem.dueDate)}',
+      '$periodicityTitle\n${AppLocalizations.of(context).translate('nextDueDate')}: ${DateTimeUtil.formattedDate(context, recurringItem.dueDate)}',
     );
   }
 }

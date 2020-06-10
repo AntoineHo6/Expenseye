@@ -1,23 +1,24 @@
-import 'package:Expenseye/Utils/date_time_util.dart';
+import 'package:Expenseye/Enums/periodicity.dart';
 import 'package:flutter/material.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
-class DatePickerBtn extends StatelessWidget {
-  final DateTime date;
+class PeriodicityPickerBtn extends StatelessWidget {
   final Function onPressed;
   final double minWidth;
   final double height;
-  final double iconSize;
+  final Periodicity periodicity;
   final double spaceBetweenSize;
   final double fontSize;
+  final double iconSize;
 
-  DatePickerBtn({
-    @required this.date,
+  PeriodicityPickerBtn({
     @required this.onPressed,
     this.minWidth = 100,
-    this.height = 50,
-    this.iconSize = 20,
+    this.height = 80,
+    this.spaceBetweenSize = 8,
+    this.periodicity,
     this.fontSize = 15,
-    this.spaceBetweenSize = 8
+    this.iconSize = 20,
   });
 
   @override
@@ -28,27 +29,27 @@ class DatePickerBtn extends StatelessWidget {
       buttonColor: Theme.of(context).buttonColor,
       textTheme: ButtonTextTheme.primary,
       child: RaisedButton(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
         onPressed: onPressed,
         child: Row(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Icon(
-              Icons.date_range,
+              MdiIcons.calendarClock,
               size: iconSize,
             ),
             SizedBox(
               width: spaceBetweenSize,
             ),
             Text(
-              DateTimeUtil.formattedDate(context, date),
+              PeriodicityHelper.getString(context, periodicity),
               style: TextStyle(fontSize: fontSize),
             ),
           ],
         ),
+      ),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
       ),
     );
   }

@@ -3,14 +3,14 @@ import 'package:Expenseye/Components/RecurringItems/add_rec_item_steps_header.da
 import 'package:Expenseye/Components/Global/bottom_nav_button.dart';
 import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Enums/periodicity.dart';
+import 'package:Expenseye/Enums/periodicity_error.dart';
 import 'package:Expenseye/Providers/RecurringItems/add_recurring_item_model.dart';
 import 'package:Expenseye/Resources/Themes/MyColors.dart';
+import 'package:Expenseye/Utils/edit_add_util.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
-
-enum Error { above28th, above62DaysInPast }
 
 class DateAddRecItemPage extends StatefulWidget {
   final Periodicity periodicity;
@@ -27,7 +27,7 @@ class _DateAddRecItemPageState extends State<DateAddRecItemPage>
   bool monthlyPeriodicityError = false;
   AnimationController _animationController;
   Animation _animation;
-  Error error;
+  PeriodicityError error;
   DateTime selectedDate = DateTime.now();
 
   @override
@@ -47,23 +47,21 @@ class _DateAddRecItemPageState extends State<DateAddRecItemPage>
             text: AppLocalizations.of(context).translate('nextCaps'),
             onPressed: () {
               selectedDate = _calendarController.focusedDay;
-              if ((_model.periodicity == Periodicity.monthly ||
-                      _model.periodicity == Periodicity.yearly) &&
-                  _calendarController.focusedDay.day > 28) {
-                error = Error.above28th;
-                setState(() {
-                  monthlyPeriodicityError = true;
-                });
-              } else if (DateTime.now()
-                      .difference(_calendarController.focusedDay)
-                      .inDays >
-                  62) {
-                error = Error.above62DaysInPast;
-                setState(() {
-                  monthlyPeriodicityError = true;
-                });
-              } else {
-                _model.goNextFromDatePage(selectedDate);
+              error = EditAddUtil.checkDueDateForError(
+                _model.periodicity,
+                _calendarController.focusedDay,
+              );
+
+              switch (error) {
+                case PeriodicityError.none:
+                  _model.goNextFromDatePage(_calendarController.focusedDay);
+                  break;
+                case PeriodicityError.above28th:
+                case PeriodicityError.above62DaysInPast:
+                  setState(() {
+                    monthlyPeriodicityError = true;
+                  });
+                  break;
               }
             },
           ),
@@ -94,14 +92,12 @@ class _DateAddRecItemPageState extends State<DateAddRecItemPage>
   }
 
   Column _monthlyPeriodicityErrorPage(BuildContext context) {
+    String errorMsg = EditAddUtil.getDueDateErrorMsg(context, error);
+
     return Column(
       children: <Widget>[
         Text(
-          error == Error.above28th
-              ? AppLocalizations.of(context)
-                  .translate('errorSelectDayBetween1-28')
-              : AppLocalizations.of(context)
-                  .translate('errorSelectDayWithin62DaysInThePast'),
+          errorMsg,
           style: TextStyle(
             color: Colors.red,
             fontSize: 15,

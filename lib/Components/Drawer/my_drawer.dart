@@ -47,7 +47,7 @@ class MyDrawer extends StatelessWidget {
               },
             ),
             ListTile(
-              leading: Icon(Icons.autorenew, color: Colors.white),
+              leading: Icon(MdiIcons.calendarClock, color: Colors.white),
               title: Text(
                   AppLocalizations.of(context).translate('recurringItems')),
               onTap: () {

@@ -37,7 +37,7 @@ class ItemModel extends ChangeNotifier {
     Scaffold.of(context).showSnackBar(snackBar);
   }
 
-  void openEditItem(BuildContext context, Item item) async {
+  Future<void> openEditItem(BuildContext context, Item item) async {
     int action = await Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => EditItemPage(item)),

@@ -73,7 +73,12 @@ class AddRecurringItemModel extends ChangeNotifier {
 
   void createRecurringItem(BuildContext context) {
     RecurringItem newRecurringItem = new RecurringItem(
-        this.name, this.amount, this.startingDay, this.category, periodicity);
+      this.name,
+      this.amount,
+      this.startingDay,
+      this.category,
+      periodicity,
+    );
     Provider.of<DbModel>(context, listen: false)
         .insertRecurringItem(newRecurringItem);
 

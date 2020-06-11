@@ -71,23 +71,42 @@ class DbModel extends ChangeNotifier {
     await _dbHelper.updateRecurringItem(recurringItem);
   }
 
-  Future<void> addLocalItems(List<Item> localItems,
-      List<Category> localCategories, List<Category> accCategories) async {
-    List<int> accCategoriesId =
-        accCategories.map((category) => category.id).toList();
+  Future<void> addLocalItems(
+    List<Item> localItems,
+    List<Category> localCategories,
+    List<Category> accCategories,
+  ) async {
+    // TODO: refactor this
+    Map<String, int> accCategoriesName = new Map();
+    for (var accCategory in accCategories) {
+      accCategoriesName[accCategory.name] = accCategory.id;
+    }
+
+    Map<int, String> localCategoriesName = new Map();
+    for (var localCategory in localCategories) {
+      localCategoriesName[localCategory.id] = localCategory.name;
+    }
 
     for (var localCategory in localCategories) {
-      if (!accCategoriesId.contains(localCategory.id)) {
+      if (!accCategoriesName.containsKey(localCategory.name)) {
         await _dbHelper.insertCategory(localCategory);
         catMap[localCategory.id] = localCategory;
+      } else {
+        for (var localItem in localItems) {
+          // TODO: add toLowerCase
+          if (localCategoriesName[localItem.category] == localCategory.name) {
+            localItem.category = accCategoriesName[localCategory.name];
+          }
+        }
       }
     }
 
     if (localItems.length > 0) {
       for (Item item in localItems) {
-        await _dbHelper.insertItem(item);
+        item.category = await _dbHelper.insertItem(item);
       }
     }
+
     notifyListeners();
   }
 
@@ -141,7 +160,6 @@ class DbModel extends ChangeNotifier {
   Future<void> deleteCategory(int categoryId) async {
     await _dbHelper.deleteCategory(categoryId);
     await initUserCategoriesMap();
-    // notifyListeners();
   }
 
   Future<void> deleteItemsByCategory(int categoryId) async {
@@ -153,7 +171,6 @@ class DbModel extends ChangeNotifier {
     await _dbHelper.deleteAllCategories();
     await _dbHelper.insertDefaultCategories();
     await initUserCategoriesMap();
-    // notifyListeners();
   }
 
   Future<List<Item>> queryItemsInYear(String year) async {

@@ -126,18 +126,18 @@ Future<void> _logoutReset(BuildContext context, _logInFirstPress) async {
 
 Future<void> _loginInit(BuildContext context, _logOutFirstPress) async {
   final _dbModel = Provider.of<DbModel>(context, listen: false);
-  final _firebaseModel = Provider.of<DbModel>(context, listen: false);
 
   List<Item> localItems = await _dbModel.queryAllItems();
   List<Category> localCategories = await _dbModel.queryCategories();
 
-  bool isLoggedIn = await _firebaseModel.loginWithGoogle();
-  await _dbModel.initUserCategoriesMap();
-
+  bool isLoggedIn = await _dbModel.loginWithGoogle();
+  // * From this point on, the sqflite file contains data from the firebase file
   List<Category> accCategories = await _dbModel.queryCategories();
 
   if (isLoggedIn) {
     await _dbModel.addLocalItems(localItems, localCategories, accCategories);
   }
+
+  await _dbModel.initUserCategoriesMap();
   _logOutFirstPress = true;
 }

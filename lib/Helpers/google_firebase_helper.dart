@@ -28,6 +28,8 @@ class GoogleFirebaseHelper {
         ));
       }
 
+
+      // TODO: fix exception when no file in firebase storage
       if (res.user != null) {
         user = res.user;
         String _storageFilePath = 'dbFiles/${user.uid}/${Strings.dbFileName}';

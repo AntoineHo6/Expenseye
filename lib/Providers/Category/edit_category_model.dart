@@ -4,7 +4,6 @@ import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Helpers/database_helper.dart';
 import 'package:Expenseye/Models/Category.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
-import 'package:Expenseye/Resources/Strings.dart';
 import 'package:Expenseye/Resources/icons.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
@@ -17,12 +16,19 @@ class EditCategoryModel extends ChangeNotifier {
   Color color;
   ItemType type;
   int selectedIconIndex;
+  List<String> categoryNamesLowerCase = new List();
 
   EditCategoryModel(Category oldCategory) {
     initSelectedIconIndex(oldCategory);
     color = oldCategory.color;
     type = oldCategory.type;
     oldCategoryId = oldCategory.id;
+
+    DbModel.catMap.values.forEach(
+      (category) {
+        categoryNamesLowerCase.add(category.name.toLowerCase());
+      },
+    );
   }
 
   void initSelectedIconIndex(Category oldCategory) {
@@ -39,19 +45,8 @@ class EditCategoryModel extends ChangeNotifier {
   void checkNameInvalid(String newName) {
     newName = newName.trim();
 
-    List<Category> categories = DbModel.catMap.values.toList();
-    print('CHECKING ${categories.length} categories');
-    // DbModel.catMap.values.forEach(
-    //   (category) {
-    //     // print('COMPARING $newName - ${category.name}');
-    //     if (newName.toLowerCase() == category.name.toLowerCase()) {
-    //       // print('THIS NAME ALREADY EXISTS');
-    //       isNameInvalid = false;
-    //     }
-    //   },
-    // );
-
-    if (DbModel.catMap.containsKey(newName.toLowerCase()) || newName.isEmpty) {
+    if (categoryNamesLowerCase.contains(newName.toLowerCase()) ||
+        newName.isEmpty) {
       isNameInvalid = true;
     } else {
       isNameInvalid = false;

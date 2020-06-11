@@ -9,6 +9,7 @@ import 'package:Expenseye/Resources/icons.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
+import 'package:provider/provider.dart';
 
 // TODO: refactor. Move business logic to a provider
 class AddNewCategoryPage extends StatefulWidget {
@@ -26,9 +27,16 @@ class _AddNewCategoryPageState extends State<AddNewCategoryPage> {
   int selectedIconIndex;
   final _nameController = TextEditingController();
   bool isNameInvalid = false;
+  List<String> categoryNamesLowerCase = new List();
 
   @override
   Widget build(BuildContext context) {
+    DbModel.catMap.values.forEach(
+      (category) {
+        categoryNamesLowerCase.add(category.name.toLowerCase());
+      },
+    );
+
     final title = widget.type == ItemType.expense
         ? AppLocalizations.of(context).translate('expense')
         : AppLocalizations.of(context).translate('income');
@@ -100,7 +108,7 @@ class _AddNewCategoryPageState extends State<AddNewCategoryPage> {
   void _checkNameInvalid(String newName) {
     newName = newName.trim();
     setState(() {
-      if (DbModel.catMap.containsKey(newName.toLowerCase()) ||
+      if (categoryNamesLowerCase.contains(newName.toLowerCase()) ||
           newName.isEmpty) {
         isNameInvalid = true;
       } else {
@@ -122,6 +130,7 @@ class _AddNewCategoryPageState extends State<AddNewCategoryPage> {
       context: context,
       child: AlertDialog(
         title: Text(AppLocalizations.of(context).translate('pickAColor')),
+        // TODO: CHECK THE PIXEL OVERFLOW ON BOTTOM PROBLEM
         content: ColorPicker(
           pickerColor: pickerColor,
           showLabel: false,
@@ -165,6 +174,9 @@ class _AddNewCategoryPageState extends State<AddNewCategoryPage> {
 
       DbModel.catMap[newCategory.id] = newCategory;
       await dbHelper.insertCategory(newCategory);
+
+      await Provider.of<DbModel>(context, listen: false)
+          .initUserCategoriesMap();
 
       Navigator.pop(context);
     }

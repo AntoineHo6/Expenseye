@@ -3,8 +3,7 @@ import 'package:Expenseye/Enums/periodicity_error.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 
-// TODO: rename to EditAddRecItemUtil
-class EditAddUtil {
+class EditAddRecItemUtil {
   static PeriodicityError checkDueDateForError(
       Periodicity periodicity, DateTime dueDate) {
     if (DateTime.now().difference(dueDate).inDays > 62) {

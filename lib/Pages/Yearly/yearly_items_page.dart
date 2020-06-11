@@ -18,7 +18,8 @@ class YearlyItemsPage extends StatelessWidget {
 
     return Scaffold(
       body: FutureBuilder<List<Item>>(
-        future: Provider.of<DbModel>(context).queryItemsInYear(_yearlyModel.year),
+        future:
+            Provider.of<DbModel>(context).queryItemsInYear(_yearlyModel.year),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data != null && snapshot.data.length > 0) {
@@ -118,7 +119,7 @@ class _MonthContainer extends StatelessWidget {
                   items.length,
                   (index) {
                     return ColoredDot(
-                      color: DbModel.catMap[items[index].category].color,
+                      color: DbModel.catMap[items[index].categoryId].color,
                     );
                   },
                 ),

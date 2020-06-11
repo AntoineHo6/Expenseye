@@ -5,7 +5,7 @@ import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Models/Category.dart';
 import 'package:Expenseye/Providers/Category/edit_category_model.dart';
 import 'package:Expenseye/Resources/Themes/MyColors.dart';
-import 'package:Expenseye/Resources/icons.dart';
+import 'package:Expenseye/Resources/my_icons.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

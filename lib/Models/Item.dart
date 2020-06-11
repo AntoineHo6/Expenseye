@@ -9,7 +9,7 @@ class Item {
   String name;
   double amount;
   DateTime date;
-  int category;
+  int categoryId;
   ItemType type;
 
   Item(
@@ -17,7 +17,7 @@ class Item {
     this.amount,
     this.date,
     this.type,
-    this.category,
+    this.categoryId,
   );
 
   Item.withId(
@@ -26,7 +26,7 @@ class Item {
     this.amount,
     this.date,
     this.type,
-    this.category,
+    this.categoryId,
   );
 
   Item.fromMap(Map<String, dynamic> map) {
@@ -34,7 +34,7 @@ class Item {
     name = map[Strings.itemColumnName];
     amount = map[Strings.itemColumnValue];
     date = DateTime.parse(map[Strings.itemColumnDate]);
-    category = int.parse(map[Strings.itemColumnCategory]);
+    categoryId = int.parse(map[Strings.itemColumnCategory]);
     type = ItemType.values[map[Strings.itemColumnType]];
   }
 
@@ -43,7 +43,7 @@ class Item {
       Strings.itemColumnName: name,
       Strings.itemColumnValue: amount,
       Strings.itemColumnDate: date.toIso8601String(),
-      Strings.itemColumnCategory: category,
+      Strings.itemColumnCategory: categoryId,
       Strings.itemColumnType: type.index
     };
     if (id != null) {

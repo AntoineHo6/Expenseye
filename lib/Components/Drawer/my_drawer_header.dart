@@ -97,10 +97,10 @@ class MyDrawerHeader extends StatelessWidget {
                               ),
                             ],
                           ),
-                          onPressed: () {
+                          onPressed: () async {
                             if (_logInFirstPress) {
                               _logInFirstPress = false;
-                              _loginInit(context, _logOutFirstPress);
+                              await _loginInit(context, _logOutFirstPress);
                             }
                           },
                         ),

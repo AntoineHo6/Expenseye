@@ -5,7 +5,7 @@ import 'package:Expenseye/Pages/EditAddItem/choose_category_page.dart';
 import 'package:Expenseye/Pages/RecurringItems/periodicity_picker_page.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
-import 'package:Expenseye/Utils/edit_add_util.dart';
+import 'package:Expenseye/Utils/edit_add_rec_item_util.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -83,7 +83,7 @@ class EditRecurringItemModel extends ChangeNotifier {
   Future<void> editRecurringItem(
       BuildContext context, String newName, String newAmount) async {
     newName = newName.trim();
-    PeriodicityError periodicityError = EditAddUtil.checkDueDateForError(
+    PeriodicityError periodicityError = EditAddRecItemUtil.checkDueDateForError(
       recurringItem.periodicity,
       recurringItem.dueDate,
     );
@@ -94,7 +94,7 @@ class EditRecurringItemModel extends ChangeNotifier {
     // if all the fields are valid, update and quit
     if (!areFieldsInvalid && isDueDateValid) {
       recurringItem.name = newName;
-      recurringItem.value = double.parse(newAmount);
+      recurringItem.amount = double.parse(newAmount);
       await Provider.of<DbModel>(context, listen: false)
           .editRecurringItem(recurringItem);
       Navigator.pop(context, 1);
@@ -107,7 +107,7 @@ class EditRecurringItemModel extends ChangeNotifier {
               '${AppLocalizations.of(context).translate('anErrorHasOccurred')}',
             ),
             content: Text(
-              EditAddUtil.getDueDateErrorMsg(context, periodicityError),
+              EditAddRecItemUtil.getDueDateErrorMsg(context, periodicityError),
               style: TextStyle(color: Colors.red),
             ),
             actions: <Widget>[

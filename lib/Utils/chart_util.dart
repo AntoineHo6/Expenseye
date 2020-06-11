@@ -10,10 +10,10 @@ class ChartUtil {
 
     for (Item item in items) {
       if (item.type == ItemType.expense) {
-        if (!aggregatedExpenses.containsKey(item.category)) {
-          aggregatedExpenses[item.category] = ExpenseGroup(item.category);
+        if (!aggregatedExpenses.containsKey(item.categoryId)) {
+          aggregatedExpenses[item.categoryId] = ExpenseGroup(item.categoryId);
         }
-        aggregatedExpenses[item.category].total += item.amount;
+        aggregatedExpenses[item.categoryId].total += item.amount;
       }
     }
 

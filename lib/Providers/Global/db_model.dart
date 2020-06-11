@@ -60,7 +60,7 @@ class DbModel extends ChangeNotifier {
     // 1. insert item
     Item newItem = Item(
       recurringItem.name,
-      recurringItem.value,
+      recurringItem.amount,
       recurringItem.dueDate,
       catMap[recurringItem.category].type,
       recurringItem.category,
@@ -77,25 +77,27 @@ class DbModel extends ChangeNotifier {
     List<Category> accCategories,
   ) async {
     // TODO: refactor this
-    Map<String, int> accCategoriesName = new Map();
+    Map<String, int> accCategoriesNameLCase = new Map();
     for (var accCategory in accCategories) {
-      accCategoriesName[accCategory.name] = accCategory.id;
+      accCategoriesNameLCase[accCategory.name.toLowerCase()] = accCategory.id;
     }
 
-    Map<int, String> localCategoriesName = new Map();
+    Map<int, String> localCategoriesNameLCase = new Map();
     for (var localCategory in localCategories) {
-      localCategoriesName[localCategory.id] = localCategory.name;
+      localCategoriesNameLCase[localCategory.id] =
+          localCategory.name.toLowerCase();
     }
 
     for (var localCategory in localCategories) {
-      if (!accCategoriesName.containsKey(localCategory.name)) {
+      if (!accCategoriesNameLCase
+          .containsKey(localCategory.name.toLowerCase())) {
         await _dbHelper.insertCategory(localCategory);
         catMap[localCategory.id] = localCategory;
       } else {
         for (var localItem in localItems) {
-          // TODO: add toLowerCase
-          if (localCategoriesName[localItem.category] == localCategory.name) {
-            localItem.category = accCategoriesName[localCategory.name];
+          if (localCategoriesNameLCase[localItem.categoryId] ==
+              localCategory.name.toLowerCase()) {
+            localItem.categoryId = accCategoriesNameLCase[localCategory.name];
           }
         }
       }
@@ -103,7 +105,7 @@ class DbModel extends ChangeNotifier {
 
     if (localItems.length > 0) {
       for (Item item in localItems) {
-        item.category = await _dbHelper.insertItem(item);
+        item.categoryId = await _dbHelper.insertItem(item);
       }
     }
 

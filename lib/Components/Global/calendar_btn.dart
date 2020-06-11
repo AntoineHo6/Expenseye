@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 
-// TODO: rename to CalendarBtn
-class CalendarFlatButton extends StatelessWidget {
+class CalendarBtn extends StatelessWidget {
   final Function onPressed;
 
-  CalendarFlatButton({this.onPressed});
+  CalendarBtn({this.onPressed});
 
   @override
   Widget build(BuildContext context) {

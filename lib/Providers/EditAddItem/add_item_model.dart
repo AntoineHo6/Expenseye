@@ -2,7 +2,6 @@ import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Models/Item.dart';
 import 'package:Expenseye/Pages/EditAddItem/choose_category_page.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
-import 'package:Expenseye/Resources/Strings.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -13,14 +12,13 @@ class AddItemModel extends ChangeNotifier {
 
   DateTime date;
   ItemType type;
-  // TODO: rename to categoryId
-  int category;
+  int categoryId;
 
   AddItemModel(this.date, this.type) {
     // TODO: remove preset categories
     type == ItemType.expense
-        ? category = 1
-        : category = 12;  // TODO: redo how this is done. not sustainable
+        ? categoryId = 1
+        : categoryId = 12;  // TODO: redo how this is done. not sustainable
   }
 
   // Will make the save button clickable
@@ -45,7 +43,7 @@ class AddItemModel extends ChangeNotifier {
     // if all the fields are valid, add and quit
     if (!areFieldsInvalid) {
       Item newItem =
-          new Item(newName, double.parse(newAmount), newDate, type, category);
+          new Item(newName, double.parse(newAmount), newDate, type, categoryId);
 
       Provider.of<DbModel>(context, listen: false).addItem(newItem);
       Navigator.pop(context, true);
@@ -63,7 +61,7 @@ class AddItemModel extends ChangeNotifier {
     );
 
     if (result != null) {
-      category = result;
+      categoryId = result;
       notifyListeners();
     }
   }

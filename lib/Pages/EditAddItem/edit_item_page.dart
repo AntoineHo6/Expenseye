@@ -29,14 +29,14 @@ class _EditItemPageState extends State<EditItemPage> {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => EditItemModel(
-          widget.expense.date, widget.expense.category, widget.expense.type),
+          widget.expense.date, widget.expense.categoryId, widget.expense.type),
       child: Consumer<EditItemModel>(
         builder: (context, model, child) => Scaffold(
           appBar: AppBar(
             title: Text(widget.expense.name),
             actions: <Widget>[
               DeleteBtn(
-                onPressed: () => model.delete(context, widget.expense.id),
+                onPressed: () async => await model.delete(context, widget.expense.id),
               ),
             ],
           ),
@@ -60,47 +60,22 @@ class _EditItemPageState extends State<EditItemPage> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                // TODO: refactor redundant code
-                Container(
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                  child: Column(
-                    children: <Widget>[
-                      SizedBox(
-                        width: double.infinity,
-                        child: Text(
-                          '${AppLocalizations.of(context).translate('name')} :',
-                          textAlign: TextAlign.left,
-                          style: Theme.of(context).textTheme.headline6,
-                        ),
-                      ),
-                      NameTextField(
-                        controller: _nameController,
-                        isNameInvalid: model.isNameInvalid,
-                        onChanged: model.infoChanged,
-                      ),
-                    ],
+                _buildTextField(
+                  model,
+                  AppLocalizations.of(context).translate('name'),
+                  NameTextField(
+                    controller: _nameController,
+                    isNameInvalid: model.isNameInvalid,
+                    onChanged: model.infoChanged,
                   ),
                 ),
-                Container(
-                  margin:
-                      const EdgeInsets.only(left: 10, right: 10, bottom: 30),
-                  child: Column(
-                    children: <Widget>[
-                      SizedBox(
-                        width: double.infinity,
-                        child: Text(
-                          '${AppLocalizations.of(context).translate('amount')} :',
-                          textAlign: TextAlign.left,
-                          style: Theme.of(context).textTheme.headline6,
-                        ),
-                      ),
-                      AmountTextField(
-                        controller: _amountController,
-                        isAmountInvalid: model.isAmountInvalid,
-                        onChanged: model.infoChanged,
-                      ),
-                    ],
+                _buildTextField(
+                  model,
+                  AppLocalizations.of(context).translate('amount'),
+                  AmountTextField(
+                    controller: _amountController,
+                    isAmountInvalid: model.isAmountInvalid,
+                    onChanged: model.infoChanged,
                   ),
                 ),
                 Container(
@@ -122,7 +97,7 @@ class _EditItemPageState extends State<EditItemPage> {
                     iconSize: 32,
                     spaceBetweenSize: 15,
                     fontSize: 20,
-                    onPressed: () => model.chooseDate(context, model.date),
+                    onPressed: () async => await model.chooseDate(context, model.date),
                   ),
                 ),
                 Container(
@@ -130,26 +105,46 @@ class _EditItemPageState extends State<EditItemPage> {
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                        '${AppLocalizations.of(context).translate('category')} :',
-                        style: Theme.of(context).textTheme.headline6),
+                      '${AppLocalizations.of(context).translate('category')} :',
+                      style: Theme.of(context).textTheme.headline6,
+                    ),
                   ),
                 ),
                 Container(
                   margin:
                       const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                   child: CategoryPickerBtn(
-                    categoryId: model.category,
+                    categoryId: model.categoryId,
                     onPressed: () => model.openChooseCategoryPage(context),
                     minWidth: double.infinity,
                     height: 80,
                     iconSize: 160,
-                    iconBottomPosition: -75,
+                    iconBottomPosition: -67,
                   ),
                 ),
               ],
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildTextField(EditItemModel model, String title, Widget textField) {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+      child: Column(
+        children: <Widget>[
+          SizedBox(
+            width: double.infinity,
+            child: Text(
+              '$title :',
+              textAlign: TextAlign.left,
+              style: Theme.of(context).textTheme.headline6,
+            ),
+          ),
+          textField,
+        ],
       ),
     );
   }

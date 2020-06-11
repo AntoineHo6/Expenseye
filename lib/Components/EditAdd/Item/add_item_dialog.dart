@@ -73,7 +73,7 @@ class _AddItemDialogState extends State<AddItemDialog> {
                   height: 40,
                   iconSize: 30,
                   iconBottomPosition: null,
-                  categoryId: model.category,
+                  categoryId: model.categoryId,
                   onPressed: () => model.openChooseCategoryPage(context),
                 ),
               ],

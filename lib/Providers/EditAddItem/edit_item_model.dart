@@ -14,12 +14,11 @@ class EditItemModel extends ChangeNotifier {
   bool isNameInvalid = false;
   bool isAmountInvalid = false;
   DateTime date;
-  // TODO: rename to categoryId
-  int category;
+  int categoryId;
   ItemType type;
 
   // TODO: refactor: take only the item as parameter
-  EditItemModel(this.date, this.category, this.type);
+  EditItemModel(this.date, this.categoryId, this.type);
 
   // Will make the save button clickable
   void infoChanged(String text) {
@@ -27,7 +26,7 @@ class EditItemModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void chooseDate(BuildContext context, DateTime initialDate) async {
+  Future<void> chooseDate(BuildContext context, DateTime initialDate) async {
     DateTime newDate = await DateTimeUtil.chooseDate(context, initialDate);
     if (newDate != null) {
       date = newDate;
@@ -43,14 +42,14 @@ class EditItemModel extends ChangeNotifier {
     // if all the fields are valid, update and quit
     if (!areFieldsInvalid) {
       Item newItem = new Item.withId(
-          id, newName, double.parse(newAmount), date, type, category);
+          id, newName, double.parse(newAmount), date, type, categoryId);
 
       await Provider.of<DbModel>(context, listen: false).editItem(newItem);
       Navigator.pop(context, 1);
     }
   }
 
-  void delete(BuildContext context, int expenseId) async {
+  Future<void> delete(BuildContext context, int expenseId) async {
     bool confirmed = await showDialog(
       context: context,
       builder: (_) => ConfirmationDialog(
@@ -75,7 +74,7 @@ class EditItemModel extends ChangeNotifier {
     );
 
     if (result != null) {
-      category = result;
+      categoryId = result;
       infoChanged(null);
     }
   }

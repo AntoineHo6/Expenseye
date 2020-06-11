@@ -12,8 +12,7 @@ class AddRecurringItemModel extends ChangeNotifier {
   double amount;
   DateTime startingDay;
   Periodicity periodicity;
-  // TODO: rename to categoryId
-  int category;
+  int categoryId;
   ItemType type;
   bool isNameInvalid = false;
   bool isAmountInvalid = false;
@@ -76,7 +75,7 @@ class AddRecurringItemModel extends ChangeNotifier {
       this.name,
       this.amount,
       this.startingDay,
-      this.category,
+      this.categoryId,
       periodicity,
     );
     Provider.of<DbModel>(context, listen: false)

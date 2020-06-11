@@ -6,7 +6,7 @@ import 'package:Expenseye/Enums/periodicity.dart';
 import 'package:Expenseye/Enums/periodicity_error.dart';
 import 'package:Expenseye/Providers/RecurringItems/add_recurring_item_model.dart';
 import 'package:Expenseye/Resources/Themes/MyColors.dart';
-import 'package:Expenseye/Utils/edit_add_util.dart';
+import 'package:Expenseye/Utils/edit_add_rec_item_util.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -47,7 +47,7 @@ class _DateAddRecItemPageState extends State<DateAddRecItemPage>
             text: AppLocalizations.of(context).translate('nextCaps'),
             onPressed: () {
               selectedDate = _calendarController.focusedDay;
-              error = EditAddUtil.checkDueDateForError(
+              error = EditAddRecItemUtil.checkDueDateForError(
                 _model.periodicity,
                 _calendarController.focusedDay,
               );
@@ -92,7 +92,7 @@ class _DateAddRecItemPageState extends State<DateAddRecItemPage>
   }
 
   Column _monthlyPeriodicityErrorPage(BuildContext context) {
-    String errorMsg = EditAddUtil.getDueDateErrorMsg(context, error);
+    String errorMsg = EditAddRecItemUtil.getDueDateErrorMsg(context, error);
 
     return Column(
       children: <Widget>[

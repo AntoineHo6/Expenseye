@@ -5,15 +5,14 @@ import 'package:Expenseye/Utils/date_time_util.dart';
 class RecurringItem {
   int id;
   String name;
-  // TODO: change var name to amount
-  double value;
+  double amount;
   DateTime dueDate; // corresponds to the next dueDate the item is due for
   Periodicity periodicity; // daily, weekly, bi-weekly, monthly, yearly
   int category;
 
   RecurringItem(
     this.name,
-    this.value,
+    this.amount,
     this.dueDate,
     this.category,
     this.periodicity,
@@ -22,7 +21,7 @@ class RecurringItem {
   RecurringItem.withId(
     this.id,
     this.name,
-    this.value,
+    this.amount,
     this.dueDate,
     this.category,
     this.periodicity,
@@ -59,7 +58,7 @@ class RecurringItem {
   RecurringItem.fromMap(Map<String, dynamic> map) {
     id = map[Strings.recurringItemColumnId];
     name = map[Strings.recurringItemColumnName];
-    value = map[Strings.recurringItemColumnAmount];
+    amount = map[Strings.recurringItemColumnAmount];
     dueDate = DateTime.parse(map[Strings.recurringItemColumnDueDate]);
     periodicity =
         Periodicity.values[map[Strings.recurringItemColumnPeriodicity]];
@@ -69,7 +68,7 @@ class RecurringItem {
   Map<String, dynamic> toMap() {
     var map = <String, dynamic>{
       Strings.recurringItemColumnName: name,
-      Strings.recurringItemColumnAmount: value,
+      Strings.recurringItemColumnAmount: amount,
       Strings.recurringItemColumnDueDate: dueDate.toIso8601String(),
       Strings.recurringItemColumnPeriodicity: periodicity.index,
       Strings.recurringItemColumnCategory: category

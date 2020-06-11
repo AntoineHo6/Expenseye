@@ -28,32 +28,34 @@ class GoogleFirebaseHelper {
         ));
       }
 
-
-      // TODO: fix exception when no file in firebase storage
       if (res.user != null) {
         user = res.user;
         String _storageFilePath = 'dbFiles/${user.uid}/${Strings.dbFileName}';
 
         // copy db file
-        final ref = _storage.ref().child(_storageFilePath);
-        var url = await ref.getDownloadURL();
+        try {
+          final ref = _storage.ref().child(_storageFilePath);
+          var url = await ref.getDownloadURL();
 
-        Directory documentsDirectory = await getApplicationDocumentsDirectory();
-        String path = join(documentsDirectory.path, Strings.dbFileName);
+          Directory documentsDirectory =
+              await getApplicationDocumentsDirectory();
+          String path = join(documentsDirectory.path, Strings.dbFileName);
 
-        await HttpClient()
-            .getUrl(Uri.parse(url))
-            .then((HttpClientRequest request) => request.close())
-            .then((HttpClientResponse response) =>
-                response.pipe(new File(path).openWrite()));
+          await HttpClient()
+              .getUrl(Uri.parse(url))
+              .then((HttpClientRequest request) => request.close())
+              .then((HttpClientResponse response) =>
+                  response.pipe(new File(path).openWrite()));
 
-        return true;
+          return true;
+        } catch (e) {
+          print('Error copying the db file from firebase storage');
+        }
       }
-      return false;
     } catch (e) {
       print('error logging in with google');
-      return false;
     }
+    return false;
   }
 
   static Future<void> logOut() async {

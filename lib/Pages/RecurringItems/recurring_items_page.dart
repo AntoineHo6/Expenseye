@@ -162,7 +162,7 @@ class _RecurringItemsPageState extends State<RecurringItemsPage> {
               ),
               subtitle: _subtitleText(context, recurringItem),
               trailing: Text(
-                '${recurringItem.value.toStringAsFixed(2)} \$',
+                '${recurringItem.amount.toStringAsFixed(2)} \$',
                 style: Theme.of(context).textTheme.subtitle2,
               ),
               isThreeLine: true,

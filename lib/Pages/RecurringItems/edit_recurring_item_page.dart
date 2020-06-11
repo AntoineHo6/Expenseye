@@ -179,7 +179,7 @@ class _EditRecurringItemPageState extends State<EditRecurringItemPage> {
   @override
   void initState() {
     _nameController.text = widget.recurringItem.name;
-    _amountController.text = widget.recurringItem.value.toString();
+    _amountController.text = widget.recurringItem.amount.toString();
     super.initState();
   }
 }

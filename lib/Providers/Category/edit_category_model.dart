@@ -4,13 +4,13 @@ import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Helpers/database_helper.dart';
 import 'package:Expenseye/Models/Category.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
-import 'package:Expenseye/Resources/icons.dart';
+import 'package:Expenseye/Resources/my_icons.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class EditCategoryModel extends ChangeNotifier {
-  int oldCategoryId;
+  int categoryId;
   bool didInfoChange = false;
   bool isNameInvalid = false;
   Color color;
@@ -22,7 +22,7 @@ class EditCategoryModel extends ChangeNotifier {
     initSelectedIconIndex(oldCategory);
     color = oldCategory.color;
     type = oldCategory.type;
-    oldCategoryId = oldCategory.id;
+    categoryId = oldCategory.id;
 
     DbModel.catMap.values.forEach(
       (category) {
@@ -71,12 +71,11 @@ class EditCategoryModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  // TODO: redo this function
   Future<void> updateCategory(BuildContext context, String newName) async {
     if (selectedIconIndex != null && !isNameInvalid) {
       newName = newName.trim();
       Category updatedCategory = Category.withId(
-        id: oldCategoryId,
+        id: categoryId,
         name: newName,
         iconData: (type == ItemType.expense)
             ? MyIcons.expenseIcons[selectedIconIndex]
@@ -103,11 +102,11 @@ class EditCategoryModel extends ChangeNotifier {
 
     if (confirmed != null && confirmed) {
       await Provider.of<DbModel>(context, listen: false)
-          .deleteItemsByCategory(oldCategoryId);
+          .deleteItemsByCategory(categoryId);
       await DatabaseHelper.instance
-          .deleteRecurringItemsByCategory(oldCategoryId);
+          .deleteRecurringItemsByCategory(categoryId);
       await Provider.of<DbModel>(context, listen: false)
-          .deleteCategory(oldCategoryId);
+          .deleteCategory(categoryId);
 
       Navigator.pop(context);
     }

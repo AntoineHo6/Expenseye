@@ -29,7 +29,7 @@ class _EditCategoryPageState extends State<EditCategoryPage> {
       child: Consumer<EditCategoryModel>(
         builder: (context, model, child) => Scaffold(
           appBar: AppBar(
-            title: Text('asdsad'),
+            title: Text(widget.category.name),
             actions: <Widget>[
               DeleteBtn(
                 onPressed: () => model.delete(context),
@@ -42,7 +42,7 @@ class _EditCategoryPageState extends State<EditCategoryPage> {
               color: model.type == ItemType.expense
                   ? MyColors.expenseColor
                   : MyColors.incomeColor,
-              text: 'SAVE',
+              text: AppLocalizations.of(context).translate('saveCaps'),
               onPressed: () =>
                   model.updateCategory(context, _nameController.text),
             ),

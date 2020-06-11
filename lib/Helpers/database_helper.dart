@@ -198,22 +198,16 @@ class DatabaseHelper {
       String oldCategoryId, String newCategoryId) async {
     Database db = await database;
 
-    await db.rawUpdate(
-      ''' 
+    await db.rawUpdate(''' 
         UPDATE ${Strings.tableItems} 
         SET ${Strings.itemColumnCategory} = ? 
         WHERE ${Strings.itemColumnCategory} = ?
-      ''',
-      [newCategoryId, oldCategoryId]
-    );
-    await db.rawUpdate(
-      '''
+      ''', [newCategoryId, oldCategoryId]);
+    await db.rawUpdate('''
         UPDATE ${Strings.tableRecurringItems}
         SET ${Strings.recurringItemColumnCategory} = ?
         WHERE ${Strings.recurringItemColumnCategory} = ?
-      ''',
-      [newCategoryId, oldCategoryId]
-    );
+      ''', [newCategoryId, oldCategoryId]);
   }
 
   Future<int> deleteItemsByCategory(String categoryId) async {
@@ -279,6 +273,13 @@ class DatabaseHelper {
     return await db.update(Strings.tableRecurringItems, recurringItem.toMap(),
         where: '${Strings.recurringItemColumnId} = ?',
         whereArgs: [recurringItem.id]);
+  }
+
+  Future<void> deleteRecurringItemsByCategory(String categoryId) async {
+    Database db = await database;
+
+    return await db.delete(Strings.tableRecurringItems,
+        where: '${Strings.recurringItemColumnCategory} = ?', whereArgs: [categoryId]);
   }
 
   // * CATEGORIES

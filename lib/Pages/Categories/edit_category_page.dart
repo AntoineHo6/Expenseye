@@ -1,9 +1,9 @@
+import 'package:Expenseye/Components/EditAdd/delete_btn.dart';
 import 'package:Expenseye/Components/EditAdd/name_text_field.dart';
 import 'package:Expenseye/Components/Global/bottom_nav_button.dart';
 import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Models/Category.dart';
 import 'package:Expenseye/Providers/Category/edit_category_model.dart';
-import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:Expenseye/Resources/Themes/MyColors.dart';
 import 'package:Expenseye/Resources/icons.dart';
 import 'package:Expenseye/app_localizations.dart';
@@ -30,6 +30,11 @@ class _EditCategoryPageState extends State<EditCategoryPage> {
         builder: (context, model, child) => Scaffold(
           appBar: AppBar(
             title: Text('asdsad'),
+            actions: <Widget>[
+              DeleteBtn(
+                onPressed: () => model.delete(context),
+              ),
+            ],
           ),
           bottomNavigationBar: BottomAppBar(
             color: Colors.transparent,
@@ -38,7 +43,8 @@ class _EditCategoryPageState extends State<EditCategoryPage> {
                   ? MyColors.expenseColor
                   : MyColors.incomeColor,
               text: 'SAVE',
-              onPressed: () => model.updateCategory(context, _nameController.text),
+              onPressed: () =>
+                  model.updateCategory(context, _nameController.text),
             ),
           ),
           body: Column(

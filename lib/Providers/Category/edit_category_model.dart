@@ -1,9 +1,11 @@
 import 'package:Expenseye/Components/EditAdd/Category/color_picker_dialog.dart';
+import 'package:Expenseye/Components/Global/confirmation_dialog.dart';
 import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Helpers/database_helper.dart';
 import 'package:Expenseye/Models/Category.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:Expenseye/Resources/icons.dart';
+import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -78,7 +80,25 @@ class EditCategoryModel extends ChangeNotifier {
           .updateItemsAndRecItemsCategory(oldCategoryId, updatedCategory.id);
       await DatabaseHelper.instance.deleteCategory(oldCategoryId);
       await DatabaseHelper.instance.insertCategory(updatedCategory);
-      await Provider.of<DbModel>(context, listen: false).initUserCategoriesMap();
+      await Provider.of<DbModel>(context, listen: false)
+          .initUserCategoriesMap();
+
+      Navigator.pop(context);
+    }
+  }
+
+  Future<void> delete(BuildContext context) async {
+    bool confirmed = await showDialog(
+      context: context,
+      builder: (_) => ConfirmationDialog(
+        AppLocalizations.of(context).translate('confirmDeleteCategory'),
+      ),
+    );
+
+    if (confirmed != null && confirmed) {
+      await Provider.of<DbModel>(context, listen: false).deleteItemsByCategory(oldCategoryId);
+      await DatabaseHelper.instance.deleteRecurringItemsByCategory(oldCategoryId);
+      await Provider.of<DbModel>(context, listen: false).deleteCategory(oldCategoryId);
 
       Navigator.pop(context);
     }

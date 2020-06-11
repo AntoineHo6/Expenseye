@@ -53,7 +53,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
 
         return CategoryBtn(
           category: DbModel.catMap[widget.categoryKeys[index]],
-          onLongPress: () =>
+          onPressed: () =>
               _selectedCategory(DbModel.catMap[widget.categoryKeys[index]]),
         );
       }),
@@ -80,17 +80,5 @@ class _CategoriesPageState extends State<CategoriesPage> {
     ).then((value) {
       setState(() {});
     });
-
-    // bool confirmed = await showDialog(
-    //   context: context,
-    //   builder: (_) => ConfirmationDialog(
-    //     AppLocalizations.of(context).translate('confirmDeleteCategory'),
-    //   ),
-    // );
-
-    // if (confirmed != null && confirmed) {
-    //   await dbModel.deleteItemsByCategory(widget.categoryKeys[index]);
-    //   await dbModel.deleteCategory(widget.categoryKeys[index]);
-    // }
   }
 }

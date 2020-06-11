@@ -89,7 +89,7 @@ class EditCategoryModel extends ChangeNotifier {
         color: color,
         type: type,
       );
-      
+
       await DatabaseHelper.instance.updateCategory(updatedCategory);
       await Provider.of<DbModel>(context, listen: false)
           .initUserCategoriesMap();
@@ -99,27 +99,22 @@ class EditCategoryModel extends ChangeNotifier {
   }
 
   Future<void> delete(BuildContext context) async {
-    if (oldCategoryId == Strings.foodEN.toLowerCase() ||
-        oldCategoryId == Strings.salaryEN.toLowerCase()) {
-      // TODO: refactor
-    } else {
-      bool confirmed = await showDialog(
-        context: context,
-        builder: (_) => ConfirmationDialog(
-          AppLocalizations.of(context).translate('confirmDeleteCategory'),
-        ),
-      );
+    bool confirmed = await showDialog(
+      context: context,
+      builder: (_) => ConfirmationDialog(
+        AppLocalizations.of(context).translate('confirmDeleteCategory'),
+      ),
+    );
 
-      if (confirmed != null && confirmed) {
-        await Provider.of<DbModel>(context, listen: false)
-            .deleteItemsByCategory(oldCategoryId);
-        await DatabaseHelper.instance
-            .deleteRecurringItemsByCategory(oldCategoryId);
-        await Provider.of<DbModel>(context, listen: false)
-            .deleteCategory(oldCategoryId);
+    if (confirmed != null && confirmed) {
+      await Provider.of<DbModel>(context, listen: false)
+          .deleteItemsByCategory(oldCategoryId);
+      await DatabaseHelper.instance
+          .deleteRecurringItemsByCategory(oldCategoryId);
+      await Provider.of<DbModel>(context, listen: false)
+          .deleteCategory(oldCategoryId);
 
-        Navigator.pop(context);
-      }
+      Navigator.pop(context);
     }
   }
 }

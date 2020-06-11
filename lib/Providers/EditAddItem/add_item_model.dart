@@ -17,6 +17,7 @@ class AddItemModel extends ChangeNotifier {
   int category;
 
   AddItemModel(this.date, this.type) {
+    // TODO: remove preset categories
     type == ItemType.expense
         ? category = 1
         : category = 12;  // TODO: redo how this is done. not sustainable

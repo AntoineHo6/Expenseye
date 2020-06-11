@@ -97,14 +97,12 @@ class DbModel extends ChangeNotifier {
     for (var category in categories) {
       catMap[category.id] = category;
     }
+
+    notifyListeners();
   }
 
   Future<List<Item>> queryAllItems() async {
     return await _dbHelper.queryAllItems();
-  }
-
-  Future<List<Category>> queryCategories() async {
-    return await _dbHelper.queryCategories();
   }
 
   Future<void> addItem(Item newItem) async {
@@ -136,10 +134,14 @@ class DbModel extends ChangeNotifier {
     return await _dbHelper.queryItemsByMonth(yearMonth);
   }
 
+  Future<List<Category>> queryCategories() async {
+    return await _dbHelper.queryCategories();
+  }
+
   Future<void> deleteCategory(String categoryId) async {
     await _dbHelper.deleteCategory(categoryId);
     await initUserCategoriesMap();
-    notifyListeners();
+    // notifyListeners();
   }
 
   Future<void> deleteItemsByCategory(String categoryId) async {
@@ -151,7 +153,7 @@ class DbModel extends ChangeNotifier {
     await _dbHelper.deleteAllCategories();
     await _dbHelper.insertDefaultCategories();
     await initUserCategoriesMap();
-    notifyListeners();
+    // notifyListeners();
   }
 
   Future<List<Item>> queryItemsInYear(String year) async {

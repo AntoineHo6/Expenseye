@@ -1,4 +1,5 @@
 import 'package:Expenseye/Enums/item_type.dart';
+import 'package:Expenseye/Models/Category.dart';
 import 'package:Expenseye/Models/Item.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:Expenseye/Resources/Themes/MyColors.dart';
@@ -13,6 +14,15 @@ class ItemListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // to compensate for weird bug occuring when changing the name of a category.
+    // The first rebuild with query item's with the old id, then the second with query the up to date category ids
+    final Color color = DbModel.catMap[item.category] != null
+        ? DbModel.catMap[item.category].color
+        : Colors.yellow;
+    final IconData iconData = DbModel.catMap[item.category] != null
+        ? DbModel.catMap[item.category].iconData
+        : Icons.warning;
+
     return RaisedButton(
       color: item.type == ItemType.expense
           ? MyColors.expenseBGColor
@@ -21,13 +31,13 @@ class ItemListTile extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
       ),
       onPressed: onPressed,
-      highlightColor: DbModel.catMap[item.category].color.withOpacity(0.2),
-      splashColor: DbModel.catMap[item.category].color.withOpacity(0.2),
+      highlightColor: color.withOpacity(0.2),
+      splashColor: color.withOpacity(0.2),
       child: ListTile(
         contentPadding: contentPadding,
         leading: Icon(
-          DbModel.catMap[item.category].iconData,
-          color: DbModel.catMap[item.category].color,
+          iconData,
+          color: color,
         ),
         title: Text(
           item.name,

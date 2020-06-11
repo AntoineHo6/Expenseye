@@ -84,6 +84,8 @@ class DatabaseHelper {
   }
 
   Future _onUpgrade(Database db, int oldVersion, int newVersion) async {
+    // TODO: replace category_id with autoIncremented integer Id.
+
     print("UPGRADINNNG");
     await db.execute('DROP TABLE recurrent_items');
     await db.execute('''
@@ -181,6 +183,39 @@ class DatabaseHelper {
         where: '${Strings.itemColumnId} = ?', whereArgs: [id]);
   }
 
+  // Future<void> updateCategory(Category category) async {
+  //   Database db = await database;
+
+  //   return await db.update(
+  //     Strings.tableCategories,
+  //     category.toMap(),
+  //     where: '${Strings.categoryColumnId} = ?',
+  //     whereArgs: [category.id],
+  //   );
+  // }
+
+  Future<void> updateItemsAndRecItemsCategory(
+      String oldCategoryId, String newCategoryId) async {
+    Database db = await database;
+
+    await db.rawUpdate(
+      ''' 
+        UPDATE ${Strings.tableItems} 
+        SET ${Strings.itemColumnCategory} = ? 
+        WHERE ${Strings.itemColumnCategory} = ?
+      ''',
+      [newCategoryId, oldCategoryId]
+    );
+    await db.rawUpdate(
+      '''
+        UPDATE ${Strings.tableRecurringItems}
+        SET ${Strings.recurringItemColumnCategory} = ?
+        WHERE ${Strings.recurringItemColumnCategory} = ?
+      ''',
+      [newCategoryId, oldCategoryId]
+    );
+  }
+
   Future<int> deleteItemsByCategory(String categoryId) async {
     Database db = await database;
 
@@ -242,7 +277,8 @@ class DatabaseHelper {
     Database db = await database;
 
     return await db.update(Strings.tableRecurringItems, recurringItem.toMap(),
-        where: '${Strings.recurringItemColumnId} = ?', whereArgs: [recurringItem.id]);
+        where: '${Strings.recurringItemColumnId} = ?',
+        whereArgs: [recurringItem.id]);
   }
 
   // * CATEGORIES

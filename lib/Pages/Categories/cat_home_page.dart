@@ -18,17 +18,6 @@ class _CatHomePageState extends State<CatHomePage>
   ];
 
   @override
-  void initState() {
-    super.initState();
-
-    _tabController = TabController(
-      length: 2,
-      vsync: this,
-      initialIndex: 0,
-    );
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -49,5 +38,22 @@ class _CatHomePageState extends State<CatHomePage>
         children: _pages,
       ),
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    _tabController = TabController(
+      length: 2,
+      vsync: this,
+      initialIndex: 0,
+    );
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
   }
 }

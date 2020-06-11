@@ -25,7 +25,7 @@ class ChooseCategoryPage extends StatelessWidget {
       ),
       body: GridView.count(
         primary: false,
-        padding: const EdgeInsets.all(20),
+        padding: const EdgeInsets.all(10),
         crossAxisSpacing: 10,
         mainAxisSpacing: 10,
         crossAxisCount: 3,

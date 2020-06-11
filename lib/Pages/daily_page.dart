@@ -49,6 +49,7 @@ class _DailyPageState extends State<DailyPage> with WidgetsBindingObserver {
         builder: (context, snapshot) {
           if (snapshot.hasData && DbModel.catMap.length > 0) {
             if (snapshot.data != null && snapshot.data.length > 0) {
+              print('rebuilt');
               return mySliverView(snapshot.data, _itemModel, context);
             } else {
               return mySliverView([], _itemModel, context);

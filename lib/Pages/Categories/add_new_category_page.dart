@@ -10,6 +10,7 @@ import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 
+// TODO: refactor. Move business logic to a provider
 class AddNewCategoryPage extends StatefulWidget {
   final ItemType type;
 
@@ -45,7 +46,7 @@ class _AddNewCategoryPageState extends State<AddNewCategoryPage> {
             text: AppLocalizations.of(context).translate('addCaps'),
             onPressed: () {
               _checkNameInvalid(_nameController.text);
-              _addNewCategory(context);
+              _addNewCategory(context, isNameInvalid);
             }),
       ),
       body: Column(
@@ -99,9 +100,8 @@ class _AddNewCategoryPageState extends State<AddNewCategoryPage> {
   void _checkNameInvalid(String newName) {
     newName = newName.trim();
     setState(() {
-      if (DbModel.catMap.containsKey(newName.toLowerCase())) {
-        isNameInvalid = true;
-      } else if (newName.isEmpty) {
+      if (DbModel.catMap.containsKey(newName.toLowerCase()) ||
+          newName.isEmpty) {
         isNameInvalid = true;
       } else {
         isNameInvalid = false;
@@ -122,16 +122,21 @@ class _AddNewCategoryPageState extends State<AddNewCategoryPage> {
       context: context,
       child: AlertDialog(
         title: Text(AppLocalizations.of(context).translate('pickAColor')),
-        content: SingleChildScrollView(
-          child: ColorPicker(
-            pickerColor: pickerColor,
-            showLabel: false,
-            enableAlpha: true,
-            onColorChanged: _changeColor,
-            pickerAreaHeightPercent: 0.8,
-          ),
+        content: ColorPicker(
+          pickerColor: pickerColor,
+          showLabel: false,
+          enableAlpha: true,
+          onColorChanged: _changeColor,
+          pickerAreaHeightPercent: 0.8,
         ),
         actions: <Widget>[
+          FlatButton(
+            textColor: Colors.white,
+            child: Text(AppLocalizations.of(context).translate('cancelCaps')),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
           FlatButton(
             textColor: Colors.white,
             child: Text(AppLocalizations.of(context).translate('confirmCaps')),
@@ -145,8 +150,8 @@ class _AddNewCategoryPageState extends State<AddNewCategoryPage> {
     );
   }
 
-  void _addNewCategory(BuildContext context) async {
-    if (selectedIconIndex != null && _nameController.text.trim().isNotEmpty) {
+  void _addNewCategory(BuildContext context, bool isNameInvalid) async {
+    if (selectedIconIndex != null && !isNameInvalid) {
       final DatabaseHelper dbHelper = DatabaseHelper.instance;
 
       Category newCategory = Category(
@@ -177,7 +182,7 @@ class _AddNewCategoryPageState extends State<AddNewCategoryPage> {
         // if is the selected icon
         if (selectedIconIndex != null && index == selectedIconIndex) {
           return Container(
-            color: MyColors.secondary,
+            color: currentColor,
             padding: const EdgeInsets.all(2),
             child: RaisedButton(
               onPressed: () => _changeSelectedIcon(index),

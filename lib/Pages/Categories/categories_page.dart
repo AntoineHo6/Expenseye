@@ -1,12 +1,12 @@
 import 'package:Expenseye/Components/Categories/category_btn.dart';
 import 'package:Expenseye/Components/Global/confirmation_dialog.dart';
 import 'package:Expenseye/Enums/item_type.dart';
+import 'package:Expenseye/Models/Category.dart';
 import 'package:Expenseye/Pages/Categories/add_new_category_page.dart';
+import 'package:Expenseye/Pages/Categories/edit_category_page.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:Expenseye/Resources/Themes/MyColors.dart';
-import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class CategoriesPage extends StatefulWidget {
   final ItemType type;
@@ -21,8 +21,6 @@ class CategoriesPage extends StatefulWidget {
 class _CategoriesPageState extends State<CategoriesPage> {
   @override
   Widget build(BuildContext context) {
-    final _dbModel = Provider.of<DbModel>(context);
-
     widget.categoryKeys.clear();
     for (var key in DbModel.catMap.keys) {
       if (DbModel.catMap[key].type == widget.type) {
@@ -55,34 +53,44 @@ class _CategoriesPageState extends State<CategoriesPage> {
 
         return CategoryBtn(
           category: DbModel.catMap[widget.categoryKeys[index]],
-          onLongPress: () => _selectedCategory(index, _dbModel),
+          onLongPress: () =>
+              _selectedCategory(DbModel.catMap[widget.categoryKeys[index]]),
         );
       }),
     );
   }
 
-  void _openAddCategoryPage(context) {
-    Navigator.push(
+  Future<void> _openAddCategoryPage(context) async {
+    await Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => AddNewCategoryPage(widget.type),
       ),
     ).then((value) {
-      setState(() {});  // to update categories when a new one is added
+      setState(() {}); // to update categories when a new one is added
     });
   }
 
-  void _selectedCategory(int index, DbModel dbModel) async {
-    bool confirmed = await showDialog(
-      context: context,
-      builder: (_) => ConfirmationDialog(
-        AppLocalizations.of(context).translate('confirmDeleteCategory'),
+  Future<void> _selectedCategory(Category category) async {
+    await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => EditCategoryPage(category),
       ),
-    );
+    ).then((value) {
+      setState(() {});
+    });
 
-    if (confirmed != null && confirmed) {
-      await dbModel.deleteItemsByCategory(widget.categoryKeys[index]);
-      await dbModel.deleteCategory(widget.categoryKeys[index]);
-    }
+    // bool confirmed = await showDialog(
+    //   context: context,
+    //   builder: (_) => ConfirmationDialog(
+    //     AppLocalizations.of(context).translate('confirmDeleteCategory'),
+    //   ),
+    // );
+
+    // if (confirmed != null && confirmed) {
+    //   await dbModel.deleteItemsByCategory(widget.categoryKeys[index]);
+    //   await dbModel.deleteCategory(widget.categoryKeys[index]);
+    // }
   }
 }

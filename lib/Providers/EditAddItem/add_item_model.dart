@@ -14,12 +14,12 @@ class AddItemModel extends ChangeNotifier {
   DateTime date;
   ItemType type;
   // TODO: rename to categoryId
-  String category;
+  int category;
 
   AddItemModel(this.date, this.type) {
     type == ItemType.expense
-        ? category = Strings.foodEN.toLowerCase()
-        : category = Strings.salaryEN.toLowerCase();
+        ? category = 1
+        : category = 12;  // TODO: redo how this is done. not sustainable
   }
 
   // Will make the save button clickable

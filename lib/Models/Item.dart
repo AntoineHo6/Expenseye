@@ -9,20 +9,32 @@ class Item {
   String name;
   double amount;
   DateTime date;
-  String category;
+  int category;
   ItemType type;
 
-  Item(this.name, this.amount, this.date, this.type, this.category);
+  Item(
+    this.name,
+    this.amount,
+    this.date,
+    this.type,
+    this.category,
+  );
 
   Item.withId(
-      this.id, this.name, this.amount, this.date, this.type, this.category);
+    this.id,
+    this.name,
+    this.amount,
+    this.date,
+    this.type,
+    this.category,
+  );
 
   Item.fromMap(Map<String, dynamic> map) {
     id = map[Strings.itemColumnId];
     name = map[Strings.itemColumnName];
     amount = map[Strings.itemColumnValue];
     date = DateTime.parse(map[Strings.itemColumnDate]);
-    category = map[Strings.itemColumnCategory];
+    category = int.parse(map[Strings.itemColumnCategory]);
     type = ItemType.values[map[Strings.itemColumnType]];
   }
 
@@ -40,6 +52,7 @@ class Item {
     return map;
   }
 
+  // todo: MOVE THIS THE FRICK OUTTTTT
   void openEditItemPage(BuildContext context, Item item) async {
     int action = await Navigator.push(
       context,

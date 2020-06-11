@@ -9,7 +9,7 @@ import 'dart:async';
 
 class DbModel extends ChangeNotifier {
   final DatabaseHelper _dbHelper = DatabaseHelper.instance;
-  static Map<String, Category> catMap = new Map();
+  static Map<int, Category> catMap = new Map();
 
   DbModel() {
     initializeUser();
@@ -73,7 +73,7 @@ class DbModel extends ChangeNotifier {
 
   Future<void> addLocalItems(List<Item> localItems,
       List<Category> localCategories, List<Category> accCategories) async {
-    List<String> accCategoriesId =
+    List<int> accCategoriesId =
         accCategories.map((category) => category.id).toList();
 
     for (var localCategory in localCategories) {
@@ -138,13 +138,13 @@ class DbModel extends ChangeNotifier {
     return await _dbHelper.queryCategories();
   }
 
-  Future<void> deleteCategory(String categoryId) async {
+  Future<void> deleteCategory(int categoryId) async {
     await _dbHelper.deleteCategory(categoryId);
     await initUserCategoriesMap();
     // notifyListeners();
   }
 
-  Future<void> deleteItemsByCategory(String categoryId) async {
+  Future<void> deleteItemsByCategory(int categoryId) async {
     await _dbHelper.deleteItemsByCategory(categoryId);
     notifyListeners();
   }

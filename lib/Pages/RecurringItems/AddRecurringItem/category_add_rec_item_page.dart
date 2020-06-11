@@ -23,7 +23,7 @@ class _CategoryAddRecItemPageState extends State<CategoryAddRecItemPage>
   @override
   Widget build(BuildContext context) {
     final _model = Provider.of<AddRecurringItemModel>(context, listen: false);
-    List<String> categorieKeys = new List();
+    List<int> categorieKeys = new List();
 
     for (var key in DbModel.catMap.keys) {
       if (DbModel.catMap[key].type == _model.type) {
@@ -63,7 +63,7 @@ class _CategoryAddRecItemPageState extends State<CategoryAddRecItemPage>
                 children: List.generate(
                   categorieKeys.length,
                   (index) {
-                    String key = categorieKeys[index];
+                    int key = categorieKeys[index];
                     if (selectedIconIndex != null && index == selectedIconIndex) {
                       return Container(
                         color: DbModel.catMap[key].color,

@@ -15,7 +15,7 @@ class EditItemModel extends ChangeNotifier {
   bool isAmountInvalid = false;
   DateTime date;
   // TODO: rename to categoryId
-  String category;
+  int category;
   ItemType type;
 
   // TODO: refactor: take only the item as parameter

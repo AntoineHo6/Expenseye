@@ -3,13 +3,20 @@ import 'package:Expenseye/Resources/Strings.dart';
 import 'package:flutter/material.dart';
 
 class Category {
-  String id;
+  int id;
   String name;
   IconData iconData;
   Color color;
   ItemType type;
 
   Category({
+    @required this.name,
+    @required this.iconData,
+    @required this.color,
+    @required this.type,
+  });
+
+  Category.withId({
     @required this.id,
     @required this.name,
     @required this.iconData,
@@ -28,12 +35,14 @@ class Category {
 
   Map<String, dynamic> toMap() {
     var map = <String, dynamic>{
-      Strings.categoryColumnId: id,
       Strings.categoryColumnName: name,
       Strings.categoryColumnIconCodePoint: iconData.codePoint.toRadixString(16),
       Strings.categoryColumnColor: color.value.toRadixString(16),
       Strings.categoryColumnType: type.index
     };
+    if (id != null) {
+      map[Strings.categoryColumnId] = id;
+    }
     return map;
   }
 }

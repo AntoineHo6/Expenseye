@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class CategoryPickerBtn extends StatelessWidget {
   // TODO rename vars
-  final String categoryId;
+  final int categoryId;
   final Function onPressed;
   final double minWidth;
   final double height;

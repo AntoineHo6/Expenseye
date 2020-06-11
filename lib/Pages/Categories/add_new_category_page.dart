@@ -155,7 +155,6 @@ class _AddNewCategoryPageState extends State<AddNewCategoryPage> {
       final DatabaseHelper dbHelper = DatabaseHelper.instance;
 
       Category newCategory = Category(
-        id: _nameController.text.toLowerCase().trim(),
         name: _nameController.text.trim(),
         iconData: (widget.type == ItemType.expense)
             ? MyIcons.expenseIcons[selectedIconIndex]

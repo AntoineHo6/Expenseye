@@ -11,7 +11,7 @@ class ChooseCategoryPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<String> categorieKeys = new List();
+    List<int> categorieKeys = new List();
 
     for (var key in DbModel.catMap.keys) {
       if (DbModel.catMap[key].type == type) {
@@ -32,7 +32,7 @@ class ChooseCategoryPage extends StatelessWidget {
         children: List.generate(
           categorieKeys.length,
           (index) {
-            String key = categorieKeys[index];
+            int key = categorieKeys[index];
             return CategoryBtn(
               category: DbModel.catMap[key],
               onPressed: () => Navigator.pop(context, key),

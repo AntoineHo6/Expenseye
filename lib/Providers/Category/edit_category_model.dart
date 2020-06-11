@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class EditCategoryModel extends ChangeNotifier {
-  String oldCategoryId;
+  int oldCategoryId;
   bool didInfoChange = false;
   bool isNameInvalid = false;
   Color color;
@@ -39,6 +39,18 @@ class EditCategoryModel extends ChangeNotifier {
   void checkNameInvalid(String newName) {
     newName = newName.trim();
 
+    List<Category> categories = DbModel.catMap.values.toList();
+    print('CHECKING ${categories.length} categories');
+    // DbModel.catMap.values.forEach(
+    //   (category) {
+    //     // print('COMPARING $newName - ${category.name}');
+    //     if (newName.toLowerCase() == category.name.toLowerCase()) {
+    //       // print('THIS NAME ALREADY EXISTS');
+    //       isNameInvalid = false;
+    //     }
+    //   },
+    // );
+
     if (DbModel.catMap.containsKey(newName.toLowerCase()) || newName.isEmpty) {
       isNameInvalid = true;
     } else {
@@ -64,11 +76,12 @@ class EditCategoryModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  // TODO: redo this function
   Future<void> updateCategory(BuildContext context, String newName) async {
     if (selectedIconIndex != null && !isNameInvalid) {
       newName = newName.trim();
-      Category updatedCategory = Category(
-        id: newName.toLowerCase(),
+      Category updatedCategory = Category.withId(
+        id: oldCategoryId,
         name: newName,
         iconData: (type == ItemType.expense)
             ? MyIcons.expenseIcons[selectedIconIndex]
@@ -76,11 +89,8 @@ class EditCategoryModel extends ChangeNotifier {
         color: color,
         type: type,
       );
-
-      await DatabaseHelper.instance
-          .updateItemsAndRecItemsCategory(oldCategoryId, updatedCategory.id);
-      await DatabaseHelper.instance.deleteCategory(oldCategoryId);
-      await DatabaseHelper.instance.insertCategory(updatedCategory);
+      
+      await DatabaseHelper.instance.updateCategory(updatedCategory);
       await Provider.of<DbModel>(context, listen: false)
           .initUserCategoriesMap();
 
@@ -91,7 +101,7 @@ class EditCategoryModel extends ChangeNotifier {
   Future<void> delete(BuildContext context) async {
     if (oldCategoryId == Strings.foodEN.toLowerCase() ||
         oldCategoryId == Strings.salaryEN.toLowerCase()) {
-          // TODO: refactor
+      // TODO: refactor
     } else {
       bool confirmed = await showDialog(
         context: context,

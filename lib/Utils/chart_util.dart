@@ -6,7 +6,7 @@ import 'package:charts_flutter/flutter.dart' as charts;
 class ChartUtil {
   static List<charts.Series<ExpenseGroup, String>> convertExpensesToChartSeries(
       List<Item> items) {
-    Map<String, ExpenseGroup> aggregatedExpenses = new Map();
+    Map<int, ExpenseGroup> aggregatedExpenses = new Map();
 
     for (Item item in items) {
       if (item.type == ItemType.expense) {
@@ -20,7 +20,7 @@ class ChartUtil {
     return [
       new charts.Series(
           id: 'Expenses',
-          domainFn: (ExpenseGroup group, _) => group.category,
+          domainFn: (ExpenseGroup group, _) => group.category.toString(),
           measureFn: (ExpenseGroup group, _) => group.total,
           colorFn: (ExpenseGroup group, _) => charts.ColorUtil.fromDartColor(
                 DbModel.catMap[group.category].color,
@@ -31,7 +31,7 @@ class ChartUtil {
 }
 
 class ExpenseGroup {
-  String category;
+  int category;
   double total = 0;
 
   ExpenseGroup(this.category);

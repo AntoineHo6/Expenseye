@@ -13,8 +13,9 @@ class AddExpenseFab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SpeedDial(
-      overlayColor: Colors.black,
-      overlayOpacity: 0.5,
+      closeManually: false,
+      elevation: 8,
+      overlayOpacity: 0,
       child: const Icon(Icons.add),
       children: [
         SpeedDialChild(

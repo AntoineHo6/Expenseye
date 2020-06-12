@@ -1,7 +1,7 @@
 import 'package:Expenseye/Components/Categories/category_btn.dart';
 import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Models/Category.dart';
-import 'package:Expenseye/Pages/Categories/add_new_category_page.dart';
+import 'package:Expenseye/Pages/Categories/add_category_page.dart';
 import 'package:Expenseye/Pages/Categories/edit_category_page.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:Expenseye/Resources/Themes/MyColors.dart';
@@ -63,7 +63,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
     await Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => AddNewCategoryPage(widget.type),
+        builder: (context) => AddCategoryPage(widget.type),
       ),
     ).then((value) {
       setState(() {}); // to update categories when a new one is added

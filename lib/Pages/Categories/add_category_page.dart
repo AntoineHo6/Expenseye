@@ -1,50 +1,49 @@
-import 'package:Expenseye/Components/EditAdd/delete_btn.dart';
 import 'package:Expenseye/Components/EditAdd/name_text_field.dart';
 import 'package:Expenseye/Components/Global/bottom_nav_button.dart';
 import 'package:Expenseye/Enums/item_type.dart';
-import 'package:Expenseye/Models/Category.dart';
-import 'package:Expenseye/Providers/Category/edit_category_model.dart';
+import 'package:Expenseye/Providers/Category/add_category_model.dart';
 import 'package:Expenseye/Resources/Themes/MyColors.dart';
 import 'package:Expenseye/Resources/my_icons.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class EditCategoryPage extends StatefulWidget {
-  final Category category;
+class AddCategoryPage extends StatefulWidget {
+  final ItemType type;
 
-  EditCategoryPage(this.category);
+  AddCategoryPage(this.type);
 
   @override
-  _EditCategoryPageState createState() => _EditCategoryPageState();
+  _AddCategoryPageState createState() => _AddCategoryPageState();
 }
 
-class _EditCategoryPageState extends State<EditCategoryPage> {
+class _AddCategoryPageState extends State<AddCategoryPage> {
   final _nameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    final title = widget.type == ItemType.expense
+        ? AppLocalizations.of(context).translate('expense')
+        : AppLocalizations.of(context).translate('income');
+
     return ChangeNotifierProvider(
-      create: (_) => EditCategoryModel(widget.category),
-      child: Consumer<EditCategoryModel>(
+      create: (_) => AddCategoryModel(),
+      child: Consumer<AddCategoryModel>(
         builder: (context, model, child) => Scaffold(
           appBar: AppBar(
-            title: Text(widget.category.name),
-            actions: <Widget>[
-              DeleteBtn(
-                onPressed: () async => await model.delete(context),
-              ),
-            ],
+            title: Text(title),
           ),
           bottomNavigationBar: BottomAppBar(
             color: Colors.transparent,
             child: BottomNavButton(
-              color: model.type == ItemType.expense
+              color: widget.type == ItemType.expense
                   ? MyColors.expenseColor
                   : MyColors.incomeColor,
-              text: AppLocalizations.of(context).translate('saveCaps'),
-              onPressed: () async =>
-                  await model.updateCategory(context, _nameController.text),
+              text: AppLocalizations.of(context).translate('addCaps'),
+              onPressed: () {
+                model.checkNameInvalid(_nameController.text);
+                model.addNewCategory(context, widget.type, _nameController);
+              },
             ),
           ),
           body: Column(
@@ -98,8 +97,8 @@ class _EditCategoryPageState extends State<EditCategoryPage> {
     );
   }
 
-  List<Widget> _iconList(EditCategoryModel model) {
-    final List<IconData> icons = (model.type == ItemType.expense)
+  List<Widget> _iconList(AddCategoryModel model) {
+    final List<IconData> icons = (widget.type == ItemType.expense)
         ? MyIcons.expenseIcons
         : MyIcons.incomeIcons;
 
@@ -155,11 +154,5 @@ class _EditCategoryPageState extends State<EditCategoryPage> {
   void dispose() {
     _nameController.dispose();
     super.dispose();
-  }
-
-  @override
-  void initState() {
-    _nameController.text = widget.category.name;
-    super.initState();
   }
 }

@@ -9,29 +9,29 @@ class ItemsHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FittedBox(
-      fit: BoxFit.fitWidth,
-      child: Container(
-        margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Container(
-              margin: const EdgeInsets.only(bottom: 15),
-              child: Text(
-                pageModel.getTitle(context),
-                style: TextStyle(fontSize: 50, fontWeight: FontWeight.w100),
-              ),
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          Container(
+            margin: const EdgeInsets.only(bottom: 15),
+            child: Text(
+              pageModel.getTitle(context),
+              style: TextStyle(fontSize: 55, fontWeight: FontWeight.w100),
             ),
-            Container(
+          ),
+          FittedBox(
+            child: Container(
               margin: const EdgeInsets.only(bottom: 10),
               child: Row(
                 mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Container(
                     decoration: BoxDecoration(
                       color: MyColors.incomeBGColor,
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(7),
                     ),
                     padding: const EdgeInsets.all(10),
                     child: Column(
@@ -45,11 +45,11 @@ class ItemsHeader extends StatelessWidget {
                       ],
                     ),
                   ),
-                  const SizedBox(width: 30),
+                  const SizedBox(width: 15),
                   Container(
                     decoration: BoxDecoration(
                       color: MyColors.expenseBGColor,
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(7),
                     ),
                     padding: const EdgeInsets.all(10),
                     child: Column(
@@ -63,11 +63,11 @@ class ItemsHeader extends StatelessWidget {
                       ],
                     ),
                   ),
-                  const SizedBox(width: 30),
+                  const SizedBox(width: 15),
                   Container(
                     decoration: BoxDecoration(
                       color: MyColors.balanceColor,
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(7),
                     ),
                     padding: const EdgeInsets.all(10),
                     child: Column(
@@ -84,8 +84,8 @@ class ItemsHeader extends StatelessWidget {
                 ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

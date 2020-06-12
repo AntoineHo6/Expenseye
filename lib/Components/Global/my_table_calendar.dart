@@ -18,6 +18,9 @@ class MyTableCalendar extends StatelessWidget {
   Widget build(BuildContext context) {
     return TableCalendar(
       locale: AppLocalizations.of(context).locale.languageCode,
+      daysOfWeekStyle: DaysOfWeekStyle(
+        weekendStyle: TextStyle(color: MyColors.secondary),
+      ),
       headerStyle: HeaderStyle(
         leftChevronIcon: const Icon(Icons.chevron_left, color: Colors.white),
         rightChevronIcon: const Icon(Icons.chevron_right, color: Colors.white),
@@ -26,6 +29,8 @@ class MyTableCalendar extends StatelessWidget {
       calendarStyle: CalendarStyle(
         todayColor: MyColors.black01dp,
         selectedColor: MyColors.black24dp,
+        weekendStyle: TextStyle(color: MyColors.secondaryDarker),
+        outsideWeekendStyle: TextStyle(color: MyColors.secondaryDisabled),
       ),
       calendarController: calendarController,
       initialSelectedDay: initialDate,

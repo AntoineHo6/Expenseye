@@ -97,7 +97,7 @@ class _AddItemDialogState extends State<AddItemDialog> {
                                   .translate('noCategorySelected'),
                               style: TextStyle(
                                 color: Theme.of(context).errorColor,
-                                fontSize: 11.5,
+                                fontSize: 12,
                               ),
                             ),
                           ),

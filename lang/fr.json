@@ -51,7 +51,7 @@
     "balance": "Solde",
     "color": "Couleur",
     "confirmDeleteMsg": "Êtes-vous sûr de vouloir supprimer?",
-    "confirmDeleteCategory": "La suppression de cette catégorie supprimera par la suite tous les éléments de ce type. Êtes-vous sûr que vous voulez supprimer?",
+    "confirmDeleteCategory": "La suppression de cette catégorie supprimera par la suite tous les éléments et éléments récurrents de ce type. Êtes-vous sûr que vous voulez supprimer?",
     "pickAMonth": "Choisissez un mois",
     "signInToAvoidLosingData": "Connectez-vous pour éviter de perdre vos données!",
     "pickAColor": "Choisissez une couleur",

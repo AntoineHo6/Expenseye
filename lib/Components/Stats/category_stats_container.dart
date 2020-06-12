@@ -1,5 +1,4 @@
 import 'package:Expenseye/Components/Stats/expense_group_list_tile.dart';
-import 'package:Expenseye/Resources/Themes/MyColors.dart';
 import 'package:Expenseye/Utils/chart_util.dart';
 import 'package:flutter/material.dart';
 
@@ -11,31 +10,30 @@ class CategoryStatsContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //final _dbModel = Provider.of<DbModel>(context);
-
     return Container(
       decoration: BoxDecoration(
-        color: MyColors.black06dp,
         borderRadius: BorderRadius.circular(15),
+        color: Theme.of(context).primaryColor,
       ),
       padding: const EdgeInsets.all(12),
       child: Column(
         children: <Widget>[
           Container(
-              margin: const EdgeInsets.only(right: 20, bottom: 7),
-              child: SizedBox(
-                width: double.infinity,
-                child: Text(
-                  '${totalCost.toStringAsFixed(2)} \$',
-                  textAlign: TextAlign.end,
-                ),
-              )),
+            margin: const EdgeInsets.only(right: 20, bottom: 7),
+            child: SizedBox(
+              width: double.infinity,
+              // TODO: use rich text
+              child: Text(
+                'Total:  ${totalCost.toStringAsFixed(2)} \$',
+                textAlign: TextAlign.end,
+              ),
+            ),
+          ),
           Column(
             children: data.map(
               (expenseGroup) {
                 if (expenseGroup.total > 0) {
                   return Card(
-                    color: MyColors.black02dp,
                     child: ExpenseGroupListTile(
                       expenseGroup: expenseGroup,
                       totalCost: totalCost,

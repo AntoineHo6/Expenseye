@@ -68,13 +68,10 @@ class _PeriodicityAddRecItemPageState extends State<PeriodicityAddRecItemPage>
     );
   }
 
-  Container _listViewItem(BuildContext context, String title,
+  Widget _listViewItem(BuildContext context, String title,
       Periodicity periodicity, ItemType type) {
-    return Container(
+    return Card(
       margin: const EdgeInsets.symmetric(vertical: 2, horizontal: 10),
-      color: type == ItemType.expense
-          ? MyColors.expenseColor
-          : MyColors.incomeColor,
       child: ListTile(
         title: Text(title),
         onTap: () {

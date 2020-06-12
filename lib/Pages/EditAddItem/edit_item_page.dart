@@ -82,8 +82,9 @@ class _EditItemPageState extends State<EditItemPage> {
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                        '${AppLocalizations.of(context).translate('date')} :',
-                        style: Theme.of(context).textTheme.headline6),
+                      '${AppLocalizations.of(context).translate('date')} :',
+                      style: Theme.of(context).textTheme.headline6,
+                    ),
                   ),
                 ),
                 Container(

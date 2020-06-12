@@ -51,7 +51,7 @@
     "balance": "Balance",
     "color": "Color",
     "confirmDeleteMsg": "Are you sure you want to delete?",
-    "confirmDeleteCategory": "Deleting this category will subsequently delete all items of this type. Are you sure you want to delete?",
+    "confirmDeleteCategory": "Deleting this category will subsequently delete all items and recurring items of this type. Are you sure you want to delete?",
     "pickAMonth": "Pick a month",
     "signInToAvoidLosingData": "Sign In to avoid losing your data!",
     "pickAColor": "Pick a color",

@@ -1,8 +1,8 @@
 import 'package:Expenseye/Providers/Global/db_model.dart';
-import 'package:Expenseye/Resources/Themes/MyColors.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
 
 class MyDrawerHeader extends StatelessWidget {
@@ -13,7 +13,7 @@ class MyDrawerHeader extends StatelessWidget {
 
     return DrawerHeader(
       decoration: BoxDecoration(
-        color: MyColors.black02dp,
+        color: Theme.of(context).primaryColor,
       ),
       child: Column(
         children: <Widget>[
@@ -22,7 +22,7 @@ class MyDrawerHeader extends StatelessWidget {
               alignment: Alignment.topLeft,
               child: Row(
                 children: <Widget>[
-                  Icon(Icons.remove_red_eye, color: Colors.white),
+                  Icon(MdiIcons.eyeCircleOutline),
                   const SizedBox(
                     width: 15,
                   ),
@@ -48,7 +48,6 @@ class MyDrawerHeader extends StatelessWidget {
                       width: 25,
                     ),
                     RaisedButton(
-                      color: MyColors.black06dp,
                       child: Text(
                         AppLocalizations.of(context).translate('signOut'),
                         style: Theme.of(context).textTheme.bodyText2,
@@ -85,9 +84,7 @@ class MyDrawerHeader extends StatelessWidget {
                         ),
                         RaisedButton(
                           padding: const EdgeInsets.all(0),
-                          color: MyColors.black06dp,
                           child: Row(
-                            mainAxisSize: MainAxisSize.max,
                             children: <Widget>[
                               Image.asset(
                                 'assets/btn_google_img.png',

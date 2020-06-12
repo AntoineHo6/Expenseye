@@ -5,12 +5,13 @@ class MyThemeData {
   static final darkTheme = ThemeData(
     iconTheme: IconThemeData(color: Colors.white),
     primaryColor: MyColors.black02dp,
-    accentColor: MyColors.black02dp,
     backgroundColor: MyColors.black00dp,
     dialogBackgroundColor: MyColors.black00dp,
     scaffoldBackgroundColor: MyColors.black00dp,
-    buttonColor: MyColors.black02dp,
+    buttonColor: MyColors.black06dp,
     cardColor: MyColors.black06dp,
+    accentColor: MyColors.secondaryDarker,
+    hintColor: MyColors.black24dp,
     floatingActionButtonTheme: FloatingActionButtonThemeData(
       backgroundColor: MyColors.secondary,
     ),

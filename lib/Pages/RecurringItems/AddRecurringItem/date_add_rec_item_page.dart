@@ -74,9 +74,7 @@ class _DateAddRecItemPageState extends State<DateAddRecItemPage>
                     '3. ${AppLocalizations.of(context).translate('selectAStartingDate')}',
                 percent: 0.6,
               ),
-              monthlyPeriodicityError
-                  ? _monthlyPeriodicityErrorPage(context)
-                  : _noMonthlyPeriodicityErrorPage()
+              _tableCalendar(context),
             ],
           ),
         ),
@@ -84,32 +82,22 @@ class _DateAddRecItemPageState extends State<DateAddRecItemPage>
     );
   }
 
-  MyTableCalendar _noMonthlyPeriodicityErrorPage() {
-    return MyTableCalendar(
-      initialDate: selectedDate,
-      calendarController: _calendarController,
-    );
-  }
-
-  Column _monthlyPeriodicityErrorPage(BuildContext context) {
-    String errorMsg = EditAddRecItemUtil.getDueDateErrorMsg(context, error);
-
+  Column _tableCalendar(BuildContext context) {
     return Column(
       children: <Widget>[
-        Text(
-          errorMsg,
-          style: TextStyle(
-            color: Colors.red,
-            fontSize: 15,
-          ),
-          textAlign: TextAlign.center,
-        ),
+        monthlyPeriodicityError
+            ? Text(
+                EditAddRecItemUtil.getDueDateErrorMsg(context, error),
+                style: TextStyle(
+                  color: Theme.of(context).errorColor,
+                  fontSize: 14,
+                ),
+                textAlign: TextAlign.center,
+              )
+            : Container(),
         MyTableCalendar(
           initialDate: selectedDate,
           calendarController: _calendarController,
-        ),
-        const SizedBox(
-          height: 15,
         ),
       ],
     );

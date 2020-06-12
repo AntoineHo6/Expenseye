@@ -30,7 +30,8 @@ class _RecurringItemsPageState extends State<RecurringItemsPage> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => AddRecurringItemHomePage()),
+                  builder: (context) => AddRecurringItemHomePage(),
+                ),
               );
             },
             child: const Icon(Icons.add),
@@ -143,9 +144,9 @@ class _RecurringItemsPageState extends State<RecurringItemsPage> {
                     ? MyColors.expenseBGColor
                     : MyColors.incomeBGColor,
             highlightColor:
-                DbModel.catMap[recurringItem.category].color.withOpacity(0.2),
+                DbModel.catMap[recurringItem.category].color.withOpacity(0.1),
             splashColor:
-                DbModel.catMap[recurringItem.category].color.withOpacity(0.2),
+                DbModel.catMap[recurringItem.category].color.withOpacity(0.1),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.0),
             ),
@@ -191,7 +192,7 @@ class _RecurringItemsPageState extends State<RecurringItemsPage> {
       );
 
       Scaffold.of(context).showSnackBar(snackBar);
-      
+
       // update page
       setState(() {});
     }

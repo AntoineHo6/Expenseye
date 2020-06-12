@@ -4,7 +4,6 @@ import 'package:Expenseye/Pages/Monthly/monthly_home_page.dart';
 import 'package:Expenseye/Pages/Yearly/yearly_home_page.dart';
 import 'package:Expenseye/Pages/about_page.dart';
 import 'package:Expenseye/Pages/RecurringItems/recurring_items_page.dart';
-import 'package:Expenseye/Resources/Themes/MyColors.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -14,7 +13,7 @@ class MyDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Theme(
       data: Theme.of(context).copyWith(
-        canvasColor: MyColors.black00dp,
+        canvasColor: Theme.of(context).backgroundColor,
       ),
       child: Drawer(
         child: ListView(
@@ -22,7 +21,10 @@ class MyDrawer extends StatelessWidget {
           children: <Widget>[
             MyDrawerHeader(),
             ListTile(
-              leading: Icon(MdiIcons.calendarBlank, color: Colors.white),
+              leading: Icon(
+                MdiIcons.calendarBlank,
+                color: Theme.of(context).iconTheme.color,
+              ),
               title: Text(AppLocalizations.of(context).translate('monthly')),
               onTap: () {
                 Navigator.of(context).pop(context);
@@ -30,8 +32,10 @@ class MyDrawer extends StatelessWidget {
               },
             ),
             ListTile(
-              leading:
-                  Icon(MdiIcons.calendarBlankMultiple, color: Colors.white),
+              leading: Icon(
+                MdiIcons.calendarBlankMultiple,
+                color: Theme.of(context).iconTheme.color,
+              ),
               title: Text(AppLocalizations.of(context).translate('yearly')),
               onTap: () {
                 Navigator.of(context).pop(context);
@@ -39,7 +43,10 @@ class MyDrawer extends StatelessWidget {
               },
             ),
             ListTile(
-              leading: Icon(MdiIcons.viewGrid, color: Colors.white),
+              leading: Icon(
+                MdiIcons.viewGrid,
+                color: Theme.of(context).iconTheme.color,
+              ),
               title: Text(AppLocalizations.of(context).translate('categories')),
               onTap: () {
                 Navigator.of(context).pop(context);
@@ -47,7 +54,10 @@ class MyDrawer extends StatelessWidget {
               },
             ),
             ListTile(
-              leading: Icon(MdiIcons.calendarClock, color: Colors.white),
+              leading: Icon(
+                MdiIcons.calendarClock,
+                color: Theme.of(context).iconTheme.color,
+              ),
               title: Text(
                   AppLocalizations.of(context).translate('recurringItems')),
               onTap: () {
@@ -56,7 +66,10 @@ class MyDrawer extends StatelessWidget {
               },
             ),
             ListTile(
-              leading: Icon(Icons.info_outline, color: Colors.white),
+              leading: Icon(
+                Icons.info_outline,
+                color: Theme.of(context).iconTheme.color,
+              ),
               title: Text(AppLocalizations.of(context).translate('about')),
               onTap: () {
                 Navigator.of(context).pop(context);

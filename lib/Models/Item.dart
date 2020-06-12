@@ -9,7 +9,7 @@ class Item {
   String name;
   double amount;
   DateTime date;
-  int categoryId;
+  String categoryId;
   ItemType type;
 
   Item(
@@ -34,7 +34,7 @@ class Item {
     name = map[Strings.itemColumnName];
     amount = map[Strings.itemColumnValue];
     date = DateTime.parse(map[Strings.itemColumnDate]);
-    categoryId = int.parse(map[Strings.itemColumnCategory]);
+    categoryId = map[Strings.itemColumnCategory];
     type = ItemType.values[map[Strings.itemColumnType]];
   }
 

@@ -13,7 +13,7 @@ class EditItemModel extends ChangeNotifier {
   bool isNameInvalid = false;
   bool isAmountInvalid = false;
   DateTime date;
-  int categoryId;
+  String categoryId;
   ItemType type;
 
   EditItemModel(Item item) {

@@ -2,7 +2,7 @@ import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:flutter/material.dart';
 
 class CategoryPickerBtn extends StatelessWidget {
-  final int categoryId;
+  final String categoryId;
   final Function onPressed;
   final double minWidth;
   final double height;

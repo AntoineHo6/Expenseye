@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class EditCategoryModel extends ChangeNotifier {
-  int categoryId;
+  String categoryId;
   bool didInfoChange = false;
   bool isNameInvalid = false;
   Color color;
@@ -74,7 +74,7 @@ class EditCategoryModel extends ChangeNotifier {
   Future<void> updateCategory(BuildContext context, String newName) async {
     if (selectedIconIndex != null && !isNameInvalid) {
       newName = newName.trim();
-      Category updatedCategory = Category.withId(
+      Category updatedCategory = Category(
         id: categoryId,
         name: newName,
         iconData: (type == ItemType.expense)

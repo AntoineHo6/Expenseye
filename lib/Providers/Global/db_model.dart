@@ -9,7 +9,7 @@ import 'dart:async';
 
 class DbModel extends ChangeNotifier {
   final DatabaseHelper _dbHelper = DatabaseHelper.instance;
-  static Map<int, Category> catMap = new Map();
+  static Map<String, Category> catMap = new Map();
 
   DbModel() {
     initUser();
@@ -92,12 +92,12 @@ class DbModel extends ChangeNotifier {
     List<Category> accCategories,
   ) async {
     // TODO: refactor this
-    Map<String, int> accCategoriesNameLCase = new Map();
+    Map<String, String> accCategoriesNameLCase = new Map();
     for (var accCategory in accCategories) {
       accCategoriesNameLCase[accCategory.name.toLowerCase()] = accCategory.id;
     }
 
-    Map<int, String> localCategoriesNameLCase = new Map();
+    Map<String, String> localCategoriesNameLCase = new Map();
     for (var localCategory in localCategories) {
       localCategoriesNameLCase[localCategory.id] =
           localCategory.name.toLowerCase();
@@ -118,11 +118,11 @@ class DbModel extends ChangeNotifier {
       }
     }
 
-    if (localItems.length > 0) {
-      for (Item item in localItems) {
-        item.categoryId = await _dbHelper.insertItem(item);
-      }
-    }
+    // if (localItems.length > 0) {
+    //   for (Item item in localItems) {
+    //     item.categoryId = await _dbHelper.insertItem(item);
+    //   }
+    // }
 
     notifyListeners();
   }
@@ -174,12 +174,12 @@ class DbModel extends ChangeNotifier {
     return await _dbHelper.queryCategories();
   }
 
-  Future<void> deleteCategory(int categoryId) async {
+  Future<void> deleteCategory(String categoryId) async {
     await _dbHelper.deleteCategory(categoryId);
     await initUserCategoriesMap();
   }
 
-  Future<void> deleteItemsByCategory(int categoryId) async {
+  Future<void> deleteItemsByCategory(String categoryId) async {
     await _dbHelper.deleteItemsByCategory(categoryId);
     notifyListeners();
   }

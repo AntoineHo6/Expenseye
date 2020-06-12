@@ -15,8 +15,7 @@ class DatabaseHelper {
   // This is the actual database filename that is saved in the docs directory.
   static const _databaseName = Strings.dbFileName;
   // Increment this version when you need to change the schema.
-  // new version for next update should be 12
-  static final _databaseVersion = 12;
+  static final _databaseVersion = 11;
 
   // Make this a singleton class.
   DatabaseHelper._privateConstructor();
@@ -59,7 +58,7 @@ class DatabaseHelper {
     print('Creating categories table');
     await db.execute('''
           CREATE TABLE ${Strings.tableCategories} (
-            ${Strings.categoryColumnId} INTEGER PRIMARY KEY AUTOINCREMENT,
+            ${Strings.categoryColumnId} TEXT PRIMARY KEY,
             ${Strings.categoryColumnName} TEXT NOT NULL,
             ${Strings.categoryColumnIconCodePoint} TEXT NOT NULL,
             ${Strings.categoryColumnColor} TEXT NOT NULL,
@@ -85,51 +84,49 @@ class DatabaseHelper {
   }
 
   Future _onUpgrade(Database db, int oldVersion, int newVersion) async {
-    // TODO: change items table and recurring_items table to have category column type of int
-
     print("UPGRADINNNG");
-    print('1. rename old category table');
-    await db.execute('ALTER TABLE categories RENAME TO deprecated_categories;');
+    // print('1. rename old category table');
+    // await db.execute('ALTER TABLE categories RENAME TO deprecated_categories;');
 
-    print('2. create updated category table');
-    await db.execute('''
-          CREATE TABLE ${Strings.tableCategories} (
-            ${Strings.categoryColumnId} INTEGER PRIMARY KEY AUTOINCREMENT,
-            ${Strings.categoryColumnName} TEXT NOT NULL,
-            ${Strings.categoryColumnIconCodePoint} TEXT NOT NULL,
-            ${Strings.categoryColumnColor} TEXT NOT NULL,
-            ${Strings.categoryColumnType} INTEGER NOT NULL
-          )
-          ''');
+    // print('2. create updated category table');
+    // await db.execute('''
+    //       CREATE TABLE ${Strings.tableCategories} (
+    //         ${Strings.categoryColumnId} INTEGER PRIMARY KEY AUTOINCREMENT,
+    //         ${Strings.categoryColumnName} TEXT NOT NULL,
+    //         ${Strings.categoryColumnIconCodePoint} TEXT NOT NULL,
+    //         ${Strings.categoryColumnColor} TEXT NOT NULL,
+    //         ${Strings.categoryColumnType} INTEGER NOT NULL
+    //       )
+    //       ''');
 
-    print('3. Copy the contents from the old table to the new one');
-    await db.execute('''
-      INSERT INTO ${Strings.tableCategories} 
-        ( ${Strings.categoryColumnName}, ${Strings.categoryColumnIconCodePoint}, ${Strings.categoryColumnColor}, ${Strings.categoryColumnType} )
-      SELECT ${Strings.categoryColumnName}, ${Strings.categoryColumnIconCodePoint}, ${Strings.categoryColumnColor}, ${Strings.categoryColumnType}
-      FROM deprecated_categories;
-    ''');
+    // print('3. Copy the contents from the old table to the new one');
+    // await db.execute('''
+    //   INSERT INTO ${Strings.tableCategories} 
+    //     ( ${Strings.categoryColumnName}, ${Strings.categoryColumnIconCodePoint}, ${Strings.categoryColumnColor}, ${Strings.categoryColumnType} )
+    //   SELECT ${Strings.categoryColumnName}, ${Strings.categoryColumnIconCodePoint}, ${Strings.categoryColumnColor}, ${Strings.categoryColumnType}
+    //   FROM deprecated_categories;
+    // ''');
 
-    print('4. Drop the old table');
-    await db.execute('DROP TABLE deprecated_categories');
+    // print('4. Drop the old table');
+    // await db.execute('DROP TABLE deprecated_categories');
 
-    print('5. replace category id in items table');
-    await db.execute('''
-      UPDATE items
-        SET category = (SELECT category_id 
-				FROM categories
-				WHERE items.category = lower(categories.name)
-				);
-    ''');
+    // print('5. replace category id in items table');
+    // await db.execute('''
+    //   UPDATE items
+    //     SET category = (SELECT category_id 
+		// 		FROM categories
+		// 		WHERE items.category = lower(categories.name)
+		// 		);
+    // ''');
 
-    print('6. replace category id in recurring items table');
-    await db.execute('''
-      UPDATE ${Strings.tableRecurringItems}
-        SET category = (SELECT category_id 
-				FROM categories
-				WHERE ${Strings.tableRecurringItems}.category = lower(categories.name)
-				);
-    ''');
+    // print('6. replace category id in recurring items table');
+    // await db.execute('''
+    //   UPDATE ${Strings.tableRecurringItems}
+    //     SET category = (SELECT category_id 
+		// 		FROM categories
+		// 		WHERE ${Strings.tableRecurringItems}.category = lower(categories.name)
+		// 		);
+    // ''');
   }
 
   // * ITEMS
@@ -225,7 +222,7 @@ class DatabaseHelper {
     );
   }
 
-  Future<int> deleteItemsByCategory(int categoryId) async {
+  Future<int> deleteItemsByCategory(String categoryId) async {
     Database db = await database;
 
     return await db.delete(Strings.tableItems,
@@ -290,7 +287,7 @@ class DatabaseHelper {
         whereArgs: [recurringItem.id]);
   }
 
-  Future<void> deleteRecurringItemsByCategory(int categoryId) async {
+  Future<void> deleteRecurringItemsByCategory(String categoryId) async {
     Database db = await database;
 
     return await db.delete(Strings.tableRecurringItems,
@@ -336,7 +333,7 @@ class DatabaseHelper {
     await db.insert(Strings.tableCategories, category.toMap());
   }
 
-  Future<void> deleteCategory(int id) async {
+  Future<void> deleteCategory(String id) async {
     Database db = await database;
 
     return await db.delete(Strings.tableCategories,
@@ -418,255 +415,138 @@ class DatabaseHelper {
 
     return [
       Category(
+        id: Strings.foodEN.toLowerCase(),
         name: foodName,
         iconData: MdiIcons.silverware,
         color: Color(0xffff8533),
         type: ItemType.expense,
       ),
       Category(
+        id: Strings.transportationEN.toLowerCase(),
         name: transportationName,
         iconData: MdiIcons.car,
         color: Colors.yellow,
         type: ItemType.expense,
       ),
       Category(
+        id: Strings.shoppingEN.toLowerCase(),
         name: shoppingName,
         iconData: MdiIcons.cart,
         color: Color(0xffac3973),
         type: ItemType.expense,
       ),
       Category(
+        id: Strings.entertainmentEN.toLowerCase(),
         name: entertainmentName,
         iconData: MdiIcons.movie,
         color: Color(0xff66ccff),
         type: ItemType.expense,
       ),
       Category(
+        id: Strings.activityEN.toLowerCase(),
         name: activityName,
         iconData: MdiIcons.emoticonOutline,
         color: Color(0xffff66cc),
         type: ItemType.expense,
       ),
       Category(
+        id: Strings.medicalEN.toLowerCase(),
         name: medicalName,
         iconData: MdiIcons.medicalBag,
         color: Color(0xffff3333),
         type: ItemType.expense,
       ),
       Category(
+        id: Strings.homeEN.toLowerCase(),
         name: homeName,
         iconData: MdiIcons.home,
         color: Color(0xffcc9966),
         type: ItemType.expense,
       ),
       Category(
+        id: Strings.travelEN.toLowerCase(),
         name: travelName,
         iconData: MdiIcons.airplane,
         color: Color(0xffcc6600),
         type: ItemType.expense,
       ),
       Category(
+        id: Strings.peopleEN.toLowerCase(),
         name: peopleName,
         iconData: MdiIcons.accountMultiple,
         color: Color(0xff3377ff),
         type: ItemType.expense,
       ),
       Category(
+        id: Strings.educationEN.toLowerCase(),
         name: educationName,
         iconData: MdiIcons.school,
         color: Color(0xff9933ff),
         type: ItemType.expense,
       ),
       Category(
+        id: Strings.otherExpensesEN.toLowerCase(),
         name: otherExpensesName,
         iconData: MdiIcons.folderDownload,
         color: Colors.white,
         type: ItemType.expense,
       ),
       Category(
+        id: Strings.salaryEN.toLowerCase(),
         name: salaryName,
         iconData: MdiIcons.currencyUsd,
         color: Colors.green,
         type: ItemType.income,
       ),
       Category(
+        id: Strings.giftEN.toLowerCase(),
         name: giftName,
         iconData: MdiIcons.walletGiftcard,
         color: Color(0xffb84dff),
         type: ItemType.income,
       ),
       Category(
+        id: Strings.businessEN.toLowerCase(),
         name: businessName,
         iconData: MdiIcons.briefcase,
         color: Color(0xff1a8cff),
         type: ItemType.income,
       ),
       Category(
+        id: Strings.insuranceEN.toLowerCase(),
         name: insuranceName,
         iconData: MdiIcons.bank,
         color: Color(0xff6666ff),
         type: ItemType.income,
       ),
       Category(
+        id: Strings.realEstateEN.toLowerCase(),
         name: realEstateName,
         iconData: MdiIcons.homeGroup,
         color: Color(0xffccccff),
         type: ItemType.income,
       ),
       Category(
+        id: Strings.investmentEN.toLowerCase(),
         name: investmentName,
         iconData: MdiIcons.trendingUp,
         color: Color(0xff00e673),
         type: ItemType.income,
       ),
       Category(
+        id: Strings.refundEN.toLowerCase(),
         name: refundName,
         iconData: MdiIcons.swapVerticalBold,
         color: Color(0xff66ffff),
         type: ItemType.income,
       ),
       Category(
+        id: Strings.otherIncomesEN.toLowerCase(),
         name: otherIncomesName,
         iconData: MdiIcons.folderUpload,
         color: Colors.white,
         type: ItemType.income,
       )
     ];
-
-    // return [
-    //   Category.withId(
-    //     id: Strings.foodEN.toLowerCase(),
-    //     name: foodName,
-    //     iconData: MdiIcons.silverware,
-    //     color: Color(0xffff8533),
-    //     type: ItemType.expense,
-    //   ),
-    //   Category.withId(
-    //     id: Strings.transportationEN.toLowerCase(),
-    //     name: transportationName,
-    //     iconData: MdiIcons.car,
-    //     color: Colors.yellow,
-    //     type: ItemType.expense,
-    //   ),
-    //   Category.withId(
-    //     id: Strings.shoppingEN.toLowerCase(),
-    //     name: shoppingName,
-    //     iconData: MdiIcons.cart,
-    //     color: Color(0xffac3973),
-    //     type: ItemType.expense,
-    //   ),
-    //   Category.withId(
-    //     id: Strings.entertainmentEN.toLowerCase(),
-    //     name: entertainmentName,
-    //     iconData: MdiIcons.movie,
-    //     color: Color(0xff66ccff),
-    //     type: ItemType.expense,
-    //   ),
-    //   Category.withId(
-    //     id: Strings.activityEN.toLowerCase(),
-    //     name: activityName,
-    //     iconData: MdiIcons.emoticonOutline,
-    //     color: Color(0xffff66cc),
-    //     type: ItemType.expense,
-    //   ),
-    //   Category.withId(
-    //     id: Strings.medicalEN.toLowerCase(),
-    //     name: medicalName,
-    //     iconData: MdiIcons.medicalBag,
-    //     color: Color(0xffff3333),
-    //     type: ItemType.expense,
-    //   ),
-    //   Category.withId(
-    //     id: Strings.homeEN.toLowerCase(),
-    //     name: homeName,
-    //     iconData: MdiIcons.home,
-    //     color: Color(0xffcc9966),
-    //     type: ItemType.expense,
-    //   ),
-    //   Category.withId(
-    //     id: Strings.travelEN.toLowerCase(),
-    //     name: travelName,
-    //     iconData: MdiIcons.airplane,
-    //     color: Color(0xffcc6600),
-    //     type: ItemType.expense,
-    //   ),
-    //   Category.withId(
-    //     id: Strings.peopleEN.toLowerCase(),
-    //     name: peopleName,
-    //     iconData: MdiIcons.accountMultiple,
-    //     color: Color(0xff3377ff),
-    //     type: ItemType.expense,
-    //   ),
-    //   Category.withId(
-    //     id: Strings.educationEN.toLowerCase(),
-    //     name: educationName,
-    //     iconData: MdiIcons.school,
-    //     color: Color(0xff9933ff),
-    //     type: ItemType.expense,
-    //   ),
-    //   Category.withId(
-    //     id: Strings.otherExpensesEN.toLowerCase(),
-    //     name: otherExpensesName,
-    //     iconData: MdiIcons.folderDownload,
-    //     color: Colors.white,
-    //     type: ItemType.expense,
-    //   ),
-    //   Category.withId(
-    //     id: Strings.salaryEN.toLowerCase(),
-    //     name: salaryName,
-    //     iconData: MdiIcons.currencyUsd,
-    //     color: Colors.green,
-    //     type: ItemType.income,
-    //   ),
-    //   Category.withId(
-    //     id: Strings.giftEN.toLowerCase(),
-    //     name: giftName,
-    //     iconData: MdiIcons.walletGiftcard,
-    //     color: Color(0xffb84dff),
-    //     type: ItemType.income,
-    //   ),
-    //   Category.withId(
-    //     id: Strings.businessEN.toLowerCase(),
-    //     name: businessName,
-    //     iconData: MdiIcons.briefcase,
-    //     color: Color(0xff1a8cff),
-    //     type: ItemType.income,
-    //   ),
-    //   Category.withId(
-    //     id: Strings.insuranceEN.toLowerCase(),
-    //     name: insuranceName,
-    //     iconData: MdiIcons.bank,
-    //     color: Color(0xff6666ff),
-    //     type: ItemType.income,
-    //   ),
-    //   Category.withId(
-    //     id: Strings.realEstateEN.toLowerCase(),
-    //     name: realEstateName,
-    //     iconData: MdiIcons.homeGroup,
-    //     color: Color(0xffccccff),
-    //     type: ItemType.income,
-    //   ),
-    //   Category.withId(
-    //     id: Strings.investmentEN.toLowerCase(),
-    //     name: investmentName,
-    //     iconData: MdiIcons.trendingUp,
-    //     color: Color(0xff00e673),
-    //     type: ItemType.income,
-    //   ),
-    //   Category.withId(
-    //     id: Strings.refundEN.toLowerCase(),
-    //     name: refundName,
-    //     iconData: MdiIcons.swapVerticalBold,
-    //     color: Color(0xff66ffff),
-    //     type: ItemType.income,
-    //   ),
-    //   Category.withId(
-    //     id: Strings.otherIncomesEN.toLowerCase(),
-    //     name: otherIncomesName,
-    //     iconData: MdiIcons.folderUpload,
-    //     color: Colors.white,
-    //     type: ItemType.income,
-    //   )
-    // ];
   }
 }

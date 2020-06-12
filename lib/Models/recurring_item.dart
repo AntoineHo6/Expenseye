@@ -8,7 +8,7 @@ class RecurringItem {
   double amount;
   DateTime dueDate; // corresponds to the next dueDate the item is due for
   Periodicity periodicity; // daily, weekly, bi-weekly, monthly, yearly
-  int category;
+  String category;
 
   RecurringItem(
     this.name,
@@ -62,7 +62,7 @@ class RecurringItem {
     dueDate = DateTime.parse(map[Strings.recurringItemColumnDueDate]);
     periodicity =
         Periodicity.values[map[Strings.recurringItemColumnPeriodicity]];
-    category = int.parse(map[Strings.recurringItemColumnCategory]);
+    category = map[Strings.recurringItemColumnCategory];
   }
 
   Map<String, dynamic> toMap() {

@@ -6,7 +6,7 @@ import 'package:charts_flutter/flutter.dart' as charts;
 class ChartUtil {
   static List<charts.Series<ExpenseGroup, String>> convertExpensesToChartSeries(
       List<Item> items) {
-    Map<int, ExpenseGroup> aggregatedExpenses = new Map();
+    Map<String, ExpenseGroup> aggregatedExpenses = new Map();
 
     for (Item item in items) {
       if (item.type == ItemType.expense) {
@@ -31,7 +31,7 @@ class ChartUtil {
 }
 
 class ExpenseGroup {
-  int category;
+  String category;
   double total = 0;
 
   ExpenseGroup(this.category);

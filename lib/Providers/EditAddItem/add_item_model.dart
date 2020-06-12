@@ -13,7 +13,7 @@ class AddItemModel extends ChangeNotifier {
 
   DateTime date;
   ItemType type;
-  int categoryId;
+  String categoryId;
 
   AddItemModel(this.date, this.type);
 

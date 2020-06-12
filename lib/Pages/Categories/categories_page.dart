@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 
 class CategoriesPage extends StatefulWidget {
   final ItemType type;
-  final List<int> categoryKeys = new List();
+  final List<String> categoryKeys = new List();
 
   CategoriesPage(this.type);
 

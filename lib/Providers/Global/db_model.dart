@@ -196,6 +196,7 @@ class DbModel extends ChangeNotifier {
 
   Future<void> editRecurringItem(RecurringItem recurringItem) async {
     await _dbHelper.updateRecurringItem(recurringItem);
+    notifyListeners();
   }
 
   Future<void> deleteRecurringItem(int id) async {

@@ -83,51 +83,7 @@ class DatabaseHelper {
             ''');
   }
 
-  Future _onUpgrade(Database db, int oldVersion, int newVersion) async {
-    print("UPGRADINNNG");
-    // print('1. rename old category table');
-    // await db.execute('ALTER TABLE categories RENAME TO deprecated_categories;');
-
-    // print('2. create updated category table');
-    // await db.execute('''
-    //       CREATE TABLE ${Strings.tableCategories} (
-    //         ${Strings.categoryColumnId} INTEGER PRIMARY KEY AUTOINCREMENT,
-    //         ${Strings.categoryColumnName} TEXT NOT NULL,
-    //         ${Strings.categoryColumnIconCodePoint} TEXT NOT NULL,
-    //         ${Strings.categoryColumnColor} TEXT NOT NULL,
-    //         ${Strings.categoryColumnType} INTEGER NOT NULL
-    //       )
-    //       ''');
-
-    // print('3. Copy the contents from the old table to the new one');
-    // await db.execute('''
-    //   INSERT INTO ${Strings.tableCategories}
-    //     ( ${Strings.categoryColumnName}, ${Strings.categoryColumnIconCodePoint}, ${Strings.categoryColumnColor}, ${Strings.categoryColumnType} )
-    //   SELECT ${Strings.categoryColumnName}, ${Strings.categoryColumnIconCodePoint}, ${Strings.categoryColumnColor}, ${Strings.categoryColumnType}
-    //   FROM deprecated_categories;
-    // ''');
-
-    // print('4. Drop the old table');
-    // await db.execute('DROP TABLE deprecated_categories');
-
-    // print('5. replace category id in items table');
-    // await db.execute('''
-    //   UPDATE items
-    //     SET category = (SELECT category_id
-    // 		FROM categories
-    // 		WHERE items.category = lower(categories.name)
-    // 		);
-    // ''');
-
-    // print('6. replace category id in recurring items table');
-    // await db.execute('''
-    //   UPDATE ${Strings.tableRecurringItems}
-    //     SET category = (SELECT category_id
-    // 		FROM categories
-    // 		WHERE ${Strings.tableRecurringItems}.category = lower(categories.name)
-    // 		);
-    // ''');
-  }
+  Future _onUpgrade(Database db, int oldVersion, int newVersion) async {}
 
   // * ITEMS
   Future<int> insertItem(Item expense) async {

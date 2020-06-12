@@ -56,31 +56,6 @@ class DateTimeUtil {
     return newDate;
   }
 
-  static Future<DateTime> chooseYear(
-      BuildContext context, DateTime initialDate) async {
-    DateTime newDate;
-
-    await showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return Dialog(
-          // TODO: replace deprecated function
-          child: YearPicker(
-            selectedDate: initialDate,
-            firstDate: DateTime(2000),
-            lastDate: DateTime(2030),
-            onChanged: (date) {
-              newDate = date;
-              Navigator.of(context).pop();
-            },
-          ),
-        );
-      },
-    );
-
-    return newDate;
-  }
-
   static String formattedDate(BuildContext context, DateTime date) {
     switch (AppLocalizations.of(context).locale.languageCode) {
       case 'fr':

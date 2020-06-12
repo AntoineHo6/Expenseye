@@ -1,5 +1,4 @@
 import 'package:Expenseye/Models/Item.dart';
-import 'package:Expenseye/Utils/date_time_util.dart';
 import 'package:flutter/material.dart';
 
 class YearlyModel extends ChangeNotifier {
@@ -9,6 +8,18 @@ class YearlyModel extends ChangeNotifier {
   double currentExpenseTotal = 0;
   double currentIncomeTotal = 0;
   int pageIndex = 0;
+
+  void decrementYear() {
+    currentDate = currentDate.subtract(Duration(days: 365));
+    year = getYearString(currentDate);
+    notifyListeners();
+  }
+
+  void incrementYear() {
+    currentDate = currentDate.add(Duration(days: 365));
+    year = getYearString(currentDate);
+    notifyListeners();
+  }
 
   static String getYearString(DateTime newYear) {
     String temp = newYear.toIso8601String().split('T')[0];
@@ -51,13 +62,6 @@ class YearlyModel extends ChangeNotifier {
 
   String getTitle(BuildContext context) {
     return year;
-  }
-
-  Future<void> calendarFunc(BuildContext context) async {
-    final DateTime newDate =
-        await DateTimeUtil.chooseYear(context, currentDate);
-
-    updateCurrentDate(context, newDate);
   }
 
   void resetTotals() {

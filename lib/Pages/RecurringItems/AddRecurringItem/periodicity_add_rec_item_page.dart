@@ -2,7 +2,6 @@ import 'package:Expenseye/Components/RecurringItems/add_rec_item_steps_header.da
 import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Enums/periodicity.dart';
 import 'package:Expenseye/Providers/RecurringItems/add_recurring_item_model.dart';
-import 'package:Expenseye/Resources/Themes/MyColors.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

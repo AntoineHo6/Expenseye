@@ -22,8 +22,8 @@ class MyTableCalendar extends StatelessWidget {
         weekendStyle: TextStyle(color: MyColors.secondary),
       ),
       headerStyle: HeaderStyle(
-        leftChevronIcon: const Icon(Icons.chevron_left, color: Colors.white),
-        rightChevronIcon: const Icon(Icons.chevron_right, color: Colors.white),
+        leftChevronIcon: const Icon(Icons.chevron_left),
+        rightChevronIcon: const Icon(Icons.chevron_right),
         formatButtonVisible: false,
       ),
       calendarStyle: CalendarStyle(

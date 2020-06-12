@@ -120,7 +120,7 @@ class _EditItemPageState extends State<EditItemPage> {
                     minWidth: double.infinity,
                     height: 80,
                     iconSize: 160,
-                    iconBottomPosition: -67,
+                    iconBottomPosition: -75,
                   ),
                 ),
               ],

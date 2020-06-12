@@ -15,12 +15,15 @@ class ItemListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     // to compensate for weird bug occuring when changing the name of a category.
     // The first rebuild with query item's with the old id, then the second with query the up to date category ids
-    final Color color = DbModel.catMap[item.categoryId] != null
-        ? DbModel.catMap[item.categoryId].color
-        : Colors.yellow;
-    final IconData iconData = DbModel.catMap[item.categoryId] != null
-        ? DbModel.catMap[item.categoryId].iconData
-        : Icons.warning;
+    // final Color color = DbModel.catMap[item.categoryId] != null
+    //     ? DbModel.catMap[item.categoryId].color
+    //     : Colors.yellow;
+    // final IconData iconData = DbModel.catMap[item.categoryId] != null
+    //     ? DbModel.catMap[item.categoryId].iconData
+    //     : Icons.warning;
+
+    Color color = DbModel.catMap[item.categoryId].color;
+    IconData iconData = DbModel.catMap[item.categoryId].iconData;
 
     return RaisedButton(
       color: item.type == ItemType.expense

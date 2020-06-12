@@ -24,13 +24,14 @@ class DbModel extends ChangeNotifier {
   Future<void> loginInit() async {
     List<Item> localItems = await queryAllItems();
     List<Category> localCategories = await queryCategories();
+    List<RecurringItem> localRecItems = await queryRecurringItems();
 
     bool isLoggedIn = await loginWithGoogle();
     // * From this point on, the sqflite file contains data from the firebase file
     List<Category> accCategories = await queryCategories();
 
     if (isLoggedIn) {
-      await addLocalItems(localItems, localCategories, accCategories);
+      await addLocalItems(localItems, localCategories, localRecItems, accCategories);
     }
 
     await initUserCategoriesMap();
@@ -89,6 +90,7 @@ class DbModel extends ChangeNotifier {
   Future<void> addLocalItems(
     List<Item> localItems,
     List<Category> localCategories,
+    List<RecurringItem> localRecItems,
     List<Category> accCategories,
   ) async {
     List<String> accCategoriesId =
@@ -106,6 +108,13 @@ class DbModel extends ChangeNotifier {
         await _dbHelper.insertItem(item);
       }
     }
+
+    if (localRecItems.length > 0) {
+      for (var recItem in localRecItems) {
+        await _dbHelper.insertRecurringItem(recItem);
+      }
+    }
+
     notifyListeners();
   }
 

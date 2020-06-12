@@ -91,39 +91,21 @@ class DbModel extends ChangeNotifier {
     List<Category> localCategories,
     List<Category> accCategories,
   ) async {
-    // TODO: refactor this
-    Map<String, String> accCategoriesNameLCase = new Map();
-    for (var accCategory in accCategories) {
-      accCategoriesNameLCase[accCategory.name.toLowerCase()] = accCategory.id;
-    }
-
-    Map<String, String> localCategoriesNameLCase = new Map();
-    for (var localCategory in localCategories) {
-      localCategoriesNameLCase[localCategory.id] =
-          localCategory.name.toLowerCase();
-    }
+    List<String> accCategoriesId =
+        accCategories.map((category) => category.id).toList();
 
     for (var localCategory in localCategories) {
-      if (!accCategoriesNameLCase
-          .containsKey(localCategory.name.toLowerCase())) {
+      if (!accCategoriesId.contains(localCategory.id)) {
         await _dbHelper.insertCategory(localCategory);
         catMap[localCategory.id] = localCategory;
-      } else {
-        for (var localItem in localItems) {
-          if (localCategoriesNameLCase[localItem.categoryId] ==
-              localCategory.name.toLowerCase()) {
-            localItem.categoryId = accCategoriesNameLCase[localCategory.name.toLowerCase()];
-          }
-        }
       }
     }
 
-    // if (localItems.length > 0) {
-    //   for (Item item in localItems) {
-    //     item.categoryId = await _dbHelper.insertItem(item);
-    //   }
-    // }
-
+    if (localItems.length > 0) {
+      for (Item item in localItems) {
+        await _dbHelper.insertItem(item);
+      }
+    }
     notifyListeners();
   }
 

@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class EditCategoryModel extends ChangeNotifier {
-  String categoryId;
+  String oldCategoryId;
   bool didInfoChange = false;
   bool isNameInvalid = false;
   Color color;
@@ -22,7 +22,7 @@ class EditCategoryModel extends ChangeNotifier {
     initSelectedIconIndex(oldCategory);
     color = oldCategory.color;
     type = oldCategory.type;
-    categoryId = oldCategory.id;
+    oldCategoryId = oldCategory.id;
 
     DbModel.catMap.values.forEach(
       (category) {
@@ -75,7 +75,7 @@ class EditCategoryModel extends ChangeNotifier {
     if (selectedIconIndex != null && !isNameInvalid) {
       newName = newName.trim();
       Category updatedCategory = Category(
-        id: categoryId,
+        id: newName.toLowerCase(),
         name: newName,
         iconData: (type == ItemType.expense)
             ? MyIcons.expenseIcons[selectedIconIndex]
@@ -84,7 +84,11 @@ class EditCategoryModel extends ChangeNotifier {
         type: type,
       );
 
-      await DatabaseHelper.instance.updateCategory(updatedCategory);
+      await DatabaseHelper.instance
+          .updateItemsAndRecItemsCategory(oldCategoryId, updatedCategory.id);
+      await DatabaseHelper.instance.deleteCategory(oldCategoryId);
+      await DatabaseHelper.instance.insertCategory(updatedCategory);
+
       await Provider.of<DbModel>(context, listen: false)
           .initUserCategoriesMap();
 
@@ -102,11 +106,11 @@ class EditCategoryModel extends ChangeNotifier {
 
     if (confirmed != null && confirmed) {
       await Provider.of<DbModel>(context, listen: false)
-          .deleteItemsByCategory(categoryId);
+          .deleteItemsByCategory(oldCategoryId);
       await DatabaseHelper.instance
-          .deleteRecurringItemsByCategory(categoryId);
+          .deleteRecurringItemsByCategory(oldCategoryId);
       await Provider.of<DbModel>(context, listen: false)
-          .deleteCategory(categoryId);
+          .deleteCategory(oldCategoryId);
 
       Navigator.pop(context);
     }

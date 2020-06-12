@@ -101,7 +101,7 @@ class DatabaseHelper {
 
     // print('3. Copy the contents from the old table to the new one');
     // await db.execute('''
-    //   INSERT INTO ${Strings.tableCategories} 
+    //   INSERT INTO ${Strings.tableCategories}
     //     ( ${Strings.categoryColumnName}, ${Strings.categoryColumnIconCodePoint}, ${Strings.categoryColumnColor}, ${Strings.categoryColumnType} )
     //   SELECT ${Strings.categoryColumnName}, ${Strings.categoryColumnIconCodePoint}, ${Strings.categoryColumnColor}, ${Strings.categoryColumnType}
     //   FROM deprecated_categories;
@@ -113,19 +113,19 @@ class DatabaseHelper {
     // print('5. replace category id in items table');
     // await db.execute('''
     //   UPDATE items
-    //     SET category = (SELECT category_id 
-		// 		FROM categories
-		// 		WHERE items.category = lower(categories.name)
-		// 		);
+    //     SET category = (SELECT category_id
+    // 		FROM categories
+    // 		WHERE items.category = lower(categories.name)
+    // 		);
     // ''');
 
     // print('6. replace category id in recurring items table');
     // await db.execute('''
     //   UPDATE ${Strings.tableRecurringItems}
-    //     SET category = (SELECT category_id 
-		// 		FROM categories
-		// 		WHERE ${Strings.tableRecurringItems}.category = lower(categories.name)
-		// 		);
+    //     SET category = (SELECT category_id
+    // 		FROM categories
+    // 		WHERE ${Strings.tableRecurringItems}.category = lower(categories.name)
+    // 		);
     // ''');
   }
 
@@ -211,14 +211,25 @@ class DatabaseHelper {
         where: '${Strings.itemColumnId} = ?', whereArgs: [id]);
   }
 
-  Future<void> updateCategory(Category category) async {
+  Future<void> updateItemsAndRecItemsCategory(
+      String oldCategoryId, String newCategoryId) async {
     Database db = await database;
 
-    return await db.update(
-      Strings.tableCategories,
-      category.toMap(),
-      where: '${Strings.categoryColumnId} = ?',
-      whereArgs: [category.id],
+    await db.rawUpdate(
+      ''' 
+        UPDATE ${Strings.tableItems} 
+        SET ${Strings.itemColumnCategory} = ? 
+        WHERE ${Strings.itemColumnCategory} = ?
+      ''',
+      [newCategoryId, oldCategoryId],
+    );
+    await db.rawUpdate(
+      '''
+        UPDATE ${Strings.tableRecurringItems}
+        SET ${Strings.recurringItemColumnCategory} = ?
+        WHERE ${Strings.recurringItemColumnCategory} = ?
+      ''',
+      [newCategoryId, oldCategoryId],
     );
   }
 

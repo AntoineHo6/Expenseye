@@ -12,13 +12,28 @@ class DbModel extends ChangeNotifier {
   static Map<int, Category> catMap = new Map();
 
   DbModel() {
-    initializeUser();
+    initUser();
   }
 
-  Future<void> initializeUser() async {
+  Future<void> initUser() async {
     await initConnectedUser();
     await initUserCategoriesMap();
     await initCheckRecurringItems();
+  }
+
+  Future<void> loginInit() async {
+    List<Item> localItems = await queryAllItems();
+    List<Category> localCategories = await queryCategories();
+
+    bool isLoggedIn = await loginWithGoogle();
+    // * From this point on, the sqflite file contains data from the firebase file
+    List<Category> accCategories = await queryCategories();
+
+    if (isLoggedIn) {
+      await addLocalItems(localItems, localCategories, accCategories);
+    }
+
+    await initUserCategoriesMap();
   }
 
   Future<void> initConnectedUser() async {
@@ -97,7 +112,7 @@ class DbModel extends ChangeNotifier {
         for (var localItem in localItems) {
           if (localCategoriesNameLCase[localItem.categoryId] ==
               localCategory.name.toLowerCase()) {
-            localItem.categoryId = accCategoriesNameLCase[localCategory.name];
+            localItem.categoryId = accCategoriesNameLCase[localCategory.name.toLowerCase()];
           }
         }
       }

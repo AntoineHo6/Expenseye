@@ -81,5 +81,6 @@
     "addYourFirstRecurringItem": "Ajoutez votre premier élément récurrent!",
     "date": "Date",
     "category": "Catégorie",
-    "periodicity": "Périodicité"
+    "periodicity": "Périodicité",
+    "noCategorySelected": "Aucune catégorie sélectionnée"
 }

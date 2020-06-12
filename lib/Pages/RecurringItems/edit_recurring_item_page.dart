@@ -58,47 +58,22 @@ class _EditRecurringItemPageState extends State<EditRecurringItemPage> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                // TODO: refactor redundant code
-                Container(
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                  child: Column(
-                    children: <Widget>[
-                      SizedBox(
-                        width: double.infinity,
-                        child: Text(
-                          '${AppLocalizations.of(context).translate('name')} :',
-                          textAlign: TextAlign.left,
-                          style: Theme.of(context).textTheme.headline6,
-                        ),
-                      ),
-                      NameTextField(
-                        controller: _nameController,
-                        isNameInvalid: model.isNameInvalid,
-                        onChanged: model.infoChanged,
-                      ),
-                    ],
+                _buildTextField(
+                  model,
+                  AppLocalizations.of(context).translate('name'),
+                  NameTextField(
+                    controller: _nameController,
+                    isNameInvalid: model.isNameInvalid,
+                    onChanged: model.infoChanged,
                   ),
                 ),
-                Container(
-                  margin:
-                      const EdgeInsets.only(left: 10, right: 10, bottom: 30),
-                  child: Column(
-                    children: <Widget>[
-                      SizedBox(
-                        width: double.infinity,
-                        child: Text(
-                          '${AppLocalizations.of(context).translate('amount')} :',
-                          textAlign: TextAlign.left,
-                          style: Theme.of(context).textTheme.headline6,
-                        ),
-                      ),
-                      AmountTextField(
-                        controller: _amountController,
-                        isAmountInvalid: model.isAmountInvalid,
-                        onChanged: model.infoChanged,
-                      ),
-                    ],
+                _buildTextField(
+                  model,
+                  AppLocalizations.of(context).translate('amount'),
+                  AmountTextField(
+                    controller: _amountController,
+                    isAmountInvalid: model.isAmountInvalid,
+                    onChanged: model.infoChanged,
                   ),
                 ),
                 _btnTitle(
@@ -155,6 +130,26 @@ class _EditRecurringItemPageState extends State<EditRecurringItemPage> {
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildTextField(
+      EditRecurringItemModel model, String title, Widget textField) {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+      child: Column(
+        children: <Widget>[
+          SizedBox(
+            width: double.infinity,
+            child: Text(
+              '$title :',
+              textAlign: TextAlign.left,
+              style: Theme.of(context).textTheme.headline6,
+            ),
+          ),
+          textField,
+        ],
       ),
     );
   }

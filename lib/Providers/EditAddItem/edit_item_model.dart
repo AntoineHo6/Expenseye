@@ -8,7 +8,6 @@ import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-// TODO: asynchronity here
 class EditItemModel extends ChangeNotifier {
   bool didInfoChange = false;
   bool isNameInvalid = false;
@@ -17,8 +16,11 @@ class EditItemModel extends ChangeNotifier {
   int categoryId;
   ItemType type;
 
-  // TODO: refactor: take only the item as parameter
-  EditItemModel(this.date, this.categoryId, this.type);
+  EditItemModel(Item item) {
+    date = item.date;
+    categoryId = item.categoryId;
+    type = item.type;
+  }
 
   // Will make the save button clickable
   void infoChanged(String text) {
@@ -65,7 +67,7 @@ class EditItemModel extends ChangeNotifier {
 
   /// On selected category in the ChooseCategoryPage, update the current category
   /// in the model
-  void openChooseCategoryPage(BuildContext context) async {
+  Future<void> openChooseCategoryPage(BuildContext context) async {
     final result = await Navigator.push(
       context,
       MaterialPageRoute(

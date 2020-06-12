@@ -81,5 +81,6 @@
     "addYourFirstRecurringItem": "Add your first recurring item!",
     "date": "Date",
     "category": "Category",
-    "periodicity": "Periodicity"
+    "periodicity": "Periodicity",
+    "noCategorySelected": "No category selected"
 }

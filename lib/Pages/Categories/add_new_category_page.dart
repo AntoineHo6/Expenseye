@@ -130,7 +130,6 @@ class _AddNewCategoryPageState extends State<AddNewCategoryPage> {
       context: context,
       child: AlertDialog(
         title: Text(AppLocalizations.of(context).translate('pickAColor')),
-        // TODO: CHECK THE PIXEL OVERFLOW ON BOTTOM PROBLEM
         content: ColorPicker(
           pickerColor: pickerColor,
           showLabel: false,

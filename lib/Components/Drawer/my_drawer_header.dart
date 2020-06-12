@@ -1,5 +1,3 @@
-import 'package:Expenseye/Models/Category.dart';
-import 'package:Expenseye/Models/Item.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:Expenseye/Resources/Themes/MyColors.dart';
 import 'package:Expenseye/app_localizations.dart';
@@ -118,26 +116,12 @@ class MyDrawerHeader extends StatelessWidget {
   }
 }
 
-// TODO: move out to dbModel
 Future<void> _logoutReset(BuildContext context, _logInFirstPress) async {
   await Provider.of<DbModel>(context, listen: false).logOutFromGoogle();
   _logInFirstPress = true;
 }
 
 Future<void> _loginInit(BuildContext context, _logOutFirstPress) async {
-  final _dbModel = Provider.of<DbModel>(context, listen: false);
-
-  List<Item> localItems = await _dbModel.queryAllItems();
-  List<Category> localCategories = await _dbModel.queryCategories();
-
-  bool isLoggedIn = await _dbModel.loginWithGoogle();
-  // * From this point on, the sqflite file contains data from the firebase file
-  List<Category> accCategories = await _dbModel.queryCategories();
-
-  if (isLoggedIn) {
-    await _dbModel.addLocalItems(localItems, localCategories, accCategories);
-  }
-
-  await _dbModel.initUserCategoriesMap();
+  await Provider.of<DbModel>(context, listen: false).loginInit();
   _logOutFirstPress = true;
 }

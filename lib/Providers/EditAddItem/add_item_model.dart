@@ -9,17 +9,13 @@ import 'package:provider/provider.dart';
 class AddItemModel extends ChangeNotifier {
   bool isNameInvalid = false;
   bool isAmountInvalid = false;
+  bool isCategoryMissingError = false;
 
   DateTime date;
   ItemType type;
   int categoryId;
 
-  AddItemModel(this.date, this.type) {
-    // TODO: remove preset categories
-    type == ItemType.expense
-        ? categoryId = 1
-        : categoryId = 12;  // TODO: redo how this is done. not sustainable
-  }
+  AddItemModel(this.date, this.type);
 
   // Will make the save button clickable
   void updateDate(DateTime newDate) {
@@ -37,11 +33,12 @@ class AddItemModel extends ChangeNotifier {
   void addItem(BuildContext context, String newName, String newAmount) {
     // make sure to remove time before adding to db
     final DateTime newDate = DateTimeUtil.timeToZeroInDate(date);
-    
+
     bool areFieldsInvalid = _checkFieldsInvalid(newName, newAmount);
+    _checkCategoryInvalid();
 
     // if all the fields are valid, add and quit
-    if (!areFieldsInvalid) {
+    if (!areFieldsInvalid && !isCategoryMissingError) {
       Item newItem =
           new Item(newName, double.parse(newAmount), newDate, type, categoryId);
 
@@ -62,6 +59,7 @@ class AddItemModel extends ChangeNotifier {
 
     if (result != null) {
       categoryId = result;
+      _checkCategoryInvalid();
       notifyListeners();
     }
   }
@@ -86,5 +84,13 @@ class AddItemModel extends ChangeNotifier {
       return false;
     }
     return true;
+  }
+
+  void _checkCategoryInvalid() {
+    if (categoryId == null) {
+      isCategoryMissingError = true;
+    } else {
+      isCategoryMissingError = false;
+    }
   }
 }

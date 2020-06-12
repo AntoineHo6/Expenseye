@@ -2,6 +2,7 @@ import 'package:Expenseye/Resources/Themes/MyColors.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class AddExpenseFab extends StatelessWidget {
   final Function onExpensePressed;
@@ -18,7 +19,7 @@ class AddExpenseFab extends StatelessWidget {
       children: [
         SpeedDialChild(
           backgroundColor: Colors.red,
-          child: const Icon(Icons.attach_money),
+          child: const Icon(MdiIcons.currencyUsdCircle),
           label: AppLocalizations.of(context).translate('expense'),
           labelBackgroundColor: MyColors.black24dp,
           labelStyle: TextStyle(fontSize: 14.0, color: Colors.white),

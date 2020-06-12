@@ -11,11 +11,10 @@ import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-// TODO: rename expense to item
 class EditItemPage extends StatefulWidget {
-  final Item expense;
+  final Item item;
 
-  EditItemPage(this.expense);
+  EditItemPage(this.item);
 
   @override
   _EditItemPageState createState() => _EditItemPageState();
@@ -28,15 +27,15 @@ class _EditItemPageState extends State<EditItemPage> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => EditItemModel(
-          widget.expense.date, widget.expense.categoryId, widget.expense.type),
+      create: (_) => EditItemModel(widget.item),
       child: Consumer<EditItemModel>(
         builder: (context, model, child) => Scaffold(
           appBar: AppBar(
-            title: Text(widget.expense.name),
+            title: Text(widget.item.name),
             actions: <Widget>[
               DeleteBtn(
-                onPressed: () async => await model.delete(context, widget.expense.id),
+                onPressed: () async =>
+                    await model.delete(context, widget.item.id),
               ),
             ],
           ),
@@ -49,7 +48,7 @@ class _EditItemPageState extends State<EditItemPage> {
               onPressed: model.didInfoChange
                   ? () async => await model.editItem(
                         context,
-                        widget.expense.id,
+                        widget.item.id,
                         _nameController.text,
                         _amountController.text,
                       )
@@ -79,7 +78,7 @@ class _EditItemPageState extends State<EditItemPage> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(left: 10),
+                  margin: const EdgeInsets.only(left: 10),
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
@@ -97,11 +96,12 @@ class _EditItemPageState extends State<EditItemPage> {
                     iconSize: 32,
                     spaceBetweenSize: 15,
                     fontSize: 20,
-                    onPressed: () async => await model.chooseDate(context, model.date),
+                    onPressed: () async =>
+                        await model.chooseDate(context, model.date),
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(left: 10),
+                  margin: const EdgeInsets.only(left: 10),
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
@@ -115,7 +115,8 @@ class _EditItemPageState extends State<EditItemPage> {
                       const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                   child: CategoryPickerBtn(
                     categoryId: model.categoryId,
-                    onPressed: () => model.openChooseCategoryPage(context),
+                    onPressed: () async =>
+                        await model.openChooseCategoryPage(context),
                     minWidth: double.infinity,
                     height: 80,
                     iconSize: 160,
@@ -158,8 +159,8 @@ class _EditItemPageState extends State<EditItemPage> {
 
   @override
   void initState() {
-    _nameController.text = widget.expense.name;
-    _amountController.text = widget.expense.amount.toString();
+    _nameController.text = widget.item.name;
+    _amountController.text = widget.item.amount.toString();
     super.initState();
   }
 }

@@ -30,8 +30,8 @@ class ItemListTile extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
       ),
       onPressed: onPressed,
-      highlightColor: color.withOpacity(0.2),
-      splashColor: color.withOpacity(0.2),
+      highlightColor: color.withOpacity(0.1),
+      splashColor: color.withOpacity(0.1),
       child: ListTile(
         contentPadding: contentPadding,
         leading: Icon(

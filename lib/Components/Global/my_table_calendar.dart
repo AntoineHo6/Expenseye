@@ -1,4 +1,3 @@
-import 'package:Expenseye/Resources/Themes/MyColors.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
@@ -19,7 +18,7 @@ class MyTableCalendar extends StatelessWidget {
     return TableCalendar(
       locale: AppLocalizations.of(context).locale.languageCode,
       daysOfWeekStyle: DaysOfWeekStyle(
-        weekendStyle: TextStyle(color: MyColors.secondary),
+        weekendStyle: TextStyle(color: Theme.of(context).indicatorColor),
       ),
       headerStyle: HeaderStyle(
         leftChevronIcon: const Icon(Icons.chevron_left),
@@ -27,10 +26,10 @@ class MyTableCalendar extends StatelessWidget {
         formatButtonVisible: false,
       ),
       calendarStyle: CalendarStyle(
-        todayColor: MyColors.black01dp,
-        selectedColor: MyColors.black24dp,
-        weekendStyle: TextStyle(color: MyColors.secondaryDarker),
-        outsideWeekendStyle: TextStyle(color: MyColors.secondaryDisabled),
+        todayColor: Theme.of(context).hintColor,
+        selectedColor: Theme.of(context).accentColor,
+        weekendStyle: TextStyle(color: Theme.of(context).accentColor),
+        outsideWeekendStyle: TextStyle(color: Theme.of(context).disabledColor),
       ),
       calendarController: calendarController,
       initialSelectedDay: initialDate,

@@ -81,10 +81,11 @@ class _MonthContainer extends StatelessWidget {
         bottom: 15,
       ),
       child: RaisedButton(
+        elevation: 8,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),
-        padding: const EdgeInsets.all(12),
+        padding: const EdgeInsets.all(10),
         onPressed: () => openMonthsPage(context, items[0].date),
         child: Column(
           children: <Widget>[
@@ -97,7 +98,7 @@ class _MonthContainer extends StatelessWidget {
                   style: Theme.of(context).textTheme.headline5,
                 ),
                 Container(
-                  margin: EdgeInsets.only(right: 16),
+                  margin: EdgeInsets.only(right: 11),
                   child: Text(
                     _itemModel.totalString(
                       _itemModel.calcItemsTotal(items),
@@ -134,7 +135,7 @@ class _MonthContainer extends StatelessWidget {
   void openMonthsPage(BuildContext context, DateTime date) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => MonthlyHomePage(date)),
+      MaterialPageRoute(builder: (context) => MonthlyHomePage(date: date, isMonthPickerVisible: false,)),
     );
   }
 }

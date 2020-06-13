@@ -1,5 +1,5 @@
-import 'package:Expenseye/Components/Global/calendar_btn.dart';
 import 'package:Expenseye/Components/Global/my_bottom_nav_bar.dart';
+import 'package:Expenseye/Components/Global/period_chooser.dart';
 import 'package:Expenseye/Pages/Monthly/monthly_items_page.dart';
 import 'package:Expenseye/Pages/stats_page.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
@@ -10,8 +10,9 @@ import 'package:provider/provider.dart';
 
 class MonthlyHomePage extends StatefulWidget {
   final DateTime date;
+  final bool isMonthPickerVisible;
 
-  MonthlyHomePage(this.date);
+  MonthlyHomePage({@required this.date, this.isMonthPickerVisible = true});
 
   @override
   _MonthlyHomePageState createState() => _MonthlyHomePageState();
@@ -23,15 +24,20 @@ class _MonthlyHomePageState extends State<MonthlyHomePage> {
     final _dbModel = Provider.of<DbModel>(context, listen: false);
 
     return ChangeNotifierProvider(
-      create: (_) => MonthlyModel(widget.date),
+      create: (_) => MonthlyModel(context, widget.date),
       child: Consumer<MonthlyModel>(
         builder: (context, monthlyModel, child) => Scaffold(
           appBar: AppBar(
             title: Text(AppLocalizations.of(context).translate('monthly')),
             actions: <Widget>[
-              CalendarBtn(
-                onPressed: () => monthlyModel.calendarFunc(context),
-              ),
+              widget.isMonthPickerVisible
+                  ? PeriodChooser(
+                      text: monthlyModel.yearMonthAbbr,
+                      onPressedLeft: () => monthlyModel.decrementMonth(context),
+                      onPressedRight: () =>
+                          monthlyModel.incrementMonth(context),
+                    )
+                  : Container(),
             ],
           ),
           body: SafeArea(

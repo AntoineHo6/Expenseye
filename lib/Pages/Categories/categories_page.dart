@@ -4,7 +4,6 @@ import 'package:Expenseye/Models/Category.dart';
 import 'package:Expenseye/Pages/Categories/add_category_page.dart';
 import 'package:Expenseye/Pages/Categories/edit_category_page.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
-import 'package:Expenseye/Resources/Themes/MyColors.dart';
 import 'package:flutter/material.dart';
 
 class CategoriesPage extends StatefulWidget {
@@ -40,12 +39,11 @@ class _CategoriesPageState extends State<CategoriesPage> {
               onPressed: () => _openAddCategoryPage(context),
               child: const Icon(
                 Icons.add,
-                color: Colors.white,
                 size: 35.0,
               ),
               shape: const CircleBorder(),
-              elevation: 2.0,
-              fillColor: MyColors.black02dp,
+              elevation: 8.0,
+              fillColor: Theme.of(context).primaryColor,
             ),
           );
         }

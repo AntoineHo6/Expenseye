@@ -12,6 +12,9 @@ class MyThemeData {
     cardColor: MyColors.black06dp,
     accentColor: MyColors.secondaryDarker,
     hintColor: MyColors.black24dp,
+    disabledColor: MyColors.secondaryDisabled,
+    indicatorColor: MyColors.secondary,
+    bottomAppBarColor: MyColors.black24dp,
     floatingActionButtonTheme: FloatingActionButtonThemeData(
       backgroundColor: MyColors.secondary,
     ),
@@ -26,7 +29,7 @@ class MyThemeData {
       subtitle2: TextStyle(color: Colors.white),
       bodyText1: TextStyle(color: Colors.white),
       bodyText2: TextStyle(color: Colors.white),
-      caption: TextStyle(color: Colors.white),
+      caption: TextStyle(color: Colors.grey),
       button: TextStyle(color: Colors.white),
       overline: TextStyle(color: Colors.white),
     ),

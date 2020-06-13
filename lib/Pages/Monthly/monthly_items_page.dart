@@ -86,12 +86,12 @@ class _DayContainer extends StatelessWidget {
         color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(10),
       ),
-      padding: const EdgeInsets.all(12),
-      margin: const EdgeInsets.only(left: 10, right: 10, top: 5, bottom: 15),
+      padding: const EdgeInsets.all(10),
+      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
       child: Column(
         children: <Widget>[
           Container(
-            margin: const EdgeInsets.symmetric(horizontal: 5),
+            margin: const EdgeInsets.symmetric(horizontal: 10),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
@@ -100,9 +100,7 @@ class _DayContainer extends StatelessWidget {
                   style: Theme.of(context).textTheme.headline5,
                 ),
                 Text(
-                  _itemModel.totalString(
-                    _itemModel.calcItemsTotal(items),
-                  ),
+                  '${_itemModel.totalString(_itemModel.calcItemsTotal(items))}',
                 ),
               ],
             ),
@@ -114,7 +112,7 @@ class _DayContainer extends StatelessWidget {
             children: items
                 .map(
                   (item) => Container(
-                    margin: const EdgeInsets.all(4),
+                    margin: const EdgeInsets.symmetric(vertical: 5),
                     child: ItemListTile(
                       item,
                       onPressed: () => item.openEditItemPage(context, item),

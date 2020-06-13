@@ -26,6 +26,7 @@ class ItemListTile extends StatelessWidget {
     IconData iconData = DbModel.catMap[item.categoryId].iconData;
 
     return RaisedButton(
+      elevation: 8,
       color: item.type == ItemType.expense
           ? MyColors.expenseBGColor
           : MyColors.incomeBGColor,

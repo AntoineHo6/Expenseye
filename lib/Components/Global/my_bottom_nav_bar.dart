@@ -1,4 +1,3 @@
-import 'package:Expenseye/Resources/Themes/MyColors.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 
@@ -16,8 +15,8 @@ class _MyBottomNavBarState extends State<MyBottomNavBar> {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
-      selectedIconTheme: const IconThemeData(color: MyColors.secondary),
-      backgroundColor: MyColors.black24dp,
+      selectedIconTheme: IconThemeData(color: Theme.of(context).indicatorColor),
+      backgroundColor: Theme.of(context).bottomAppBarColor,
       currentIndex: widget.currentIndex,
       onTap: widget.onTap,
       items: [

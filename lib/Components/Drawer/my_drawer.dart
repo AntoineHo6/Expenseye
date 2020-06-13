@@ -85,7 +85,7 @@ class MyDrawer extends StatelessWidget {
   void _openMonthlyPage(BuildContext context) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => MonthlyHomePage(DateTime.now())),
+      MaterialPageRoute(builder: (context) => MonthlyHomePage(date: DateTime.now())),
     );
   }
 

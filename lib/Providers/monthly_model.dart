@@ -6,28 +6,63 @@ import 'package:flutter/material.dart';
 
 class MonthlyModel extends ChangeNotifier {
   DateTime currentDate;
+  String yearMonthAbbr;
   String yearMonth;
   double currentTotal;
   double currentExpenseTotal;
   double currentIncomeTotal;
   int pageIndex;
 
-  MonthlyModel(DateTime date) {
+  MonthlyModel(BuildContext context, DateTime date) {
     currentDate = date;
-    yearMonth = getYearMonthString(currentDate);
+    updateYearMonthAbbr(context, currentDate);
+    updateYearMonthString(currentDate);
     currentTotal = 0;
     currentExpenseTotal = 0;
     currentIncomeTotal = 0;
     pageIndex = 0;
   }
 
+  void incrementMonth(BuildContext context) {
+    int newMonth;
+    int newYear = currentDate.year;
+    if (currentDate.month == 12) {
+      newMonth = 1;
+      newYear = currentDate.year + 1;
+    } else {
+      newMonth = currentDate.month + 1;
+    }
+
+    updateDate(context, DateTime(newYear, newMonth));
+  }
+
+  void decrementMonth(BuildContext context) {
+    int newMonth;
+    int newYear = currentDate.year;
+
+    if (currentDate.month == 1) {
+      newMonth = 12;
+      newYear = currentDate.year - 1;
+    }
+    else {
+      newMonth = currentDate.month - 1;
+    }
+
+    updateDate(context, DateTime(newYear, newMonth));
+  }
+
+  void updateYearMonthAbbr(BuildContext context, DateTime newMonth) {
+    yearMonthAbbr =
+        '${AppLocalizations.of(context).translate(DateTimeUtil.monthAbb[newMonth.month])} ${newMonth.year}';
+  }
+
   /// Returns String format of DateTime containing strictly it's month & year,
   ///  E.g. : '2020-06'.
   /// Used to query expenses that contain said String in it's date column.
-  String getYearMonthString(DateTime newMonth) {
+  void updateYearMonthString(DateTime newMonth) {
     String temp = newMonth.toIso8601String().split('T')[0];
 
-    return temp.substring(0, temp.length - 3);
+    yearMonth = temp.substring(0, temp.length - 3);
   }
 
   /// Returns the current date's month's full name and it's year in string
@@ -75,7 +110,8 @@ class MonthlyModel extends ChangeNotifier {
   void updateDate(BuildContext context, DateTime newDate) {
     if (newDate != null) {
       currentDate = newDate;
-      yearMonth = getYearMonthString(currentDate);
+      updateYearMonthString(currentDate);
+      updateYearMonthAbbr(context, currentDate);
       notifyListeners();
     }
   }

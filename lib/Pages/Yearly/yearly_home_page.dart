@@ -1,6 +1,5 @@
-import 'package:Expenseye/Components/Global/calendar_btn.dart';
 import 'package:Expenseye/Components/Global/my_bottom_nav_bar.dart';
-import 'package:Expenseye/Components/Yearly/year_chooser.dart';
+import 'package:Expenseye/Components/Global/period_chooser.dart';
 import 'package:Expenseye/Pages/Yearly/yearly_items_page.dart';
 import 'package:Expenseye/Pages/stats_page.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
@@ -26,10 +25,11 @@ class _YearlyHomePageState extends State<YearlyHomePage> {
           appBar: AppBar(
             title: Text(AppLocalizations.of(context).translate('yearly')),
             actions: <Widget>[
-              YearChooser(),
-              // CalendarBtn(
-              //   onPressed: () => yearlyModel.calendarFunc(context),
-              // ),
+              PeriodChooser(
+                text: yearlyModel.year,
+                onPressedLeft: yearlyModel.decrementYear,
+                onPressedRight: yearlyModel.incrementYear,
+              ),
             ],
           ),
           body: SafeArea(

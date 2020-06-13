@@ -1,22 +1,20 @@
-import 'package:Expenseye/Providers/yearly_model.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-class YearChooser extends StatefulWidget {
-  @override
-  _YearChooserState createState() => _YearChooserState();
-}
+class PeriodChooser extends StatelessWidget {
 
-class _YearChooserState extends State<YearChooser> {
+  final String text;
+  final Function onPressedLeft;
+  final Function onPressedRight;
+
+  PeriodChooser({@required this.text, this.onPressedLeft, this.onPressedRight});
+
   @override
   Widget build(BuildContext context) {
-    final _yearlyModel = Provider.of<YearlyModel>(context);
-
     return Row(
       children: <Widget>[
         RaisedButton(
           textColor: Theme.of(context).textTheme.bodyText1.color,
-          onPressed: () => _yearlyModel.decrementYear(),
+          onPressed: () => onPressedLeft(),
           child: const Icon(Icons.chevron_left),
           shape: const CircleBorder(
             side: const BorderSide(color: Colors.transparent),
@@ -24,12 +22,12 @@ class _YearChooserState extends State<YearChooser> {
           elevation: 2,
         ),
         Text(
-          _yearlyModel.year,
+          text,
           style: Theme.of(context).textTheme.subtitle1,
         ),
         RaisedButton(
           textColor: Theme.of(context).textTheme.bodyText1.color,
-          onPressed: () => _yearlyModel.incrementYear(),
+          onPressed: () => onPressedRight(),
           child: const Icon(Icons.chevron_right),
           shape: const CircleBorder(
             side: const BorderSide(color: Colors.transparent),

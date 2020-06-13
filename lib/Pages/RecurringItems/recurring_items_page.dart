@@ -38,7 +38,7 @@ class _RecurringItemsPageState extends State<RecurringItemsPage> {
             shape: const CircleBorder(
               side: const BorderSide(color: Colors.transparent),
             ),
-            elevation: 8,
+            elevation: 2,
           ),
         ],
       ),
@@ -150,7 +150,6 @@ class _RecurringItemsPageState extends State<RecurringItemsPage> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.0),
             ),
-            // onPressed: () => _deleteRecurringItem(context, recurringItem),
             onPressed: () => _openEditRecurringItemPage(context, recurringItem),
             child: ListTile(
               leading: Icon(
@@ -198,14 +197,41 @@ class _RecurringItemsPageState extends State<RecurringItemsPage> {
     }
   }
 
-  Text _subtitleText(BuildContext context, RecurringItem recurringItem) {
-    // TODO: use richText
+  Widget _subtitleText(BuildContext context, RecurringItem recurringItem) {
     String periodicityTitle;
     periodicityTitle =
         PeriodicityHelper.getString(context, recurringItem.periodicity);
 
-    return Text(
-      '$periodicityTitle\n${AppLocalizations.of(context).translate('nextDueDate')}: ${DateTimeUtil.formattedDate(context, recurringItem.dueDate)}',
+    return RichText(
+      text: TextSpan(
+        style: DefaultTextStyle.of(context).style,
+        children: <TextSpan>[
+          TextSpan(
+            text: '$periodicityTitle\n',
+            style: TextStyle(
+              color: Theme.of(context).textTheme.caption.color,
+              fontStyle: FontStyle.italic,
+            ),
+          ),
+          TextSpan(
+            text: '${AppLocalizations.of(context).translate('nextDueDate')}: ',
+            style: TextStyle(
+              fontStyle: FontStyle.italic,
+              fontSize: 12,
+              color: Theme.of(context).textTheme.caption.color,
+            ),
+          ),
+          TextSpan(
+            text:
+                '${DateTimeUtil.formattedDate(context, recurringItem.dueDate)}',
+            style: TextStyle(
+              fontStyle: FontStyle.italic,
+              fontSize: 13,
+              color: Theme.of(context).textTheme.caption.color,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

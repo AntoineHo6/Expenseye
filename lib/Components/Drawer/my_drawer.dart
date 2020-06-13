@@ -2,8 +2,8 @@ import 'package:Expenseye/Components/Drawer/my_drawer_header.dart';
 import 'package:Expenseye/Pages/Categories/cat_home_page.dart';
 import 'package:Expenseye/Pages/Monthly/monthly_home_page.dart';
 import 'package:Expenseye/Pages/Yearly/yearly_home_page.dart';
-import 'package:Expenseye/Pages/about_page.dart';
 import 'package:Expenseye/Pages/RecurringItems/recurring_items_page.dart';
+import 'package:Expenseye/Resources/Strings.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -85,7 +85,8 @@ class MyDrawer extends StatelessWidget {
   void _openMonthlyPage(BuildContext context) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => MonthlyHomePage(date: DateTime.now())),
+      MaterialPageRoute(
+          builder: (context) => MonthlyHomePage(date: DateTime.now())),
     );
   }
 
@@ -97,9 +98,16 @@ class MyDrawer extends StatelessWidget {
   }
 
   void _openAboutPage(BuildContext context) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => const AboutPage()),
+    showAboutDialog(
+      context: context,
+      applicationVersion: Strings.versionNumber,
+      applicationLegalese: '${AppLocalizations.of(context).translate('appBy')}\n\n${Strings.privacyLegalese}',
+      applicationIcon: Image.asset(
+        'assets/icon/icon.png',
+        width: 40,
+        height: 40,
+        color: null,
+      ),
     );
   }
 

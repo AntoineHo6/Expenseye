@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class CategoryPickerBtn extends StatelessWidget {
   final String categoryId;
   final Function onPressed;
-  final double minWidth;
+  final double width;
   final double height;
   final double iconSize;
   final double iconBottomPosition;
@@ -13,7 +13,7 @@ class CategoryPickerBtn extends StatelessWidget {
   CategoryPickerBtn({
     @required this.onPressed,
     this.categoryId,
-    this.minWidth = 100,
+    this.width = 100,
     this.height = 50,
     this.iconSize = 70,
     this.iconBottomPosition = -25,
@@ -39,36 +39,30 @@ class CategoryPickerBtn extends StatelessWidget {
       iconColor = DbModel.catMap[categoryId].color;
     }
 
-    return ButtonTheme(
-      minWidth: minWidth,
-      height: height,
-      buttonColor: Theme.of(context).buttonColor,
-      textTheme: ButtonTextTheme.primary,
-      child: RaisedButton(
-        highlightColor: highlightColor,
-        splashColor: splashColor,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-          side: BorderSide(color: borderSideColor),
-        ),
-        onPressed: onPressed,
-        child: SizedBox(
-          width: minWidth,
-          height: height,
-          child: Stack(
-            alignment: Alignment.center,
-            overflow: Overflow.clip,
-            children: <Widget>[
-              Positioned(
-                bottom: iconBottomPosition,
-                child: Icon(
-                  iconData,
-                  color: iconColor,
-                  size: iconSize,
-                ),
+    return RaisedButton(
+      highlightColor: highlightColor,
+      splashColor: splashColor,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+        side: BorderSide(color: borderSideColor),
+      ),
+      onPressed: onPressed,
+      child: SizedBox(
+        width: width,
+        height: height,
+        child: Stack(
+          alignment: Alignment.center,
+          overflow: Overflow.clip,
+          children: <Widget>[
+            Positioned(
+              bottom: iconBottomPosition,
+              child: Icon(
+                iconData,
+                color: iconColor,
+                size: iconSize,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

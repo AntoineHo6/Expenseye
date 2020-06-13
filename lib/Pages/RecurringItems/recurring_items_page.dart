@@ -5,7 +5,6 @@ import 'package:Expenseye/Models/recurring_item.dart';
 import 'package:Expenseye/Pages/RecurringItems/AddRecurringItem/add_recurring_item_home_page.dart';
 import 'package:Expenseye/Pages/RecurringItems/edit_recurring_item_page.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
-import 'package:Expenseye/Resources/Themes/MyColors.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/cupertino.dart';
@@ -139,10 +138,6 @@ class _RecurringItemsPageState extends State<RecurringItemsPage> {
         return Container(
           margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
           child: RaisedButton(
-            color:
-                DbModel.catMap[recurringItem.category].type == ItemType.expense
-                    ? MyColors.expenseBGColor
-                    : MyColors.incomeBGColor,
             highlightColor:
                 DbModel.catMap[recurringItem.category].color.withOpacity(0.1),
             splashColor:

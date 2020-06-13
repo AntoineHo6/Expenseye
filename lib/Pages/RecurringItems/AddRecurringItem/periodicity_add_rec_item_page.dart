@@ -69,14 +69,15 @@ class _PeriodicityAddRecItemPageState extends State<PeriodicityAddRecItemPage>
 
   Widget _listViewItem(BuildContext context, String title,
       Periodicity periodicity, ItemType type) {
-    return Card(
+    return Container(
       margin: const EdgeInsets.symmetric(vertical: 2, horizontal: 10),
-      child: ListTile(
-        title: Text(title),
-        onTap: () {
-          Provider.of<AddRecurringItemModel>(context, listen: false)
-              .goNextFromPeriodicityPage(periodicity);
-        },
+      child: RaisedButton(
+        onPressed: () =>
+            Provider.of<AddRecurringItemModel>(context, listen: false)
+                .goNextFromPeriodicityPage(periodicity),
+        child: ListTile(
+          title: Text(title),
+        ),
       ),
     );
   }

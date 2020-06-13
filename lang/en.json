@@ -68,7 +68,8 @@
     "recurringItems": "Recurring Items",
     "nextDueDate": "Next due date",
     "amount": "Amount",
-    "createRecurringItem": "CREATE RECURRING ITEM",
+    "createRecurringExpense": "CREATE RECURRING EXPENSE",
+    "createRecurringIncome": "CREATE RECURRING INCOME",
     "anErrorHasOccurred": "An error has occurred",
     "errorSelectDayBetween1-28": "ERROR: please select a day between the 1st and the 28th",
     "errorSelectDayWithin62DaysInThePast": "ERROR: selecting a day in the past should be within 62 days",
@@ -82,5 +83,6 @@
     "date": "Date",
     "category": "Category",
     "periodicity": "Periodicity",
-    "noCategorySelected": "No category selected"
+    "noCategorySelected": "No category selected",
+    "total": "Total"
 }

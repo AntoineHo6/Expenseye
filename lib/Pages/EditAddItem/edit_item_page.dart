@@ -91,7 +91,7 @@ class _EditItemPageState extends State<EditItemPage> {
                   margin:
                       const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                   child: DatePickerBtn(
-                    minWidth: double.infinity,
+                    width: double.infinity,
                     height: 80,
                     date: model.date,
                     iconSize: 32,
@@ -118,7 +118,7 @@ class _EditItemPageState extends State<EditItemPage> {
                     categoryId: model.categoryId,
                     onPressed: () async =>
                         await model.openChooseCategoryPage(context),
-                    minWidth: double.infinity,
+                    width: double.infinity,
                     height: 80,
                     iconSize: 160,
                     iconBottomPosition: -75,

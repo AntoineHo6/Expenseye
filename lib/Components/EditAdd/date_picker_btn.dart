@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class DatePickerBtn extends StatelessWidget {
   final DateTime date;
   final Function onPressed;
-  final double minWidth;
+  final double width;
   final double height;
   final double iconSize;
   final double spaceBetweenSize;
@@ -13,24 +13,19 @@ class DatePickerBtn extends StatelessWidget {
   DatePickerBtn({
     @required this.date,
     @required this.onPressed,
-    this.minWidth = 100,
+    this.width = 100,
     this.height = 50,
     this.iconSize = 20,
     this.fontSize = 15,
-    this.spaceBetweenSize = 8
+    this.spaceBetweenSize = 8,
   });
 
   @override
   Widget build(BuildContext context) {
-    return ButtonTheme(
-      minWidth: minWidth,
+    return SizedBox(
+      width: width,
       height: height,
-      buttonColor: Theme.of(context).buttonColor,
-      textTheme: ButtonTextTheme.primary,
-      child: RaisedButton(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
+      child: RaisedButton(        
         onPressed: onPressed,
         child: Row(
           mainAxisSize: MainAxisSize.min,

@@ -13,15 +13,6 @@ class ItemListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // to compensate for weird bug occuring when changing the name of a category.
-    // The first rebuild with query item's with the old id, then the second with query the up to date category ids
-    // final Color color = DbModel.catMap[item.categoryId] != null
-    //     ? DbModel.catMap[item.categoryId].color
-    //     : Colors.yellow;
-    // final IconData iconData = DbModel.catMap[item.categoryId] != null
-    //     ? DbModel.catMap[item.categoryId].iconData
-    //     : Icons.warning;
-
     Color color = DbModel.catMap[item.categoryId].color;
     IconData iconData = DbModel.catMap[item.categoryId].iconData;
 
@@ -30,9 +21,6 @@ class ItemListTile extends StatelessWidget {
       color: item.type == ItemType.expense
           ? MyColors.expenseBGColor
           : MyColors.incomeBGColor,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
       onPressed: onPressed,
       highlightColor: color.withOpacity(0.1),
       splashColor: color.withOpacity(0.1),

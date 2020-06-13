@@ -84,13 +84,9 @@ class MyDrawerHeader extends StatelessWidget {
                         ),
                         RaisedButton(
                           padding: const EdgeInsets.all(0),
-                          child: Row(
-                            children: <Widget>[
-                              Image.asset(
-                                'assets/btn_google_img.png',
-                                width: 180,
-                              ),
-                            ],
+                          child: Image.asset(
+                            'assets/btn_google_img.png',
+                            width: 180,
                           ),
                           onPressed: () async {
                             if (_logInFirstPress) {

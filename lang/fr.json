@@ -68,7 +68,8 @@
     "recurringItems": "Éléments Récurrents",
     "nextDueDate": "Prochaine date d'échéance",
     "amount": "Montant",
-    "createRecurringItem": "CRÉER L'ÉLÉMENT RÉCURRENT",
+    "createRecurringExpense": "CRÉER LA DÉPENSE RÉCURRENTE",
+    "createRecurringIncome": "CRÉER LE REVENU RÉCURRENT",
     "anErrorHasOccurred": "Une erreur est survenue",
     "errorSelectDayBetween1-28": "ERREUR: veuillez sélectionner un jour entre le 1er et le 28 inclusivement",
     "errorSelectDayWithin62DaysInThePast": "ERREUR: la sélection d'un jour avant aujourd'hui doit se faire dans les 62 derniers jours",
@@ -82,5 +83,6 @@
     "date": "Date",
     "category": "Catégorie",
     "periodicity": "Périodicité",
-    "noCategorySelected": "Aucune catégorie sélectionnée"
+    "noCategorySelected": "Aucune catégorie sélectionnée",
+    "total": "Total"
 }

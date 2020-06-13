@@ -4,7 +4,7 @@ import 'package:material_design_icons_flutter/material_design_icons_flutter.dart
 
 class PeriodicityPickerBtn extends StatelessWidget {
   final Function onPressed;
-  final double minWidth;
+  final double width;
   final double height;
   final Periodicity periodicity;
   final double spaceBetweenSize;
@@ -13,7 +13,7 @@ class PeriodicityPickerBtn extends StatelessWidget {
 
   PeriodicityPickerBtn({
     @required this.onPressed,
-    this.minWidth = 100,
+    this.width = 100,
     this.height = 80,
     this.spaceBetweenSize = 8,
     this.periodicity,
@@ -23,11 +23,9 @@ class PeriodicityPickerBtn extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ButtonTheme(
-      minWidth: minWidth,
+    return SizedBox(
+      width: width,
       height: height,
-      buttonColor: Theme.of(context).buttonColor,
-      textTheme: ButtonTextTheme.primary,
       child: RaisedButton(
         onPressed: onPressed,
         child: Row(
@@ -47,9 +45,6 @@ class PeriodicityPickerBtn extends StatelessWidget {
             ),
           ],
         ),
-      ),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
       ),
     );
   }

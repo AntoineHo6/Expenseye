@@ -1,7 +1,6 @@
 import 'package:Expenseye/Components/RecurringItems/add_rec_item_steps_header.dart';
 import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Providers/RecurringItems/add_recurring_item_model.dart';
-import 'package:Expenseye/Resources/Themes/MyColors.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -35,27 +34,28 @@ class _TypeAddRecItemPageState extends State<TypeAddRecItemPage>
                 Container(
                   margin:
                       const EdgeInsets.symmetric(vertical: 2, horizontal: 10),
-                  color: MyColors.expenseColor,
-                  child: ListTile(
-                    title:
-                        Text(AppLocalizations.of(context).translate('expense')),
-                    onTap: () {
-                      Provider.of<AddRecurringItemModel>(context, listen: false)
-                          .goNextFromTypePage(ItemType.expense);
-                    },
+                  child: RaisedButton(
+                    onPressed: () => Provider.of<AddRecurringItemModel>(context,
+                            listen: false)
+                        .goNextFromTypePage(ItemType.expense),
+                    child: ListTile(
+                      title: Text(
+                          AppLocalizations.of(context).translate('expense')),
+                    ),
                   ),
                 ),
                 Container(
                   margin:
                       const EdgeInsets.symmetric(vertical: 2, horizontal: 10),
-                  color: MyColors.incomeColor,
-                  child: ListTile(
-                    title:
-                        Text(AppLocalizations.of(context).translate('income')),
-                    onTap: () {
-                      Provider.of<AddRecurringItemModel>(context, listen: false)
-                          .goNextFromTypePage(ItemType.income);
-                    },
+                  child: RaisedButton(
+                    onPressed: () => Provider.of<AddRecurringItemModel>(context,
+                            listen: false)
+                        .goNextFromTypePage(ItemType.income),
+                    child: ListTile(
+                      title: Text(
+                        AppLocalizations.of(context).translate('income'),
+                      ),
+                    ),
                   ),
                 ),
               ],

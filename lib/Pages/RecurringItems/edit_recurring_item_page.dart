@@ -84,7 +84,7 @@ class _EditRecurringItemPageState extends State<EditRecurringItemPage> {
                   margin:
                       const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                   child: DatePickerBtn(
-                    minWidth: double.infinity,
+                    width: double.infinity,
                     height: 80,
                     date: model.recurringItem.dueDate,
                     iconSize: 32,
@@ -103,7 +103,7 @@ class _EditRecurringItemPageState extends State<EditRecurringItemPage> {
                   child: CategoryPickerBtn(
                     categoryId: model.recurringItem.category,
                     onPressed: () => model.openChooseCategoryPage(context),
-                    minWidth: double.infinity,
+                    width: double.infinity,
                     height: 80,
                     iconSize: 160,
                     iconBottomPosition: -75,
@@ -118,7 +118,7 @@ class _EditRecurringItemPageState extends State<EditRecurringItemPage> {
                       const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                   child: PeriodicityPickerBtn(
                     onPressed: () => model.openPeriodicityPickerPage(context),
-                    minWidth: double.infinity,
+                    width: double.infinity,
                     height: 80,
                     periodicity: model.recurringItem.periodicity,
                     spaceBetweenSize: 15,

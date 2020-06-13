@@ -1,5 +1,6 @@
 import 'package:Expenseye/Components/Stats/expense_group_list_tile.dart';
 import 'package:Expenseye/Utils/chart_util.dart';
+import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class CategoryStatsContainer extends StatelessWidget {
@@ -22,9 +23,8 @@ class CategoryStatsContainer extends StatelessWidget {
             margin: const EdgeInsets.only(right: 20, bottom: 7),
             child: SizedBox(
               width: double.infinity,
-              // TODO: use rich text
               child: Text(
-                'Total:  ${totalCost.toStringAsFixed(2)} \$',
+                '${AppLocalizations.of(context).translate('total')}:  ${totalCost.toStringAsFixed(2)} \$',
                 textAlign: TextAlign.end,
               ),
             ),

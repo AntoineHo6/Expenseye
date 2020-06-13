@@ -34,12 +34,18 @@ class _CategoryAddRecItemPageState extends State<CategoryAddRecItemPage>
 
     return FadeTransition(
       opacity: _animation,
-          child: Scaffold(
+      child: Scaffold(
         bottomNavigationBar: BottomAppBar(
           color: Colors.transparent,
           child: BottomNavButton(
-            color: _model.type == ItemType.expense ? MyColors.expenseColor : MyColors.incomeColor,
-            text: AppLocalizations.of(context).translate('createRecurringItem'),
+            color: _model.type == ItemType.expense
+                ? MyColors.expenseColor
+                : MyColors.incomeColor,
+            text: _model.type == ItemType.expense
+                ? AppLocalizations.of(context)
+                    .translate('createRecurringExpense')
+                : AppLocalizations.of(context)
+                    .translate('createRecurringIncome'),
             onPressed: () {
               if (selectedIconIndex != null) {
                 _model.createRecurringItem(context);
@@ -50,7 +56,8 @@ class _CategoryAddRecItemPageState extends State<CategoryAddRecItemPage>
         body: Column(
           children: <Widget>[
             AddRecItemStepsHeader(
-              title: '5. ${AppLocalizations.of(context).translate('selectACategory')}',
+              title:
+                  '5. ${AppLocalizations.of(context).translate('selectACategory')}',
               percent: 1,
             ),
             Expanded(
@@ -64,7 +71,8 @@ class _CategoryAddRecItemPageState extends State<CategoryAddRecItemPage>
                   categorieKeys.length,
                   (index) {
                     String key = categorieKeys[index];
-                    if (selectedIconIndex != null && index == selectedIconIndex) {
+                    if (selectedIconIndex != null &&
+                        index == selectedIconIndex) {
                       return Container(
                         color: DbModel.catMap[key].color,
                         padding: const EdgeInsets.all(4),

@@ -1,5 +1,4 @@
 import 'package:Expenseye/Models/Item.dart';
-import 'package:Expenseye/Pages/Monthly/monthly_table_calendar_page.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
@@ -92,19 +91,6 @@ class MonthlyModel extends ChangeNotifier {
       }
     }
     return expensesSplitByDay;
-  }
-
-  /// On month chosen in the monthlyTableCalendarPage, update the current
-  /// selected month.
-  void calendarFunc(BuildContext context) async {
-    DateTime newDate = await Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => MonthlyTableCalendarPage(currentDate),
-      ),
-    );
-
-    updateDate(context, newDate);
   }
 
   void updateDate(BuildContext context, DateTime newDate) {

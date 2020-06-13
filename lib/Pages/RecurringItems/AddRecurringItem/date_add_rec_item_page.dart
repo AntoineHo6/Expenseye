@@ -1,11 +1,9 @@
 import 'package:Expenseye/Components/Global/my_table_calendar.dart';
 import 'package:Expenseye/Components/RecurringItems/add_rec_item_steps_header.dart';
 import 'package:Expenseye/Components/Global/bottom_nav_button.dart';
-import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Enums/periodicity.dart';
 import 'package:Expenseye/Enums/periodicity_error.dart';
 import 'package:Expenseye/Providers/RecurringItems/add_recurring_item_model.dart';
-import 'package:Expenseye/Resources/Themes/MyColors.dart';
 import 'package:Expenseye/Utils/edit_add_rec_item_util.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
@@ -41,9 +39,6 @@ class _DateAddRecItemPageState extends State<DateAddRecItemPage>
         bottomNavigationBar: BottomAppBar(
           color: Colors.transparent,
           child: BottomNavButton(
-            color: _model.type == ItemType.expense
-                ? MyColors.expenseColor
-                : MyColors.incomeColor,
             text: AppLocalizations.of(context).translate('nextCaps'),
             onPressed: () {
               selectedDate = _calendarController.focusedDay;

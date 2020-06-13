@@ -18,7 +18,7 @@ class AddExpenseFab extends StatelessWidget {
       child: const Icon(Icons.add),
       children: [
         SpeedDialChild(
-          backgroundColor: Colors.red,
+          backgroundColor: Colors.red[400],
           child: const Icon(MdiIcons.currencyUsdCircle),
           label: AppLocalizations.of(context).translate('expense'),
           labelBackgroundColor: Theme.of(context).hintColor,
@@ -26,7 +26,7 @@ class AddExpenseFab extends StatelessWidget {
           onTap: onExpensePressed,
         ),
         SpeedDialChild(
-          backgroundColor: Colors.green,
+          backgroundColor: Colors.green[400],
           child: const Icon(Icons.account_balance_wallet),
           label: AppLocalizations.of(context).translate('income'),
           labelBackgroundColor: Theme.of(context).hintColor,

@@ -63,7 +63,7 @@ class _AddItemDialogState extends State<AddItemDialog> {
                     height: 20,
                   ),
                   DatePickerBtn(
-                    minWidth: double.infinity,
+                    width: double.infinity,
                     height: 40,
                     date: model.date,
                     onPressed: () => model.chooseDate(
@@ -75,7 +75,7 @@ class _AddItemDialogState extends State<AddItemDialog> {
                     height: 3,
                   ),
                   CategoryPickerBtn(
-                    minWidth: double.infinity,
+                    width: double.infinity,
                     height: 40,
                     iconSize: 30,
                     iconBottomPosition: null,

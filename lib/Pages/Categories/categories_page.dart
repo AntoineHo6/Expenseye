@@ -19,6 +19,7 @@ class CategoriesPage extends StatefulWidget {
 class _CategoriesPageState extends State<CategoriesPage> {
   @override
   Widget build(BuildContext context) {
+    // user FutureBuilder to update when capMap does
     widget.categoryKeys.clear();
     for (var key in DbModel.catMap.keys) {
       if (DbModel.catMap[key].type == widget.type) {

@@ -3,12 +3,18 @@ import 'package:flutter/material.dart';
 
 class MyThemeData {
   static final darkTheme = ThemeData(
+    brightness: Brightness.dark,
     iconTheme: IconThemeData(color: Colors.white),
+    buttonTheme: ButtonThemeData(
+      buttonColor: MyColors.black06dp,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+    ),
     primaryColor: MyColors.black02dp,
     backgroundColor: MyColors.black00dp,
     dialogBackgroundColor: MyColors.black00dp,
     scaffoldBackgroundColor: MyColors.black00dp,
-    buttonColor: MyColors.black06dp,
     cardColor: MyColors.black06dp,
     accentColor: MyColors.secondaryDarker,
     hintColor: MyColors.black24dp,

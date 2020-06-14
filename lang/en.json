@@ -84,5 +84,6 @@
     "category": "Category",
     "periodicity": "Periodicity",
     "noCategorySelected": "No category selected",
-    "total": "Total"
+    "total": "Total",
+    "settings": "Settings"
 }

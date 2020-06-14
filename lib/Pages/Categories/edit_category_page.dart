@@ -4,6 +4,7 @@ import 'package:Expenseye/Components/Global/bottom_nav_button.dart';
 import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Models/Category.dart';
 import 'package:Expenseye/Providers/Category/edit_category_model.dart';
+import 'package:Expenseye/Providers/Global/theme_notifier.dart';
 import 'package:Expenseye/Resources/Themes/MyColors.dart';
 import 'package:Expenseye/Resources/my_icons.dart';
 import 'package:Expenseye/app_localizations.dart';
@@ -39,10 +40,10 @@ class _EditCategoryPageState extends State<EditCategoryPage> {
           bottomNavigationBar: BottomAppBar(
             color: Colors.transparent,
             child: BottomNavButton(
-              // TODO: change color scheme
-              color: model.type == ItemType.expense
-                  ? MyColors.expenseColor
-                  : MyColors.incomeColor,
+              color: ColorChooserFromTheme.itemColorTypeChooser(
+                widget.category.type,
+                Provider.of<ThemeNotifier>(context).getTheme(),
+              ),
               text: AppLocalizations.of(context).translate('saveCaps'),
               onPressed: () async =>
                   await model.updateCategory(context, _nameController.text),

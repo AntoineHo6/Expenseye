@@ -28,81 +28,93 @@ class ItemsHeader extends StatelessWidget {
               ),
             ),
           ),
-          Container(
-            margin: const EdgeInsets.only(bottom: 10),
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Expanded(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: ColorChooserFromTheme.itemBGColorChooser(
-                        ItemType.income,
-                        themeNotifier.getTheme(),
-                      ),
-                      borderRadius: BorderRadius.circular(7),
+          Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Expanded(
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: ColorChooserFromTheme.itemBGColorChooser(
+                      ItemType.income,
+                      themeNotifier.getTheme(),
                     ),
-                    padding: const EdgeInsets.all(10),
-                    child: Column(
-                      children: <Widget>[
-                        Text(AppLocalizations.of(context).translate('income')),
-                        const SizedBox(height: 5),
-                        Text(
+                    borderRadius: BorderRadius.circular(7),
+                  ),
+                  padding: const EdgeInsets.all(10),
+                  child: Column(
+                    children: <Widget>[
+                      Text(
+                        AppLocalizations.of(context).translate('income'),
+                        style: Theme.of(context).textTheme.subtitle2,
+                      ),
+                      const SizedBox(height: 5),
+                      FittedBox(
+                        child: Text(
                           '${pageModel.currentIncomeTotal.toStringAsFixed(2)} \$',
-                          style: Theme.of(context).textTheme.headline6,
+                          style: Theme.of(context).textTheme.subtitle1,
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: ColorChooserFromTheme.itemBGColorChooser(
-                        ItemType.expense,
-                        themeNotifier.getTheme(),
-                      ),
-                      borderRadius: BorderRadius.circular(7),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: ColorChooserFromTheme.itemBGColorChooser(
+                      ItemType.expense,
+                      themeNotifier.getTheme(),
                     ),
-                    padding: const EdgeInsets.all(10),
-                    child: Column(
-                      children: <Widget>[
-                        Text(AppLocalizations.of(context).translate('expense')),
-                        const SizedBox(height: 5),
-                        Text(
+                    borderRadius: BorderRadius.circular(7),
+                  ),
+                  padding: const EdgeInsets.all(10),
+                  child: Column(
+                    children: <Widget>[
+                      Text(
+                        AppLocalizations.of(context).translate('expense'),
+                        style: Theme.of(context).textTheme.subtitle2,
+                      ),
+                      const SizedBox(height: 5),
+                      FittedBox(
+                        child: Text(
                           '${pageModel.currentExpenseTotal.toStringAsFixed(2)} \$',
-                          style: Theme.of(context).textTheme.headline6,
+                          style: Theme.of(context).textTheme.subtitle1,
                         ),
-                      ],
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 10),
-                Expanded(
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: ColorChooserFromTheme.balanceBgColorChooser(
-                        themeNotifier.getTheme(),
                       ),
-                      borderRadius: BorderRadius.circular(7),
-                    ),
-                    padding: const EdgeInsets.all(10),
-                    child: Column(
-                      children: <Widget>[
-                        Text(AppLocalizations.of(context).translate('balance')),
-                        const SizedBox(height: 5),
-                        Text(
-                          '${pageModel.currentTotal.toStringAsFixed(2)} \$',
-                          style: Theme.of(context).textTheme.headline6,
-                        ),
-                      ],
-                    ),
+                    ],
                   ),
                 ),
-              ],
-            ),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: ColorChooserFromTheme.balanceBgColorChooser(
+                      themeNotifier.getTheme(),
+                    ),
+                    borderRadius: BorderRadius.circular(7),
+                  ),
+                  padding: const EdgeInsets.all(10),
+                  child: Column(
+                    children: <Widget>[
+                      Text(
+                        AppLocalizations.of(context).translate('balance'),
+                        style: Theme.of(context).textTheme.subtitle2,
+                      ),
+                      const SizedBox(height: 5),
+                      FittedBox(
+                        child: Text(
+                          '${pageModel.currentTotal.toStringAsFixed(2)} \$',
+                          style: Theme.of(context).textTheme.subtitle1,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       ),

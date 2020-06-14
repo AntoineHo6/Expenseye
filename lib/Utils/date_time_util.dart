@@ -38,8 +38,9 @@ class DateTimeUtil {
     return DateTime(date.year, date.month, date.day);
   }
 
-  static Future<DateTime> chooseDate(
-      BuildContext context, DateTime initialDate) async {
+  static Future<DateTime> chooseDate(BuildContext context, DateTime initialDate,
+      ThemeData appThemeData) async {
+
     DateTime newDate = await showDatePicker(
       context: context,
       initialDate: initialDate,
@@ -47,7 +48,7 @@ class DateTimeUtil {
       lastDate: DateTime(2030),
       builder: (BuildContext context, Widget child) {
         return Theme(
-          data: ThemeData.dark(),
+          data: appThemeData,
           child: child,
         );
       },
@@ -63,7 +64,6 @@ class DateTimeUtil {
       default:
         // is english
         return '${AppLocalizations.of(context).translate(DateTimeUtil.monthAbb[date.month])} ${date.day}, ${date.year}';
-
     }
   }
 }

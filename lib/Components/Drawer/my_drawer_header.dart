@@ -22,7 +22,7 @@ class MyDrawerHeader extends StatelessWidget {
               alignment: Alignment.topLeft,
               child: Row(
                 children: <Widget>[
-                  Icon(MdiIcons.eyeCircleOutline),
+                  const Icon(MdiIcons.eyeCircleOutline),
                   const SizedBox(
                     width: 15,
                   ),
@@ -67,7 +67,10 @@ class MyDrawerHeader extends StatelessWidget {
                     Text(
                       AppLocalizations.of(context)
                           .translate('signInToAvoidLosingData'),
-                      style: TextStyle(color: Colors.red, fontSize: 11),
+                      style: TextStyle(
+                        color: Theme.of(context).errorColor,
+                        fontSize: 11,
+                      ),
                     ),
                     const SizedBox(
                       height: 7,
@@ -76,17 +79,20 @@ class MyDrawerHeader extends StatelessWidget {
                       children: <Widget>[
                         CircleAvatar(
                           backgroundColor: Colors.white,
-                          child: Icon(Icons.person),
+                          child: const Icon(Icons.person),
                           radius: 25,
                         ),
                         const SizedBox(
                           width: 25,
                         ),
                         RaisedButton(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(0),
+                          ),
                           padding: const EdgeInsets.all(0),
                           child: Image.asset(
                             'assets/btn_google_img.png',
-                            width: 180,
+                            width: 160,
                           ),
                           onPressed: () async {
                             if (_logInFirstPress) {

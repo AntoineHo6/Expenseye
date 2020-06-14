@@ -26,8 +26,14 @@ void main() => runApp(
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
     final themeNotifier = Provider.of<ThemeNotifier>(context);
+
+    if (themeNotifier.getTheme() == MyThemeData.lightTheme) {
+      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
+    }
+    else {
+      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
+    }
 
     return MaterialApp(
       supportedLocales: [Locale('en'), Locale('fr')],

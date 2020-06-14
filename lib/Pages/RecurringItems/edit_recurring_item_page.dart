@@ -6,6 +6,8 @@ import 'package:Expenseye/Components/EditAdd/delete_btn.dart';
 import 'package:Expenseye/Components/EditAdd/name_text_field.dart';
 import 'package:Expenseye/Components/Global/bottom_nav_button.dart';
 import 'package:Expenseye/Models/recurring_item.dart';
+import 'package:Expenseye/Providers/Global/db_model.dart';
+import 'package:Expenseye/Providers/Global/theme_notifier.dart';
 import 'package:Expenseye/Providers/RecurringItems/edit_recurring_item_model.dart';
 import 'package:Expenseye/Resources/Themes/MyColors.dart';
 import 'package:Expenseye/app_localizations.dart';
@@ -42,8 +44,14 @@ class _EditRecurringItemPageState extends State<EditRecurringItemPage> {
           bottomNavigationBar: BottomAppBar(
             color: Colors.transparent,
             child: BottomNavButton(
-              color: MyColors.secondaryDarker,
-              disabledColor: MyColors.secondaryDisabled,
+              color: ColorChooserFromTheme.itemColorTypeChooser(
+                DbModel.catMap[widget.recurringItem.category].type,
+                Provider.of<ThemeNotifier>(context).getTheme(),
+              ),
+              disabledColor: ColorChooserFromTheme.itemBGColorChooser(
+                DbModel.catMap[widget.recurringItem.category].type,
+                Provider.of<ThemeNotifier>(context).getTheme(),
+              ),
               text: AppLocalizations.of(context).translate('saveCaps'),
               onPressed: model.didInfoChange
                   ? () async => await model.editRecurringItem(

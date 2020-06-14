@@ -4,6 +4,21 @@ import 'package:flutter/material.dart';
 class MyThemeData {
   static final lightTheme = ThemeData(
     brightness: Brightness.light,
+    primarySwatch: MaterialColor(
+      0xff38C6B9,
+      const <int, Color>{
+        50: const Color(0xff38C6B9),
+        100: const Color(0xff38C6B9),
+        200: const Color(0xff38C6B9),
+        300: const Color(0xff38C6B9),
+        400: const Color(0xff38C6B9),
+        500: const Color(0xff38C6B9),
+        600: const Color(0xff38C6B9),
+        700: const Color(0xff38C6B9),
+        800: const Color(0xff38C6B9),
+        900: const Color(0xff38C6B9),
+      },
+    ),
     iconTheme: IconThemeData(color: Colors.black),
     buttonTheme: ButtonThemeData(
       buttonColor: Colors.grey[200],
@@ -14,13 +29,12 @@ class MyThemeData {
     buttonColor: Colors.grey[200],
     primaryColor: Colors.grey[100],
     backgroundColor: Colors.white,
-    dividerColor: Colors.black,
-    focusColor: Colors.grey[600],
+    dialogBackgroundColor: Colors.white,
+    focusColor: Colors.black,
     scaffoldBackgroundColor: Colors.white,
     cardColor: Colors.grey[200],
     accentColor: MyColors.secondaryDarker,
-    hintColor: Colors.grey[400],
-    // disabledColor: MyColors.secondaryDisabled,
+    hintColor: Colors.grey[500],
     indicatorColor: MyColors.secondary,
     floatingActionButtonTheme: FloatingActionButtonThemeData(
       backgroundColor: MyColors.secondary,
@@ -44,6 +58,21 @@ class MyThemeData {
 
   static final darkTheme = ThemeData(
     brightness: Brightness.dark,
+    primarySwatch: MaterialColor(
+      0xff33B4A8,
+      const <int, Color>{
+        50: const Color(0xff33B4A8),
+        100: const Color(0xff33B4A8),
+        200: const Color(0xff33B4A8),
+        300: const Color(0xff33B4A8),
+        400: const Color(0xff33B4A8),
+        500: const Color(0xff33B4A8),
+        600: const Color(0xff33B4A8),
+        700: const Color(0xff33B4A8),
+        800: const Color(0xff33B4A8),
+        900: const Color(0xff33B4A8),
+      },
+    ),
     iconTheme: IconThemeData(color: Colors.white),
     buttonTheme: ButtonThemeData(
       buttonColor: MyColors.black06dp,
@@ -52,14 +81,13 @@ class MyThemeData {
       ),
     ),
     primaryColor: MyColors.black02dp,
-    dividerColor: Colors.white,
     backgroundColor: MyColors.black00dp,
     scaffoldBackgroundColor: MyColors.black00dp,
     cardColor: MyColors.black06dp,
     accentColor: MyColors.secondaryDarker,
     hintColor: MyColors.black24dp,
-    disabledColor: MyColors.secondaryDisabled,
     indicatorColor: MyColors.secondary,
+    dialogBackgroundColor: MyColors.black00dp,
     floatingActionButtonTheme: FloatingActionButtonThemeData(
       backgroundColor: MyColors.secondary,
     ),

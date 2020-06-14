@@ -26,10 +26,10 @@ class MyTableCalendar extends StatelessWidget {
         formatButtonVisible: false,
       ),
       calendarStyle: CalendarStyle(
+        outsideDaysVisible: false,
         todayColor: Theme.of(context).hintColor,
         selectedColor: Theme.of(context).accentColor,
         weekendStyle: TextStyle(color: Theme.of(context).accentColor),
-        outsideWeekendStyle: TextStyle(color: Theme.of(context).disabledColor),
       ),
       calendarController: calendarController,
       initialSelectedDay: initialDate,

@@ -42,8 +42,7 @@ class MonthlyModel extends ChangeNotifier {
     if (currentDate.month == 1) {
       newMonth = 12;
       newYear = currentDate.year - 1;
-    }
-    else {
+    } else {
       newMonth = currentDate.month - 1;
     }
 
@@ -51,8 +50,10 @@ class MonthlyModel extends ChangeNotifier {
   }
 
   void updateYearMonthAbbr(BuildContext context, DateTime newMonth) {
+    // yearMonthAbbr =
+    //     '${AppLocalizations.of(context).translate(DateTimeUtil.monthAbb[newMonth.month])} ${newMonth.year}';
     yearMonthAbbr =
-        '${AppLocalizations.of(context).translate(DateTimeUtil.monthAbb[newMonth.month])} ${newMonth.year}';
+        '${AppLocalizations.of(context).translate(DateTimeUtil.monthAbb[newMonth.month])}';
   }
 
   /// Returns String format of DateTime containing strictly it's month & year,

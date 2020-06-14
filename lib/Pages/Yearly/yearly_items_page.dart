@@ -74,12 +74,7 @@ class _MonthContainer extends StatelessWidget {
     final _itemModel = Provider.of<ItemModel>(context);
 
     return Container(
-      margin: const EdgeInsets.only(
-        top: 4,
-        left: 10,
-        right: 10,
-        bottom: 15,
-      ),
+      margin: const EdgeInsets.all(10),
       child: RaisedButton(
         elevation: 3,
         shape: RoundedRectangleBorder(

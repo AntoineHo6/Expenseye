@@ -22,7 +22,7 @@ class MyDrawer extends StatelessWidget {
           children: <Widget>[
             MyDrawerHeader(),
             ListTile(
-              leading: Icon(
+              leading: const Icon(
                 MdiIcons.calendarBlank,
               ),
               title: Text(AppLocalizations.of(context).translate('monthly')),
@@ -32,7 +32,7 @@ class MyDrawer extends StatelessWidget {
               },
             ),
             ListTile(
-              leading: Icon(
+              leading: const Icon(
                 MdiIcons.calendarBlankMultiple,
               ),
               title: Text(AppLocalizations.of(context).translate('yearly')),
@@ -42,7 +42,7 @@ class MyDrawer extends StatelessWidget {
               },
             ),
             ListTile(
-              leading: Icon(
+              leading: const Icon(
                 MdiIcons.viewGrid,
               ),
               title: Text(AppLocalizations.of(context).translate('categories')),
@@ -52,7 +52,7 @@ class MyDrawer extends StatelessWidget {
               },
             ),
             ListTile(
-              leading: Icon(
+              leading: const Icon(
                 MdiIcons.calendarClock,
               ),
               title: Text(
@@ -63,25 +63,27 @@ class MyDrawer extends StatelessWidget {
               },
             ),
             ListTile(
-              leading: Icon(
+              leading: const Icon(
                 Icons.settings,
               ),
-              // TODO: use app localization
-              title: Text('Settings'),
+              title: Text(AppLocalizations.of(context).translate('settings')),
               onTap: () {
                 Navigator.of(context).pop(context);
                 _openSettingsPage(context);
               },
             ),
-            ListTile(
-              leading: Icon(
-                Icons.info_outline,
+            AboutListTile(
+              icon: const Icon(Icons.info_outline),
+              applicationName: 'Expenseye',
+              applicationVersion: Strings.versionNumber,
+              applicationLegalese:
+                  '${AppLocalizations.of(context).translate('appBy')}\n\n${Strings.privacyLegalese}',
+              applicationIcon: Image.asset(
+                'assets/icon/icon.png',
+                width: 40,
+                height: 40,
+                color: null,
               ),
-              title: Text(AppLocalizations.of(context).translate('about')),
-              onTap: () {
-                Navigator.of(context).pop(context);
-                _openAboutPage(context);
-              },
             ),
           ],
         ),
@@ -101,22 +103,6 @@ class MyDrawer extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => YearlyHomePage()),
-    );
-  }
-
-  void _openAboutPage(BuildContext context) {
-    // TODO: change button color schemes
-    showAboutDialog(
-      context: context,
-      applicationVersion: Strings.versionNumber,
-      applicationLegalese:
-          '${AppLocalizations.of(context).translate('appBy')}\n\n${Strings.privacyLegalese}',
-      applicationIcon: Image.asset(
-        'assets/icon/icon.png',
-        width: 40,
-        height: 40,
-        color: null,
-      ),
     );
   }
 

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class PeriodChooser extends StatelessWidget {
-
   final String text;
   final Function onPressedLeft;
   final Function onPressedRight;
@@ -11,10 +10,11 @@ class PeriodChooser extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         RaisedButton(
           textColor: Theme.of(context).textTheme.bodyText1.color,
-          onPressed: () => onPressedLeft(),
+          onPressed: onPressedLeft,
           child: const Icon(Icons.chevron_left),
           shape: const CircleBorder(
             side: const BorderSide(color: Colors.transparent),
@@ -27,7 +27,7 @@ class PeriodChooser extends StatelessWidget {
         ),
         RaisedButton(
           textColor: Theme.of(context).textTheme.bodyText1.color,
-          onPressed: () => onPressedRight(),
+          onPressed: onPressedRight,
           child: const Icon(Icons.chevron_right),
           shape: const CircleBorder(
             side: const BorderSide(color: Colors.transparent),

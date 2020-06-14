@@ -1,3 +1,4 @@
+import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Models/Item.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:Expenseye/Providers/Global/theme_notifier.dart';
@@ -9,8 +10,9 @@ class ItemListTile extends StatelessWidget {
   final Item item;
   final EdgeInsets contentPadding;
   final Function onPressed;
+  final Color color;
 
-  ItemListTile(this.item, {this.contentPadding, this.onPressed});
+  ItemListTile(this.item, {this.contentPadding, this.onPressed, this.color});
 
   @override
   Widget build(BuildContext context) {
@@ -19,10 +21,7 @@ class ItemListTile extends StatelessWidget {
     final themeNotifier = Provider.of<ThemeNotifier>(context);
 
     return RaisedButton(
-      color: ColorChooserFromTheme.itemBGColorChooser(
-        item.type,
-        themeNotifier.getTheme(),
-      ),
+      color: color,
       elevation: 3,
       onPressed: onPressed,
       highlightColor: categoryColor.withOpacity(0.1),
@@ -38,8 +37,16 @@ class ItemListTile extends StatelessWidget {
           style: Theme.of(context).textTheme.subtitle1,
         ),
         trailing: Text(
-          '${item.amount.toStringAsFixed(2)} \$',
-          style: Theme.of(context).textTheme.subtitle2,
+          item.type == ItemType.expense
+              ? '-${item.amount.toStringAsFixed(2)} \$'
+              : '${item.amount.toStringAsFixed(2)} \$',
+          // style: Theme.of(context).textTheme.subtitle2,
+          style: TextStyle(
+            color: ColorChooserFromTheme.itemColorTypeChooser(
+              item.type,
+              themeNotifier.getTheme(),
+            ),
+          ),
         ),
       ),
     );

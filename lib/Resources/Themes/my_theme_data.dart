@@ -26,7 +26,7 @@ class MyThemeData {
         borderRadius: BorderRadius.circular(10),
       ),
     ),
-    buttonColor: Colors.grey[200],
+    // buttonColor: Colors.grey[300],
     primaryColor: Colors.grey[100],
     backgroundColor: Colors.white,
     dialogBackgroundColor: Colors.white,

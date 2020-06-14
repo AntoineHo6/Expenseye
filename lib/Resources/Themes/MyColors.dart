@@ -24,7 +24,7 @@ class MyColors {
 }
 
 class AppLightThemeColors {
-  static const expenseBGColor = Color(0xFFFFE7E7);
+  static const expenseBGColor = Color(0xFFff9e9e);
   static const expenseColor = Color(0xffB94747);
   static const incomeBGColor = Color(0xFFEBFFE7);
   static const incomeColor = Color(0xff51B442);

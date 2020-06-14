@@ -13,8 +13,10 @@ class StatsPage extends StatelessWidget {
   final localModel;
   final GetItems future;
 
-  StatsPage({@required this.localModel, @required this.future})
-      : assert(localModel != null);
+  StatsPage({
+    @required this.localModel,
+    @required this.future,
+  }) : assert(localModel != null);
 
   @override
   Widget build(BuildContext context) {

@@ -14,12 +14,12 @@ class ConfirmationDialog extends StatelessWidget {
       actions: <Widget>[
         FlatButton(
           onPressed: () => Navigator.pop(context, false),
-          textColor: Colors.white,
+          textColor: Theme.of(context).focusColor,
           child: Text(AppLocalizations.of(context).translate('cancelCaps')),
         ),
         FlatButton(
           onPressed: () => Navigator.pop(context, true),
-          textColor: Colors.white,
+          textColor: Theme.of(context).focusColor,
           child: Text(AppLocalizations.of(context).translate('confirmCaps')),
         ),
       ],

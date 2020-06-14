@@ -64,8 +64,8 @@ class _CategoryAddRecItemPageState extends State<CategoryAddRecItemPage>
               child: GridView.count(
                 primary: false,
                 padding: const EdgeInsets.all(10),
-                crossAxisSpacing: 5,
-                mainAxisSpacing: 5,
+                crossAxisSpacing: 7,
+                mainAxisSpacing: 7,
                 crossAxisCount: 4,
                 children: List.generate(
                   categorieKeys.length,

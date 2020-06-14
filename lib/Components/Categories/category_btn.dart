@@ -13,7 +13,7 @@ class CategoryBtn extends StatelessWidget {
     return RaisedButton(
       highlightColor: DbModel.catMap[category.id].color.withOpacity(0.1),
       splashColor: DbModel.catMap[category.id].color.withOpacity(0.1),
-      elevation: 8,
+      elevation: 3,
       onPressed: onPressed,
       child: Column(
         mainAxisSize: MainAxisSize.min,

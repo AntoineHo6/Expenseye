@@ -8,7 +8,7 @@ class DeleteBtn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RaisedButton(
-      elevation: 8,
+      elevation: 3,
       textColor: Theme.of(context).textTheme.bodyText1.color,
       onPressed: onPressed,
       child: const Icon(Icons.delete_forever),

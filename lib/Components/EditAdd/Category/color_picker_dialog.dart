@@ -22,14 +22,14 @@ class ColorPickerDialog extends StatelessWidget {
       ),
       actions: <Widget>[
         FlatButton(
-          textColor: Colors.white,
+          textColor: Theme.of(context).focusColor,
           child: Text(AppLocalizations.of(context).translate('cancelCaps')),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
         FlatButton(
-          textColor: Colors.white,
+          textColor: Theme.of(context).focusColor,
           child: Text(AppLocalizations.of(context).translate('confirmCaps')),
           onPressed: () {
             Navigator.pop(context, currentColor);

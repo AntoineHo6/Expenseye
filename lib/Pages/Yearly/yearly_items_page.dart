@@ -81,7 +81,7 @@ class _MonthContainer extends StatelessWidget {
         bottom: 15,
       ),
       child: RaisedButton(
-        elevation: 8,
+        elevation: 3,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),
@@ -135,7 +135,12 @@ class _MonthContainer extends StatelessWidget {
   void openMonthsPage(BuildContext context, DateTime date) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => MonthlyHomePage(date: date, isMonthPickerVisible: false,)),
+      MaterialPageRoute(
+        builder: (context) => MonthlyHomePage(
+          date: date,
+          isMonthPickerVisible: false,
+        ),
+      ),
     );
   }
 }

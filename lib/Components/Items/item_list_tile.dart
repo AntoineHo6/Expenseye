@@ -1,8 +1,9 @@
-import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Models/Item.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
+import 'package:Expenseye/Providers/Global/theme_notifier.dart';
 import 'package:Expenseye/Resources/Themes/MyColors.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ItemListTile extends StatelessWidget {
   final Item item;
@@ -13,22 +14,24 @@ class ItemListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color color = DbModel.catMap[item.categoryId].color;
+    Color categoryColor = DbModel.catMap[item.categoryId].color;
     IconData iconData = DbModel.catMap[item.categoryId].iconData;
+    final themeNotifier = Provider.of<ThemeNotifier>(context);
 
     return RaisedButton(
-      elevation: 8,
-      color: item.type == ItemType.expense
-          ? MyColors.expenseBGColor
-          : MyColors.incomeBGColor,
+      color: ColorChooserFromTheme.itemBGColorChooser(
+        item.type,
+        themeNotifier.getTheme(),
+      ),
+      elevation: 3,
       onPressed: onPressed,
-      highlightColor: color.withOpacity(0.1),
-      splashColor: color.withOpacity(0.1),
+      highlightColor: categoryColor.withOpacity(0.1),
+      splashColor: categoryColor.withOpacity(0.1),
       child: ListTile(
         contentPadding: contentPadding,
         leading: Icon(
           iconData,
-          color: color,
+          color: categoryColor,
         ),
         title: Text(
           item.name,

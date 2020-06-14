@@ -24,7 +24,6 @@ class _RecurringItemsPageState extends State<RecurringItemsPage> {
         title: Text(AppLocalizations.of(context).translate('recurringItems')),
         actions: <Widget>[
           RaisedButton(
-            textColor: Colors.white,
             onPressed: () {
               Navigator.push(
                 context,

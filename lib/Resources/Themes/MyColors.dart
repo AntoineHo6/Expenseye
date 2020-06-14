@@ -1,3 +1,5 @@
+import 'package:Expenseye/Enums/item_type.dart';
+import 'package:Expenseye/Resources/Themes/my_theme_data.dart';
 import 'package:flutter/material.dart';
 
 class MyColors {
@@ -16,5 +18,37 @@ class MyColors {
   static const incomeColor = Color(0xff316B28);
   static const expenseBGColor = Color(0xff231B1B);
   static const expenseColor = Color(0xff692626);
-  static const balanceColor = Color(0xff2B2B1E);
+  static const balanceBGColor = Color(0xff2B2B1E);
+}
+
+class AppLightThemeColors {
+  static const expenseBGColor = Color(0xFFFFE7E7);
+  static const incomeBGColor = Color(0xFFEBFFE7);
+  static const balanceBGColor = Color(0xFFFDFFC9);
+}
+
+class ColorChooserFromTheme {
+  static itemBGColorChooser(ItemType type, ThemeData theme) {
+    if (type == ItemType.expense) {
+      if (theme == MyThemeData.lightTheme) {
+        return AppLightThemeColors.expenseBGColor;
+      } else {
+        return MyColors.expenseBGColor;
+      }
+    } else {
+      if (theme == MyThemeData.lightTheme) {
+        return AppLightThemeColors.incomeBGColor;
+      } else {
+        return MyColors.incomeBGColor;
+      }
+    }
+  }
+
+  static balanceBgColorChooser(ThemeData theme) {
+    if (theme == MyThemeData.lightTheme) {
+      return AppLightThemeColors.balanceBGColor;
+    } else {
+      return MyColors.balanceBGColor;
+    }
+  }
 }

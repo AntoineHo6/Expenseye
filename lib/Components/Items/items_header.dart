@@ -1,6 +1,9 @@
+import 'package:Expenseye/Enums/item_type.dart';
+import 'package:Expenseye/Providers/Global/theme_notifier.dart';
 import 'package:Expenseye/Resources/Themes/MyColors.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ItemsHeader extends StatelessWidget {
   final pageModel; // DailyModel, MonthlyModel or YearlyModel
@@ -9,6 +12,8 @@ class ItemsHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeNotifier = Provider.of<ThemeNotifier>(context);
+
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
       child: Column(
@@ -32,7 +37,10 @@ class ItemsHeader extends StatelessWidget {
                 Expanded(
                   child: Container(
                     decoration: BoxDecoration(
-                      color: MyColors.incomeBGColor,
+                      color: ColorChooserFromTheme.itemBGColorChooser(
+                        ItemType.income,
+                        themeNotifier.getTheme(),
+                      ),
                       borderRadius: BorderRadius.circular(7),
                     ),
                     padding: const EdgeInsets.all(10),
@@ -52,7 +60,10 @@ class ItemsHeader extends StatelessWidget {
                 Expanded(
                   child: Container(
                     decoration: BoxDecoration(
-                      color: MyColors.expenseBGColor,
+                      color: ColorChooserFromTheme.itemBGColorChooser(
+                        ItemType.expense,
+                        themeNotifier.getTheme(),
+                      ),
                       borderRadius: BorderRadius.circular(7),
                     ),
                     padding: const EdgeInsets.all(10),
@@ -72,7 +83,9 @@ class ItemsHeader extends StatelessWidget {
                 Expanded(
                   child: Container(
                     decoration: BoxDecoration(
-                      color: MyColors.balanceColor,
+                      color: ColorChooserFromTheme.balanceBgColorChooser(
+                        themeNotifier.getTheme(),
+                      ),
                       borderRadius: BorderRadius.circular(7),
                     ),
                     padding: const EdgeInsets.all(10),

@@ -16,7 +16,6 @@ class _MyBottomNavBarState extends State<MyBottomNavBar> {
   Widget build(BuildContext context) {
     return BottomNavigationBar(
       selectedIconTheme: IconThemeData(color: Theme.of(context).indicatorColor),
-      backgroundColor: Theme.of(context).bottomAppBarColor,
       currentIndex: widget.currentIndex,
       onTap: widget.onTap,
       items: [

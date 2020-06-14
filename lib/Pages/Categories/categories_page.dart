@@ -43,7 +43,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
                 size: 35.0,
               ),
               shape: const CircleBorder(),
-              elevation: 8.0,
+              elevation: 3,
               fillColor: Theme.of(context).primaryColor,
             ),
           );

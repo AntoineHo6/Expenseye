@@ -1,6 +1,7 @@
 import 'package:Expenseye/Components/Drawer/my_drawer_header.dart';
 import 'package:Expenseye/Pages/Categories/cat_home_page.dart';
 import 'package:Expenseye/Pages/Monthly/monthly_home_page.dart';
+import 'package:Expenseye/Pages/Settings/settings_page.dart';
 import 'package:Expenseye/Pages/Yearly/yearly_home_page.dart';
 import 'package:Expenseye/Pages/RecurringItems/recurring_items_page.dart';
 import 'package:Expenseye/Resources/Strings.dart';
@@ -23,7 +24,6 @@ class MyDrawer extends StatelessWidget {
             ListTile(
               leading: Icon(
                 MdiIcons.calendarBlank,
-                color: Theme.of(context).iconTheme.color,
               ),
               title: Text(AppLocalizations.of(context).translate('monthly')),
               onTap: () {
@@ -34,7 +34,6 @@ class MyDrawer extends StatelessWidget {
             ListTile(
               leading: Icon(
                 MdiIcons.calendarBlankMultiple,
-                color: Theme.of(context).iconTheme.color,
               ),
               title: Text(AppLocalizations.of(context).translate('yearly')),
               onTap: () {
@@ -45,7 +44,6 @@ class MyDrawer extends StatelessWidget {
             ListTile(
               leading: Icon(
                 MdiIcons.viewGrid,
-                color: Theme.of(context).iconTheme.color,
               ),
               title: Text(AppLocalizations.of(context).translate('categories')),
               onTap: () {
@@ -56,7 +54,6 @@ class MyDrawer extends StatelessWidget {
             ListTile(
               leading: Icon(
                 MdiIcons.calendarClock,
-                color: Theme.of(context).iconTheme.color,
               ),
               title: Text(
                   AppLocalizations.of(context).translate('recurringItems')),
@@ -67,8 +64,18 @@ class MyDrawer extends StatelessWidget {
             ),
             ListTile(
               leading: Icon(
+                Icons.settings,
+              ),
+              // TODO: use app localization
+              title: Text('Settings'),
+              onTap: () {
+                Navigator.of(context).pop(context);
+                _openSettingsPage(context);
+              },
+            ),
+            ListTile(
+              leading: Icon(
                 Icons.info_outline,
-                color: Theme.of(context).iconTheme.color,
               ),
               title: Text(AppLocalizations.of(context).translate('about')),
               onTap: () {
@@ -98,10 +105,12 @@ class MyDrawer extends StatelessWidget {
   }
 
   void _openAboutPage(BuildContext context) {
+    // TODO: change button color schemes
     showAboutDialog(
       context: context,
       applicationVersion: Strings.versionNumber,
-      applicationLegalese: '${AppLocalizations.of(context).translate('appBy')}\n\n${Strings.privacyLegalese}',
+      applicationLegalese:
+          '${AppLocalizations.of(context).translate('appBy')}\n\n${Strings.privacyLegalese}',
       applicationIcon: Image.asset(
         'assets/icon/icon.png',
         width: 40,
@@ -122,6 +131,13 @@ class MyDrawer extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => RecurringItemsPage()),
+    );
+  }
+
+  void _openSettingsPage(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => SettingsPage()),
     );
   }
 }

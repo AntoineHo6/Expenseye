@@ -42,6 +42,7 @@ class _EditItemPageState extends State<EditItemPage> {
           bottomNavigationBar: BottomAppBar(
             color: Colors.transparent,
             child: BottomNavButton(
+              // TODO: change color
               color: MyColors.secondaryDarker,
               disabledColor: MyColors.secondaryDisabled,
               text: AppLocalizations.of(context).translate('saveCaps'),

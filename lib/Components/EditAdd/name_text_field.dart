@@ -20,7 +20,7 @@ class NameTextField extends StatelessWidget {
       decoration: InputDecoration(
         focusedBorder: UnderlineInputBorder(
           borderSide: BorderSide(
-            color: Colors.white,
+            color: Theme.of(context).focusColor,
           ),
         ),
         enabledBorder: UnderlineInputBorder(

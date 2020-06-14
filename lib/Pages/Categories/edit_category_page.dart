@@ -39,6 +39,7 @@ class _EditCategoryPageState extends State<EditCategoryPage> {
           bottomNavigationBar: BottomAppBar(
             color: Colors.transparent,
             child: BottomNavButton(
+              // TODO: change color scheme
               color: model.type == ItemType.expense
                   ? MyColors.expenseColor
                   : MyColors.incomeColor,

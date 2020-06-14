@@ -2,6 +2,7 @@ import 'package:Expenseye/Helpers/database_helper.dart';
 import 'package:Expenseye/Pages/daily_page.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:Expenseye/Providers/Global/item_model.dart';
+import 'package:Expenseye/Providers/Global/theme_notifier.dart';
 import 'package:Expenseye/Resources/Themes/my_theme_data.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
@@ -10,42 +11,47 @@ import 'package:provider/provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter/cupertino.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(
+      MultiProvider(
+        providers: [
+          ChangeNotifierProvider<DbModel>(create: (_) => DbModel()),
+          ChangeNotifierProvider<ItemModel>(create: (_) => ItemModel()),
+          ChangeNotifierProvider<ThemeNotifier>(
+              create: (_) => ThemeNotifier(MyThemeData.lightTheme)),
+        ],
+        child: MyApp(),
+      ),
+    );
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
+    final themeNotifier = Provider.of<ThemeNotifier>(context);
 
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider<DbModel>(create: (_) => DbModel()),
-        ChangeNotifierProvider<ItemModel>(create: (_) => ItemModel())
+    return MaterialApp(
+      supportedLocales: [Locale('en'), Locale('fr')],
+      localizationsDelegates: [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        DefaultCupertinoLocalizations.delegate
       ],
-      child: MaterialApp(
-        supportedLocales: [Locale('en'), Locale('fr')],
-        localizationsDelegates: [
-          AppLocalizations.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          DefaultCupertinoLocalizations.delegate
-        ],
-        localeResolutionCallback: (locale, supportedLocales) {
-          for (var supportedLocale in supportedLocales) {
-            if (supportedLocale.languageCode == locale.languageCode) {
-              DatabaseHelper.instance.languageCode = locale.languageCode;
-              return supportedLocale;
-            }
+      localeResolutionCallback: (locale, supportedLocales) {
+        for (var supportedLocale in supportedLocales) {
+          if (supportedLocale.languageCode == locale.languageCode) {
+            DatabaseHelper.instance.languageCode = locale.languageCode;
+            return supportedLocale;
           }
-          DatabaseHelper.instance.languageCode =
-              supportedLocales.first.languageCode;
-          return supportedLocales.first;
-        },
-        home: Scaffold(
-          body: DailyPage(),
-        ),
-        theme: MyThemeData.darkTheme,
+        }
+        DatabaseHelper.instance.languageCode =
+            supportedLocales.first.languageCode;
+        return supportedLocales.first;
+      },
+      home: Scaffold(
+        body: DailyPage(),
       ),
+      theme: themeNotifier.getTheme(),
     );
   }
 }

@@ -74,7 +74,12 @@ class _CategoryAddRecItemPageState extends State<CategoryAddRecItemPage>
                     if (selectedIconIndex != null &&
                         index == selectedIconIndex) {
                       return Container(
-                        color: DbModel.catMap[key].color,
+                        decoration: BoxDecoration(
+                          color: DbModel.catMap[key].color,
+                          borderRadius: const BorderRadius.all(
+                            const Radius.circular(10),
+                          ),
+                        ),
                         padding: const EdgeInsets.all(4),
                         child: CategoryBtn(
                           category: DbModel.catMap[key],

@@ -87,7 +87,7 @@ class MyDrawerHeader extends StatelessWidget {
                         ),
                         RaisedButton(
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(0),
+                            borderRadius: BorderRadius.circular(2),
                           ),
                           padding: const EdgeInsets.all(0),
                           child: Image.asset(

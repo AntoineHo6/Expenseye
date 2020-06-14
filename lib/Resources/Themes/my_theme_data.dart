@@ -84,6 +84,12 @@ class MyThemeData {
     backgroundColor: MyColors.black00dp,
     scaffoldBackgroundColor: MyColors.black00dp,
     cardColor: MyColors.black06dp,
+    cardTheme: CardTheme(
+      color: MyColors.black06dp,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+    ),
     accentColor: MyColors.secondaryDarker,
     hintColor: MyColors.black24dp,
     indicatorColor: MyColors.secondary,

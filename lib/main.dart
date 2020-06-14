@@ -10,18 +10,28 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() => runApp(
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  bool darkModeOn;
+  await SharedPreferences.getInstance().then((prefs) {
+    darkModeOn = prefs.getBool('darkMode') ?? true;
+    runApp(
       MultiProvider(
         providers: [
           ChangeNotifierProvider<DbModel>(create: (_) => DbModel()),
           ChangeNotifierProvider<ItemModel>(create: (_) => ItemModel()),
           ChangeNotifierProvider<ThemeNotifier>(
-              create: (_) => ThemeNotifier(MyThemeData.lightTheme)),
+            create: (_) => ThemeNotifier(
+                darkModeOn ? MyThemeData.darkTheme : MyThemeData.lightTheme),
+          ),
         ],
         child: MyApp(),
       ),
     );
+  });
+}
 
 class MyApp extends StatelessWidget {
   @override
@@ -30,8 +40,7 @@ class MyApp extends StatelessWidget {
 
     if (themeNotifier.getTheme() == MyThemeData.lightTheme) {
       SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
-    }
-    else {
+    } else {
       SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
     }
 

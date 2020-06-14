@@ -112,7 +112,12 @@ class _EditCategoryPageState extends State<EditCategoryPage> {
         if (model.selectedIconIndex != null &&
             index == model.selectedIconIndex) {
           return Container(
-            color: model.color,
+            decoration: BoxDecoration(
+              color: model.color,
+              borderRadius: const BorderRadius.all(
+                const Radius.circular(10),
+              ),
+            ),
             padding: const EdgeInsets.all(2),
             child: RaisedButton(
               onPressed: () => model.changeSelectedIcon(index),

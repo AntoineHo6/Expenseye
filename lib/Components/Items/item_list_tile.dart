@@ -37,10 +37,7 @@ class ItemListTile extends StatelessWidget {
           style: Theme.of(context).textTheme.subtitle1,
         ),
         trailing: Text(
-          item.type == ItemType.expense
-              ? '-${item.amount.toStringAsFixed(2)} \$'
-              : '${item.amount.toStringAsFixed(2)} \$',
-          // style: Theme.of(context).textTheme.subtitle2,
+          item.type == ItemType.expense ? '- ${item.amount.toStringAsFixed(2)} \$' : '+ ${item.amount.toStringAsFixed(2)} \$',
           style: TextStyle(
             color: ColorChooserFromTheme.itemColorTypeChooser(
               item.type,

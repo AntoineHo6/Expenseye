@@ -26,13 +26,12 @@ class MyThemeData {
         borderRadius: BorderRadius.circular(10),
       ),
     ),
-    // buttonColor: Colors.grey[300],
     primaryColor: Colors.grey[100],
     backgroundColor: Colors.white,
     dialogBackgroundColor: Colors.white,
     focusColor: Colors.black,
     scaffoldBackgroundColor: Colors.white,
-    cardColor: Colors.grey[200],
+    cardColor: Colors.grey[100],
     accentColor: MyColors.secondaryDarker,
     hintColor: Colors.grey[500],
     indicatorColor: MyColors.secondary,
@@ -83,7 +82,7 @@ class MyThemeData {
     primaryColor: MyColors.black02dp,
     backgroundColor: MyColors.black00dp,
     scaffoldBackgroundColor: MyColors.black00dp,
-    cardColor: MyColors.black06dp,
+    cardColor: MyColors.black02dp,
     cardTheme: CardTheme(
       color: MyColors.black06dp,
       shape: RoundedRectangleBorder(

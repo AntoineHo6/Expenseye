@@ -83,7 +83,9 @@ class DatabaseHelper {
             ''');
   }
 
-  Future _onUpgrade(Database db, int oldVersion, int newVersion) async {}
+  Future _onUpgrade(Database db, int oldVersion, int newVersion) async {
+    print('UPGRAADINGGGGGGGG');
+  }
 
   // * ITEMS
   Future<int> insertItem(Item expense) async {

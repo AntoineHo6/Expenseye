@@ -75,7 +75,7 @@ class StatsPage extends StatelessWidget {
                             child: CategoryStatsContainer(
                               data: aggregatedItems[0].data,
                               totalCost:
-                                  calcExpensesTotal(aggregatedItems[0].data),
+                                  _calcExpensesTotal(aggregatedItems[0].data),
                             ),
                           ),
                         ],
@@ -101,7 +101,7 @@ class StatsPage extends StatelessWidget {
     );
   }
 
-  double calcExpensesTotal(List<ExpenseGroup> expenseGroups) {
+  double _calcExpensesTotal(List<ExpenseGroup> expenseGroups) {
     double total = 0;
 
     for (var expenseGroup in expenseGroups) {

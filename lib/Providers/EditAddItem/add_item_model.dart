@@ -44,8 +44,13 @@ class AddItemModel extends ChangeNotifier {
 
     // if all the fields are valid, add and quit
     if (!areFieldsInvalid && !isCategoryMissingError) {
-      Item newItem =
-          new Item(newName, double.parse(newAmount), newDate, type, categoryId);
+      Item newItem = new Item(
+        newName,
+        double.parse(newAmount),
+        newDate,
+        type,
+        categoryId,
+      );
 
       Provider.of<DbModel>(context, listen: false).addItem(newItem);
       Navigator.pop(context, true);

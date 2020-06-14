@@ -17,9 +17,9 @@ class MyColors {
   static const Color secondaryDisabled = Color(0xff0D2F2C);
 
   static const incomeBGColor = Color(0xff1C231B);
-  static const incomeColor = Color(0xff316B28);
+  static const incomeColor = Color(0xff81e349);
   static const expenseBGColor = Color(0xff231B1B);
-  static const expenseColor = Color(0xff692626);
+  static const expenseColor = Color(0xffff5252);
   static const balanceBGColor = Color(0xff2B2B1E);
 }
 
@@ -27,7 +27,7 @@ class AppLightThemeColors {
   static const expenseBGColor = Color(0xFFff9e9e);
   static const expenseColor = Color(0xffB94747);
   static const incomeBGColor = Color(0xFFEBFFE7);
-  static const incomeColor = Color(0xff51B442);
+  static const incomeColor = Color(0xff459c38);
   static const balanceBGColor = Color(0xFFFDFFC9);
 }
 

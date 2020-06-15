@@ -1,3 +1,4 @@
+import 'package:Expenseye/Components/Global/local_notification.dart';
 import 'package:Expenseye/Helpers/database_helper.dart';
 import 'package:Expenseye/Pages/daily_page.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
@@ -64,7 +65,8 @@ class MyApp extends StatelessWidget {
         return supportedLocales.first;
       },
       home: Scaffold(
-        body: DailyPage(),
+        // body: DailyPage(),
+        body: LocalNotification(),
       ),
       theme: themeNotifier.getTheme(),
     );

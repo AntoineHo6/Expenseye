@@ -4,7 +4,9 @@ import 'package:Expenseye/Models/Item.dart';
 import 'package:Expenseye/Pages/Monthly/monthly_home_page.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:Expenseye/Providers/Global/item_model.dart';
+import 'package:Expenseye/Providers/Global/theme_notifier.dart';
 import 'package:Expenseye/Providers/yearly_model.dart';
+import 'package:Expenseye/Resources/Themes/MyColors.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
@@ -95,7 +97,11 @@ class _MonthContainer extends StatelessWidget {
                     _itemModel.totalString(
                       _itemModel.calcItemsTotal(items),
                     ),
-                    style: Theme.of(context).textTheme.subtitle1,
+                    style: TextStyle(
+                      color: ColorChooserFromTheme.balanceColorChooser(
+                        Provider.of<ThemeNotifier>(context).getTheme(),
+                      ),
+                    ),
                   ),
                 ),
               ],

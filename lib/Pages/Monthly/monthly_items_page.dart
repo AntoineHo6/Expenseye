@@ -4,7 +4,9 @@ import 'package:Expenseye/Components/Items/item_list_tile.dart';
 import 'package:Expenseye/Models/Item.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:Expenseye/Providers/Global/item_model.dart';
+import 'package:Expenseye/Providers/Global/theme_notifier.dart';
 import 'package:Expenseye/Providers/monthly_model.dart';
+import 'package:Expenseye/Resources/Themes/MyColors.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -91,7 +93,7 @@ class _DayContainer extends StatelessWidget {
       child: Column(
         children: <Widget>[
           Container(
-            margin: const EdgeInsets.symmetric(horizontal: 10),
+            margin: const EdgeInsets.only(left: 10, right: 32),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
@@ -101,6 +103,11 @@ class _DayContainer extends StatelessWidget {
                 ),
                 Text(
                   '${_itemModel.totalString(_itemModel.calcItemsTotal(items))}',
+                  style: TextStyle(
+                    color: ColorChooserFromTheme.balanceColorChooser(
+                      Provider.of<ThemeNotifier>(context).getTheme(),
+                    ),
+                  ),
                 ),
               ],
             ),

@@ -1,6 +1,6 @@
 import 'package:Expenseye/Components/Drawer/my_drawer.dart';
 import 'package:Expenseye/Components/Stats/category_stats_container.dart';
-import 'package:Expenseye/Components/Stats/simple_pie_chart.dart';
+import 'package:Expenseye/Components/Stats/pie_outside_label_chart.dart';
 import 'package:Expenseye/Models/Item.dart';
 import 'package:Expenseye/Utils/chart_util.dart';
 import 'package:Expenseye/app_localizations.dart';
@@ -54,8 +54,8 @@ class StatsPage extends StatelessWidget {
                                         height: 15,
                                       ),
                                       SizedBox(
-                                        height: 210.0,
-                                        child: SimplePieChart(
+                                        height: 220.0,
+                                        child: PieOutsideLabelChart(
                                           aggregatedItems,
                                         ),
                                       ),

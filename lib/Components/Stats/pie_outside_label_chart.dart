@@ -4,12 +4,11 @@ import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-// TODO: rename
-class SimplePieChart extends StatelessWidget {
+class PieOutsideLabelChart extends StatelessWidget {
   final List<charts.Series> seriesList;
   final bool animate;
 
-  SimplePieChart(this.seriesList, {this.animate});
+  PieOutsideLabelChart(this.seriesList, {this.animate});
 
   @override
   Widget build(BuildContext context) {

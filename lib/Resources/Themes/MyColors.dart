@@ -44,7 +44,7 @@ class ColorChooserFromTheme {
     }
   }
 
-  static balanceColorChooser(ThemeData theme) {
+  static Color balanceColorChooser(ThemeData theme) {
     if (theme == MyThemeData.lightTheme) {
       return AppLightThemeColors.balanceColor;
     } else {

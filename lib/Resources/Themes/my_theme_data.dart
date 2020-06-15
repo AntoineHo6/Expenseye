@@ -21,8 +21,6 @@ class MyThemeData {
     ),
     iconTheme: IconThemeData(color: Colors.black),
     buttonTheme: ButtonThemeData(
-      // splashColor: Colors.grey.withOpacity(0.1),
-      // highlightColor: Colors.grey.withOpacity(0.1),
       buttonColor: Colors.grey[200],
       disabledColor: Colors.grey[50],
       shape: RoundedRectangleBorder(

@@ -86,5 +86,7 @@
     "noCategorySelected": "Aucune catégorie sélectionnée",
     "total": "Total",
     "settings": "Paramètres",
-    "darkTheme": "Thème sombre"
+    "darkTheme": "Thème sombre",
+    "loading": "Loading",
+    "signingOut": "Déconnexion"
 }

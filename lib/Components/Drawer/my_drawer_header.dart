@@ -8,9 +8,6 @@ import 'package:provider/provider.dart';
 class MyDrawerHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    bool _logInFirstPress = true;
-    bool _logOutFirstPress = true;
-
     return DrawerHeader(
       decoration: BoxDecoration(
         color: Theme.of(context).primaryColor,
@@ -52,12 +49,7 @@ class MyDrawerHeader extends StatelessWidget {
                         AppLocalizations.of(context).translate('signOut'),
                         style: Theme.of(context).textTheme.bodyText2,
                       ),
-                      onPressed: () {
-                        if (_logOutFirstPress) {
-                          _logOutFirstPress = false;
-                          _logoutReset(context, _logInFirstPress);
-                        }
-                      },
+                      onPressed: () async => await _loadLogoutReset(context),
                     ),
                   ],
                 );
@@ -94,12 +86,7 @@ class MyDrawerHeader extends StatelessWidget {
                             'assets/btn_google_img.png',
                             width: 160,
                           ),
-                          onPressed: () async {
-                            if (_logInFirstPress) {
-                              _logInFirstPress = false;
-                              await _loginInit(context, _logOutFirstPress);
-                            }
-                          },
+                          onPressed: () async => await _loadLoginInit(context),
                         ),
                       ],
                     ),
@@ -113,14 +100,45 @@ class MyDrawerHeader extends StatelessWidget {
       ),
     );
   }
-}
 
-Future<void> _logoutReset(BuildContext context, _logInFirstPress) async {
-  await Provider.of<DbModel>(context, listen: false).logOutFromGoogle();
-  _logInFirstPress = true;
-}
+  Future<void> _loadLogoutReset(BuildContext context) async {
+    _showLoadDialog(context);
+    await Provider.of<DbModel>(context, listen: false).logOutFromGoogle().then(
+          (value) => Navigator.pop(context),
+        );
+  }
 
-Future<void> _loginInit(BuildContext context, _logOutFirstPress) async {
-  await Provider.of<DbModel>(context, listen: false).loginInit();
-  _logOutFirstPress = true;
+  Future<void> _loadLoginInit(BuildContext context) async {
+    _showLoadDialog(context);
+    await Provider.of<DbModel>(context, listen: false).loginInit().then(
+          (value) => Navigator.pop(context),
+        );
+  }
+
+  void _showLoadDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const CircularProgressIndicator(),
+                const SizedBox(
+                  width: 35,
+                ),
+                Text(AppLocalizations.of(context).translate('loading')),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
 }

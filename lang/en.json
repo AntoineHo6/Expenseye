@@ -86,5 +86,7 @@
     "noCategorySelected": "No category selected",
     "total": "Total",
     "settings": "Settings",
-    "darkTheme": "Dark theme"
+    "darkTheme": "Dark theme",
+    "loading": "Loading",
+    "signingOut": "Signing Out"
 }

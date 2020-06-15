@@ -28,56 +28,42 @@ class StatsPage extends StatelessWidget {
             if (snapshot.data != null && snapshot.data.length > 0) {
               var aggregatedItems =
                   ChartUtil.convertExpensesToChartSeries(snapshot.data);
-              return Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Expanded(
-                    child: SingleChildScrollView(
+              return SingleChildScrollView(
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                      margin: const EdgeInsets.only(top: 20),
                       child: Column(
                         children: <Widget>[
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: <Widget>[
-                              Flexible(
-                                child: Container(
-                                  margin: const EdgeInsets.only(top: 20),
-                                  child: Column(
-                                    children: <Widget>[
-                                      Text(
-                                        AppLocalizations.of(context)
-                                            .translate('expenses'),
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline5,
-                                      ),
-                                      const SizedBox(
-                                        height: 15,
-                                      ),
-                                      SizedBox(
-                                        height: 220.0,
-                                        child: PieOutsideLabelChart(
-                                          aggregatedItems,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ],
+                          Text(
+                            AppLocalizations.of(context)
+                                .translate('expenses'),
+                            style: Theme.of(context)
+                                .textTheme
+                                .headline5,
                           ),
-                          Container(
-                            margin: const EdgeInsets.all(15),
-                            child: CategoryStatsContainer(
-                              data: aggregatedItems[0].data,
-                              totalCost:
-                                  _calcExpensesTotal(aggregatedItems[0].data),
+                          const SizedBox(
+                            height: 15,
+                          ),
+                          SizedBox(
+                            height: 220.0,
+                            child: PieOutsideLabelChart(
+                              aggregatedItems,
                             ),
                           ),
                         ],
                       ),
                     ),
-                  ),
-                ],
+                    Container(
+                      margin: const EdgeInsets.all(15),
+                      child: CategoryStatsContainer(
+                        data: aggregatedItems[0].data,
+                        totalCost:
+                            _calcExpensesTotal(aggregatedItems[0].data),
+                      ),
+                    ),
+                  ],
+                ),
               );
             } else {
               return Align(

@@ -71,15 +71,12 @@ class _MonthContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _itemModel = Provider.of<ItemModel>(context);
+    final _itemModel = Provider.of<ItemModel>(context, listen: false);
 
     return Container(
       margin: const EdgeInsets.all(10),
       child: RaisedButton(
         elevation: 3,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
         padding: const EdgeInsets.all(10),
         onPressed: () => openMonthsPage(context, items[0].date),
         child: Column(

@@ -5,6 +5,8 @@ import 'package:Expenseye/Models/recurring_item.dart';
 import 'package:Expenseye/Pages/RecurringItems/AddRecurringItem/add_recurring_item_home_page.dart';
 import 'package:Expenseye/Pages/RecurringItems/edit_recurring_item_page.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
+import 'package:Expenseye/Providers/Global/theme_notifier.dart';
+import 'package:Expenseye/Resources/Themes/MyColors.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/cupertino.dart';
@@ -130,8 +132,10 @@ class _RecurringItemsPageState extends State<RecurringItemsPage> {
     return recurringItemsByCategoryType;
   }
 
-  List<Widget> _recurringItems(BuildContext context,
-      List<RecurringItem> recurringItems, ItemType itemType) {
+  List<Widget> _recurringItems(
+      BuildContext context, List<RecurringItem> recurringItems, ItemType type) {
+    final themeNotifier = Provider.of<ThemeNotifier>(context, listen: false);
+
     return recurringItems.map(
       (recurringItem) {
         return Container(
@@ -156,8 +160,15 @@ class _RecurringItemsPageState extends State<RecurringItemsPage> {
               ),
               subtitle: _subtitleText(context, recurringItem),
               trailing: Text(
-                '${recurringItem.amount.toStringAsFixed(2)} \$',
-                style: Theme.of(context).textTheme.subtitle2,
+                type == ItemType.expense
+                    ? '- ${recurringItem.amount.toStringAsFixed(2)} \$'
+                    : '+ ${recurringItem.amount.toStringAsFixed(2)} \$',
+                style: TextStyle(
+                  color: ColorChooserFromTheme.itemColorTypeChooser(
+                    type,
+                    themeNotifier.getTheme(),
+                  ),
+                ),
               ),
               isThreeLine: true,
             ),

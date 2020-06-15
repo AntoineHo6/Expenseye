@@ -19,13 +19,15 @@ class ChartUtil {
 
     return [
       new charts.Series(
-          id: 'Expenses',
-          domainFn: (ExpenseGroup group, _) => group.category.toString(),
-          measureFn: (ExpenseGroup group, _) => group.total,
-          colorFn: (ExpenseGroup group, _) => charts.ColorUtil.fromDartColor(
-                DbModel.catMap[group.category].color,
-              ),
-          data: aggregatedExpenses.values.toList())
+        id: 'Expenses',
+        domainFn: (ExpenseGroup group, _) => group.category.toString(),
+        measureFn: (ExpenseGroup group, _) => group.total,
+        colorFn: (ExpenseGroup group, _) => charts.ColorUtil.fromDartColor(
+          DbModel.catMap[group.category].color,
+        ),
+        data: aggregatedExpenses.values.toList(),
+        labelAccessorFn: (ExpenseGroup row, _) => '${row.category}',
+      )
     ];
   }
 }

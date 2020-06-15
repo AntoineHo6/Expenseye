@@ -1,6 +1,5 @@
 import 'package:Expenseye/Components/Drawer/my_drawer.dart';
 import 'package:Expenseye/Components/Stats/category_stats_container.dart';
-import 'package:Expenseye/Components/Stats/legend_container.dart';
 import 'package:Expenseye/Components/Stats/simple_pie_chart.dart';
 import 'package:Expenseye/Models/Item.dart';
 import 'package:Expenseye/Utils/chart_util.dart';
@@ -45,27 +44,23 @@ class StatsPage extends StatelessWidget {
                                   child: Column(
                                     children: <Widget>[
                                       Text(
-                                          AppLocalizations.of(context)
-                                              .translate('expenses'),
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline5),
-                                      Container(
-                                        child: SizedBox(
-                                          height: 250.0,
-                                          child: SimplePieChart(
-                                            aggregatedItems,
-                                          ),
+                                        AppLocalizations.of(context)
+                                            .translate('expenses'),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline5,
+                                      ),
+                                      const SizedBox(
+                                        height: 15,
+                                      ),
+                                      SizedBox(
+                                        height: 210.0,
+                                        child: SimplePieChart(
+                                          aggregatedItems,
                                         ),
                                       ),
                                     ],
                                   ),
-                                ),
-                              ),
-                              Container(
-                                margin: const EdgeInsets.all(20),
-                                child: LegendContainer(
-                                  aggregatedItems[0].data,
                                 ),
                               ),
                             ],

@@ -16,19 +16,15 @@ class MyColors {
   static const Color secondaryDarker = Color(0xff227069);
   static const Color secondaryDisabled = Color(0xff0D2F2C);
 
-  static const incomeBGColor = Color(0xff1C231B);
-  static const incomeColor = Color(0xff81e349);
-  static const expenseBGColor = Color(0xff231B1B);
-  static const expenseColor = Color(0xffff5252);
-  static const balanceBGColor = Color(0xff2B2B1E);
+  static const incomeColor = Color(0xff81d645);
+  static const expenseColor = Color(0xffd64545);
+  static const balanceColor = Colors.yellow;
 }
 
 class AppLightThemeColors {
-  static const expenseBGColor = Color(0xFFff9e9e);
   static const expenseColor = Color(0xffB94747);
-  static const incomeBGColor = Color(0xFFEBFFE7);
   static const incomeColor = Color(0xff459c38);
-  static const balanceBGColor = Color(0xFFFDFFC9);
+  static final balanceColor = Colors.yellow[900];
 }
 
 class ColorChooserFromTheme {
@@ -48,28 +44,11 @@ class ColorChooserFromTheme {
     }
   }
 
-// TODO: change name with type
-  static itemBGColorChooser(ItemType type, ThemeData theme) {
-    if (type == ItemType.expense) {
-      if (theme == MyThemeData.lightTheme) {
-        return AppLightThemeColors.expenseBGColor;
-      } else {
-        return MyColors.expenseBGColor;
-      }
-    } else {
-      if (theme == MyThemeData.lightTheme) {
-        return AppLightThemeColors.incomeBGColor;
-      } else {
-        return MyColors.incomeBGColor;
-      }
-    }
-  }
-
-  static balanceBgColorChooser(ThemeData theme) {
+  static balanceColorChooser(ThemeData theme) {
     if (theme == MyThemeData.lightTheme) {
-      return AppLightThemeColors.balanceBGColor;
+      return AppLightThemeColors.balanceColor;
     } else {
-      return MyColors.balanceBGColor;
+      return MyColors.balanceColor;
     }
   }
 }

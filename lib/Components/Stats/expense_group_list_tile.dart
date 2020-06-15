@@ -16,20 +16,22 @@ class ExpenseGroupListTile extends StatelessWidget {
         color: DbModel.catMap[expenseGroup.category].color,
       ),
       title: Text(
-          DbModel.catMap[expenseGroup.category].name),
+        DbModel.catMap[expenseGroup.category].name,
+      ),
       subtitle: Text('${_calcPercentage()}\%'),
-      trailing: Text('${expenseGroup.total.toStringAsFixed(2)} \$'),
+      trailing: Text(
+        '${expenseGroup.total.toStringAsFixed(2)} \$',
+      ),
     );
   }
 
-  int _calcPercentage() {
-    int percentage;
+  String _calcPercentage() {
+    String percentage;
 
-    // avoids using .round() on infinity caused by totalCost being zero.
     try {
-      percentage = (expenseGroup.total * 100 / totalCost).round();
+      percentage = (expenseGroup.total * 100 / totalCost).toStringAsFixed(1);
     } catch (e) {
-      percentage = -1;
+      percentage = '-1';
     }
 
     return percentage;

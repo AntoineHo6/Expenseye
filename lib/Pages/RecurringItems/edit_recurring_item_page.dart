@@ -44,14 +44,8 @@ class _EditRecurringItemPageState extends State<EditRecurringItemPage> {
           bottomNavigationBar: BottomAppBar(
             color: Colors.transparent,
             child: BottomNavButton(
-              color: ColorChooserFromTheme.itemColorTypeChooser(
-                DbModel.catMap[widget.recurringItem.category].type,
-                Provider.of<ThemeNotifier>(context).getTheme(),
-              ),
-              disabledColor: ColorChooserFromTheme.itemBGColorChooser(
-                DbModel.catMap[widget.recurringItem.category].type,
-                Provider.of<ThemeNotifier>(context).getTheme(),
-              ),
+              color: Theme.of(context).buttonColor,
+              disabledColor: Theme.of(context).buttonColor.withOpacity(0.8),
               text: AppLocalizations.of(context).translate('saveCaps'),
               onPressed: model.didInfoChange
                   ? () async => await model.editRecurringItem(

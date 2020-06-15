@@ -6,8 +6,6 @@ import 'package:Expenseye/Components/EditAdd/name_text_field.dart';
 import 'package:Expenseye/Components/EditAdd/amount_text_field.dart';
 import 'package:Expenseye/Models/Item.dart';
 import 'package:Expenseye/Providers/EditAddItem/edit_item_model.dart';
-import 'package:Expenseye/Providers/Global/theme_notifier.dart';
-import 'package:Expenseye/Resources/Themes/MyColors.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -43,14 +41,8 @@ class _EditItemPageState extends State<EditItemPage> {
           bottomNavigationBar: BottomAppBar(
             color: Colors.transparent,
             child: BottomNavButton(
-              color: ColorChooserFromTheme.itemColorTypeChooser(
-                widget.item.type,
-                Provider.of<ThemeNotifier>(context).getTheme(),
-              ),
-              disabledColor: ColorChooserFromTheme.itemBGColorChooser(
-                widget.item.type,
-                Provider.of<ThemeNotifier>(context).getTheme(),
-              ),
+              color: Theme.of(context).buttonColor,
+              disabledColor: Theme.of(context).buttonColor.withOpacity(0.8),
               text: AppLocalizations.of(context).translate('saveCaps'),
               onPressed: model.didInfoChange
                   ? () async => await model.editItem(

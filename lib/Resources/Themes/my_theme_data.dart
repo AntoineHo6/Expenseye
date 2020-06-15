@@ -21,11 +21,15 @@ class MyThemeData {
     ),
     iconTheme: IconThemeData(color: Colors.black),
     buttonTheme: ButtonThemeData(
+      // splashColor: Colors.grey.withOpacity(0.1),
+      // highlightColor: Colors.grey.withOpacity(0.1),
       buttonColor: Colors.grey[200],
+      disabledColor: Colors.grey[50],
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
       ),
     ),
+    buttonColor: Colors.grey[200],
     primaryColor: Colors.grey[100],
     backgroundColor: Colors.white,
     dialogBackgroundColor: Colors.white,
@@ -33,6 +37,7 @@ class MyThemeData {
     scaffoldBackgroundColor: Colors.white,
     cardColor: Colors.grey[100],
     accentColor: MyColors.secondaryDarker,
+    disabledColor: Colors.grey[100],
     hintColor: Colors.grey[500],
     indicatorColor: MyColors.secondary,
     floatingActionButtonTheme: FloatingActionButtonThemeData(
@@ -75,10 +80,12 @@ class MyThemeData {
     iconTheme: IconThemeData(color: Colors.white),
     buttonTheme: ButtonThemeData(
       buttonColor: MyColors.black06dp,
+      disabledColor: MyColors.black01dp,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
       ),
     ),
+    buttonColor: MyColors.black06dp,
     primaryColor: MyColors.black02dp,
     backgroundColor: MyColors.black00dp,
     scaffoldBackgroundColor: MyColors.black00dp,
@@ -90,6 +97,7 @@ class MyThemeData {
       ),
     ),
     accentColor: MyColors.secondaryDarker,
+    disabledColor: MyColors.black01dp,
     hintColor: MyColors.black24dp,
     indicatorColor: MyColors.secondary,
     dialogBackgroundColor: MyColors.black00dp,

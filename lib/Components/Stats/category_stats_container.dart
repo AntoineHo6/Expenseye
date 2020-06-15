@@ -14,7 +14,7 @@ class CategoryStatsContainer extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
-        color: Theme.of(context).primaryColor,
+        color: Theme.of(context).cardColor,
       ),
       padding: const EdgeInsets.all(12),
       child: Column(
@@ -34,6 +34,7 @@ class CategoryStatsContainer extends StatelessWidget {
               (expenseGroup) {
                 if (expenseGroup.total > 0) {
                   return Card(
+                    color: Theme.of(context).buttonColor,
                     child: ExpenseGroupListTile(
                       expenseGroup: expenseGroup,
                       totalCost: totalCost,

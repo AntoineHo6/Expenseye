@@ -40,10 +40,7 @@ class _EditCategoryPageState extends State<EditCategoryPage> {
           bottomNavigationBar: BottomAppBar(
             color: Colors.transparent,
             child: BottomNavButton(
-              color: ColorChooserFromTheme.itemColorTypeChooser(
-                widget.category.type,
-                Provider.of<ThemeNotifier>(context).getTheme(),
-              ),
+              color: Theme.of(context).buttonColor,
               text: AppLocalizations.of(context).translate('saveCaps'),
               onPressed: () async =>
                   await model.updateCategory(context, _nameController.text),

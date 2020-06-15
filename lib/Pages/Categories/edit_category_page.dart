@@ -110,10 +110,10 @@ class _EditCategoryPageState extends State<EditCategoryPage> {
             decoration: BoxDecoration(
               color: model.color,
               borderRadius: const BorderRadius.all(
-                const Radius.circular(10),
+                const Radius.circular(12),
               ),
             ),
-            padding: const EdgeInsets.all(2),
+            padding: const EdgeInsets.all(3),
             child: RaisedButton(
               onPressed: () => model.changeSelectedIcon(index),
               child: Row(

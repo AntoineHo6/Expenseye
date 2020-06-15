@@ -2,7 +2,6 @@ import 'package:Expenseye/Components/EditAdd/name_text_field.dart';
 import 'package:Expenseye/Components/Global/bottom_nav_button.dart';
 import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Providers/Category/add_category_model.dart';
-import 'package:Expenseye/Resources/Themes/MyColors.dart';
 import 'package:Expenseye/Resources/my_icons.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
@@ -36,9 +35,6 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
           bottomNavigationBar: BottomAppBar(
             color: Colors.transparent,
             child: BottomNavButton(
-              color: widget.type == ItemType.expense
-                  ? MyColors.expenseColor
-                  : MyColors.incomeColor,
               text: AppLocalizations.of(context).translate('addCaps'),
               onPressed: () {
                 model.checkNameInvalid(_nameController.text);
@@ -97,6 +93,7 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
     );
   }
 
+  // TODO: make all cion button have red outline when non selected and user presses add
   List<Widget> _iconList(AddCategoryModel model) {
     final List<IconData> icons = (widget.type == ItemType.expense)
         ? MyIcons.expenseIcons
@@ -108,9 +105,15 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
         // if is the selected icon
         if (model.selectedIconIndex != null &&
             index == model.selectedIconIndex) {
+              // TODO: make this button style reusable in add_category_page, category_add_rec_item_page and edit_category_page
           return Container(
-            color: model.color,
-            padding: const EdgeInsets.all(2),
+            decoration: BoxDecoration(
+              color: model.color,
+              borderRadius: const BorderRadius.all(
+                const Radius.circular(12),
+              ),
+            ),
+            padding: const EdgeInsets.all(3),
             child: RaisedButton(
               onPressed: () => model.changeSelectedIcon(index),
               child: Row(

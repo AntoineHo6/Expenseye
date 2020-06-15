@@ -5,7 +5,7 @@ import 'package:Expenseye/Components/EditAdd/amount_text_field.dart';
 import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Providers/EditAddItem/add_item_model.dart';
 import 'package:Expenseye/Providers/Global/theme_notifier.dart';
-import 'package:Expenseye/Resources/Themes/MyColors.dart';
+import 'package:Expenseye/Resources/Themes/app_colors.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';

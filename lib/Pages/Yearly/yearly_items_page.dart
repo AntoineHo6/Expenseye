@@ -6,7 +6,7 @@ import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:Expenseye/Providers/Global/item_model.dart';
 import 'package:Expenseye/Providers/Global/theme_notifier.dart';
 import 'package:Expenseye/Providers/yearly_model.dart';
-import 'package:Expenseye/Resources/Themes/MyColors.dart';
+import 'package:Expenseye/Resources/Themes/app_colors.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';

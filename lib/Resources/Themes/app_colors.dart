@@ -3,7 +3,7 @@ import 'package:Expenseye/Resources/Themes/my_theme_data.dart';
 import 'package:flutter/material.dart';
 
 // TODO: rename
-class MyColors {
+class AppDarkThemeColors {
   static const Color black00dp = Color(0xff121212);
   static const Color black01dp = Color(0xff1d1d1d);
   static const Color black02dp = Color(0xff212121);
@@ -33,13 +33,13 @@ class ColorChooserFromTheme {
       if (theme == MyThemeData.lightTheme) {
         return AppLightThemeColors.expenseColor;
       } else {
-        return MyColors.expenseColor;
+        return AppDarkThemeColors.expenseColor;
       }
     } else {
       if (theme == MyThemeData.lightTheme) {
         return AppLightThemeColors.incomeColor;
       } else {
-        return MyColors.incomeColor;
+        return AppDarkThemeColors.incomeColor;
       }
     }
   }
@@ -48,7 +48,7 @@ class ColorChooserFromTheme {
     if (theme == MyThemeData.lightTheme) {
       return AppLightThemeColors.balanceColor;
     } else {
-      return MyColors.balanceColor;
+      return AppDarkThemeColors.balanceColor;
     }
   }
 }

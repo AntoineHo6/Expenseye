@@ -1,4 +1,4 @@
-import 'package:Expenseye/Resources/Themes/MyColors.dart';
+import 'package:Expenseye/Resources/Themes/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class MyThemeData {
@@ -34,12 +34,12 @@ class MyThemeData {
     focusColor: Colors.black,
     scaffoldBackgroundColor: Colors.white,
     cardColor: Colors.grey[100],
-    accentColor: MyColors.secondaryDarker,
+    accentColor: AppDarkThemeColors.secondaryDarker,
     disabledColor: Colors.grey[100],
     hintColor: Colors.grey[500],
-    indicatorColor: MyColors.secondary,
+    indicatorColor: AppDarkThemeColors.secondary,
     floatingActionButtonTheme: FloatingActionButtonThemeData(
-      backgroundColor: MyColors.secondary,
+      backgroundColor: AppDarkThemeColors.secondary,
     ),
     textTheme: TextTheme(
       headline1: TextStyle(fontSize: 32, color: Colors.black),
@@ -77,30 +77,30 @@ class MyThemeData {
     ),
     iconTheme: IconThemeData(color: Colors.white),
     buttonTheme: ButtonThemeData(
-      buttonColor: MyColors.black06dp,
-      disabledColor: MyColors.black01dp,
+      buttonColor: AppDarkThemeColors.black06dp,
+      disabledColor: AppDarkThemeColors.black01dp,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
       ),
     ),
-    buttonColor: MyColors.black06dp,
-    primaryColor: MyColors.black02dp,
-    backgroundColor: MyColors.black00dp,
-    scaffoldBackgroundColor: MyColors.black00dp,
-    cardColor: MyColors.black02dp,
+    buttonColor: AppDarkThemeColors.black06dp,
+    primaryColor: AppDarkThemeColors.black02dp,
+    backgroundColor: AppDarkThemeColors.black00dp,
+    scaffoldBackgroundColor: AppDarkThemeColors.black00dp,
+    cardColor: AppDarkThemeColors.black02dp,
     cardTheme: CardTheme(
-      color: MyColors.black06dp,
+      color: AppDarkThemeColors.black06dp,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
       ),
     ),
-    accentColor: MyColors.secondaryDarker,
-    disabledColor: MyColors.black01dp,
-    hintColor: MyColors.black24dp,
-    indicatorColor: MyColors.secondary,
-    dialogBackgroundColor: MyColors.black00dp,
+    accentColor: AppDarkThemeColors.secondaryDarker,
+    disabledColor: AppDarkThemeColors.black01dp,
+    hintColor: AppDarkThemeColors.black24dp,
+    indicatorColor: AppDarkThemeColors.secondary,
+    dialogBackgroundColor: AppDarkThemeColors.black00dp,
     floatingActionButtonTheme: FloatingActionButtonThemeData(
-      backgroundColor: MyColors.secondary,
+      backgroundColor: AppDarkThemeColors.secondary,
     ),
     focusColor: Colors.white,
     textTheme: TextTheme(

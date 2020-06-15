@@ -3,14 +3,14 @@ import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Helpers/database_helper.dart';
 import 'package:Expenseye/Models/Category.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
-import 'package:Expenseye/Resources/Themes/MyColors.dart';
+import 'package:Expenseye/Resources/Themes/app_colors.dart';
 import 'package:Expenseye/Resources/my_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class AddCategoryModel extends ChangeNotifier {
   int selectedIconIndex;
-  Color color = MyColors.secondary;
+  Color color = AppDarkThemeColors.secondary;
   bool isNameInvalid = false;
   List<String> categoryIds = new List();
 

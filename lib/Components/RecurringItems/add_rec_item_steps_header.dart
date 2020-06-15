@@ -1,4 +1,4 @@
-import 'package:Expenseye/Resources/Themes/MyColors.dart';
+import 'package:Expenseye/Resources/Themes/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
@@ -33,7 +33,8 @@ class AddRecItemStepsHeader extends StatelessWidget {
               percent: percent,
               linearStrokeCap: LinearStrokeCap.butt,
               backgroundColor: Colors.grey,
-              progressColor: MyColors.secondary,
+              // todo: change
+              progressColor: AppDarkThemeColors.secondary,
             ),
           ),
         ),

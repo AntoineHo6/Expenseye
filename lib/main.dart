@@ -47,8 +47,8 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    final themeNotifier = Provider.of<SettingsNotifier>(context);
-    if (themeNotifier.getTheme() == MyThemeData.lightTheme) {
+    final settingsNotifier = Provider.of<SettingsNotifier>(context);
+    if (settingsNotifier.getTheme() == MyThemeData.lightTheme) {
       SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
     } else {
       SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
@@ -74,7 +74,7 @@ class _MyAppState extends State<MyApp> {
         return supportedLocales.first;
       },
       home: DailyPage(),
-      theme: themeNotifier.getTheme(),
+      theme: settingsNotifier.getTheme(),
     );
   }
 }

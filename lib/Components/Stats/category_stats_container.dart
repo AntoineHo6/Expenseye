@@ -1,10 +1,10 @@
-import 'package:Expenseye/Components/Stats/expense_group_list_tile.dart';
+import 'package:Expenseye/Components/Stats/item_group_list_tile.dart';
 import 'package:Expenseye/Utils/chart_util.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class CategoryStatsContainer extends StatelessWidget {
-  final List<ExpenseGroup> data;
+  final List<CategoryGroup> data;
   final double totalCost;
 
   CategoryStatsContainer({@required this.data, @required this.totalCost});
@@ -35,7 +35,7 @@ class CategoryStatsContainer extends StatelessWidget {
                 if (expenseGroup.total > 0) {
                   return Card(
                     color: Theme.of(context).buttonColor,
-                    child: ExpenseGroupListTile(
+                    child: ItemGroupListTile(
                       expenseGroup: expenseGroup,
                       totalCost: totalCost,
                     ),

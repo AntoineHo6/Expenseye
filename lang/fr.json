@@ -90,5 +90,7 @@
     "loading": "Loading",
     "signingOut": "Déconnexion",
     "dontForgetToAddYourTransactions": "N'oubliez pas d'ajouter vos transactions!",
-    "reminderNotification": "Notification de rappel"
+    "reminderNotification": "Notification de rappel",
+    "switchToExpenses": "Changer aux dépenses",
+    "switchToIncomes": "Changer aux revenus"
 }

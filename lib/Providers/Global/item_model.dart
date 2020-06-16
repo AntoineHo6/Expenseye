@@ -1,4 +1,4 @@
-import 'package:Expenseye/Components/EditAdd/Item/add_item_dialog.dart';
+import 'package:Expenseye/Components/EditAdd/Items/add_item_dialog.dart';
 import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Models/Item.dart';
 import 'package:Expenseye/Pages/EditAddItem/edit_item_page.dart';

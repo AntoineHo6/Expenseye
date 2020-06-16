@@ -12,7 +12,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 // * Considered the Home Page
 class DailyPage extends StatefulWidget {
@@ -45,11 +44,7 @@ class _DailyPageState extends State<DailyPage> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
-    // * initialize local notifications
-    final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-    initLocalNotifications(flutterLocalNotificationsPlugin);
-    loadDailyNotifications(flutterLocalNotificationsPlugin);
-
+    loadDailyNotifications();
     final _itemModel = Provider.of<ItemModel>(context);
     final _dbModel = Provider.of<DbModel>(context);
 
@@ -114,23 +109,8 @@ class _DailyPageState extends State<DailyPage> with WidgetsBindingObserver {
     );
   }
 
-  // * Notification's functions
-  Future<void> initLocalNotifications(
-    FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin,
-  ) async {
-    var initializationSettingsAndroid =
-        AndroidInitializationSettings('app_icon');
-    var initializationSettingsIOS = IOSInitializationSettings(
-        onDidReceiveLocalNotification: onDidReceiveLocalNotification);
-    var initializationSettings = InitializationSettings(
-        initializationSettingsAndroid, initializationSettingsIOS);
-    await flutterLocalNotificationsPlugin.initialize(initializationSettings,
-        onSelectNotification: selectNotification);
-  }
-
-  Future<void> loadDailyNotifications(
-    FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin,
-  ) async {
+  Future<void> loadDailyNotifications() async {
+    final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
     TimeOfDay settingsTime =
         Provider.of<SettingsNotifier>(context, listen: false)
             .getLocalNotifTime();
@@ -153,47 +133,6 @@ class _DailyPageState extends State<DailyPage> with WidgetsBindingObserver {
       null,
       time,
       platformChannelSpecifics,
-    );
-  }
-
-  Future onDidReceiveLocalNotification(
-    int id,
-    String title,
-    String body,
-    String payload,
-  ) async {
-    // display a dialog with the notification details, tap ok to go to another page
-    showDialog(
-      context: context,
-      builder: (BuildContext context) => CupertinoAlertDialog(
-        title: Text(title),
-        content: Text(body),
-        actions: [
-          CupertinoDialogAction(
-            isDefaultAction: true,
-            child: Text('Ok'),
-            onPressed: () async {
-              Navigator.of(context, rootNavigator: true).pop();
-              await Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => DailyPage(),
-                ),
-              );
-            },
-          )
-        ],
-      ),
-    );
-  }
-
-  Future selectNotification(String payload) async {
-    if (payload != null) {
-      debugPrint('notification payload: ' + payload);
-    }
-    await Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => DailyPage()),
     );
   }
 }

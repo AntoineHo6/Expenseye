@@ -2,11 +2,11 @@ import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:Expenseye/Utils/chart_util.dart';
 import 'package:flutter/material.dart';
 
-class ExpenseGroupListTile extends StatelessWidget {
-  final ExpenseGroup expenseGroup;
+class ItemGroupListTile extends StatelessWidget {
+  final CategoryGroup expenseGroup;
   final double totalCost;
 
-  ExpenseGroupListTile({@required this.expenseGroup, @required this.totalCost});
+  ItemGroupListTile({@required this.expenseGroup, @required this.totalCost});
 
   @override
   Widget build(BuildContext context) {

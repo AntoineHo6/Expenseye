@@ -4,7 +4,7 @@ import 'package:Expenseye/Components/EditAdd/name_text_field.dart';
 import 'package:Expenseye/Components/EditAdd/amount_text_field.dart';
 import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Providers/EditAddItem/add_item_model.dart';
-import 'package:Expenseye/Providers/Global/theme_notifier.dart';
+import 'package:Expenseye/Providers/Global/settings_notifier.dart';
 import 'package:Expenseye/Resources/Themes/app_colors.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +27,7 @@ class _AddItemDialogState extends State<AddItemDialog> {
 
   @override
   Widget build(BuildContext context) {
-    final themeNotifier = Provider.of<ThemeNotifier>(context, listen: false);
+    final settingsNotifier = Provider.of<SettingsNotifier>(context, listen: false);
     String title;
     Icon icon;
     if (widget.type == ItemType.expense) {
@@ -36,7 +36,7 @@ class _AddItemDialogState extends State<AddItemDialog> {
         MdiIcons.currencyUsdCircle,
         color: ColorChooserFromTheme.itemColorTypeChooser(
           widget.type,
-          themeNotifier.getTheme(),
+          settingsNotifier.getTheme(),
         ),
       );
     } else {
@@ -45,7 +45,7 @@ class _AddItemDialogState extends State<AddItemDialog> {
         Icons.account_balance_wallet,
         color: ColorChooserFromTheme.itemColorTypeChooser(
           widget.type,
-          themeNotifier.getTheme(),
+          settingsNotifier.getTheme(),
         ),
       );
     }

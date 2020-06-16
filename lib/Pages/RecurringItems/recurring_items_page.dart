@@ -5,7 +5,7 @@ import 'package:Expenseye/Models/recurring_item.dart';
 import 'package:Expenseye/Pages/RecurringItems/AddRecurringItem/add_recurring_item_home_page.dart';
 import 'package:Expenseye/Pages/RecurringItems/edit_recurring_item_page.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
-import 'package:Expenseye/Providers/Global/theme_notifier.dart';
+import 'package:Expenseye/Providers/Global/settings_notifier.dart';
 import 'package:Expenseye/Resources/Themes/app_colors.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
 import 'package:Expenseye/app_localizations.dart';
@@ -134,7 +134,7 @@ class _RecurringItemsPageState extends State<RecurringItemsPage> {
 
   List<Widget> _recurringItems(
       BuildContext context, List<RecurringItem> recurringItems, ItemType type) {
-    final themeNotifier = Provider.of<ThemeNotifier>(context, listen: false);
+    final settingsNotifier = Provider.of<SettingsNotifier>(context, listen: false);
 
     return recurringItems.map(
       (recurringItem) {
@@ -166,7 +166,7 @@ class _RecurringItemsPageState extends State<RecurringItemsPage> {
                 style: TextStyle(
                   color: ColorChooserFromTheme.itemColorTypeChooser(
                     type,
-                    themeNotifier.getTheme(),
+                    settingsNotifier.getTheme(),
                   ),
                 ),
               ),

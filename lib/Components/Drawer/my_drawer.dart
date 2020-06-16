@@ -1,5 +1,4 @@
 import 'package:Expenseye/Components/Drawer/my_drawer_header.dart';
-import 'package:Expenseye/Components/Global/local_notification.dart';
 import 'package:Expenseye/Pages/Categories/cat_home_page.dart';
 import 'package:Expenseye/Pages/Monthly/monthly_home_page.dart';
 import 'package:Expenseye/Pages/Settings/settings_page.dart';
@@ -85,22 +84,6 @@ class MyDrawer extends StatelessWidget {
                 height: 40,
                 color: null,
               ),
-            ),
-            // TODO: temp
-            ListTile(
-              leading: const Icon(
-                Icons.add_alert,
-              ),
-              title: Text('notifs'),
-              onTap: () {
-                Navigator.of(context).pop(context);
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => LocalNotification(),
-                  ),
-                );
-              },
             ),
           ],
         ),

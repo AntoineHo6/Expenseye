@@ -6,9 +6,14 @@ import 'package:Expenseye/Models/Item.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:Expenseye/Providers/Global/item_model.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
+import 'package:Expenseye/app_localizations.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
+// * Considered the Home Page
 class DailyPage extends StatefulWidget {
   final DateTime day = DateTime.now();
 
@@ -39,6 +44,11 @@ class _DailyPageState extends State<DailyPage> with WidgetsBindingObserver {
 
   @override
   Widget build(BuildContext context) {
+    // * initialize local notifications
+    final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+    initLocalNotifications(flutterLocalNotificationsPlugin);
+    loadDailyNotifications(flutterLocalNotificationsPlugin);
+
     final _itemModel = Provider.of<ItemModel>(context);
     final _dbModel = Provider.of<DbModel>(context);
 
@@ -100,6 +110,90 @@ class _DailyPageState extends State<DailyPage> with WidgetsBindingObserver {
           ),
         ),
       ],
+    );
+  }
+
+  // * Notification's functions
+  Future<void> initLocalNotifications(
+    FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin,
+  ) async {
+    var initializationSettingsAndroid =
+        AndroidInitializationSettings('app_icon');
+    var initializationSettingsIOS = IOSInitializationSettings(
+        onDidReceiveLocalNotification: onDidReceiveLocalNotification);
+    var initializationSettings = InitializationSettings(
+        initializationSettingsAndroid, initializationSettingsIOS);
+    await flutterLocalNotificationsPlugin.initialize(initializationSettings,
+        onSelectNotification: selectNotification);
+  }
+
+  Future<void> loadDailyNotifications(
+    FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin,
+  ) async {
+    int hour;
+    int minute;
+
+    await SharedPreferences.getInstance().then((prefs) {
+      hour = prefs.getInt('localNotificationsHour');
+      minute = prefs.getInt('localNotificationsMinute');
+    });
+
+    var time = Time(hour, minute, 0);
+    var androidPlatformChannelSpecifics = AndroidNotificationDetails(
+      'repeatDailyAtTime channel id',
+      'repeatDailyAtTime channel name',
+      'repeatDailyAtTime description',
+    );
+    var iOSPlatformChannelSpecifics = IOSNotificationDetails();
+    var platformChannelSpecifics = NotificationDetails(
+        androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
+    await flutterLocalNotificationsPlugin.showDailyAtTime(
+      0,
+      AppLocalizations.of(context).translate('dontForgetToAddYourTransactions'),
+      null,
+      time,
+      platformChannelSpecifics,
+    );
+  }
+
+  Future onDidReceiveLocalNotification(
+    int id,
+    String title,
+    String body,
+    String payload,
+  ) async {
+    // display a dialog with the notification details, tap ok to go to another page
+    showDialog(
+      context: context,
+      builder: (BuildContext context) => CupertinoAlertDialog(
+        title: Text(title),
+        content: Text(body),
+        actions: [
+          CupertinoDialogAction(
+            isDefaultAction: true,
+            child: Text('Ok'),
+            onPressed: () async {
+              Navigator.of(context, rootNavigator: true).pop();
+              await Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => DailyPage(),
+                ),
+              );
+            },
+          )
+        ],
+      ),
+    );
+  }
+
+  Future selectNotification(String payload) async {
+    if (payload != null) {
+      debugPrint('notification payload: ' + payload);
+    }
+    await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => DailyPage()),
     );
   }
 }

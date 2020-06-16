@@ -88,5 +88,7 @@
     "settings": "Paramètres",
     "darkTheme": "Thème sombre",
     "loading": "Loading",
-    "signingOut": "Déconnexion"
+    "signingOut": "Déconnexion",
+    "dontForgetToAddYourTransactions": "N'oubliez pas d'ajouter vos transactions!",
+    "reminderNotification": "Notification de rappel"
 }

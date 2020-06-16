@@ -4,7 +4,7 @@ import 'package:Expenseye/Models/recurring_item.dart';
 import 'package:Expenseye/Pages/EditAddItem/choose_category_page.dart';
 import 'package:Expenseye/Pages/RecurringItems/periodicity_picker_page.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
-import 'package:Expenseye/Providers/Global/theme_notifier.dart';
+import 'package:Expenseye/Providers/Global/settings_notifier.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
 import 'package:Expenseye/Utils/edit_add_rec_item_util.dart';
 import 'package:Expenseye/app_localizations.dart';
@@ -44,7 +44,7 @@ class EditRecurringItemModel extends ChangeNotifier {
     DateTime newDate = await DateTimeUtil.chooseDate(
       context,
       recurringItem.dueDate,
-      Provider.of<ThemeNotifier>(context, listen: false).getTheme(),
+      Provider.of<SettingsNotifier>(context, listen: false).getTheme(),
     );
     if (newDate != null) {
       recurringItem.dueDate = newDate;

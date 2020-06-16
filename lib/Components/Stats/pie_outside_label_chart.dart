@@ -1,4 +1,4 @@
-import 'package:Expenseye/Providers/Global/theme_notifier.dart';
+import 'package:Expenseye/Providers/Global/settings_notifier.dart';
 import 'package:Expenseye/Resources/Themes/my_theme_data.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:flutter/material.dart';
@@ -12,7 +12,7 @@ class PieOutsideLabelChart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final themeNotifier = Provider.of<ThemeNotifier>(context, listen: false);
+    final settingsNotifier = Provider.of<SettingsNotifier>(context, listen: false);
 
     return new charts.PieChart(
       seriesList,
@@ -33,7 +33,7 @@ class PieOutsideLabelChart extends StatelessWidget {
             labelPosition: charts.ArcLabelPosition.outside,
             outsideLabelStyleSpec: charts.TextStyleSpec(
               fontSize: 11,
-              color: themeNotifier.getTheme() == MyThemeData.lightTheme
+              color: settingsNotifier.getTheme() == MyThemeData.lightTheme
                   ? charts.MaterialPalette.black
                   : charts.MaterialPalette.white,
             ),

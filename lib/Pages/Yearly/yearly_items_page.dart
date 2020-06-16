@@ -4,7 +4,7 @@ import 'package:Expenseye/Models/Item.dart';
 import 'package:Expenseye/Pages/Monthly/monthly_home_page.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:Expenseye/Providers/Global/item_model.dart';
-import 'package:Expenseye/Providers/Global/theme_notifier.dart';
+import 'package:Expenseye/Providers/Global/settings_notifier.dart';
 import 'package:Expenseye/Providers/yearly_model.dart';
 import 'package:Expenseye/Resources/Themes/app_colors.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
@@ -99,7 +99,7 @@ class _MonthContainer extends StatelessWidget {
                     ),
                     style: TextStyle(
                       color: ColorChooserFromTheme.balanceColorChooser(
-                        Provider.of<ThemeNotifier>(context).getTheme(),
+                        Provider.of<SettingsNotifier>(context).getTheme(),
                       ),
                     ),
                   ),

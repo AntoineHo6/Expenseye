@@ -1,5 +1,5 @@
 import 'package:Expenseye/Enums/item_type.dart';
-import 'package:Expenseye/Providers/Global/theme_notifier.dart';
+import 'package:Expenseye/Providers/Global/settings_notifier.dart';
 import 'package:Expenseye/Resources/Themes/app_colors.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
@@ -36,14 +36,14 @@ class ItemsHeader extends StatelessWidget {
                 pageModel.currentIncomeTotal,
                 ItemType.income,
               ),
-              const SizedBox(width: 10),
+              const SizedBox(width: 5),
               _headerItemTypeTotalRect(
                 context,
                 AppLocalizations.of(context).translate('expense'),
                 pageModel.currentExpenseTotal,
                 ItemType.expense,
               ),
-              const SizedBox(width: 10),
+              const SizedBox(width: 5),
               _headerBalanceTotalRectangle(
                 context,
                 AppLocalizations.of(context).translate('balance'),
@@ -62,16 +62,19 @@ class ItemsHeader extends StatelessWidget {
     double total,
     ItemType type,
   ) {
-    final themeNotifier = Provider.of<ThemeNotifier>(context, listen: false);
+    final settingsNotifier =
+        Provider.of<SettingsNotifier>(context, listen: false);
     return Expanded(
       child: Card(
         child: Padding(
           padding: const EdgeInsets.all(10),
           child: Column(
             children: <Widget>[
-              Text(
-                title,
-                style: Theme.of(context).textTheme.subtitle2,
+              FittedBox(
+                child: Text(
+                  title,
+                  style: Theme.of(context).textTheme.subtitle1,
+                ),
               ),
               const SizedBox(height: 5),
               FittedBox(
@@ -82,7 +85,7 @@ class ItemsHeader extends StatelessWidget {
                   style: TextStyle(
                     color: ColorChooserFromTheme.itemColorTypeChooser(
                       type,
-                      themeNotifier.getTheme(),
+                      settingsNotifier.getTheme(),
                     ),
                   ),
                 ),
@@ -99,16 +102,19 @@ class ItemsHeader extends StatelessWidget {
     String title,
     double total,
   ) {
-    final themeNotifier = Provider.of<ThemeNotifier>(context, listen: false);
+    final settingsNotifier =
+        Provider.of<SettingsNotifier>(context, listen: false);
     return Expanded(
       child: Card(
         child: Padding(
           padding: const EdgeInsets.all(10),
           child: Column(
             children: <Widget>[
-              Text(
-                title,
-                style: Theme.of(context).textTheme.subtitle2,
+              FittedBox(
+                child: Text(
+                  title,
+                  style: Theme.of(context).textTheme.subtitle1,
+                ),
               ),
               const SizedBox(height: 5),
               FittedBox(
@@ -116,7 +122,7 @@ class ItemsHeader extends StatelessWidget {
                   '${total.toStringAsFixed(2)} \$',
                   style: TextStyle(
                     color: ColorChooserFromTheme.balanceColorChooser(
-                      themeNotifier.getTheme(),
+                      settingsNotifier.getTheme(),
                     ),
                   ),
                 ),

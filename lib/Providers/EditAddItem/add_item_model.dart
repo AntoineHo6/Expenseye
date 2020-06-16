@@ -2,7 +2,7 @@ import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Models/Item.dart';
 import 'package:Expenseye/Pages/EditAddItem/choose_category_page.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
-import 'package:Expenseye/Providers/Global/theme_notifier.dart';
+import 'package:Expenseye/Providers/Global/settings_notifier.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -30,7 +30,7 @@ class AddItemModel extends ChangeNotifier {
     DateTime newDate = await DateTimeUtil.chooseDate(
       context,
       initialDate,
-      Provider.of<ThemeNotifier>(context, listen: false).getTheme(),
+      Provider.of<SettingsNotifier>(context, listen: false).getTheme(),
     );
     updateDate(newDate);
   }

@@ -88,5 +88,7 @@
     "settings": "Settings",
     "darkTheme": "Dark theme",
     "loading": "Loading",
-    "signingOut": "Signing Out"
+    "signingOut": "Signing Out",
+    "dontForgetToAddYourTransactions": "Don't forget to add your transactions!",
+    "reminderNotification": "Reminder notification"
 }

@@ -4,7 +4,7 @@ import 'package:Expenseye/Components/Items/item_list_tile.dart';
 import 'package:Expenseye/Models/Item.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:Expenseye/Providers/Global/item_model.dart';
-import 'package:Expenseye/Providers/Global/theme_notifier.dart';
+import 'package:Expenseye/Providers/Global/settings_notifier.dart';
 import 'package:Expenseye/Providers/monthly_model.dart';
 import 'package:Expenseye/Resources/Themes/app_colors.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
@@ -105,7 +105,7 @@ class _DayContainer extends StatelessWidget {
                   '${_itemModel.totalString(_itemModel.calcItemsTotal(items))}',
                   style: TextStyle(
                     color: ColorChooserFromTheme.balanceColorChooser(
-                      Provider.of<ThemeNotifier>(context).getTheme(),
+                      Provider.of<SettingsNotifier>(context).getTheme(),
                     ),
                   ),
                 ),

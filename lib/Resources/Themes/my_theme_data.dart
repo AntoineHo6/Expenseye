@@ -87,9 +87,9 @@ class MyThemeData {
     primaryColor: AppDarkThemeColors.black02dp,
     backgroundColor: AppDarkThemeColors.black00dp,
     scaffoldBackgroundColor: AppDarkThemeColors.black00dp,
-    cardColor: AppDarkThemeColors.black02dp,
+    cardColor: AppDarkThemeColors.black03dp,
     cardTheme: CardTheme(
-      color: AppDarkThemeColors.black06dp,
+      color: AppDarkThemeColors.black03dp,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
       ),

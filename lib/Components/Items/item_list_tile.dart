@@ -1,7 +1,7 @@
 import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Models/Item.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
-import 'package:Expenseye/Providers/Global/theme_notifier.dart';
+import 'package:Expenseye/Providers/Global/settings_notifier.dart';
 import 'package:Expenseye/Resources/Themes/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -18,7 +18,7 @@ class ItemListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     Color categoryColor = DbModel.catMap[item.categoryId].color;
     IconData iconData = DbModel.catMap[item.categoryId].iconData;
-    final themeNotifier = Provider.of<ThemeNotifier>(context);
+    final settingsNotifier = Provider.of<SettingsNotifier>(context, listen: false);
 
     return RaisedButton(
       color: color,
@@ -41,7 +41,7 @@ class ItemListTile extends StatelessWidget {
           style: TextStyle(
             color: ColorChooserFromTheme.itemColorTypeChooser(
               item.type,
-              themeNotifier.getTheme(),
+              settingsNotifier.getTheme(),
             ),
           ),
         ),

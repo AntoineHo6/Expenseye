@@ -38,6 +38,7 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
               text: AppLocalizations.of(context).translate('addCaps'),
               onPressed: () {
                 model.checkNameInvalid(_nameController.text);
+                model.checkIfIconIsSelected();
                 model.addNewCategory(context, widget.type, _nameController);
               },
             ),
@@ -83,7 +84,9 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
                   crossAxisSpacing: 5,
                   mainAxisSpacing: 5,
                   crossAxisCount: 5,
-                  children: _iconList(model),
+                  children: model.isIconSelected
+                      ? _iconList(model)
+                      : _errorIconList(model),
                 ),
               ),
             ],
@@ -91,6 +94,47 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
         ),
       ),
     );
+  }
+
+  List<Widget> _errorIconList(AddCategoryModel model) {
+    final List<IconData> icons = (widget.type == ItemType.expense)
+        ? MyIcons.expenseIcons
+        : MyIcons.incomeIcons;
+
+    List<Widget> pageIcons = List.generate(
+      icons.length,
+      (index) {
+        return Container(
+          decoration: BoxDecoration(
+            color: Theme.of(context).errorColor,
+            borderRadius: const BorderRadius.all(
+              const Radius.circular(10),
+            ),
+          ),
+          padding: const EdgeInsets.all(1.5),
+          child: RaisedButton(
+            onPressed: () {
+              model.checkIfIconIsSelected();
+              model.changeSelectedIcon(index);
+            },
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Expanded(
+                  child: Icon(
+                    icons[index],
+                    size: 35,
+                    color: model.color,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+
+    return pageIcons;
   }
 
   // TODO: make all cion button have red outline when non selected and user presses add
@@ -105,7 +149,7 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
         // if is the selected icon
         if (model.selectedIconIndex != null &&
             index == model.selectedIconIndex) {
-              // TODO: make this button style reusable in add_category_page, category_add_rec_item_page and edit_category_page
+          // TODO: make this button style reusable in add_category_page, category_add_rec_item_page and edit_category_page
           return Container(
             decoration: BoxDecoration(
               color: model.color,

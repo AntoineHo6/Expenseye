@@ -12,6 +12,7 @@ class AddCategoryModel extends ChangeNotifier {
   int selectedIconIndex;
   Color color = AppDarkThemeColors.secondary;
   bool isNameInvalid = false;
+  bool isIconSelected = true;
   List<String> categoryIds = new List();
 
   AddCategoryModel() {
@@ -20,6 +21,15 @@ class AddCategoryModel extends ChangeNotifier {
         categoryIds.add(category.id);
       },
     );
+  }
+
+  void checkIfIconIsSelected() {
+    if (selectedIconIndex == null) {
+      isIconSelected = false;
+    }
+    else {
+      isIconSelected = true;
+    }
   }
 
   Future<void> openColorPickerDialog(context) async {

@@ -5,6 +5,7 @@ import 'package:Expenseye/Helpers/google_firebase_helper.dart';
 import 'package:Expenseye/Models/Item.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:Expenseye/Providers/Global/item_model.dart';
+import 'package:Expenseye/Providers/Global/settings_notifier.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/cupertino.dart';
@@ -130,15 +131,14 @@ class _DailyPageState extends State<DailyPage> with WidgetsBindingObserver {
   Future<void> loadDailyNotifications(
     FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin,
   ) async {
-    int hour;
-    int minute;
+    TimeOfDay settingsTime =
+        Provider.of<SettingsNotifier>(context, listen: false)
+            .getLocalNotifTime();
 
-    await SharedPreferences.getInstance().then((prefs) {
-      hour = prefs.getInt('localNotificationsHour');
-      minute = prefs.getInt('localNotificationsMinute');
-    });
-
-    var time = Time(hour, minute, 0);
+    var time = Time(
+      settingsTime.hour,
+      settingsTime.minute,
+    );
     var androidPlatformChannelSpecifics = AndroidNotificationDetails(
       'repeatDailyAtTime channel id',
       'repeatDailyAtTime channel name',

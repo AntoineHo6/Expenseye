@@ -37,7 +37,5 @@
             </intent-filter>
         </receiver>
         <receiver android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver" />
-    </application>
-    
-    <!-- is this even in the right place -->
+    </application> -->
 </manifest>

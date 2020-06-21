@@ -1,3 +1,5 @@
+import 'package:Expenseye/Components/Categories/icon_btn.dart';
+import 'package:Expenseye/Components/Categories/selected_icon_btn.dart';
 import 'package:Expenseye/Components/EditAdd/delete_btn.dart';
 import 'package:Expenseye/Components/EditAdd/name_text_field.dart';
 import 'package:Expenseye/Components/Global/bottom_nav_button.dart';
@@ -65,10 +67,10 @@ class _EditCategoryPageState extends State<EditCategoryPage> {
                       children: <Widget>[
                         Text(AppLocalizations.of(context).translate('color')),
                         ButtonTheme(
-                          minWidth: 50,
+                          minWidth: 60,
                           height: 40,
                           child: RaisedButton(
-                            hoverElevation: 50,
+                            elevation: 6,
                             color: model.color,
                             onPressed: () async =>
                                 await model.openColorPickerDialog(context),
@@ -106,46 +108,17 @@ class _EditCategoryPageState extends State<EditCategoryPage> {
         // if is the selected icon
         if (model.selectedIconIndex != null &&
             index == model.selectedIconIndex) {
-          return Container(
-            decoration: BoxDecoration(
-              color: model.color,
-              borderRadius: const BorderRadius.all(
-                const Radius.circular(12),
-              ),
-            ),
-            padding: const EdgeInsets.all(3),
-            child: RaisedButton(
-              onPressed: () => model.changeSelectedIcon(index),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Expanded(
-                    child: Icon(
-                      icons[index],
-                      size: 35,
-                      color: model.color,
-                    ),
-                  ),
-                ],
-              ),
-            ),
+          return SelectedIconBtn(
+            onPressed: () => model.changeSelectedIcon(index),
+            iconData: icons[index],
+            color: model.color,
           );
         }
         // other unselected icons
-        return RaisedButton(
+        return IconBtn(
           onPressed: () => model.changeSelectedIcon(index),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: <Widget>[
-              Expanded(
-                child: Icon(
-                  icons[index],
-                  size: 35,
-                  color: model.color,
-                ),
-              ),
-            ],
-          ),
+          color: model.color,
+          iconData: icons[index],
         );
       },
     );

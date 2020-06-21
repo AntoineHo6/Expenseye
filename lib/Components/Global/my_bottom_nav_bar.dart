@@ -22,7 +22,7 @@ class _MyBottomNavBarState extends State<MyBottomNavBar> {
         BottomNavigationBarItem(
           icon: const Icon(Icons.list),
           title: Text(
-            AppLocalizations.of(context).translate('list'),
+            AppLocalizations.of(context).translate('transactions'),
             style: Theme.of(context).textTheme.bodyText2,
           ),
         ),

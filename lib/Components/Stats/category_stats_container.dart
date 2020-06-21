@@ -19,6 +19,10 @@ class CategoryStatsContainer extends StatelessWidget {
       padding: const EdgeInsets.all(12),
       child: Column(
         children: <Widget>[
+          RaisedButton(
+            onPressed: () => null,
+            child: Icon(Icons.sort),
+          ),
           Container(
             margin: const EdgeInsets.only(right: 20, bottom: 7),
             child: SizedBox(

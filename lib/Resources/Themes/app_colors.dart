@@ -2,7 +2,6 @@ import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Resources/Themes/my_theme_data.dart';
 import 'package:flutter/material.dart';
 
-// TODO: rename
 class AppDarkThemeColors {
   static const Color black00dp = Color(0xff121212);
   static const Color black01dp = Color(0xff1d1d1d);
@@ -24,7 +23,7 @@ class AppDarkThemeColors {
 class AppLightThemeColors {
   static const expenseColor = Color(0xffB94747);
   static const incomeColor = Color(0xff459c38);
-  static final balanceColor = Colors.yellow[900];
+  static final balanceColor = Colors.yellow[800];
 }
 
 class ColorChooserFromTheme {

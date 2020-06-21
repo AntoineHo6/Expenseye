@@ -73,7 +73,7 @@ class _CategoryAddRecItemPageState extends State<CategoryAddRecItemPage>
                         decoration: BoxDecoration(
                           color: DbModel.catMap[key].color,
                           borderRadius: const BorderRadius.all(
-                            const Radius.circular(12),
+                            const Radius.circular(13),
                           ),
                         ),
                         padding: const EdgeInsets.all(4),

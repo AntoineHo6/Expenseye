@@ -35,6 +35,7 @@ class DbModel extends ChangeNotifier {
     }
 
     await initUserCategoriesMap();
+    await initCheckRecurringItems();
   }
 
   Future<void> initConnectedUser() async {

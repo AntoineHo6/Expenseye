@@ -39,8 +39,6 @@ class _YearlyHomePageState extends State<YearlyHomePage> {
               children: <Widget>[
                 YearlyItemsPage(),
                 StatsPage(
-                  type: yearlyModel.chartType,
-                  onSwitchTypeBtnPressed: yearlyModel.switchChartType,
                   future: () => _dbModel.queryItemsInYear(yearlyModel.year),
                 ),
               ],

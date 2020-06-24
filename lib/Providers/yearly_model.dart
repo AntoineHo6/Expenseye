@@ -1,4 +1,3 @@
-import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Models/Item.dart';
 import 'package:flutter/material.dart';
 
@@ -9,17 +8,6 @@ class YearlyModel extends ChangeNotifier {
   double currentExpenseTotal = 0;
   double currentIncomeTotal = 0;
   int pageIndex = 0;
-  ItemType chartType = ItemType.expense;
-
-  void switchChartType() {
-    if (chartType == ItemType.expense) {
-      chartType = ItemType.income;
-    } else {
-      chartType = ItemType.expense;
-    }
-
-    notifyListeners();
-  }
 
   void decrementYear() {
     currentDate = currentDate.subtract(Duration(days: 365));

@@ -47,8 +47,6 @@ class _MonthlyHomePageState extends State<MonthlyHomePage> {
               children: <Widget>[
                 MonthlyItemsPage(),
                 StatsPage(
-                  type: monthlyModel.chartType,
-                  onSwitchTypeBtnPressed: monthlyModel.switchChartType,
                   future: () =>
                       _dbModel.queryItemsByMonth(monthlyModel.yearMonth),
                 ),

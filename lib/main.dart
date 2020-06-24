@@ -56,6 +56,7 @@ class _MyAppState extends State<MyApp> {
     }
 
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       supportedLocales: [Locale('en'), Locale('fr')],
       localizationsDelegates: [
         AppLocalizations.delegate,

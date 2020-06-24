@@ -1,4 +1,3 @@
-import 'package:Expenseye/Enums/item_type.dart';
 import 'package:Expenseye/Models/Item.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
 import 'package:Expenseye/app_localizations.dart';
@@ -12,7 +11,6 @@ class MonthlyModel extends ChangeNotifier {
   double currentExpenseTotal;
   double currentIncomeTotal;
   int pageIndex;
-  ItemType chartType;
 
   MonthlyModel(BuildContext context, DateTime date) {
     currentDate = date;
@@ -22,18 +20,6 @@ class MonthlyModel extends ChangeNotifier {
     currentExpenseTotal = 0;
     currentIncomeTotal = 0;
     pageIndex = 0;
-    chartType = ItemType.expense;
-  }
-
-  void switchChartType() {
-    if (chartType == ItemType.expense) {
-      chartType = ItemType.income;
-    }
-    else {
-      chartType = ItemType.expense;
-    }
-
-    notifyListeners();
   }
 
   void incrementMonth(BuildContext context) {

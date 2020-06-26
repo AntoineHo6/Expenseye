@@ -18,24 +18,24 @@ class DbModel extends ChangeNotifier {
   Future<void> initUser() async {
     await initConnectedUser();
     await initUserCategoriesMap();
-    await initCheckRecurringItems();
+    await initCheckRecurringTransacs();
   }
 
   Future<void> loginInit() async {
-    List<Transac> localItems = await queryAllItems();
+    List<Transac> localTransacs = await queryAllTransacs();
     List<Category> localCategories = await queryCategories();
-    List<RecurringTransac> localRecItems = await queryRecurringItems();
+    List<RecurringTransac> localRecTransacs = await queryRecurringTransacs();
 
     bool isLoggedIn = await loginWithGoogle();
     // * From this point on, the sqflite file contains data from the firebase file
     List<Category> accCategories = await queryCategories();
 
     if (isLoggedIn) {
-      await addLocalItems(localItems, localCategories, localRecItems, accCategories);
+      await addLocalTransacs(localTransacs, localCategories, localRecTransacs, accCategories);
     }
 
     await initUserCategoriesMap();
-    await initCheckRecurringItems();
+    await initCheckRecurringTransacs();
   }
 
   Future<void> initConnectedUser() async {
@@ -49,23 +49,24 @@ class DbModel extends ChangeNotifier {
   Future<void> logOutFromGoogle() async {
     await GoogleFirebaseHelper.uploadDbFile();
     await GoogleFirebaseHelper.logOut();
-    await _deleteAllItems();
+    await _deleteAllTransacs();
     await _resetCategories();
   }
 
-  Future<void> initCheckRecurringItems() async {
-    List<RecurringTransac> recurringItems = await queryRecurringItems();
+  // change word check to update
+  Future<void> initCheckRecurringTransacs() async {
+    List<RecurringTransac> recurringTransacs = await queryRecurringTransacs();
     DateTime today = DateTimeUtil.timeToZeroInDate(DateTime.now());
 
-    for (var recurringItem in recurringItems) {
+    for (var recurringTransac in recurringTransacs) {
       // if same date and not added yet
-      if (recurringItem.dueDate.compareTo(today) == 0) {
-        await insRecItemInstanceAndUpdate(recurringItem);
+      if (recurringTransac.dueDate.compareTo(today) == 0) {
+        await insRecTransacInstanceAndUpdate(recurringTransac);
       }
-      // else if recurringItem's date is before today
-      else if (recurringItem.dueDate.compareTo(today) == -1) {
-        while (recurringItem.dueDate.compareTo(today) != 1) {
-          await insRecItemInstanceAndUpdate(recurringItem);
+      // else if recurringTransac's date is before today
+      else if (recurringTransac.dueDate.compareTo(today) == -1) {
+        while (recurringTransac.dueDate.compareTo(today) != 1) {
+          await insRecTransacInstanceAndUpdate(recurringTransac);
         }
       }
     }
@@ -73,25 +74,25 @@ class DbModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> insRecItemInstanceAndUpdate(RecurringTransac recurringItem) async {
-    // 1. insert item
-    Transac newItem = Transac(
-      recurringItem.name,
-      recurringItem.amount,
-      recurringItem.dueDate,
-      catMap[recurringItem.category].type,
-      recurringItem.category,
+  Future<void> insRecTransacInstanceAndUpdate(RecurringTransac recurringTransac) async {
+    // 1. insert transac
+    Transac newTransac = Transac(
+      recurringTransac.name,
+      recurringTransac.amount,
+      recurringTransac.dueDate,
+      catMap[recurringTransac.category].type,
+      recurringTransac.category,
     );
-    await _dbHelper.insertItem(newItem);
-    // 2. update recurring item's date
-    recurringItem.updateDueDate();
-    await _dbHelper.updateRecurringItem(recurringItem);
+    await _dbHelper.insertTransac(newTransac);
+    // 2. update recurring transac's date
+    recurringTransac.updateDueDate();
+    await _dbHelper.updateRecurringTransac(recurringTransac);
   }
 
-  Future<void> addLocalItems(
-    List<Transac> localItems,
+  Future<void> addLocalTransacs(
+    List<Transac> localTransacs,
     List<Category> localCategories,
-    List<RecurringTransac> localRecItems,
+    List<RecurringTransac> localRecTransacs,
     List<Category> accCategories,
   ) async {
     List<String> accCategoriesId =
@@ -104,15 +105,15 @@ class DbModel extends ChangeNotifier {
       }
     }
 
-    if (localItems.length > 0) {
-      for (Transac item in localItems) {
-        await _dbHelper.insertItem(item);
+    if (localTransacs.length > 0) {
+      for (Transac transac in localTransacs) {
+        await _dbHelper.insertTransac(transac);
       }
     }
 
-    if (localRecItems.length > 0) {
-      for (var recItem in localRecItems) {
-        await _dbHelper.insertRecurringItem(recItem);
+    if (localRecTransacs.length > 0) {
+      for (var recTransac in localRecTransacs) {
+        await _dbHelper.insertRecurringTransac(recTransac);
       }
     }
 
@@ -129,37 +130,37 @@ class DbModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<List<Transac>> queryAllItems() async {
-    return await _dbHelper.queryAllItems();
+  Future<List<Transac>> queryAllTransacs() async {
+    return await _dbHelper.queryAllTransacs();
   }
 
-  Future<void> addItem(Transac newItem) async {
-    await _dbHelper.insertItem(newItem);
+  Future<void> addTransac(Transac newTransac) async {
+    await _dbHelper.insertTransac(newTransac);
     notifyListeners();
   }
 
-  Future<void> editItem(Transac newItem) async {
-    await _dbHelper.updateItem(newItem);
+  Future<void> updateTransac(Transac newTransac) async {
+    await _dbHelper.updateTransac(newTransac);
     notifyListeners();
   }
 
-  Future<void> deleteItem(int id) async {
-    await _dbHelper.deleteItem(id);
+  Future<void> deleteTransac(int id) async {
+    await _dbHelper.deleteTransac(id);
     notifyListeners();
   }
 
-  Future<void> _deleteAllItems() async {
-    await _dbHelper.deleteAllItems();
+  Future<void> _deleteAllTransacs() async {
+    await _dbHelper.deleteAllTransacs();
     notifyListeners();
   }
 
-  Future<List<Transac>> queryItemsByDay(DateTime day) async {
+  Future<List<Transac>> queryTransacsByDay(DateTime day) async {
     DateTime dayClean = DateTimeUtil.timeToZeroInDate(day);
-    return await _dbHelper.queryItemsInDate(dayClean);
+    return await _dbHelper.queryTransacsInDate(dayClean);
   }
 
-  Future<List<Transac>> queryItemsByMonth(String yearMonth) async {
-    return await _dbHelper.queryItemsByMonth(yearMonth);
+  Future<List<Transac>> queryTransacsByMonth(String yearMonth) async {
+    return await _dbHelper.queryTransacsByMonth(yearMonth);
   }
 
   Future<List<Category>> queryCategories() async {
@@ -171,8 +172,8 @@ class DbModel extends ChangeNotifier {
     await initUserCategoriesMap();
   }
 
-  Future<void> deleteItemsByCategory(String categoryId) async {
-    await _dbHelper.deleteItemsByCategory(categoryId);
+  Future<void> deleteTransacsByCategory(String categoryId) async {
+    await _dbHelper.deleteTransacsByCategory(categoryId);
     notifyListeners();
   }
 
@@ -182,26 +183,26 @@ class DbModel extends ChangeNotifier {
     await initUserCategoriesMap();
   }
 
-  Future<List<Transac>> queryItemsInYear(String year) async {
-    return await _dbHelper.queryItemsInYear(year);
+  Future<List<Transac>> queryTransacsInYear(String year) async {
+    return await _dbHelper.queryTransacsInYear(year);
   }
 
-  Future<void> insertRecurringItem(RecurringTransac recurringItem) async {
-    await _dbHelper.insertRecurringItem(recurringItem);
+  Future<void> insertRecurringTransac(RecurringTransac recurringTransac) async {
+    await _dbHelper.insertRecurringTransac(recurringTransac);
     notifyListeners();
   }
 
-  Future<List<RecurringTransac>> queryRecurringItems() async {
-    return await _dbHelper.queryRecurringItems();
+  Future<List<RecurringTransac>> queryRecurringTransacs() async {
+    return await _dbHelper.queryRecurringTransacs();
   }
 
-  Future<void> editRecurringItem(RecurringTransac recurringItem) async {
-    await _dbHelper.updateRecurringItem(recurringItem);
+  Future<void> editRecurringTransac(RecurringTransac recurringTransac) async {
+    await _dbHelper.updateRecurringTransac(recurringTransac);
     notifyListeners();
   }
 
-  Future<void> deleteRecurringItem(int id) async {
-    await _dbHelper.deleteRecurringItem(id);
+  Future<void> deleteRecurringTransac(int id) async {
+    await _dbHelper.deleteRecurringTransac(id);
     notifyListeners();
   }
 }

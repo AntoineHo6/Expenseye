@@ -14,41 +14,41 @@ import 'package:provider/provider.dart';
 class MonthlyTransacPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final _itemModel = Provider.of<TransacModel>(context, listen: false);
+    final _transacModel = Provider.of<TransacModel>(context, listen: false);
     final _monthlyModel = Provider.of<MonthlyModel>(context, listen: false);
 
     return Scaffold(
       body: FutureBuilder<List<Transac>>(
         future: Provider.of<DbModel>(context)
-            .queryItemsByMonth(_monthlyModel.yearMonth),
+            .queryTransacsByMonth(_monthlyModel.yearMonth),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data != null && snapshot.data.length > 0) {
-              var itemsSplitByDay =
-                  _monthlyModel.splitItemsByDay(snapshot.data);
+              var transacsSplitByDay =
+                  _monthlyModel.splitTransacsByDay(snapshot.data);
 
-              _itemModel.calcTotals(_monthlyModel, snapshot.data);
+              _transacModel.calcTotals(_monthlyModel, snapshot.data);
 
               return Column(
                 children: <Widget>[
                   Expanded(
                     child: ListView.builder(
                       shrinkWrap: true,
-                      itemCount: itemsSplitByDay.length + 1,
+                      itemCount: transacsSplitByDay.length + 1,
                       itemBuilder: (context, i) {
                         if (i == 0) {
                           return MonthlyYearlyHeader(
                             pageModel: _monthlyModel,
                           );
                         }
-                        return _DayContainer(itemsSplitByDay[i - 1]);
+                        return _DayContainer(transacsSplitByDay[i - 1]);
                       },
                     ),
                   ),
                 ],
               );
             } else {
-              _itemModel.calcTotals(_monthlyModel, snapshot.data);
+              _transacModel.calcTotals(_monthlyModel, snapshot.data);
               return Align(
                 alignment: Alignment.topCenter,
                 child: MonthlyYearlyHeader(
@@ -66,22 +66,22 @@ class MonthlyTransacPage extends StatelessWidget {
       ),
       floatingActionButton: AddTransacFab(
         onExpensePressed: () =>
-            _itemModel.showAddExpense(context, _monthlyModel.currentDate),
+            _transacModel.showAddExpense(context, _monthlyModel.currentDate),
         onIncomePressed: () =>
-            _itemModel.showAddIncome(context, _monthlyModel.currentDate),
+            _transacModel.showAddIncome(context, _monthlyModel.currentDate),
       ),
     );
   }
 }
 
 class _DayContainer extends StatelessWidget {
-  final List<Transac> items;
+  final List<Transac> transacs;
 
-  _DayContainer(this.items);
+  _DayContainer(this.transacs);
 
   @override
   Widget build(BuildContext context) {
-    final _itemModel = Provider.of<TransacModel>(context, listen: false);
+    final _transacModel = Provider.of<TransacModel>(context, listen: false);
 
     return Container(
       decoration: BoxDecoration(
@@ -98,11 +98,11 @@ class _DayContainer extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Text(
-                  DateTimeUtil.formattedDate(context, items[0].date),
+                  DateTimeUtil.formattedDate(context, transacs[0].date),
                   style: Theme.of(context).textTheme.headline5,
                 ),
                 Text(
-                  '${_itemModel.totalString(_itemModel.calcItemsTotal(items))}',
+                  '${_transacModel.totalString(_transacModel.calcTransacsTotal(transacs))}',
                   style: TextStyle(
                     color: ColorChooserFromTheme.balanceColorChooser(
                       Provider.of<SettingsNotifier>(context).getTheme(),
@@ -116,13 +116,13 @@ class _DayContainer extends StatelessWidget {
             height: 10,
           ),
           Column(
-            children: items
+            children: transacs
                 .map(
-                  (item) => Container(
+                  (transac) => Container(
                     margin: const EdgeInsets.symmetric(vertical: 5),
                     child: TransacListTile(
-                      item,
-                      onPressed: () => item.openEditItemPage(context, item),
+                      transac,
+                      onPressed: () => transac.openEditTransacPage(context, transac),
                     ),
                   ),
                 )

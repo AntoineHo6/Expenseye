@@ -1,4 +1,4 @@
-import 'package:Expenseye/Components/Global/add_item_fab.dart';
+import 'package:Expenseye/Components/Global/add_transac_fab.dart';
 import 'package:Expenseye/Components/Drawer/my_drawer.dart';
 import 'package:Expenseye/Components/Transac/transac_list_tile.dart';
 import 'package:Expenseye/Helpers/google_firebase_helper.dart';
@@ -45,19 +45,19 @@ class _DailyPageState extends State<DailyPage> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     loadDailyNotifications();
-    final _itemModel = Provider.of<TransacModel>(context);
+    final _transacModel = Provider.of<TransacModel>(context);
     final _dbModel = Provider.of<DbModel>(context);
 
     return Scaffold(
       drawer: MyDrawer(),
       body: FutureBuilder<List<Transac>>(
-        future: _dbModel.queryItemsByDay(widget.day),
+        future: _dbModel.queryTransacsByDay(widget.day),
         builder: (context, snapshot) {
           if (snapshot.hasData && DbModel.catMap.length > 0) {
             if (snapshot.data != null && snapshot.data.length > 0) {
-              return mySliverView(snapshot.data, _itemModel, context);
+              return mySliverView(snapshot.data, _transacModel, context);
             } else {
-              return mySliverView([], _itemModel, context);
+              return mySliverView([], _transacModel, context);
             }
           } else {
             return const Align(
@@ -67,15 +67,15 @@ class _DailyPageState extends State<DailyPage> with WidgetsBindingObserver {
           }
         },
       ),
-      floatingActionButton: AddExpenseFab(
-        onExpensePressed: () => _itemModel.showAddExpense(context, widget.day),
-        onIncomePressed: () => _itemModel.showAddIncome(context, widget.day),
+      floatingActionButton: AddTransacFab(
+        onExpensePressed: () => _transacModel.showAddExpense(context, widget.day),
+        onIncomePressed: () => _transacModel.showAddIncome(context, widget.day),
       ),
     );
   }
 
   CustomScrollView mySliverView(
-      List<Transac> items, TransacModel itemModel, BuildContext context) {
+      List<Transac> transacs, TransacModel transacModel, BuildContext context) {
     return CustomScrollView(
       slivers: <Widget>[
         SliverAppBar(
@@ -95,14 +95,14 @@ class _DailyPageState extends State<DailyPage> with WidgetsBindingObserver {
               return Container(
                 margin: EdgeInsets.fromLTRB(10, 20, 10, 0),
                 child: TransacListTile(
-                  items[index],
+                  transacs[index],
                   contentPadding: const EdgeInsets.all(15),
                   onPressed: () async =>
-                      await itemModel.openEditItem(context, items[index]),
+                      await transacModel.openEditTransac(context, transacs[index]),
                 ),
               );
             },
-            childCount: items.length,
+            childCount: transacs.length,
           ),
         ),
       ],

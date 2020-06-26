@@ -27,7 +27,7 @@ class AppLightThemeColors {
 }
 
 class ColorChooserFromTheme {
-  static itemColorTypeChooser(TransacType type, ThemeData theme) {
+  static transacColorTypeChooser(TransacType type, ThemeData theme) {
     if (type == TransacType.expense) {
       if (theme == MyThemeData.lightTheme) {
         return AppLightThemeColors.expenseColor;

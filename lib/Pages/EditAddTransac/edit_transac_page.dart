@@ -10,31 +10,31 @@ import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class EditItemPage extends StatefulWidget {
-  final Transac item;
+class EditTransacPage extends StatefulWidget {
+  final Transac transac;
 
-  EditItemPage(this.item);
+  EditTransacPage(this.transac);
 
   @override
-  _EditItemPageState createState() => _EditItemPageState();
+  _EditTransacPageState createState() => _EditTransacPageState();
 }
 
-class _EditItemPageState extends State<EditItemPage> {
+class _EditTransacPageState extends State<EditTransacPage> {
   final _nameController = TextEditingController();
   final _amountController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => EditTransacModel(widget.item),
+      create: (_) => EditTransacModel(widget.transac),
       child: Consumer<EditTransacModel>(
         builder: (context, model, child) => Scaffold(
           appBar: AppBar(
-            title: Text(widget.item.name),
+            title: Text(widget.transac.name),
             actions: <Widget>[
               DeleteBtn(
                 onPressed: () async =>
-                    await model.delete(context, widget.item.id),
+                    await model.delete(context, widget.transac.id),
               ),
             ],
           ),
@@ -45,9 +45,9 @@ class _EditItemPageState extends State<EditItemPage> {
               disabledColor: Theme.of(context).buttonColor.withOpacity(0.8),
               text: AppLocalizations.of(context).translate('saveCaps'),
               onPressed: model.didInfoChange
-                  ? () async => await model.editItem(
+                  ? () async => await model.editTransac(
                         context,
-                        widget.item.id,
+                        widget.transac.id,
                         _nameController.text,
                         _amountController.text,
                       )
@@ -157,8 +157,8 @@ class _EditItemPageState extends State<EditItemPage> {
 
   @override
   void initState() {
-    _nameController.text = widget.item.name;
-    _amountController.text = widget.item.amount.toString();
+    _nameController.text = widget.transac.name;
+    _amountController.text = widget.transac.amount.toString();
     super.initState();
   }
 }

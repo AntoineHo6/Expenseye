@@ -12,9 +12,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class EditRecurringTransacPage extends StatefulWidget {
-  final RecurringTransac recurringItem;
+  final RecurringTransac recurringTransac;
 
-  EditRecurringTransacPage(this.recurringItem);
+  EditRecurringTransacPage(this.recurringTransac);
 
   @override
   _EditRecurringTransacPageState createState() => _EditRecurringTransacPageState();
@@ -27,11 +27,11 @@ class _EditRecurringTransacPageState extends State<EditRecurringTransacPage> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => EditRecurringItemModel(widget.recurringItem),
-      child: Consumer<EditRecurringItemModel>(
+      create: (_) => EditRecurringTransacModel(widget.recurringTransac),
+      child: Consumer<EditRecurringTransacModel>(
         builder: (context, model, child) => Scaffold(
           appBar: AppBar(
-            title: Text(widget.recurringItem.name),
+            title: Text(widget.recurringTransac.name),
             actions: <Widget>[
               DeleteBtn(
                 onPressed: () => model.delete(context),
@@ -45,7 +45,7 @@ class _EditRecurringTransacPageState extends State<EditRecurringTransacPage> {
               disabledColor: Theme.of(context).buttonColor.withOpacity(0.8),
               text: AppLocalizations.of(context).translate('saveCaps'),
               onPressed: model.didInfoChange
-                  ? () async => await model.editRecurringItem(
+                  ? () async => await model.editRecurringTransac(
                         context,
                         _nameController.text,
                         _amountController.text,
@@ -85,7 +85,7 @@ class _EditRecurringTransacPageState extends State<EditRecurringTransacPage> {
                   child: DatePickerBtn(
                     width: double.infinity,
                     height: 80,
-                    date: model.recurringItem.dueDate,
+                    date: model.recurringTransac.dueDate,
                     iconSize: 32,
                     spaceBetweenSize: 15,
                     fontSize: 20,
@@ -100,7 +100,7 @@ class _EditRecurringTransacPageState extends State<EditRecurringTransacPage> {
                   margin:
                       const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                   child: CategoryPickerBtn(
-                    categoryId: model.recurringItem.category,
+                    categoryId: model.recurringTransac.category,
                     onPressed: () => model.openChooseCategoryPage(context),
                     width: double.infinity,
                     height: 80,
@@ -119,7 +119,7 @@ class _EditRecurringTransacPageState extends State<EditRecurringTransacPage> {
                     onPressed: () => model.openPeriodicityPickerPage(context),
                     width: double.infinity,
                     height: 80,
-                    periodicity: model.recurringItem.periodicity,
+                    periodicity: model.recurringTransac.periodicity,
                     spaceBetweenSize: 15,
                     fontSize: 20,
                     iconSize: 32,
@@ -134,7 +134,7 @@ class _EditRecurringTransacPageState extends State<EditRecurringTransacPage> {
   }
 
   Widget _buildTextField(
-      EditRecurringItemModel model, String title, Widget textField) {
+      EditRecurringTransacModel model, String title, Widget textField) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       child: Column(
@@ -172,8 +172,8 @@ class _EditRecurringTransacPageState extends State<EditRecurringTransacPage> {
 
   @override
   void initState() {
-    _nameController.text = widget.recurringItem.name;
-    _amountController.text = widget.recurringItem.amount.toString();
+    _nameController.text = widget.recurringTransac.name;
+    _amountController.text = widget.recurringTransac.amount.toString();
     super.initState();
   }
 }

@@ -59,7 +59,7 @@ class MyDrawer extends StatelessWidget {
                   AppLocalizations.of(context).translate('recurringTransactions')),
               onTap: () {
                 Navigator.of(context).pop(context);
-                _openRecurringItemsPage(context);
+                _openRecurringTransacPage(context);
               },
             ),
             ListTile(
@@ -113,7 +113,7 @@ class MyDrawer extends StatelessWidget {
     );
   }
 
-  void _openRecurringItemsPage(BuildContext context) {
+  void _openRecurringTransacPage(BuildContext context) {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => RecurringTransacPage()),

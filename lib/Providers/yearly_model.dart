@@ -31,7 +31,7 @@ class YearlyModel extends ChangeNotifier {
     return temp.substring(0, temp.length - 3);
   }
 
-  List<List<Transac>> splitItemByMonth(List<Transac> expenses) {
+  List<List<Transac>> splitTransacsByMonth(List<Transac> expenses) {
     List<List<Transac>> expensesSplitByMonth = new List();
 
     String currentMonth = getYearMonthString(expenses[0].date);

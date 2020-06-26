@@ -44,7 +44,7 @@ class _CategoryAddRecTransacPageState extends State<CategoryAddRecTransacPage>
                     .translate('createRecurringIncome'),
             onPressed: () {
               if (selectedIconIndex != null) {
-                _model.createRecurringItem(context);
+                _model.createRecurringTransac(context);
               }
             },
           ),

@@ -48,7 +48,7 @@ class _MonthlyHomePageState extends State<MonthlyHomePage> {
                 MonthlyTransacPage(),
                 StatsPage(
                   future: () =>
-                      _dbModel.queryItemsByMonth(monthlyModel.yearMonth),
+                      _dbModel.queryTransacsByMonth(monthlyModel.yearMonth),
                 ),
               ],
             ),

@@ -30,14 +30,14 @@ class MonthlyYearlyHeader extends StatelessWidget {
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              _headerItemTypeTotalRect(
+              _headerTransacTypeTotalRect(
                 context,
                 AppLocalizations.of(context).translate('income'),
                 pageModel.currentIncomeTotal,
                 TransacType.income,
               ),
               const SizedBox(width: 5),
-              _headerItemTypeTotalRect(
+              _headerTransacTypeTotalRect(
                 context,
                 AppLocalizations.of(context).translate('expense'),
                 pageModel.currentExpenseTotal,
@@ -56,7 +56,7 @@ class MonthlyYearlyHeader extends StatelessWidget {
     );
   }
 
-  Widget _headerItemTypeTotalRect(
+  Widget _headerTransacTypeTotalRect(
     BuildContext context,
     String title,
     double total,
@@ -83,7 +83,7 @@ class MonthlyYearlyHeader extends StatelessWidget {
                       ? '- ${total.toStringAsFixed(2)} \$'
                       : '+ ${total.toStringAsFixed(2)} \$',
                   style: TextStyle(
-                    color: ColorChooserFromTheme.itemColorTypeChooser(
+                    color: ColorChooserFromTheme.transacColorTypeChooser(
                       type,
                       settingsNotifier.getTheme(),
                     ),

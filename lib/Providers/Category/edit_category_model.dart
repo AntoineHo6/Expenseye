@@ -85,7 +85,7 @@ class EditCategoryModel extends ChangeNotifier {
       );
 
       await DatabaseHelper.instance
-          .updateItemsAndRecItemsCategory(oldCategoryId, updatedCategory.id);
+          .updateTransacsAndRecTransacsCategory(oldCategoryId, updatedCategory.id);
       await DatabaseHelper.instance.deleteCategory(oldCategoryId);
       await DatabaseHelper.instance.insertCategory(updatedCategory);
 
@@ -106,9 +106,9 @@ class EditCategoryModel extends ChangeNotifier {
 
     if (confirmed != null && confirmed) {
       await Provider.of<DbModel>(context, listen: false)
-          .deleteItemsByCategory(oldCategoryId);
+          .deleteTransacsByCategory(oldCategoryId);
       await DatabaseHelper.instance
-          .deleteRecurringItemsByCategory(oldCategoryId);
+          .deleteRecurringTransacsByCategory(oldCategoryId);
       await Provider.of<DbModel>(context, listen: false)
           .deleteCategory(oldCategoryId);
 

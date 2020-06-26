@@ -43,12 +43,12 @@ class _RecurringTransacPageState extends State<RecurringTransacPage> {
         ],
       ),
       body: FutureBuilder<List<RecurringTransac>>(
-        future: Provider.of<DbModel>(context).queryRecurringItems(),
+        future: Provider.of<DbModel>(context).queryRecurringTransacs(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data != null && snapshot.data.length > 0) {
-              List<List<RecurringTransac>> recurringItemsByCategoryType =
-                  _splitItemsByCategoryType(snapshot.data);
+              List<List<RecurringTransac>> recurringTransacsByCategoryType =
+                  _splitTransacsByCategoryType(snapshot.data);
               return Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
@@ -67,9 +67,9 @@ class _RecurringTransacPageState extends State<RecurringTransacPage> {
                           ),
                           MyDivider(),
                           Column(
-                            children: _recurringItems(
+                            children: _recurringTransacs(
                               context,
-                              recurringItemsByCategoryType[0],
+                              recurringTransacsByCategoryType[0],
                               TransacType.expense,
                             ),
                           ),
@@ -82,9 +82,9 @@ class _RecurringTransacPageState extends State<RecurringTransacPage> {
                           ),
                           MyDivider(),
                           Column(
-                            children: _recurringItems(
+                            children: _recurringTransacs(
                               context,
-                              recurringItemsByCategoryType[1],
+                              recurringTransacsByCategoryType[1],
                               TransacType.income,
                             ),
                           ),
@@ -115,56 +115,56 @@ class _RecurringTransacPageState extends State<RecurringTransacPage> {
     );
   }
 
-  List<List<RecurringTransac>> _splitItemsByCategoryType(
-      List<RecurringTransac> recurringItems) {
-    List<List<RecurringTransac>> recurringItemsByCategoryType = new List(2);
-    recurringItemsByCategoryType[0] = new List(); // expenses
-    recurringItemsByCategoryType[1] = new List(); // incomes
+  List<List<RecurringTransac>> _splitTransacsByCategoryType(
+      List<RecurringTransac> recurringTransacs) {
+    List<List<RecurringTransac>> recurringTransacsByCategoryType = new List(2);
+    recurringTransacsByCategoryType[0] = new List(); // expenses
+    recurringTransacsByCategoryType[1] = new List(); // incomes
 
-    for (RecurringTransac recurringItem in recurringItems) {
-      if (DbModel.catMap[recurringItem.category].type == TransacType.expense) {
-        recurringItemsByCategoryType[0].add(recurringItem);
+    for (RecurringTransac recurringTransac in recurringTransacs) {
+      if (DbModel.catMap[recurringTransac.category].type == TransacType.expense) {
+        recurringTransacsByCategoryType[0].add(recurringTransac);
       } else {
-        recurringItemsByCategoryType[1].add(recurringItem);
+        recurringTransacsByCategoryType[1].add(recurringTransac);
       }
     }
 
-    return recurringItemsByCategoryType;
+    return recurringTransacsByCategoryType;
   }
 
-  List<Widget> _recurringItems(
-      BuildContext context, List<RecurringTransac> recurringItems, TransacType type) {
+  List<Widget> _recurringTransacs(
+      BuildContext context, List<RecurringTransac> recurringTransacs, TransacType type) {
     final settingsNotifier = Provider.of<SettingsNotifier>(context, listen: false);
 
-    return recurringItems.map(
-      (recurringItem) {
+    return recurringTransacs.map(
+      (recurringTransac) {
         return Container(
           margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
           child: RaisedButton(
             highlightColor:
-                DbModel.catMap[recurringItem.category].color.withOpacity(0.1),
+                DbModel.catMap[recurringTransac.category].color.withOpacity(0.1),
             splashColor:
-                DbModel.catMap[recurringItem.category].color.withOpacity(0.1),
+                DbModel.catMap[recurringTransac.category].color.withOpacity(0.1),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.0),
             ),
-            onPressed: () => _openEditRecurringItemPage(context, recurringItem),
+            onPressed: () => _openEditRecurringTransacPage(context, recurringTransac),
             child: ListTile(
               leading: Icon(
-                DbModel.catMap[recurringItem.category].iconData,
-                color: DbModel.catMap[recurringItem.category].color,
+                DbModel.catMap[recurringTransac.category].iconData,
+                color: DbModel.catMap[recurringTransac.category].color,
               ),
               title: Text(
-                recurringItem.name,
+                recurringTransac.name,
                 style: Theme.of(context).textTheme.subtitle1,
               ),
-              subtitle: _subtitleText(context, recurringItem),
+              subtitle: _subtitleText(context, recurringTransac),
               trailing: Text(
                 type == TransacType.expense
-                    ? '- ${recurringItem.amount.toStringAsFixed(2)} \$'
-                    : '+ ${recurringItem.amount.toStringAsFixed(2)} \$',
+                    ? '- ${recurringTransac.amount.toStringAsFixed(2)} \$'
+                    : '+ ${recurringTransac.amount.toStringAsFixed(2)} \$',
                 style: TextStyle(
-                  color: ColorChooserFromTheme.itemColorTypeChooser(
+                  color: ColorChooserFromTheme.transacColorTypeChooser(
                     type,
                     settingsNotifier.getTheme(),
                   ),
@@ -178,12 +178,12 @@ class _RecurringTransacPageState extends State<RecurringTransacPage> {
     ).toList();
   }
 
-  void _openEditRecurringItemPage(
-      BuildContext context, RecurringTransac recurringItem) async {
+  void _openEditRecurringTransacPage(
+      BuildContext context, RecurringTransac recurringTransac) async {
     int action = await Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => EditRecurringTransacPage(recurringItem),
+        builder: (context) => EditRecurringTransacPage(recurringTransac),
       ),
     );
 
@@ -202,10 +202,10 @@ class _RecurringTransacPageState extends State<RecurringTransacPage> {
     }
   }
 
-  Widget _subtitleText(BuildContext context, RecurringTransac recurringItem) {
+  Widget _subtitleText(BuildContext context, RecurringTransac recurringTransac) {
     String periodicityTitle;
     periodicityTitle =
-        PeriodicityHelper.getString(context, recurringItem.periodicity);
+        PeriodicityHelper.getString(context, recurringTransac.periodicity);
 
     return RichText(
       text: TextSpan(
@@ -228,7 +228,7 @@ class _RecurringTransacPageState extends State<RecurringTransacPage> {
           ),
           TextSpan(
             text:
-                '${DateTimeUtil.formattedDate(context, recurringItem.dueDate)}',
+                '${DateTimeUtil.formattedDate(context, recurringTransac.dueDate)}',
             style: TextStyle(
               fontStyle: FontStyle.italic,
               fontSize: 13,

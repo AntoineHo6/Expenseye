@@ -37,10 +37,10 @@ class TransacModel extends ChangeNotifier {
     Scaffold.of(context).showSnackBar(snackBar);
   }
 
-  Future<void> openEditItem(BuildContext context, Transac item) async {
+  Future<void> openEditTransac(BuildContext context, Transac transac) async {
     int action = await Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => EditItemPage(item)),
+      MaterialPageRoute(builder: (context) => EditTransacPage(transac)),
     );
 
     if (action != null) {
@@ -55,20 +55,20 @@ class TransacModel extends ChangeNotifier {
     }
   }
 
-  void calcTotals(dynamic model, List<Transac> items) {
+  void calcTotals(dynamic model, List<Transac> transacs) {
     double total = 0;
     double expenseTotal = 0;
     double incomeTotal = 0;
 
-    for (var item in items) {
-      switch (item.type) {
+    for (var transac in transacs) {
+      switch (transac.type) {
         case TransacType.expense:
-          expenseTotal += item.amount;
-          total -= item.amount;
+          expenseTotal += transac.amount;
+          total -= transac.amount;
           break;
         case TransacType.income:
-          incomeTotal += item.amount;
-          total += item.amount;
+          incomeTotal += transac.amount;
+          total += transac.amount;
           break;
       }
     }
@@ -80,16 +80,16 @@ class TransacModel extends ChangeNotifier {
     //notifyListeners();
   }
 
-  double calcItemsTotal(List<Transac> items) {
+  double calcTransacsTotal(List<Transac> transacs) {
     double total = 0;
 
-    for (var item in items) {
-      switch (item.type) {
+    for (var transac in transacs) {
+      switch (transac.type) {
         case TransacType.expense:
-          total -= item.amount;
+          total -= transac.amount;
           break;
         case TransacType.income:
-          total += item.amount;
+          total += transac.amount;
           break;
       }
     }

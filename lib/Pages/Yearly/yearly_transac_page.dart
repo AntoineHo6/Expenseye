@@ -15,38 +15,38 @@ import 'package:provider/provider.dart';
 class YearlyTransacPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final _itemModel = Provider.of<TransacModel>(context);
+    final _transacModel = Provider.of<TransacModel>(context);
     final _yearlyModel = Provider.of<YearlyModel>(context);
 
     return Scaffold(
       body: FutureBuilder<List<Transac>>(
         future:
-            Provider.of<DbModel>(context).queryItemsInYear(_yearlyModel.year),
+            Provider.of<DbModel>(context).queryTransacsInYear(_yearlyModel.year),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data != null && snapshot.data.length > 0) {
-              var itemsSplitByMonth =
-                  _yearlyModel.splitItemByMonth(snapshot.data);
-              _itemModel.calcTotals(_yearlyModel, snapshot.data);
+              var transacsSplitByMonth =
+                  _yearlyModel.splitTransacsByMonth(snapshot.data);
+              _transacModel.calcTotals(_yearlyModel, snapshot.data);
               return Column(
                 children: <Widget>[
                   Expanded(
                     child: ListView.builder(
-                      itemCount: itemsSplitByMonth.length + 1,
+                      itemCount: transacsSplitByMonth.length + 1,
                       itemBuilder: (context, i) {
                         if (i == 0) {
                           return MonthlyYearlyHeader(
                             pageModel: _yearlyModel,
                           );
                         }
-                        return _MonthContainer(itemsSplitByMonth[i - 1]);
+                        return _MonthContainer(transacsSplitByMonth[i - 1]);
                       },
                     ),
                   ),
                 ],
               );
             } else {
-              _itemModel.calcTotals(_yearlyModel, snapshot.data);
+              _transacModel.calcTotals(_yearlyModel, snapshot.data);
               return Align(
                 alignment: Alignment.topCenter,
                 child: MonthlyYearlyHeader(
@@ -67,20 +67,20 @@ class YearlyTransacPage extends StatelessWidget {
 }
 
 class _MonthContainer extends StatelessWidget {
-  final List<Transac> items;
+  final List<Transac> transacs;
 
-  _MonthContainer(this.items);
+  _MonthContainer(this.transacs);
 
   @override
   Widget build(BuildContext context) {
-    final _itemModel = Provider.of<TransacModel>(context, listen: false);
+    final _transacModel = Provider.of<TransacModel>(context, listen: false);
 
     return Container(
       margin: const EdgeInsets.all(10),
       child: RaisedButton(
         elevation: 3,
         padding: const EdgeInsets.all(10),
-        onPressed: () => openMonthsPage(context, items[0].date),
+        onPressed: () => openMonthsPage(context, transacs[0].date),
         child: Column(
           children: <Widget>[
             Row(
@@ -88,14 +88,14 @@ class _MonthContainer extends StatelessWidget {
               children: <Widget>[
                 Text(
                   AppLocalizations.of(context)
-                      .translate(DateTimeUtil.monthNames[items[0].date.month]),
+                      .translate(DateTimeUtil.monthNames[transacs[0].date.month]),
                   style: Theme.of(context).textTheme.headline5,
                 ),
                 Container(
                   margin: EdgeInsets.only(right: 11),
                   child: Text(
-                    _itemModel.totalString(
-                      _itemModel.calcItemsTotal(items),
+                    _transacModel.totalString(
+                      _transacModel.calcTransacsTotal(transacs),
                     ),
                     style: TextStyle(
                       color: ColorChooserFromTheme.balanceColorChooser(
@@ -115,10 +115,10 @@ class _MonthContainer extends StatelessWidget {
                 spacing: 5,
                 runSpacing: 5,
                 children: List.generate(
-                  items.length,
+                  transacs.length,
                   (index) {
                     return ColoredDot(
-                      color: DbModel.catMap[items[index].categoryId].color,
+                      color: DbModel.catMap[transacs[index].categoryId].color,
                     );
                   },
                 ),

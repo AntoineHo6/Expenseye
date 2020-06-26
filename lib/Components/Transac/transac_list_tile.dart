@@ -7,17 +7,17 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class TransacListTile extends StatelessWidget {
-  final Transac item;
+  final Transac transac;
   final EdgeInsets contentPadding;
   final Function onPressed;
   final Color color;
 
-  TransacListTile(this.item, {this.contentPadding, this.onPressed, this.color});
+  TransacListTile(this.transac, {this.contentPadding, this.onPressed, this.color});
 
   @override
   Widget build(BuildContext context) {
-    Color categoryColor = DbModel.catMap[item.categoryId].color;
-    IconData iconData = DbModel.catMap[item.categoryId].iconData;
+    Color categoryColor = DbModel.catMap[transac.categoryId].color;
+    IconData iconData = DbModel.catMap[transac.categoryId].iconData;
     final settingsNotifier = Provider.of<SettingsNotifier>(context, listen: false);
 
     return RaisedButton(
@@ -33,14 +33,14 @@ class TransacListTile extends StatelessWidget {
           color: categoryColor,
         ),
         title: Text(
-          item.name,
+          transac.name,
           style: Theme.of(context).textTheme.subtitle1,
         ),
         trailing: Text(
-          item.type == TransacType.expense ? '- ${item.amount.toStringAsFixed(2)} \$' : '+ ${item.amount.toStringAsFixed(2)} \$',
+          transac.type == TransacType.expense ? '- ${transac.amount.toStringAsFixed(2)} \$' : '+ ${transac.amount.toStringAsFixed(2)} \$',
           style: TextStyle(
-            color: ColorChooserFromTheme.itemColorTypeChooser(
-              item.type,
+            color: ColorChooserFromTheme.transacColorTypeChooser(
+              transac.type,
               settingsNotifier.getTheme(),
             ),
           ),

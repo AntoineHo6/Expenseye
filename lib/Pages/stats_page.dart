@@ -9,10 +9,10 @@ import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-typedef GetItems = Future<List<Transac>> Function();
+typedef GetTransacs = Future<List<Transac>> Function();
 
 class StatsPage extends StatelessWidget {
-  final GetItems future;
+  final GetTransacs future;
 
   StatsPage({
     @required this.future,
@@ -30,12 +30,12 @@ class StatsPage extends StatelessWidget {
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 if (snapshot.data != null && snapshot.data.length > 0) {
-                  var aggregatedItems = ChartUtil.convertItemsToChartSeries(
+                  var aggregatedTransacs = ChartUtil.convertTransacsToChartSeries(
                     snapshot.data,
                     model.type,
                   );
 
-                  model.data = List.from(aggregatedItems[0].data);
+                  model.data = List.from(aggregatedTransacs[0].data);
                   model.sortCategoryGroups();
 
                   return SingleChildScrollView(
@@ -60,7 +60,7 @@ class StatsPage extends StatelessWidget {
                           SizedBox(
                             height: 200.0,
                             child: PieOutsideLabelChart(
-                              aggregatedItems,
+                              aggregatedTransacs,
                               animate: false,
                             ),
                           ),

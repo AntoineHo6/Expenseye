@@ -34,27 +34,27 @@ class _PeriodicityAddRecTransacPageState extends State<PeriodicityAddRecTransacP
           Expanded(
             child: ListView(
               children: <Widget>[
-                _listViewItem(
+                _listViewTransac(
                     context,
                     AppLocalizations.of(context).translate('daily'),
                     Periodicity.daily,
                     _model.type),
-                _listViewItem(
+                _listViewTransac(
                     context,
                     AppLocalizations.of(context).translate('weekly'),
                     Periodicity.weekly,
                     _model.type),
-                _listViewItem(
+                _listViewTransac(
                     context,
                     AppLocalizations.of(context).translate('biWeekly'),
                     Periodicity.biweekly,
                     _model.type),
-                _listViewItem(
+                _listViewTransac(
                     context,
                     AppLocalizations.of(context).translate('monthly'),
                     Periodicity.monthly,
                     _model.type),
-                _listViewItem(
+                _listViewTransac(
                     context,
                     AppLocalizations.of(context).translate('yearly'),
                     Periodicity.yearly,
@@ -67,7 +67,7 @@ class _PeriodicityAddRecTransacPageState extends State<PeriodicityAddRecTransacP
     );
   }
 
-  Widget _listViewItem(BuildContext context, String title,
+  Widget _listViewTransac(BuildContext context, String title,
       Periodicity periodicity, TransacType type) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 2, horizontal: 10),

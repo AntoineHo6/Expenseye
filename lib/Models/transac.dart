@@ -30,33 +30,33 @@ class Transac {
   );
 
   Transac.fromMap(Map<String, dynamic> map) {
-    id = map[Strings.itemColumnId];
-    name = map[Strings.itemColumnName];
-    amount = map[Strings.itemColumnValue];
-    date = DateTime.parse(map[Strings.itemColumnDate]);
-    categoryId = map[Strings.itemColumnCategory];
-    type = TransacType.values[map[Strings.itemColumnType]];
+    id = map[Strings.transacColumnId];
+    name = map[Strings.transacColumnName];
+    amount = map[Strings.transacColumnValue];
+    date = DateTime.parse(map[Strings.transacColumnDate]);
+    categoryId = map[Strings.transacColumnCategory];
+    type = TransacType.values[map[Strings.transacColumnType]];
   }
 
   Map<String, dynamic> toMap() {
     var map = <String, dynamic>{
-      Strings.itemColumnName: name,
-      Strings.itemColumnValue: amount,
-      Strings.itemColumnDate: date.toIso8601String(),
-      Strings.itemColumnCategory: categoryId,
-      Strings.itemColumnType: type.index
+      Strings.transacColumnName: name,
+      Strings.transacColumnValue: amount,
+      Strings.transacColumnDate: date.toIso8601String(),
+      Strings.transacColumnCategory: categoryId,
+      Strings.transacColumnType: type.index
     };
     if (id != null) {
-      map[Strings.itemColumnId] = id;
+      map[Strings.transacColumnId] = id;
     }
     return map;
   }
 
   // todo: MOVE THIS THE FRICK OUTTTTT
-  void openEditItemPage(BuildContext context, Transac item) async {
+  void openEditTransacPage(BuildContext context, Transac transac) async {
     int action = await Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => EditItemPage(item)),
+      MaterialPageRoute(builder: (context) => EditTransacPage(transac)),
     );
 
     if (action != null) {

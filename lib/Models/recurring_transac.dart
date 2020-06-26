@@ -6,7 +6,7 @@ class RecurringTransac {
   int id;
   String name;
   double amount;
-  DateTime dueDate; // corresponds to the next dueDate the item is due for
+  DateTime dueDate; // corresponds to the next dueDate the transaction is due for
   Periodicity periodicity; // daily, weekly, bi-weekly, monthly, yearly
   String category;
 
@@ -56,25 +56,25 @@ class RecurringTransac {
   }
 
   RecurringTransac.fromMap(Map<String, dynamic> map) {
-    id = map[Strings.recurringItemColumnId];
-    name = map[Strings.recurringItemColumnName];
-    amount = map[Strings.recurringItemColumnAmount];
-    dueDate = DateTime.parse(map[Strings.recurringItemColumnDueDate]);
+    id = map[Strings.recurringTransacColumnId];
+    name = map[Strings.recurringTransacColumnName];
+    amount = map[Strings.recurringTransacColumnAmount];
+    dueDate = DateTime.parse(map[Strings.recurringTransacColumnDueDate]);
     periodicity =
-        Periodicity.values[map[Strings.recurringItemColumnPeriodicity]];
-    category = map[Strings.recurringItemColumnCategory];
+        Periodicity.values[map[Strings.recurringTransacColumnPeriodicity]];
+    category = map[Strings.recurringTransacColumnCategory];
   }
 
   Map<String, dynamic> toMap() {
     var map = <String, dynamic>{
-      Strings.recurringItemColumnName: name,
-      Strings.recurringItemColumnAmount: amount,
-      Strings.recurringItemColumnDueDate: dueDate.toIso8601String(),
-      Strings.recurringItemColumnPeriodicity: periodicity.index,
-      Strings.recurringItemColumnCategory: category
+      Strings.recurringTransacColumnName: name,
+      Strings.recurringTransacColumnAmount: amount,
+      Strings.recurringTransacColumnDueDate: dueDate.toIso8601String(),
+      Strings.recurringTransacColumnPeriodicity: periodicity.index,
+      Strings.recurringTransacColumnCategory: category
     };
     if (id != null) {
-      map[Strings.recurringItemColumnId] = id;
+      map[Strings.recurringTransacColumnId] = id;
     }
     return map;
   }

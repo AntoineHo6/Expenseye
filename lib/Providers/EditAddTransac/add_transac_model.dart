@@ -35,7 +35,7 @@ class AddTransacModel extends ChangeNotifier {
     updateDate(newDate);
   }
 
-  void addItem(BuildContext context, String newName, String newAmount) {
+  void addTransac(BuildContext context, String newName, String newAmount) {
     // make sure to remove time before adding to db
     final DateTime newDate = DateTimeUtil.timeToZeroInDate(date);
 
@@ -44,7 +44,7 @@ class AddTransacModel extends ChangeNotifier {
 
     // if all the fields are valid, add and quit
     if (!areFieldsInvalid && !isCategoryMissingError) {
-      Transac newItem = new Transac(
+      Transac newTransac = new Transac(
         newName,
         double.parse(newAmount),
         newDate,
@@ -52,7 +52,7 @@ class AddTransacModel extends ChangeNotifier {
         categoryId,
       );
 
-      Provider.of<DbModel>(context, listen: false).addItem(newItem);
+      Provider.of<DbModel>(context, listen: false).addTransac(newTransac);
       Navigator.pop(context, true);
     }
   }

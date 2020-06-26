@@ -74,7 +74,7 @@ class MonthlyModel extends ChangeNotifier {
   /// Returns nested lists of expenses seperated by day.
   /// E.g. : [ [01, 01], [03, 03, 03], [04] ] where each number represents an
   /// expense.
-  List<List<Transac>> splitItemsByDay(List<Transac> expenses) {
+  List<List<Transac>> splitTransacsByDay(List<Transac> expenses) {
     List<List<Transac>> expensesSplitByDay = new List();
 
     DateTime currentDate = expenses[0].date;

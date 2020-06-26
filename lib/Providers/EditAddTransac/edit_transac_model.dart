@@ -17,10 +17,10 @@ class EditTransacModel extends ChangeNotifier {
   String categoryId;
   TransacType type;
 
-  EditTransacModel(Transac item) {
-    date = item.date;
-    categoryId = item.categoryId;
-    type = item.type;
+  EditTransacModel(Transac transac) {
+    date = transac.date;
+    categoryId = transac.categoryId;
+    type = transac.type;
   }
 
   // Will make the save button clickable
@@ -41,7 +41,7 @@ class EditTransacModel extends ChangeNotifier {
     }
   }
 
-  Future<void> editItem(
+  Future<void> editTransac(
     BuildContext context,
     int id,
     String newName,
@@ -52,15 +52,22 @@ class EditTransacModel extends ChangeNotifier {
 
     // if all the fields are valid, update and quit
     if (!areFieldsInvalid) {
-      Transac newItem = new Transac.withId(
-          id, newName, double.parse(newAmount), date, type, categoryId);
+      Transac newTransac = new Transac.withId(
+        id,
+        newName,
+        double.parse(newAmount),
+        date,
+        type,
+        categoryId,
+      );
 
-      await Provider.of<DbModel>(context, listen: false).editItem(newItem);
+      await Provider.of<DbModel>(context, listen: false)
+          .updateTransac(newTransac);
       Navigator.pop(context, 1);
     }
   }
 
-  Future<void> delete(BuildContext context, int expenseId) async {
+  Future<void> delete(BuildContext context, int transacId) async {
     bool confirmed = await showDialog(
       context: context,
       builder: (_) => ConfirmationDialog(
@@ -69,7 +76,7 @@ class EditTransacModel extends ChangeNotifier {
     );
 
     if (confirmed != null && confirmed) {
-      Provider.of<DbModel>(context, listen: false).deleteItem(expenseId);
+      Provider.of<DbModel>(context, listen: false).deleteTransac(transacId);
       Navigator.pop(context, 2);
     }
   }

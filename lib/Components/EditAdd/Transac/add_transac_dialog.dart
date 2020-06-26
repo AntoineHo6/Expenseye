@@ -34,7 +34,7 @@ class _AddTransacDialogState extends State<AddTransacDialog> {
       title = AppLocalizations.of(context).translate('newExpense');
       icon = Icon(
         MdiIcons.currencyUsdCircle,
-        color: ColorChooserFromTheme.itemColorTypeChooser(
+        color: ColorChooserFromTheme.transacColorTypeChooser(
           widget.type,
           settingsNotifier.getTheme(),
         ),
@@ -43,7 +43,7 @@ class _AddTransacDialogState extends State<AddTransacDialog> {
       title = AppLocalizations.of(context).translate('newIncome');
       icon = Icon(
         Icons.account_balance_wallet,
-        color: ColorChooserFromTheme.itemColorTypeChooser(
+        color: ColorChooserFromTheme.transacColorTypeChooser(
           widget.type,
           settingsNotifier.getTheme(),
         ),
@@ -128,7 +128,7 @@ class _AddTransacDialogState extends State<AddTransacDialog> {
             ),
             FlatButton(
               child: Text(AppLocalizations.of(context).translate('submitCaps')),
-              onPressed: () => model.addItem(
+              onPressed: () => model.addTransac(
                 context,
                 _nameController.text.trim(),
                 _amountController.text.trim(),

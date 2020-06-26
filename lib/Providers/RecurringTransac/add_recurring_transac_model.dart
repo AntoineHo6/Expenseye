@@ -70,8 +70,8 @@ class AddRecurringTransacModel extends ChangeNotifier {
     return true;
   }
 
-  void createRecurringItem(BuildContext context) {
-    RecurringTransac newRecurringItem = new RecurringTransac(
+  void createRecurringTransac(BuildContext context) {
+    RecurringTransac newRecurringTransac = new RecurringTransac(
       this.name,
       this.amount,
       this.startingDay,
@@ -79,9 +79,9 @@ class AddRecurringTransacModel extends ChangeNotifier {
       periodicity,
     );
     Provider.of<DbModel>(context, listen: false)
-        .insertRecurringItem(newRecurringItem);
+        .insertRecurringTransac(newRecurringTransac);
 
-    Provider.of<DbModel>(context, listen: false).initCheckRecurringItems();
+    Provider.of<DbModel>(context, listen: false).initCheckRecurringTransacs();
     Navigator.pop(context);
   }
 }

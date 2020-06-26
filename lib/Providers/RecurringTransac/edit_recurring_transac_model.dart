@@ -11,13 +11,13 @@ import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class EditRecurringItemModel extends ChangeNotifier {
-  RecurringTransac recurringItem;
+class EditRecurringTransacModel extends ChangeNotifier {
+  RecurringTransac recurringTransac;
   bool didInfoChange = false;
   bool isNameInvalid = false;
   bool isAmountInvalid = false;
 
-  EditRecurringItemModel(this.recurringItem);
+  EditRecurringTransacModel(this.recurringTransac);
 
   void delete(BuildContext context) async {
     bool confirmed = await showDialog(
@@ -29,7 +29,7 @@ class EditRecurringItemModel extends ChangeNotifier {
 
     if (confirmed != null && confirmed) {
       await Provider.of<DbModel>(context, listen: false)
-          .deleteRecurringItem(recurringItem.id);
+          .deleteRecurringTransac(recurringTransac.id);
       Navigator.pop(context, 2);
     }
   }
@@ -43,11 +43,11 @@ class EditRecurringItemModel extends ChangeNotifier {
   void chooseDate(BuildContext context) async {
     DateTime newDate = await DateTimeUtil.chooseDate(
       context,
-      recurringItem.dueDate,
+      recurringTransac.dueDate,
       Provider.of<SettingsNotifier>(context, listen: false).getTheme(),
     );
     if (newDate != null) {
-      recurringItem.dueDate = newDate;
+      recurringTransac.dueDate = newDate;
       infoChanged(null);
     }
   }
@@ -59,13 +59,13 @@ class EditRecurringItemModel extends ChangeNotifier {
       context,
       MaterialPageRoute(
         builder: (context) => ChooseCategoryPage(
-          type: DbModel.catMap[recurringItem.category].type,
+          type: DbModel.catMap[recurringTransac.category].type,
         ),
       ),
     );
 
     if (result != null) {
-      recurringItem.category = result;
+      recurringTransac.category = result;
       infoChanged(null);
     }
   }
@@ -79,17 +79,17 @@ class EditRecurringItemModel extends ChangeNotifier {
     );
 
     if (pickedPeriodicity != null) {
-      recurringItem.periodicity = pickedPeriodicity;
+      recurringTransac.periodicity = pickedPeriodicity;
       infoChanged(null);
     }
   }
 
-  Future<void> editRecurringItem(
+  Future<void> editRecurringTransac(
       BuildContext context, String newName, String newAmount) async {
     newName = newName.trim();
     PeriodicityError periodicityError = EditAddRecTransacUtil.checkDueDateForError(
-      recurringItem.periodicity,
-      recurringItem.dueDate,
+      recurringTransac.periodicity,
+      recurringTransac.dueDate,
     );
 
     bool areFieldsInvalid = _checkFieldsInvalid(newName, newAmount);
@@ -97,10 +97,10 @@ class EditRecurringItemModel extends ChangeNotifier {
 
     // if all the fields are valid, update and quit
     if (!areFieldsInvalid && isDueDateValid) {
-      recurringItem.name = newName;
-      recurringItem.amount = double.parse(newAmount);
+      recurringTransac.name = newName;
+      recurringTransac.amount = double.parse(newAmount);
       await Provider.of<DbModel>(context, listen: false)
-          .editRecurringItem(recurringItem);
+          .editRecurringTransac(recurringTransac);
       Navigator.pop(context, 1);
     } else if (!isDueDateValid) {
       showDialog(

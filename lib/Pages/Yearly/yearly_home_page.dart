@@ -39,7 +39,7 @@ class _YearlyHomePageState extends State<YearlyHomePage> {
               children: <Widget>[
                 YearlyTransacPage(),
                 StatsPage(
-                  future: () => _dbModel.queryItemsInYear(yearlyModel.year),
+                  future: () => _dbModel.queryTransacsInYear(yearlyModel.year),
                 ),
               ],
             ),

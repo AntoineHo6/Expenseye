@@ -1,14 +1,14 @@
-import 'package:Expenseye/Enums/item_type.dart';
-import 'package:Expenseye/Models/Item.dart';
+import 'package:Expenseye/Enums/transac_type.dart';
+import 'package:Expenseye/Models/Transac.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
 class ChartUtil {
   static List<charts.Series<CategoryGroup, String>> convertItemsToChartSeries(
-      List<Item> items, ItemType type) {
+      List<Transac> items, TransacType type) {
     Map<String, CategoryGroup> aggregatedExpenses = new Map();
 
-    for (Item item in items) {
+    for (Transac item in items) {
       if (item.type == type) {
         if (!aggregatedExpenses.containsKey(item.categoryId)) {
           aggregatedExpenses[item.categoryId] = CategoryGroup(item.categoryId);

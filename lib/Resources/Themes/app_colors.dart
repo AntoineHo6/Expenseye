@@ -1,4 +1,4 @@
-import 'package:Expenseye/Enums/item_type.dart';
+import 'package:Expenseye/Enums/transac_type.dart';
 import 'package:Expenseye/Resources/Themes/my_theme_data.dart';
 import 'package:flutter/material.dart';
 
@@ -27,8 +27,8 @@ class AppLightThemeColors {
 }
 
 class ColorChooserFromTheme {
-  static itemColorTypeChooser(ItemType type, ThemeData theme) {
-    if (type == ItemType.expense) {
+  static itemColorTypeChooser(TransacType type, ThemeData theme) {
+    if (type == TransacType.expense) {
       if (theme == MyThemeData.lightTheme) {
         return AppLightThemeColors.expenseColor;
       } else {

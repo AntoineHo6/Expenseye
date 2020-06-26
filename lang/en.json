@@ -51,7 +51,7 @@
     "balance": "Balance",
     "color": "Color",
     "confirmDeleteMsg": "Are you sure you want to delete?",
-    "confirmDeleteCategory": "Deleting this category will subsequently delete all items and recurring items of this type. Are you sure you want to delete?",
+    "confirmDeleteCategory": "Deleting will subsequently delete all transactions and recurring transactions of this category. Are you sure you want to delete?",
     "pickAMonth": "Pick a month",
     "signInToAvoidLosingData": "Sign In to avoid losing your data!",
     "pickAColor": "Pick a color",
@@ -65,7 +65,7 @@
     "succDeleted": "Successfully deleted",
     "appBy": "App by Antoine Ho, 2020",
     "appName": "Expenseye",
-    "recurringItems": "Recurring Items",
+    "recurringTransactions": "Recurring Transactions",
     "nextDueDate": "Next due date",
     "amount": "Amount",
     "createRecurringExpense": "CREATE RECURRING EXPENSE",
@@ -78,8 +78,8 @@
     "chooseANameAndAnAmount": "Choose a name and an amount",
     "selectACategory": "Select a category",
     "selectTheType": "Select the type",
-    "addNewRecurringItem": "Add new recurring item",
-    "addYourFirstRecurringItem": "Add your first recurring item!",
+    "addNewRecurringTransaction": "Add new recurring transaction",
+    "addYourFirstRecurringTransaction": "Add your first recurring transaction!",
     "date": "Date",
     "category": "Category",
     "periodicity": "Periodicity",
@@ -92,5 +92,6 @@
     "dontForgetToAddYourTransactions": "Don't forget to add your transactions!",
     "reminderNotification": "Reminder notification",
     "switchToExpenses": "Switch to expenses",
-    "switchToIncomes": "Switch to incomes"
+    "switchToIncomes": "Switch to incomes",
+    "sort": "Sort"
 }

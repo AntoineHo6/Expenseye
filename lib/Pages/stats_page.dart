@@ -1,15 +1,15 @@
 import 'package:Expenseye/Components/Drawer/my_drawer.dart';
 import 'package:Expenseye/Components/Stats/category_stats_container.dart';
 import 'package:Expenseye/Components/Stats/pie_outside_label_chart.dart';
-import 'package:Expenseye/Enums/item_type.dart';
-import 'package:Expenseye/Models/Item.dart';
+import 'package:Expenseye/Enums/transac_type.dart';
+import 'package:Expenseye/Models/Transac.dart';
 import 'package:Expenseye/Providers/stats_notifier.dart';
 import 'package:Expenseye/Utils/chart_util.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-typedef GetItems = Future<List<Item>> Function();
+typedef GetItems = Future<List<Transac>> Function();
 
 class StatsPage extends StatelessWidget {
   final GetItems future;
@@ -25,7 +25,7 @@ class StatsPage extends StatelessWidget {
       child: Consumer<StatsNotifier>(
         builder: (context, model, child) => Scaffold(
           drawer: MyDrawer(),
-          body: FutureBuilder<List<Item>>(
+          body: FutureBuilder<List<Transac>>(
             future: future(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
@@ -47,7 +47,7 @@ class StatsPage extends StatelessWidget {
                             height: 10,
                           ),
                           Text(
-                            model.type == ItemType.expense
+                            model.type == TransacType.expense
                                 ? AppLocalizations.of(context)
                                     .translate('expenses')
                                 : AppLocalizations.of(context)
@@ -76,7 +76,7 @@ class StatsPage extends StatelessWidget {
                                     width: 5,
                                   ),
                                   Text(
-                                    model.type == ItemType.expense
+                                    model.type == TransacType.expense
                                         ? AppLocalizations.of(context)
                                             .translate('switchToIncomes')
                                         : AppLocalizations.of(context)

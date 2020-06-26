@@ -2,7 +2,7 @@ import 'package:Expenseye/Components/Categories/icon_btn.dart';
 import 'package:Expenseye/Components/Categories/selected_icon_btn.dart';
 import 'package:Expenseye/Components/EditAdd/name_text_field.dart';
 import 'package:Expenseye/Components/Global/bottom_nav_button.dart';
-import 'package:Expenseye/Enums/item_type.dart';
+import 'package:Expenseye/Enums/transac_type.dart';
 import 'package:Expenseye/Providers/Category/add_category_model.dart';
 import 'package:Expenseye/Resources/my_icons.dart';
 import 'package:Expenseye/app_localizations.dart';
@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class AddCategoryPage extends StatefulWidget {
-  final ItemType type;
+  final TransacType type;
 
   AddCategoryPage(this.type);
 
@@ -23,7 +23,7 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
 
   @override
   Widget build(BuildContext context) {
-    final title = widget.type == ItemType.expense
+    final title = widget.type == TransacType.expense
         ? AppLocalizations.of(context).translate('expense')
         : AppLocalizations.of(context).translate('income');
 
@@ -99,7 +99,7 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
   }
 
   List<Widget> _errorIconList(AddCategoryModel model) {
-    final List<IconData> icons = (widget.type == ItemType.expense)
+    final List<IconData> icons = (widget.type == TransacType.expense)
         ? MyIcons.expenseIcons
         : MyIcons.incomeIcons;
 
@@ -130,7 +130,7 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
   }
 
   List<Widget> _iconList(AddCategoryModel model) {
-    final List<IconData> icons = (widget.type == ItemType.expense)
+    final List<IconData> icons = (widget.type == TransacType.expense)
         ? MyIcons.expenseIcons
         : MyIcons.incomeIcons;
 

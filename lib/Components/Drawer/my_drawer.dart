@@ -3,7 +3,7 @@ import 'package:Expenseye/Pages/Categories/cat_home_page.dart';
 import 'package:Expenseye/Pages/Monthly/monthly_home_page.dart';
 import 'package:Expenseye/Pages/Settings/settings_page.dart';
 import 'package:Expenseye/Pages/Yearly/yearly_home_page.dart';
-import 'package:Expenseye/Pages/RecurringItems/recurring_items_page.dart';
+import 'package:Expenseye/Pages/RecurringTransac/recurring_transac_page.dart';
 import 'package:Expenseye/Resources/Strings.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
@@ -56,7 +56,7 @@ class MyDrawer extends StatelessWidget {
                 MdiIcons.calendarClock,
               ),
               title: Text(
-                  AppLocalizations.of(context).translate('recurringItems')),
+                  AppLocalizations.of(context).translate('recurringTransactions')),
               onTap: () {
                 Navigator.of(context).pop(context);
                 _openRecurringItemsPage(context);
@@ -116,7 +116,7 @@ class MyDrawer extends StatelessWidget {
   void _openRecurringItemsPage(BuildContext context) {
     Navigator.push(
       context,
-      MaterialPageRoute(builder: (context) => RecurringItemsPage()),
+      MaterialPageRoute(builder: (context) => RecurringTransacPage()),
     );
   }
 

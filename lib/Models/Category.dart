@@ -1,4 +1,4 @@
-import 'package:Expenseye/Enums/item_type.dart';
+import 'package:Expenseye/Enums/transac_type.dart';
 import 'package:Expenseye/Resources/Strings.dart';
 import 'package:flutter/material.dart';
 
@@ -7,7 +7,7 @@ class Category {
   String name;
   IconData iconData;
   Color color;
-  ItemType type;
+  TransacType type;
 
   Category({
     @required this.id,
@@ -23,7 +23,7 @@ class Category {
     iconData = _MdiIconData(
         int.parse(map[Strings.categoryColumnIconCodePoint], radix: 16));
     color = Color(int.parse(map[Strings.categoryColumnColor], radix: 16));
-    type = ItemType.values[map[Strings.categoryColumnType]];
+    type = TransacType.values[map[Strings.categoryColumnType]];
   }
 
   Map<String, dynamic> toMap() {

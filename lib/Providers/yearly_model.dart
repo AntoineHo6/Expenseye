@@ -1,4 +1,4 @@
-import 'package:Expenseye/Models/Item.dart';
+import 'package:Expenseye/Models/Transac.dart';
 import 'package:flutter/material.dart';
 
 class YearlyModel extends ChangeNotifier {
@@ -31,14 +31,14 @@ class YearlyModel extends ChangeNotifier {
     return temp.substring(0, temp.length - 3);
   }
 
-  List<List<Item>> splitItemByMonth(List<Item> expenses) {
-    List<List<Item>> expensesSplitByMonth = new List();
+  List<List<Transac>> splitItemByMonth(List<Transac> expenses) {
+    List<List<Transac>> expensesSplitByMonth = new List();
 
     String currentMonth = getYearMonthString(expenses[0].date);
     int index = 0;
     expensesSplitByMonth.add(new List());
 
-    for (Item expense in expenses) {
+    for (Transac expense in expenses) {
       if (getYearMonthString(expense.date) == currentMonth) {
         expensesSplitByMonth[index].add(expense);
       } else {

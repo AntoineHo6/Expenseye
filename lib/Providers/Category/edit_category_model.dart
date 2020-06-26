@@ -1,6 +1,6 @@
 import 'package:Expenseye/Components/EditAdd/Category/color_picker_dialog.dart';
 import 'package:Expenseye/Components/Global/confirmation_dialog.dart';
-import 'package:Expenseye/Enums/item_type.dart';
+import 'package:Expenseye/Enums/transac_type.dart';
 import 'package:Expenseye/Helpers/database_helper.dart';
 import 'package:Expenseye/Models/Category.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
@@ -14,7 +14,7 @@ class EditCategoryModel extends ChangeNotifier {
   bool didInfoChange = false;
   bool isNameInvalid = false;
   Color color;
-  ItemType type;
+  TransacType type;
   int selectedIconIndex;
   List<String> categoryNamesLowerCase = new List();
 
@@ -32,7 +32,7 @@ class EditCategoryModel extends ChangeNotifier {
   }
 
   void initSelectedIconIndex(Category oldCategory) {
-    List<IconData> icons = (oldCategory.type == ItemType.expense)
+    List<IconData> icons = (oldCategory.type == TransacType.expense)
         ? MyIcons.expenseIcons
         : MyIcons.incomeIcons;
 
@@ -77,7 +77,7 @@ class EditCategoryModel extends ChangeNotifier {
       Category updatedCategory = Category(
         id: newName.toLowerCase(),
         name: newName,
-        iconData: (type == ItemType.expense)
+        iconData: (type == TransacType.expense)
             ? MyIcons.expenseIcons[selectedIconIndex]
             : MyIcons.incomeIcons[selectedIconIndex],
         color: color,

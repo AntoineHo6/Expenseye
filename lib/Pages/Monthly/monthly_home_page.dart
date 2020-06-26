@@ -1,6 +1,6 @@
 import 'package:Expenseye/Components/Global/my_bottom_nav_bar.dart';
 import 'package:Expenseye/Components/Global/period_chooser.dart';
-import 'package:Expenseye/Pages/Monthly/monthly_items_page.dart';
+import 'package:Expenseye/Pages/Monthly/monthly_transac_page.dart';
 import 'package:Expenseye/Pages/stats_page.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:Expenseye/Providers/monthly_model.dart';
@@ -45,7 +45,7 @@ class _MonthlyHomePageState extends State<MonthlyHomePage> {
             child: IndexedStack(
               index: monthlyModel.pageIndex,
               children: <Widget>[
-                MonthlyItemsPage(),
+                MonthlyTransacPage(),
                 StatsPage(
                   future: () =>
                       _dbModel.queryItemsByMonth(monthlyModel.yearMonth),

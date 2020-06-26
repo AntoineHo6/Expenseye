@@ -1,6 +1,6 @@
 import 'package:Expenseye/Components/Global/my_bottom_nav_bar.dart';
 import 'package:Expenseye/Components/Global/period_chooser.dart';
-import 'package:Expenseye/Pages/Yearly/yearly_items_page.dart';
+import 'package:Expenseye/Pages/Yearly/yearly_transac_page.dart';
 import 'package:Expenseye/Pages/stats_page.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:Expenseye/Providers/yearly_model.dart';
@@ -37,7 +37,7 @@ class _YearlyHomePageState extends State<YearlyHomePage> {
             child: IndexedStack(
               index: yearlyModel.pageIndex,
               children: <Widget>[
-                YearlyItemsPage(),
+                YearlyTransacPage(),
                 StatsPage(
                   future: () => _dbModel.queryItemsInYear(yearlyModel.year),
                 ),

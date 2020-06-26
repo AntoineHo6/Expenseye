@@ -3,7 +3,7 @@ import 'package:Expenseye/Components/Categories/selected_icon_btn.dart';
 import 'package:Expenseye/Components/EditAdd/delete_btn.dart';
 import 'package:Expenseye/Components/EditAdd/name_text_field.dart';
 import 'package:Expenseye/Components/Global/bottom_nav_button.dart';
-import 'package:Expenseye/Enums/item_type.dart';
+import 'package:Expenseye/Enums/transac_type.dart';
 import 'package:Expenseye/Models/Category.dart';
 import 'package:Expenseye/Providers/Category/edit_category_model.dart';
 import 'package:Expenseye/Resources/my_icons.dart';
@@ -98,7 +98,7 @@ class _EditCategoryPageState extends State<EditCategoryPage> {
   }
 
   List<Widget> _iconList(EditCategoryModel model) {
-    final List<IconData> icons = (model.type == ItemType.expense)
+    final List<IconData> icons = (model.type == TransacType.expense)
         ? MyIcons.expenseIcons
         : MyIcons.incomeIcons;
 

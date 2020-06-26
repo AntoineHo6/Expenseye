@@ -1,5 +1,5 @@
 import 'package:Expenseye/Components/Categories/category_btn.dart';
-import 'package:Expenseye/Enums/item_type.dart';
+import 'package:Expenseye/Enums/transac_type.dart';
 import 'package:Expenseye/Models/Category.dart';
 import 'package:Expenseye/Pages/Categories/add_category_page.dart';
 import 'package:Expenseye/Pages/Categories/edit_category_page.dart';
@@ -7,7 +7,7 @@ import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:flutter/material.dart';
 
 class CategoriesPage extends StatefulWidget {
-  final ItemType type;
+  final TransacType type;
   final List<String> categoryKeys = new List();
 
   CategoriesPage(this.type);

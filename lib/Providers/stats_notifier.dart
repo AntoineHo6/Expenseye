@@ -1,18 +1,17 @@
-import 'package:Expenseye/Enums/item_type.dart';
-import 'package:Expenseye/Models/Category.dart';
+import 'package:Expenseye/Enums/transac_type.dart';
 import 'package:Expenseye/Utils/chart_util.dart';
 import 'package:flutter/material.dart';
 
 class StatsNotifier extends ChangeNotifier {
-  ItemType type = ItemType.expense;
+  TransacType type = TransacType.expense;
   String currentSort = 'Amount';
   List<CategoryGroup> data;
 
   void switchChartType() {
-    if (type == ItemType.expense) {
-      type = ItemType.income;
+    if (type == TransacType.expense) {
+      type = TransacType.income;
     } else {
-      type = ItemType.expense;
+      type = TransacType.expense;
     }
 
     notifyListeners();

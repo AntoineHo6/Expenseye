@@ -1,4 +1,4 @@
-import 'package:Expenseye/Models/Item.dart';
+import 'package:Expenseye/Models/Transac.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
@@ -74,14 +74,14 @@ class MonthlyModel extends ChangeNotifier {
   /// Returns nested lists of expenses seperated by day.
   /// E.g. : [ [01, 01], [03, 03, 03], [04] ] where each number represents an
   /// expense.
-  List<List<Item>> splitItemsByDay(List<Item> expenses) {
-    List<List<Item>> expensesSplitByDay = new List();
+  List<List<Transac>> splitItemsByDay(List<Transac> expenses) {
+    List<List<Transac>> expensesSplitByDay = new List();
 
     DateTime currentDate = expenses[0].date;
     int index = 0;
     expensesSplitByDay.add(new List());
 
-    for (Item expense in expenses) {
+    for (Transac expense in expenses) {
       if (expense.date == currentDate) {
         expensesSplitByDay[index].add(expense);
       } else {

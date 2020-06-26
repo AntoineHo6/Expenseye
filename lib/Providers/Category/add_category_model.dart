@@ -1,5 +1,5 @@
 import 'package:Expenseye/Components/EditAdd/Category/color_picker_dialog.dart';
-import 'package:Expenseye/Enums/item_type.dart';
+import 'package:Expenseye/Enums/transac_type.dart';
 import 'package:Expenseye/Helpers/database_helper.dart';
 import 'package:Expenseye/Models/Category.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
@@ -64,12 +64,12 @@ class AddCategoryModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  void addNewCategory(BuildContext context, ItemType type, TextEditingController nameController) async {
+  void addNewCategory(BuildContext context, TransacType type, TextEditingController nameController) async {
     if (selectedIconIndex != null && !isNameInvalid) {
       Category newCategory = Category(
         id: nameController.text.toLowerCase().trim(),
         name: nameController.text.trim(),
-        iconData: (type == ItemType.expense)
+        iconData: (type == TransacType.expense)
             ? MyIcons.expenseIcons[selectedIconIndex]
             : MyIcons.incomeIcons[selectedIconIndex],
         color: color,

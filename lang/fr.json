@@ -51,7 +51,7 @@
     "balance": "Solde",
     "color": "Couleur",
     "confirmDeleteMsg": "Êtes-vous sûr de vouloir supprimer?",
-    "confirmDeleteCategory": "La suppression de cette catégorie supprimera par la suite tous les éléments et éléments récurrents de ce type. Êtes-vous sûr que vous voulez supprimer?",
+    "confirmDeleteCategory": "La suppression supprimera par la suite toutes les transactions et transactions récurrentes de cette catégorie. Êtes-vous sûr de vouloir supprimer?",
     "pickAMonth": "Choisissez un mois",
     "signInToAvoidLosingData": "Connectez-vous pour éviter de perdre vos données!",
     "pickAColor": "Choisissez une couleur",
@@ -65,7 +65,7 @@
     "succDeleted": "Supprimé avec succès",
     "appBy": "Application créé par Antoine Ho, 2020",
     "appName": "Expenseye",
-    "recurringItems": "Éléments Récurrents",
+    "recurringTransactions": "Transactions Récurrentes",
     "nextDueDate": "Prochaine date d'échéance",
     "amount": "Montant",
     "createRecurringExpense": "CRÉER LA DÉPENSE RÉCURRENTE",
@@ -78,8 +78,8 @@
     "chooseANameAndAnAmount": "Choisissez un nom et un montant",
     "selectACategory": "Choisissez une catégorie",
     "selectTheType": "Sélectionnez le type",
-    "addNewRecurringItem": "Ajouter un nouvel élément récurrent",
-    "addYourFirstRecurringItem": "Ajoutez votre premier élément récurrent!",
+    "addNewRecurringTransaction": "Ajouter une nouvelle transaction récurrente",
+    "addYourFirstRecurringTransaction": "Ajoutez votre première transaction récurrente!",
     "date": "Date",
     "category": "Catégorie",
     "periodicity": "Périodicité",
@@ -92,5 +92,6 @@
     "dontForgetToAddYourTransactions": "N'oubliez pas d'ajouter vos transactions!",
     "reminderNotification": "Notification de rappel",
     "switchToExpenses": "Changer aux dépenses",
-    "switchToIncomes": "Changer aux revenus"
+    "switchToIncomes": "Changer aux revenus",
+    "sort": "Trier"
 }

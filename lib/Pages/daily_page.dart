@@ -1,10 +1,10 @@
 import 'package:Expenseye/Components/Global/add_item_fab.dart';
 import 'package:Expenseye/Components/Drawer/my_drawer.dart';
-import 'package:Expenseye/Components/Items/item_list_tile.dart';
+import 'package:Expenseye/Components/Transac/transac_list_tile.dart';
 import 'package:Expenseye/Helpers/google_firebase_helper.dart';
-import 'package:Expenseye/Models/Item.dart';
+import 'package:Expenseye/Models/Transac.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
-import 'package:Expenseye/Providers/Global/item_model.dart';
+import 'package:Expenseye/Providers/Global/transac_model.dart';
 import 'package:Expenseye/Providers/Global/settings_notifier.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
 import 'package:Expenseye/app_localizations.dart';
@@ -45,12 +45,12 @@ class _DailyPageState extends State<DailyPage> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     loadDailyNotifications();
-    final _itemModel = Provider.of<ItemModel>(context);
+    final _itemModel = Provider.of<TransacModel>(context);
     final _dbModel = Provider.of<DbModel>(context);
 
     return Scaffold(
       drawer: MyDrawer(),
-      body: FutureBuilder<List<Item>>(
+      body: FutureBuilder<List<Transac>>(
         future: _dbModel.queryItemsByDay(widget.day),
         builder: (context, snapshot) {
           if (snapshot.hasData && DbModel.catMap.length > 0) {
@@ -75,7 +75,7 @@ class _DailyPageState extends State<DailyPage> with WidgetsBindingObserver {
   }
 
   CustomScrollView mySliverView(
-      List<Item> items, ItemModel itemModel, BuildContext context) {
+      List<Transac> items, TransacModel itemModel, BuildContext context) {
     return CustomScrollView(
       slivers: <Widget>[
         SliverAppBar(
@@ -94,7 +94,7 @@ class _DailyPageState extends State<DailyPage> with WidgetsBindingObserver {
             (context, index) {
               return Container(
                 margin: EdgeInsets.fromLTRB(10, 20, 10, 0),
-                child: ItemListTile(
+                child: TransacListTile(
                   items[index],
                   contentPadding: const EdgeInsets.all(15),
                   onPressed: () async =>

@@ -1,8 +1,8 @@
 import 'dart:io';
-import 'package:Expenseye/Enums/item_type.dart';
+import 'package:Expenseye/Enums/transac_type.dart';
 import 'package:Expenseye/Models/Category.dart';
-import 'package:Expenseye/Models/Item.dart';
-import 'package:Expenseye/Models/recurring_item.dart';
+import 'package:Expenseye/Models/Transac.dart';
+import 'package:Expenseye/Models/recurring_transac.dart';
 import 'package:Expenseye/Resources/Strings.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
@@ -88,13 +88,13 @@ class DatabaseHelper {
   }
 
   // * ITEMS
-  Future<int> insertItem(Item expense) async {
+  Future<int> insertItem(Transac expense) async {
     Database db = await database;
     int id = await db.insert(Strings.tableItems, expense.toMap());
     return id;
   }
 
-  Future<Item> queryItem(int id) async {
+  Future<Transac> queryItem(int id) async {
     Database db = await database;
     List<Map> maps = await db.query(Strings.tableItems,
         columns: [
@@ -108,12 +108,12 @@ class DatabaseHelper {
         where: '${Strings.itemColumnId} = ?',
         whereArgs: [id]);
     if (maps.length > 0) {
-      return Item.fromMap(maps.first);
+      return Transac.fromMap(maps.first);
     }
     return null;
   }
 
-  Future<List<Item>> queryItemsInDate(DateTime date) async {
+  Future<List<Transac>> queryItemsInDate(DateTime date) async {
     Database db = await database;
     String dateStrToFind = date.toIso8601String().split('T')[0];
 
@@ -123,7 +123,7 @@ class DatabaseHelper {
     return convertMapsToItems(maps);
   }
 
-  Future<List<Item>> queryItemsByMonth(String yearMonth) async {
+  Future<List<Transac>> queryItemsByMonth(String yearMonth) async {
     Database db = await database;
 
     List<Map> maps = await db.query(
@@ -135,7 +135,7 @@ class DatabaseHelper {
     return convertMapsToItems(maps);
   }
 
-  Future<List<Item>> queryItemsInYear(String year) async {
+  Future<List<Transac>> queryItemsInYear(String year) async {
     Database db = await database;
 
     List<Map> maps = await db.query(
@@ -147,7 +147,7 @@ class DatabaseHelper {
     return convertMapsToItems(maps);
   }
 
-  Future<List<Item>> queryAllItems() async {
+  Future<List<Transac>> queryAllItems() async {
     Database db = await database;
 
     List<Map> maps = await db.query(Strings.tableItems);
@@ -155,7 +155,7 @@ class DatabaseHelper {
     return convertMapsToItems(maps);
   }
 
-  Future<int> updateItem(Item item) async {
+  Future<int> updateItem(Transac item) async {
     Database db = await database;
 
     return await db.update(Strings.tableItems, item.toMap(),
@@ -204,11 +204,11 @@ class DatabaseHelper {
     await db.rawQuery('DELETE FROM ${Strings.tableRecurringItems}');
   }
 
-  List<Item> convertMapsToItems(List<Map> maps) {
-    List<Item> items = new List();
+  List<Transac> convertMapsToItems(List<Map> maps) {
+    List<Transac> items = new List();
     if (maps.length > 0) {
       for (Map row in maps) {
-        items.add(new Item.fromMap(row));
+        items.add(new Transac.fromMap(row));
       }
     }
 
@@ -216,12 +216,12 @@ class DatabaseHelper {
   }
 
   // * RECURRING ITEMS
-  Future<void> insertRecurringItem(RecurringItem recurringItem) async {
+  Future<void> insertRecurringItem(RecurringTransac recurringItem) async {
     Database db = await database;
     await db.insert(Strings.tableRecurringItems, recurringItem.toMap());
   }
 
-  Future<List<RecurringItem>> queryRecurringItems() async {
+  Future<List<RecurringTransac>> queryRecurringItems() async {
     Database db = await database;
 
     List<Map> maps = await db.query(Strings.tableRecurringItems);
@@ -229,12 +229,12 @@ class DatabaseHelper {
     return convertMapsToRecurringItems(maps);
   }
 
-  List<RecurringItem> convertMapsToRecurringItems(List<Map> maps) {
-    List<RecurringItem> recurringItems = new List();
+  List<RecurringTransac> convertMapsToRecurringItems(List<Map> maps) {
+    List<RecurringTransac> recurringItems = new List();
 
     if (maps.length > 0) {
       for (Map row in maps) {
-        recurringItems.add(new RecurringItem.fromMap(row));
+        recurringItems.add(new RecurringTransac.fromMap(row));
       }
     }
 
@@ -248,7 +248,7 @@ class DatabaseHelper {
         where: '${Strings.recurringItemColumnId} = ?', whereArgs: [id]);
   }
 
-  Future<int> updateRecurringItem(RecurringItem recurringItem) async {
+  Future<int> updateRecurringItem(RecurringTransac recurringItem) async {
     Database db = await database;
 
     return await db.update(Strings.tableRecurringItems, recurringItem.toMap(),
@@ -388,133 +388,133 @@ class DatabaseHelper {
         name: foodName,
         iconData: MdiIcons.silverware,
         color: Color(0xffff8533),
-        type: ItemType.expense,
+        type: TransacType.expense,
       ),
       Category(
         id: Strings.transportationEN.toLowerCase(),
         name: transportationName,
         iconData: MdiIcons.car,
         color: Colors.yellow,
-        type: ItemType.expense,
+        type: TransacType.expense,
       ),
       Category(
         id: Strings.shoppingEN.toLowerCase(),
         name: shoppingName,
         iconData: MdiIcons.cart,
         color: Color(0xffac3973),
-        type: ItemType.expense,
+        type: TransacType.expense,
       ),
       Category(
         id: Strings.entertainmentEN.toLowerCase(),
         name: entertainmentName,
         iconData: MdiIcons.movie,
         color: Color(0xff66ccff),
-        type: ItemType.expense,
+        type: TransacType.expense,
       ),
       Category(
         id: Strings.activityEN.toLowerCase(),
         name: activityName,
         iconData: MdiIcons.emoticonOutline,
         color: Color(0xffff66cc),
-        type: ItemType.expense,
+        type: TransacType.expense,
       ),
       Category(
         id: Strings.medicalEN.toLowerCase(),
         name: medicalName,
         iconData: MdiIcons.medicalBag,
         color: Color(0xffff3333),
-        type: ItemType.expense,
+        type: TransacType.expense,
       ),
       Category(
         id: Strings.homeEN.toLowerCase(),
         name: homeName,
         iconData: MdiIcons.home,
         color: Color(0xffcc9966),
-        type: ItemType.expense,
+        type: TransacType.expense,
       ),
       Category(
         id: Strings.travelEN.toLowerCase(),
         name: travelName,
         iconData: MdiIcons.airplane,
         color: Color(0xffcc6600),
-        type: ItemType.expense,
+        type: TransacType.expense,
       ),
       Category(
         id: Strings.peopleEN.toLowerCase(),
         name: peopleName,
         iconData: MdiIcons.accountMultiple,
         color: Color(0xff3377ff),
-        type: ItemType.expense,
+        type: TransacType.expense,
       ),
       Category(
         id: Strings.educationEN.toLowerCase(),
         name: educationName,
         iconData: MdiIcons.school,
         color: Color(0xff9933ff),
-        type: ItemType.expense,
+        type: TransacType.expense,
       ),
       Category(
         id: Strings.otherExpensesEN.toLowerCase(),
         name: otherExpensesName,
         iconData: MdiIcons.folderDownload,
         color: Colors.white,
-        type: ItemType.expense,
+        type: TransacType.expense,
       ),
       Category(
         id: Strings.salaryEN.toLowerCase(),
         name: salaryName,
         iconData: MdiIcons.currencyUsd,
         color: Colors.green,
-        type: ItemType.income,
+        type: TransacType.income,
       ),
       Category(
         id: Strings.giftEN.toLowerCase(),
         name: giftName,
         iconData: MdiIcons.walletGiftcard,
         color: Color(0xffb84dff),
-        type: ItemType.income,
+        type: TransacType.income,
       ),
       Category(
         id: Strings.businessEN.toLowerCase(),
         name: businessName,
         iconData: MdiIcons.briefcase,
         color: Color(0xff1a8cff),
-        type: ItemType.income,
+        type: TransacType.income,
       ),
       Category(
         id: Strings.insuranceEN.toLowerCase(),
         name: insuranceName,
         iconData: MdiIcons.bank,
         color: Color(0xff6666ff),
-        type: ItemType.income,
+        type: TransacType.income,
       ),
       Category(
         id: Strings.realEstateEN.toLowerCase(),
         name: realEstateName,
         iconData: MdiIcons.homeGroup,
         color: Color(0xffccccff),
-        type: ItemType.income,
+        type: TransacType.income,
       ),
       Category(
         id: Strings.investmentEN.toLowerCase(),
         name: investmentName,
         iconData: MdiIcons.trendingUp,
         color: Color(0xff00e673),
-        type: ItemType.income,
+        type: TransacType.income,
       ),
       Category(
         id: Strings.refundEN.toLowerCase(),
         name: refundName,
         iconData: MdiIcons.swapVerticalBold,
         color: Color(0xff66ffff),
-        type: ItemType.income,
+        type: TransacType.income,
       ),
       Category(
         id: Strings.otherIncomesEN.toLowerCase(),
         name: otherIncomesName,
         iconData: MdiIcons.folderUpload,
         color: Colors.white,
-        type: ItemType.income,
+        type: TransacType.income,
       )
     ];
   }

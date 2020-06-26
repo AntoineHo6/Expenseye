@@ -1,4 +1,4 @@
-import 'package:Expenseye/Components/Stats/item_group_list_tile.dart';
+import 'package:Expenseye/Components/Stats/category_group_list_tile.dart';
 import 'package:Expenseye/Utils/chart_util.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
@@ -26,22 +26,27 @@ class CategoryStatsContainer extends StatelessWidget {
               children: <Widget>[
                 Container(
                   margin: const EdgeInsets.only(left: 4),
-                  child: PopupMenuButton(
-                    onSelected: changeCurrentSort,
-                    color: Theme.of(context).buttonColor,
-                    icon: const Icon(Icons.sort),
-                    itemBuilder: (BuildContext context) {
-                      return [
-                        PopupMenuItem<String>(
-                          value: 'Name',
-                          child: Text('Name'),
-                        ),
-                        PopupMenuItem<String>(
-                          value: 'Amount',
-                          child: Text('Amount'),
-                        ),
-                      ];
-                    },
+                  child: Row(
+                    children: <Widget>[
+                      Text(AppLocalizations.of(context).translate('sort')),
+                      PopupMenuButton(
+                        onSelected: changeCurrentSort,
+                        color: Theme.of(context).buttonColor,
+                        icon: const Icon(Icons.sort),
+                        itemBuilder: (BuildContext context) {
+                          return [
+                            PopupMenuItem<String>(
+                              value: 'Name',
+                              child: Text(AppLocalizations.of(context).translate('name')),
+                            ),
+                            PopupMenuItem<String>(
+                              value: 'Amount',
+                              child: Text(AppLocalizations.of(context).translate('amount')),
+                            ),
+                          ];
+                        },
+                      ),
+                    ],
                   ),
                 ),
                 Container(
@@ -54,12 +59,12 @@ class CategoryStatsContainer extends StatelessWidget {
             ),
             Column(
               children: data.map(
-                (expenseGroup) {
-                  if (expenseGroup.total > 0) {
+                (categoryGroup) {
+                  if (categoryGroup.total > 0) {
                     return Card(
                       color: Theme.of(context).buttonColor,
-                      child: ItemGroupListTile(
-                        expenseGroup: expenseGroup,
+                      child: CategoryGroupListTile(
+                        categoryGroup: categoryGroup,
                         totalCost: totalCost,
                       ),
                     );

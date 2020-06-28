@@ -30,7 +30,8 @@ class _DateAddRecTransacPageState extends State<DateAddRecTransacPage>
 
   @override
   Widget build(BuildContext context) {
-    final _model = Provider.of<AddRecurringTransacModel>(context, listen: false);
+    final _model =
+        Provider.of<AddRecurringTransacModel>(context, listen: false);
     _animationController.forward();
 
     return FadeTransition(

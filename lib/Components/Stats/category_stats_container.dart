@@ -37,11 +37,13 @@ class CategoryStatsContainer extends StatelessWidget {
                           return [
                             PopupMenuItem<String>(
                               value: 'Name',
-                              child: Text(AppLocalizations.of(context).translate('name')),
+                              child: Text(AppLocalizations.of(context)
+                                  .translate('name')),
                             ),
                             PopupMenuItem<String>(
                               value: 'Amount',
-                              child: Text(AppLocalizations.of(context).translate('amount')),
+                              child: Text(AppLocalizations.of(context)
+                                  .translate('amount')),
                             ),
                           ];
                         },

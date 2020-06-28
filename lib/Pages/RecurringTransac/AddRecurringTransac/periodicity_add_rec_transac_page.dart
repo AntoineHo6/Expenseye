@@ -12,14 +12,15 @@ class PeriodicityAddRecTransacPage extends StatefulWidget {
       _PeriodicityAddRecTransacPageState();
 }
 
-class _PeriodicityAddRecTransacPageState extends State<PeriodicityAddRecTransacPage>
-    with TickerProviderStateMixin {
+class _PeriodicityAddRecTransacPageState
+    extends State<PeriodicityAddRecTransacPage> with TickerProviderStateMixin {
   AnimationController _animationController;
   Animation _animation;
 
   @override
   Widget build(BuildContext context) {
-    final _model = Provider.of<AddRecurringTransacModel>(context, listen: false);
+    final _model =
+        Provider.of<AddRecurringTransacModel>(context, listen: false);
     _animationController.forward();
 
     return FadeTransition(

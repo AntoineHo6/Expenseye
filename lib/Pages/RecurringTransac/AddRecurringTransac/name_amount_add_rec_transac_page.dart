@@ -13,8 +13,8 @@ class NameAmountAddRecTransacPage extends StatefulWidget {
       _NameAmountAddRecTransacPageState();
 }
 
-class _NameAmountAddRecTransacPageState extends State<NameAmountAddRecTransacPage>
-    with TickerProviderStateMixin {
+class _NameAmountAddRecTransacPageState
+    extends State<NameAmountAddRecTransacPage> with TickerProviderStateMixin {
   TextEditingController _nameController;
   TextEditingController _amountController;
   AnimationController _animationController;
@@ -22,7 +22,8 @@ class _NameAmountAddRecTransacPageState extends State<NameAmountAddRecTransacPag
 
   @override
   Widget build(BuildContext context) {
-    final _model = Provider.of<AddRecurringTransacModel>(context, listen: false);
+    final _model =
+        Provider.of<AddRecurringTransacModel>(context, listen: false);
     _animationController.forward();
 
     return FadeTransition(
@@ -42,7 +43,8 @@ class _NameAmountAddRecTransacPageState extends State<NameAmountAddRecTransacPag
           child: Column(
             children: <Widget>[
               AddRecTransacStepsHeader(
-                title: '4. ${AppLocalizations.of(context).translate('chooseANameAndAnAmount')}',
+                title:
+                    '4. ${AppLocalizations.of(context).translate('chooseANameAndAnAmount')}',
                 percent: 0.8,
               ),
               Column(

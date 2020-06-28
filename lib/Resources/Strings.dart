@@ -45,9 +45,9 @@ class Strings {
   // * TRANSACTIONS DATABASE table and column names
   static const String dbFileName = 'itemsDb.db';
   static const String tableTransac = 'items';
-  static const String transacColumnId = 'expense_id'; // TODO: rename to item id
+  static const String transacColumnId = 'expense_id';
   static const String transacColumnName = 'name';
-  static const String transacColumnValue = 'value'; // TODO: rename to amount
+  static const String transacColumnValue = 'value';
   static const String transacColumnDate = 'date';
   static const String transacColumnCategory = 'category';
   static const String transacColumnType = 'type';

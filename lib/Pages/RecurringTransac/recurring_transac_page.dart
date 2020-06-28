@@ -23,7 +23,8 @@ class _RecurringTransacPageState extends State<RecurringTransacPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context).translate('recurringTransactions')),
+        title: Text(
+            AppLocalizations.of(context).translate('recurringTransactions')),
         actions: <Widget>[
           RaisedButton(
             onPressed: () {
@@ -122,7 +123,8 @@ class _RecurringTransacPageState extends State<RecurringTransacPage> {
     recurringTransacsByCategoryType[1] = new List(); // incomes
 
     for (RecurringTransac recurringTransac in recurringTransacs) {
-      if (DbModel.catMap[recurringTransac.category].type == TransacType.expense) {
+      if (DbModel.catMap[recurringTransac.category].type ==
+          TransacType.expense) {
         recurringTransacsByCategoryType[0].add(recurringTransac);
       } else {
         recurringTransacsByCategoryType[1].add(recurringTransac);
@@ -133,22 +135,27 @@ class _RecurringTransacPageState extends State<RecurringTransacPage> {
   }
 
   List<Widget> _recurringTransacs(
-      BuildContext context, List<RecurringTransac> recurringTransacs, TransacType type) {
-    final settingsNotifier = Provider.of<SettingsNotifier>(context, listen: false);
+    BuildContext context,
+    List<RecurringTransac> recurringTransacs,
+    TransacType type,
+  ) {
+    final settingsNotifier =
+        Provider.of<SettingsNotifier>(context, listen: false);
 
     return recurringTransacs.map(
       (recurringTransac) {
         return Container(
           margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
           child: RaisedButton(
-            highlightColor:
-                DbModel.catMap[recurringTransac.category].color.withOpacity(0.1),
-            splashColor:
-                DbModel.catMap[recurringTransac.category].color.withOpacity(0.1),
+            highlightColor: DbModel.catMap[recurringTransac.category].color
+                .withOpacity(0.1),
+            splashColor: DbModel.catMap[recurringTransac.category].color
+                .withOpacity(0.1),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.0),
             ),
-            onPressed: () => _openEditRecurringTransacPage(context, recurringTransac),
+            onPressed: () =>
+                _openEditRecurringTransacPage(context, recurringTransac),
             child: ListTile(
               leading: Icon(
                 DbModel.catMap[recurringTransac.category].iconData,
@@ -202,7 +209,8 @@ class _RecurringTransacPageState extends State<RecurringTransacPage> {
     }
   }
 
-  Widget _subtitleText(BuildContext context, RecurringTransac recurringTransac) {
+  Widget _subtitleText(
+      BuildContext context, RecurringTransac recurringTransac) {
     String periodicityTitle;
     periodicityTitle =
         PeriodicityHelper.getString(context, recurringTransac.periodicity);

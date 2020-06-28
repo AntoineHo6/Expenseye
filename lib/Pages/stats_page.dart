@@ -30,7 +30,8 @@ class StatsPage extends StatelessWidget {
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 if (snapshot.data != null && snapshot.data.length > 0) {
-                  var aggregatedTransacs = ChartUtil.convertTransacsToChartSeries(
+                  var aggregatedTransacs =
+                      ChartUtil.convertTransacsToChartSeries(
                     snapshot.data,
                     model.type,
                   );

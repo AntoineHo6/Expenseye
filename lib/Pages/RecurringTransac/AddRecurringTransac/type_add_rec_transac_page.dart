@@ -35,9 +35,10 @@ class _TypeAddRecTransacPageState extends State<TypeAddRecTransacPage>
                   margin:
                       const EdgeInsets.symmetric(vertical: 2, horizontal: 10),
                   child: RaisedButton(
-                    onPressed: () => Provider.of<AddRecurringTransacModel>(context,
-                            listen: false)
-                        .goNextFromTypePage(TransacType.expense),
+                    onPressed: () => Provider.of<AddRecurringTransacModel>(
+                      context,
+                      listen: false,
+                    ).goNextFromTypePage(TransacType.expense),
                     child: ListTile(
                       title: Text(
                           AppLocalizations.of(context).translate('expense')),
@@ -48,9 +49,10 @@ class _TypeAddRecTransacPageState extends State<TypeAddRecTransacPage>
                   margin:
                       const EdgeInsets.symmetric(vertical: 2, horizontal: 10),
                   child: RaisedButton(
-                    onPressed: () => Provider.of<AddRecurringTransacModel>(context,
-                            listen: false)
-                        .goNextFromTypePage(TransacType.income),
+                    onPressed: () => Provider.of<AddRecurringTransacModel>(
+                      context,
+                      listen: false,
+                    ).goNextFromTypePage(TransacType.income),
                     child: ListTile(
                       title: Text(
                         AppLocalizations.of(context).translate('income'),

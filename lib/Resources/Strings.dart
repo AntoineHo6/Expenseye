@@ -1,5 +1,5 @@
 class Strings {
-  static const String versionNumber = '1.4.10';
+  static const String versionNumber = '1.4.11';
 
   // * EXPENSE categories EN
   static const String foodEN = 'Food';
@@ -12,7 +12,7 @@ class Strings {
   static const String travelEN = 'Travel';
   static const String peopleEN = 'People';
   static const String educationEN = 'Education';
-  
+
   // * EXPENSE categories FR
   static const String foodFR = 'Nourriture';
   static const String transportationFR = 'Transport';

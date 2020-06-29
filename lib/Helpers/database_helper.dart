@@ -15,6 +15,7 @@ class DatabaseHelper {
   // This is the actual database filename that is saved in the docs directory.
   static const _databaseName = Strings.dbFileName;
   // Increment this version when you need to change the schema.
+  // * new version will be 12
   static final _databaseVersion = 11;
 
   // Make this a singleton class.
@@ -50,8 +51,11 @@ class DatabaseHelper {
                 ${Strings.transacColumnName} TEXT NOT NULL,
                 ${Strings.transacColumnValue} DOUBLE NOT NULL,
                 ${Strings.transacColumnDate} TEXT NOT NULL,
+                ${Strings.transacColumnType} INTEGER NOT NULL,
                 ${Strings.transacColumnCategory} TEXT NOT NULL,
-                ${Strings.transacColumnType} INTEGER NOT NULL
+                ${Strings.transacColumnAccount} TEXT NULL NULL,
+                FOREIGN KEY(${Strings.transacColumnCategory}) REFERENCES ${Strings.tableCategories}(${Strings.categoryColumnId}),
+                FOREIGN KEY(${Strings.transacColumnAccount}) REFERENCES ${Strings.tableAccounts}(${Strings.accountColumnId})
               )
               ''');
 
@@ -78,13 +82,64 @@ class DatabaseHelper {
               ${Strings.recurringTransacColumnDueDate} INTEGER NOT NULL,
               ${Strings.recurringTransacColumnPeriodicity} INTEGER NOT NULL,
               ${Strings.recurringTransacColumnCategory} TEXT NOT NULL,
-              FOREIGN KEY(${Strings.recurringTransacColumnCategory}) REFERENCES ${Strings.tableCategories}(${Strings.categoryColumnId})
+              ${Strings.recurringTransacColumnAccount} TEXT NULL NULL,
+              FOREIGN KEY(${Strings.recurringTransacColumnCategory}) REFERENCES ${Strings.tableCategories}(${Strings.categoryColumnId}),
+              FOREIGN KEY(${Strings.recurringTransacColumnAccount}) REFERENCES ${Strings.tableAccounts}(${Strings.accountColumnId})
             )
             ''');
   }
 
   Future _onUpgrade(Database db, int oldVersion, int newVersion) async {
     print('UPGRAADINGGGGGGGG');
+    await db.execute('DROP TABLE temp');
+
+    print('adding accounts to transactions table');
+    await db.execute('ALTER TABLE items RENAME TO tempItems');
+    await db.execute(
+      '''
+              CREATE TABLE ${Strings.tableTransac} (
+                ${Strings.transacColumnId} INTEGER PRIMARY KEY AUTOINCREMENT,
+                ${Strings.transacColumnName} TEXT NOT NULL,
+                ${Strings.transacColumnValue} DOUBLE NOT NULL,
+                ${Strings.transacColumnDate} TEXT NOT NULL,
+                ${Strings.transacColumnType} INTEGER NOT NULL,
+                ${Strings.transacColumnCategory} TEXT NOT NULL,
+                ${Strings.transacColumnAccount} TEXT NULL NULL,
+                FOREIGN KEY(${Strings.transacColumnCategory}) REFERENCES ${Strings.tableCategories}(${Strings.categoryColumnId}),
+                FOREIGN KEY(${Strings.transacColumnAccount}) REFERENCES ${Strings.tableAccounts}(${Strings.accountColumnId})
+              )
+              ''',
+    );
+    await db.execute('''
+      INSERT INTO ${Strings.tableTransac}
+      (id, name, amount, date, category, type, account)
+      SELECT expense_id, name, value, date, category, type, 'cash'
+      FROM tempItems;
+    ''');
+    await db.execute('DROP TABLE tempItems');
+
+    print('adding accounts to recurring transactions table');
+    await db.execute('ALTER TABLE recurring_items RENAME TO temp');
+    await db.execute('''
+            CREATE TABLE ${Strings.tableRecurringTransac} (
+              ${Strings.recurringTransacColumnId} INTEGER PRIMARY KEY AUTOINCREMENT,
+              ${Strings.recurringTransacColumnName} TEXT NOT NULL,
+              ${Strings.recurringTransacColumnAmount} DOUBLE NOT NULL,
+              ${Strings.recurringTransacColumnDueDate} INTEGER NOT NULL,
+              ${Strings.recurringTransacColumnPeriodicity} INTEGER NOT NULL,
+              ${Strings.recurringTransacColumnCategory} TEXT NOT NULL,
+              ${Strings.recurringTransacColumnAccount} TEXT NULL NULL,
+              FOREIGN KEY(${Strings.recurringTransacColumnCategory}) REFERENCES ${Strings.tableCategories}(${Strings.categoryColumnId}),
+              FOREIGN KEY(${Strings.recurringTransacColumnAccount}) REFERENCES ${Strings.tableAccounts}(${Strings.accountColumnId})
+            )
+            ''');
+    await db.execute('''
+      INSERT INTO ${Strings.tableRecurringTransac}
+      (id, name, amount, due_date, periodicity, category, account)
+      SELECT recurring_item_id, name, amount, due_date, periodicity, category, 'cash'
+      FROM temp;
+    ''');
+    await db.execute('DROP TABLE temp');
   }
 
   // * TRANSACTIONS

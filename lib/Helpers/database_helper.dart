@@ -91,8 +91,6 @@ class DatabaseHelper {
 
   Future _onUpgrade(Database db, int oldVersion, int newVersion) async {
     print('UPGRAADINGGGGGGGG');
-    await db.execute('DROP TABLE temp');
-
     print('adding accounts to transactions table');
     await db.execute('ALTER TABLE items RENAME TO tempItems');
     await db.execute(
@@ -119,7 +117,7 @@ class DatabaseHelper {
     await db.execute('DROP TABLE tempItems');
 
     print('adding accounts to recurring transactions table');
-    await db.execute('ALTER TABLE recurring_items RENAME TO temp');
+    await db.execute('ALTER TABLE recurring_items RENAME TO temp69');
     await db.execute('''
             CREATE TABLE ${Strings.tableRecurringTransac} (
               ${Strings.recurringTransacColumnId} INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -137,9 +135,9 @@ class DatabaseHelper {
       INSERT INTO ${Strings.tableRecurringTransac}
       (id, name, amount, due_date, periodicity, category, account)
       SELECT recurring_item_id, name, amount, due_date, periodicity, category, 'cash'
-      FROM temp;
+      FROM temp69;
     ''');
-    await db.execute('DROP TABLE temp');
+    await db.execute('DROP TABLE temp69');
   }
 
   // * TRANSACTIONS

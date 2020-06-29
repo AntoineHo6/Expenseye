@@ -164,7 +164,14 @@ class DatabaseHelper {
     await db.execute('DROP TABLE temp69');
 
     print('querying all the transactions and calculating balance');
-    List<Transac> transacs = await queryAllTransacs();
+    await _tempAddCashAccountWithOldTransacs(db);
+  }
+
+  Future<void> _tempAddCashAccountWithOldTransacs(Database db) async {
+    List<Map> maps = await db.query(Strings.tableTransacs);
+
+    List<Transac> transacs = convertMapsToTransacs(maps);
+
     double total = 0;
     for (var transac in transacs) {
       switch (transac.type) {
@@ -194,7 +201,6 @@ class DatabaseHelper {
       MdiIcons.wallet,
     );
 
-    print('inserting cash account');
     await db.insert(Strings.tableAccounts, cashAccount.toMap());
   }
 

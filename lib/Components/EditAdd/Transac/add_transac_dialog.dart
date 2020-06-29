@@ -27,7 +27,8 @@ class _AddTransacDialogState extends State<AddTransacDialog> {
 
   @override
   Widget build(BuildContext context) {
-    final settingsNotifier = Provider.of<SettingsNotifier>(context, listen: false);
+    final settingsNotifier =
+        Provider.of<SettingsNotifier>(context, listen: false);
     String title;
     Icon icon;
     if (widget.type == TransacType.expense) {

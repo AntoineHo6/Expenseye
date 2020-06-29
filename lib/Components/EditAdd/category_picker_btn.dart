@@ -29,10 +29,9 @@ class CategoryPickerBtn extends StatelessWidget {
     if (categoryId == null) {
       highlightColor = Theme.of(context).focusColor.withOpacity(0.15);
       splashColor = Theme.of(context).focusColor.withOpacity(0.1);
-      iconData = Icons.add;
+      iconData = Icons.category;
       iconColor = Theme.of(context).focusColor;
-    } 
-    else {
+    } else {
       highlightColor = DbModel.catMap[categoryId].color.withOpacity(0.1);
       splashColor = DbModel.catMap[categoryId].color.withOpacity(0.1);
       iconData = DbModel.catMap[categoryId].iconData;

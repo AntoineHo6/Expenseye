@@ -55,11 +55,20 @@ class MyDrawer extends StatelessWidget {
               leading: const Icon(
                 MdiIcons.calendarClock,
               ),
-              title: Text(
-                  AppLocalizations.of(context).translate('recurringTransactions')),
+              title: Text(AppLocalizations.of(context)
+                  .translate('recurringTransactions')),
               onTap: () {
                 Navigator.of(context).pop(context);
                 _openRecurringTransacPage(context);
+              },
+            ),
+            ListTile(
+              leading: const Icon(
+                MdiIcons.wallet,
+              ),
+              title: Text(AppLocalizations.of(context).translate('accounts')),
+              onTap: () {
+                Navigator.of(context).pop(context);
               },
             ),
             ListTile(
@@ -95,7 +104,8 @@ class MyDrawer extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(
-          builder: (context) => MonthlyHomePage(date: DateTime.now())),
+        builder: (context) => MonthlyHomePage(date: DateTime.now()),
+      ),
     );
   }
 

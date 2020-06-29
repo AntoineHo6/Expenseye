@@ -93,5 +93,6 @@
     "reminderNotification": "Notification de rappel",
     "switchToExpenses": "Changer aux dépenses",
     "switchToIncomes": "Changer aux revenus",
-    "sort": "Trier"
+    "sort": "Trier",
+    "accounts": "Comptes"
 }

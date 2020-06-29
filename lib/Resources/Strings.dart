@@ -1,7 +1,7 @@
 class Strings {
   static const String versionNumber = '1.4.11';
 
-  // * EXPENSE categories EN
+  // * DEFAULT EXPENSE categories EN
   static const String foodEN = 'Food';
   static const String transportationEN = 'Transportation';
   static const String shoppingEN = 'Shopping';
@@ -13,7 +13,7 @@ class Strings {
   static const String peopleEN = 'People';
   static const String educationEN = 'Education';
 
-  // * EXPENSE categories FR
+  // * DEFAULT EXPENSE categories FR
   static const String foodFR = 'Nourriture';
   static const String transportationFR = 'Transport';
   static const String shoppingFR = 'Magazinage';
@@ -25,7 +25,7 @@ class Strings {
   static const String peopleFR = 'Gens';
   static const String educationFR = 'Éducation';
 
-  // * INCOME categories EN
+  // * DEFAULT INCOME categories EN
   static const String salaryEN = 'Salary';
   static const String giftEN = 'Gift';
   static const String businessEN = 'Business';
@@ -33,7 +33,7 @@ class Strings {
   static const String realEstateEN = 'Real Estate';
   static const String investmentEN = 'Investment';
   static const String refundEN = 'Refund';
-  // * INCOME categories FR
+  // * DEFAULT INCOME categories FR
   static const String salaryFR = 'Salaire';
   static const String giftFR = 'Cadeau';
   static const String businessFR = 'Affaire';
@@ -42,10 +42,15 @@ class Strings {
   static const String investmentFR = 'Investissement';
   static const String refundFR = 'Remboursement';
 
+  // * DEFAULT CASH ACCOUNT EN
+  static const String cashEN = 'Cash';
+  // * DEFAULT CASH ACCOUNT FR
+  static const String cashFR = 'Espèces';
+
   static const String dbFileName = 'itemsDb.db';
 
   // * TRANSACTIONS DATABASE table and column names
-  static const String tableTransac = 'transactions';
+  static const String tableTransacs = 'transactions';
   static const String transacColumnId = 'id';
   static const String transacColumnName = 'name';
   static const String transacColumnValue = 'amount';
@@ -63,7 +68,7 @@ class Strings {
   static const String categoryColumnType = 'type';
 
   // * RECCURING TRANSACTIONS DATABASE table and extra column names
-  static const String tableRecurringTransac = 'recurring_transacs';
+  static const String tableRecurringTransacs = 'recurring_transacs';
   static const String recurringTransacColumnId = 'id';
   static const String recurringTransacColumnName = 'name';
   static const String recurringTransacColumnAmount = 'amount';

@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:Expenseye/Enums/transac_type.dart';
 import 'package:Expenseye/Models/Category.dart';
 import 'package:Expenseye/Models/Transac.dart';
+import 'package:Expenseye/Models/account.dart';
 import 'package:Expenseye/Models/recurring_transac.dart';
 import 'package:Expenseye/Resources/Strings.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,7 @@ class DatabaseHelper {
   static const _databaseName = Strings.dbFileName;
   // Increment this version when you need to change the schema.
   // * new version will be 12
-  static final _databaseVersion = 11;
+  static final _databaseVersion = 12;
 
   // Make this a singleton class.
   DatabaseHelper._privateConstructor();
@@ -46,7 +47,7 @@ class DatabaseHelper {
   Future _onCreate(Database db, int version) async {
     print('creating transactions table');
     await db.execute('''
-              CREATE TABLE ${Strings.tableTransac} (
+              CREATE TABLE ${Strings.tableTransacs} (
                 ${Strings.transacColumnId} INTEGER PRIMARY KEY AUTOINCREMENT,
                 ${Strings.transacColumnName} TEXT NOT NULL,
                 ${Strings.transacColumnValue} DOUBLE NOT NULL,
@@ -75,7 +76,7 @@ class DatabaseHelper {
 
     print('Creating recurring transactions table');
     await db.execute('''
-            CREATE TABLE ${Strings.tableRecurringTransac} (
+            CREATE TABLE ${Strings.tableRecurringTransacs} (
               ${Strings.recurringTransacColumnId} INTEGER PRIMARY KEY AUTOINCREMENT,
               ${Strings.recurringTransacColumnName} TEXT NOT NULL,
               ${Strings.recurringTransacColumnAmount} DOUBLE NOT NULL,
@@ -87,15 +88,38 @@ class DatabaseHelper {
               FOREIGN KEY(${Strings.recurringTransacColumnAccount}) REFERENCES ${Strings.tableAccounts}(${Strings.accountColumnId})
             )
             ''');
+
+    print('Creating accounts table');
+    await db.execute('''
+          CREATE TABLE ${Strings.tableAccounts} (
+            ${Strings.accountColumnId} TEXT PRIMARY KEY,
+            ${Strings.accountColumnName} TEXT NOT NULL,
+            ${Strings.accountColumnBalance} DOUBLE NOT NULL,
+            ${Strings.accountColumnIconCodePoint} TEXT NOT NULL
+          )
+          ''');
+
+    print('Inserting default cash account');
+    await _insertDefaultAccount(db);
   }
 
   Future _onUpgrade(Database db, int oldVersion, int newVersion) async {
     print('UPGRAADINGGGGGGGG');
+    print('Creating accounts table');
+    await db.execute('''
+          CREATE TABLE ${Strings.tableAccounts} (
+            ${Strings.accountColumnId} TEXT PRIMARY KEY,
+            ${Strings.accountColumnName} TEXT NOT NULL,
+            ${Strings.accountColumnBalance} DOUBLE NOT NULL,
+            ${Strings.accountColumnIconCodePoint} TEXT NOT NULL
+          )
+          ''');
+
     print('adding accounts to transactions table');
     await db.execute('ALTER TABLE items RENAME TO tempItems');
     await db.execute(
       '''
-              CREATE TABLE ${Strings.tableTransac} (
+              CREATE TABLE ${Strings.tableTransacs} (
                 ${Strings.transacColumnId} INTEGER PRIMARY KEY AUTOINCREMENT,
                 ${Strings.transacColumnName} TEXT NOT NULL,
                 ${Strings.transacColumnValue} DOUBLE NOT NULL,
@@ -109,7 +133,7 @@ class DatabaseHelper {
               ''',
     );
     await db.execute('''
-      INSERT INTO ${Strings.tableTransac}
+      INSERT INTO ${Strings.tableTransacs}
       (id, name, amount, date, category, type, account)
       SELECT expense_id, name, value, date, category, type, 'cash'
       FROM tempItems;
@@ -119,7 +143,7 @@ class DatabaseHelper {
     print('adding accounts to recurring transactions table');
     await db.execute('ALTER TABLE recurring_items RENAME TO temp69');
     await db.execute('''
-            CREATE TABLE ${Strings.tableRecurringTransac} (
+            CREATE TABLE ${Strings.tableRecurringTransacs} (
               ${Strings.recurringTransacColumnId} INTEGER PRIMARY KEY AUTOINCREMENT,
               ${Strings.recurringTransacColumnName} TEXT NOT NULL,
               ${Strings.recurringTransacColumnAmount} DOUBLE NOT NULL,
@@ -132,18 +156,50 @@ class DatabaseHelper {
             )
             ''');
     await db.execute('''
-      INSERT INTO ${Strings.tableRecurringTransac}
+      INSERT INTO ${Strings.tableRecurringTransacs}
       (id, name, amount, due_date, periodicity, category, account)
       SELECT recurring_item_id, name, amount, due_date, periodicity, category, 'cash'
       FROM temp69;
     ''');
     await db.execute('DROP TABLE temp69');
+
+    List<Transac> transacs = await queryAllTransacs();
+    double total = 0;
+    for (var transac in transacs) {
+      switch (transac.type) {
+        case TransacType.expense:
+          total -= transac.amount;
+          break;
+        case TransacType.income:
+          total += transac.amount;
+          break;
+      }
+    }
+
+    String cashAccountName;
+    switch (languageCode) {
+      case 'en':
+        cashAccountName = Strings.cashEN;
+        break;
+      case 'fr':
+        cashAccountName = Strings.cashFR;
+        break;
+    }
+
+    Account cashAccount = new Account.withId(
+      cashAccountName.toLowerCase(),
+      cashAccountName,
+      total,
+      MdiIcons.wallet,
+    );
+
+    await db.insert(Strings.tableAccounts, cashAccount.toMap());
   }
 
   // * TRANSACTIONS
   Future<int> insertTransac(Transac expense) async {
     Database db = await database;
-    int id = await db.insert(Strings.tableTransac, expense.toMap());
+    int id = await db.insert(Strings.tableTransacs, expense.toMap());
     return id;
   }
 
@@ -151,7 +207,7 @@ class DatabaseHelper {
     Database db = await database;
     String dateStrToFind = date.toIso8601String().split('T')[0];
 
-    List<Map> maps = await db.query(Strings.tableTransac,
+    List<Map> maps = await db.query(Strings.tableTransacs,
         where: '${Strings.transacColumnDate} LIKE \'$dateStrToFind%\'');
 
     return convertMapsToTransacs(maps);
@@ -161,7 +217,7 @@ class DatabaseHelper {
     Database db = await database;
 
     List<Map> maps = await db.query(
-      Strings.tableTransac,
+      Strings.tableTransacs,
       where: '${Strings.transacColumnDate} LIKE \'$yearMonth%\'',
       orderBy: '${Strings.transacColumnDate} DESC',
     );
@@ -173,7 +229,7 @@ class DatabaseHelper {
     Database db = await database;
 
     List<Map> maps = await db.query(
-      Strings.tableTransac,
+      Strings.tableTransacs,
       where: '${Strings.transacColumnDate} LIKE \'$year%\'',
       orderBy: '${Strings.transacColumnDate} DESC',
     );
@@ -184,7 +240,7 @@ class DatabaseHelper {
   Future<List<Transac>> queryAllTransacs() async {
     Database db = await database;
 
-    List<Map> maps = await db.query(Strings.tableTransac);
+    List<Map> maps = await db.query(Strings.tableTransacs);
 
     return convertMapsToTransacs(maps);
   }
@@ -192,14 +248,14 @@ class DatabaseHelper {
   Future<int> updateTransac(Transac transac) async {
     Database db = await database;
 
-    return await db.update(Strings.tableTransac, transac.toMap(),
+    return await db.update(Strings.tableTransacs, transac.toMap(),
         where: '${Strings.transacColumnId} = ?', whereArgs: [transac.id]);
   }
 
   Future<int> deleteTransac(int id) async {
     Database db = await database;
 
-    return await db.delete(Strings.tableTransac,
+    return await db.delete(Strings.tableTransacs,
         where: '${Strings.transacColumnId} = ?', whereArgs: [id]);
   }
 
@@ -209,7 +265,7 @@ class DatabaseHelper {
 
     await db.rawUpdate(
       ''' 
-        UPDATE ${Strings.tableTransac} 
+        UPDATE ${Strings.tableTransacs} 
         SET ${Strings.transacColumnCategory} = ? 
         WHERE ${Strings.transacColumnCategory} = ?
       ''',
@@ -217,7 +273,7 @@ class DatabaseHelper {
     );
     await db.rawUpdate(
       '''
-        UPDATE ${Strings.tableRecurringTransac}
+        UPDATE ${Strings.tableRecurringTransacs}
         SET ${Strings.recurringTransacColumnCategory} = ?
         WHERE ${Strings.recurringTransacColumnCategory} = ?
       ''',
@@ -228,14 +284,14 @@ class DatabaseHelper {
   Future<int> deleteTransacsByCategory(String categoryId) async {
     Database db = await database;
 
-    return await db.delete(Strings.tableTransac,
+    return await db.delete(Strings.tableTransacs,
         where: '${Strings.transacColumnCategory} = ?', whereArgs: [categoryId]);
   }
 
   Future<void> deleteAllTransacs() async {
     Database db = await database;
-    await db.rawQuery('DELETE FROM ${Strings.tableTransac}');
-    await db.rawQuery('DELETE FROM ${Strings.tableRecurringTransac}');
+    await db.rawQuery('DELETE FROM ${Strings.tableTransacs}');
+    await db.rawQuery('DELETE FROM ${Strings.tableRecurringTransacs}');
   }
 
   List<Transac> convertMapsToTransacs(List<Map> maps) {
@@ -252,13 +308,13 @@ class DatabaseHelper {
   // * RECURRING TRANSACTIONS
   Future<void> insertRecurringTransac(RecurringTransac recurringTransac) async {
     Database db = await database;
-    await db.insert(Strings.tableRecurringTransac, recurringTransac.toMap());
+    await db.insert(Strings.tableRecurringTransacs, recurringTransac.toMap());
   }
 
   Future<List<RecurringTransac>> queryRecurringTransacs() async {
     Database db = await database;
 
-    List<Map> maps = await db.query(Strings.tableRecurringTransac);
+    List<Map> maps = await db.query(Strings.tableRecurringTransacs);
 
     return convertMapsToRecurringTransacs(maps);
   }
@@ -278,7 +334,7 @@ class DatabaseHelper {
   Future<void> deleteRecurringTransac(int id) async {
     Database db = await database;
 
-    return await db.delete(Strings.tableRecurringTransac,
+    return await db.delete(Strings.tableRecurringTransacs,
         where: '${Strings.recurringTransacColumnId} = ?', whereArgs: [id]);
   }
 
@@ -286,7 +342,7 @@ class DatabaseHelper {
     Database db = await database;
 
     return await db.update(
-      Strings.tableRecurringTransac,
+      Strings.tableRecurringTransacs,
       recurringTransac.toMap(),
       where: '${Strings.recurringTransacColumnId} = ?',
       whereArgs: [recurringTransac.id],
@@ -296,21 +352,43 @@ class DatabaseHelper {
   Future<void> deleteRecurringTransacsByCategory(String categoryId) async {
     Database db = await database;
 
-    return await db.delete(Strings.tableRecurringTransac,
+    return await db.delete(Strings.tableRecurringTransacs,
         where: '${Strings.recurringTransacColumnCategory} = ?',
         whereArgs: [categoryId]);
   }
 
+  // * ACCOUNTS
+  Future<void> _insertDefaultAccount(Database db) async {
+    String cashAccountName;
+    switch (languageCode) {
+      case 'en':
+        cashAccountName = Strings.cashEN;
+        break;
+      case 'fr':
+        cashAccountName = Strings.cashFR;
+        break;
+    }
+
+    Account cashAccount = new Account.withId(
+      cashAccountName.toLowerCase(),
+      cashAccountName,
+      0,
+      MdiIcons.wallet,
+    );
+
+    await db.insert(Strings.tableAccounts, cashAccount.toMap());
+  }
+
   // * CATEGORIES
   Future<void> _insertDefaultCategories(Database db) async {
-    for (var category in defaultCategories()) {
+    for (var category in getDefaultCategories()) {
       await db.insert(Strings.tableCategories, category.toMap());
     }
   }
 
   Future<void> insertDefaultCategories() async {
     Database db = await database;
-    for (var category in defaultCategories()) {
+    for (var category in getDefaultCategories()) {
       await db.insert(Strings.tableCategories, category.toMap());
     }
   }
@@ -351,7 +429,7 @@ class DatabaseHelper {
     await db.rawQuery('DELETE FROM ${Strings.tableCategories}');
   }
 
-  List<Category> defaultCategories() {
+  List<Category> getDefaultCategories() {
     // Expenses
     String foodName,
         transportationName,

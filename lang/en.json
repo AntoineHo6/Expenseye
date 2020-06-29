@@ -93,5 +93,6 @@
     "reminderNotification": "Reminder notification",
     "switchToExpenses": "Switch to expenses",
     "switchToIncomes": "Switch to incomes",
-    "sort": "Sort"
+    "sort": "Sort",
+    "accounts": "Accounts"
 }

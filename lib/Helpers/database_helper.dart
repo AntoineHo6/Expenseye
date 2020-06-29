@@ -163,6 +163,7 @@ class DatabaseHelper {
     ''');
     await db.execute('DROP TABLE temp69');
 
+    print('querying all the transactions and calculating balance');
     List<Transac> transacs = await queryAllTransacs();
     double total = 0;
     for (var transac in transacs) {
@@ -193,6 +194,7 @@ class DatabaseHelper {
       MdiIcons.wallet,
     );
 
+    print('inserting cash account');
     await db.insert(Strings.tableAccounts, cashAccount.toMap());
   }
 

@@ -23,8 +23,7 @@ class _RecurringTransacPageState extends State<RecurringTransacPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-            AppLocalizations.of(context).translate('recurringTransactions')),
+        title: Text(AppLocalizations.of(context).translate('recurringTransactions')),
         actions: <Widget>[
           RaisedButton(
             onPressed: () {
@@ -61,8 +60,7 @@ class _RecurringTransacPageState extends State<RecurringTransacPage> {
                           Container(
                             margin: const EdgeInsets.only(left: 10, top: 10),
                             child: Text(
-                              AppLocalizations.of(context)
-                                  .translate('expenses'),
+                              AppLocalizations.of(context).translate('expenses'),
                               style: Theme.of(context).textTheme.headline1,
                             ),
                           ),
@@ -99,8 +97,7 @@ class _RecurringTransacPageState extends State<RecurringTransacPage> {
               return Align(
                 alignment: Alignment.center,
                 child: Text(
-                  AppLocalizations.of(context)
-                      .translate('addYourFirstRecurringTransaction'),
+                  AppLocalizations.of(context).translate('addYourFirstRecurringTransaction'),
                   style: Theme.of(context).textTheme.headline6,
                 ),
               );
@@ -123,8 +120,7 @@ class _RecurringTransacPageState extends State<RecurringTransacPage> {
     recurringTransacsByCategoryType[1] = new List(); // incomes
 
     for (RecurringTransac recurringTransac in recurringTransacs) {
-      if (DbModel.catMap[recurringTransac.category].type ==
-          TransacType.expense) {
+      if (DbModel.catMap[recurringTransac.category].type == TransacType.expense) {
         recurringTransacsByCategoryType[0].add(recurringTransac);
       } else {
         recurringTransacsByCategoryType[1].add(recurringTransac);
@@ -139,23 +135,19 @@ class _RecurringTransacPageState extends State<RecurringTransacPage> {
     List<RecurringTransac> recurringTransacs,
     TransacType type,
   ) {
-    final settingsNotifier =
-        Provider.of<SettingsNotifier>(context, listen: false);
+    final settingsNotifier = Provider.of<SettingsNotifier>(context, listen: false);
 
     return recurringTransacs.map(
       (recurringTransac) {
         return Container(
           margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
           child: RaisedButton(
-            highlightColor: DbModel.catMap[recurringTransac.category].color
-                .withOpacity(0.2),
-            splashColor: DbModel.catMap[recurringTransac.category].color
-                .withOpacity(0.2),
+            highlightColor: DbModel.catMap[recurringTransac.category].color.withOpacity(0.2),
+            splashColor: DbModel.catMap[recurringTransac.category].color.withOpacity(0.2),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.0),
             ),
-            onPressed: () =>
-                _openEditRecurringTransacPage(context, recurringTransac),
+            onPressed: () => _openEditRecurringTransacPage(context, recurringTransac),
             child: ListTile(
               leading: Icon(
                 DbModel.catMap[recurringTransac.category].iconData,
@@ -209,11 +201,9 @@ class _RecurringTransacPageState extends State<RecurringTransacPage> {
     }
   }
 
-  Widget _subtitleText(
-      BuildContext context, RecurringTransac recurringTransac) {
+  Widget _subtitleText(BuildContext context, RecurringTransac recurringTransac) {
     String periodicityTitle;
-    periodicityTitle =
-        PeriodicityHelper.getString(context, recurringTransac.periodicity);
+    periodicityTitle = PeriodicityHelper.getString(context, recurringTransac.periodicity);
 
     return RichText(
       text: TextSpan(
@@ -235,13 +225,15 @@ class _RecurringTransacPageState extends State<RecurringTransacPage> {
             ),
           ),
           TextSpan(
-            text:
-                '${DateTimeUtil.formattedDate(context, recurringTransac.dueDate)}',
+            text: '${DateTimeUtil.formattedDate(context, recurringTransac.dueDate)}\n',
             style: TextStyle(
               fontStyle: FontStyle.italic,
               fontSize: 13,
               color: Theme.of(context).textTheme.caption.color,
             ),
+          ),
+          TextSpan(
+            text: recurringTransac.accountId,
           ),
         ],
       ),

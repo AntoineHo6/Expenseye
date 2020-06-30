@@ -1,8 +1,5 @@
 import 'package:Expenseye/Enums/transac_type.dart';
-import 'package:Expenseye/Pages/EditAddTransac/edit_transac_page.dart';
 import 'package:Expenseye/Resources/Strings.dart';
-import 'package:Expenseye/app_localizations.dart';
-import 'package:flutter/material.dart';
 
 class Transac {
   int id;
@@ -55,24 +52,5 @@ class Transac {
       map[Strings.transacColumnId] = id;
     }
     return map;
-  }
-
-  // todo: MOVE THIS THE FRICK OUTTTTT
-  void openEditTransacPage(BuildContext context, Transac transac) async {
-    int action = await Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => EditTransacPage(transac)),
-    );
-
-    if (action != null) {
-      final snackBar = SnackBar(
-        content: action == 1
-            ? Text(AppLocalizations.of(context).translate('succEdited'))
-            : Text(AppLocalizations.of(context).translate('succDeleted')),
-        backgroundColor: Colors.grey.withOpacity(0.5),
-      );
-
-      Scaffold.of(context).showSnackBar(snackBar);
-    }
   }
 }

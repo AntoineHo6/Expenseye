@@ -8,7 +8,7 @@ class CategoryPickerBtn extends StatelessWidget {
   final double height;
   final double iconSize;
   final double iconBottomPosition;
-  final Color borderSideColor;
+  final bool isInError;
 
   CategoryPickerBtn({
     @required this.onPressed,
@@ -17,7 +17,7 @@ class CategoryPickerBtn extends StatelessWidget {
     this.height = 50,
     this.iconSize = 70,
     this.iconBottomPosition = -25,
-    this.borderSideColor = Colors.transparent,
+    this.isInError = false,
   });
 
   @override
@@ -43,7 +43,7 @@ class CategoryPickerBtn extends StatelessWidget {
       splashColor: splashColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
-        side: BorderSide(color: borderSideColor),
+        side: BorderSide(color: isInError ? Theme.of(context).errorColor : Colors.transparent),
       ),
       onPressed: onPressed,
       child: SizedBox(

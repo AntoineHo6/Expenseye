@@ -71,8 +71,7 @@ class _MyAppState extends State<MyApp> {
             return supportedLocale;
           }
         }
-        DatabaseHelper.instance.languageCode =
-            supportedLocales.first.languageCode;
+        DatabaseHelper.instance.languageCode = supportedLocales.first.languageCode;
         return supportedLocales.first;
       },
       home: DailyPage(),
@@ -125,12 +124,11 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-    var initializationSettingsAndroid =
-        AndroidInitializationSettings('app_icon');
-    var initializationSettingsIOS = IOSInitializationSettings(
-        onDidReceiveLocalNotification: onDidReceiveLocalNotification);
-    var initializationSettings = InitializationSettings(
-        initializationSettingsAndroid, initializationSettingsIOS);
+    var initializationSettingsAndroid = AndroidInitializationSettings('app_icon');
+    var initializationSettingsIOS =
+        IOSInitializationSettings(onDidReceiveLocalNotification: onDidReceiveLocalNotification);
+    var initializationSettings =
+        InitializationSettings(initializationSettingsAndroid, initializationSettingsIOS);
     flutterLocalNotificationsPlugin.initialize(initializationSettings,
         onSelectNotification: selectNotification);
   }

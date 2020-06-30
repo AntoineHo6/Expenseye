@@ -12,6 +12,7 @@ class DbModel extends ChangeNotifier {
   final DatabaseHelper _dbHelper = DatabaseHelper.instance;
   static Map<String, Category> catMap = new Map(); // used to access category colors, icon and type
   static Map<String, Account> accMap = new Map();
+  static String defaultAccountId; // tODO: should be most recently chosen account
 
   DbModel() {
     initUser();
@@ -20,7 +21,7 @@ class DbModel extends ChangeNotifier {
   Future<void> initUser() async {
     await initConnectedUser();
     await initUserCategoriesMap();
-    await initUserAccountsMap();
+    await initUserAccountsMapAndDefault();
     await initCheckRecurringTransacs();
   }
 
@@ -28,17 +29,20 @@ class DbModel extends ChangeNotifier {
     List<Transac> localTransacs = await queryAllTransacs();
     List<Category> localCategories = await queryCategories();
     List<RecurringTransac> localRecTransacs = await queryRecurringTransacs();
+    List<Account> localAccounts = await _dbHelper.queryAccounts();
 
     bool isLoggedIn = await loginWithGoogle();
     // * From this point on, the sqflite file contains data from the firebase file
     List<Category> accCategories = await queryCategories();
+    List<Account> accAccounts = await _dbHelper.queryAccounts();
 
     if (isLoggedIn) {
-      await addLocalTransacs(localTransacs, localCategories, localRecTransacs, accCategories);
+      await addLocalTransacs(localTransacs, localCategories, localRecTransacs, accCategories,
+          localAccounts, accAccounts);
     }
 
     await initUserCategoriesMap();
-    await initUserAccountsMap();
+    await initUserAccountsMapAndDefault();
     await initCheckRecurringTransacs();
   }
 
@@ -99,13 +103,24 @@ class DbModel extends ChangeNotifier {
     List<Category> localCategories,
     List<RecurringTransac> localRecTransacs,
     List<Category> accCategories,
+    List<Account> localAccounts,
+    List<Account> accAccounts,
   ) async {
+    // add the categories that dont exist in the users database
     List<String> accCategoriesId = accCategories.map((category) => category.id).toList();
-
     for (var localCategory in localCategories) {
       if (!accCategoriesId.contains(localCategory.id)) {
         await _dbHelper.insertCategory(localCategory);
         catMap[localCategory.id] = localCategory;
+      }
+    }
+
+    // add the accounts that dont exist in the users database
+    List<String> accAccountsId = accAccounts.map((account) => account.id).toList();
+    for (var localAccount in localAccounts) {
+      if (!accAccountsId.contains(localAccount.id)) {
+        await _dbHelper.insertAccount(localAccount);
+        accMap[localAccount.id] = localAccount;
       }
     }
 
@@ -134,11 +149,14 @@ class DbModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> initUserAccountsMap() async {
+  Future<void> initUserAccountsMapAndDefault() async {
     accMap.clear();
     List<Account> accounts = await _dbHelper.queryAccounts();
-    for (var account in accounts) {
-      accMap[account.id] = account;
+    for (var i = 0; i < accounts.length; i++) {
+      if (i == 0) {
+        defaultAccountId = accounts[i].id;
+      }
+      accMap[accounts[i].id] = accounts[i];
     }
 
     notifyListeners();

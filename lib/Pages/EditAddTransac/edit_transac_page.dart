@@ -33,8 +33,7 @@ class _EditTransacPageState extends State<EditTransacPage> {
             title: Text(widget.transac.name),
             actions: <Widget>[
               DeleteBtn(
-                onPressed: () async =>
-                    await model.delete(context, widget.transac.id),
+                onPressed: () async => await model.delete(context, widget.transac.id),
               ),
             ],
           ),
@@ -85,8 +84,7 @@ class _EditTransacPageState extends State<EditTransacPage> {
                   ),
                 ),
                 Container(
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                   child: DatePickerBtn(
                     width: double.infinity,
                     height: 80,
@@ -94,8 +92,7 @@ class _EditTransacPageState extends State<EditTransacPage> {
                     iconSize: 32,
                     spaceBetweenSize: 15,
                     fontSize: 20,
-                    onPressed: () async =>
-                        await model.chooseDate(context, model.date),
+                    onPressed: () async => await model.chooseDate(context, model.date),
                   ),
                 ),
                 Container(
@@ -109,12 +106,10 @@ class _EditTransacPageState extends State<EditTransacPage> {
                   ),
                 ),
                 Container(
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                   child: CategoryPickerBtn(
                     categoryId: model.categoryId,
-                    onPressed: () async =>
-                        await model.openChooseCategoryPage(context),
+                    onPressed: () async => await model.openChooseCategoryPage(context),
                     width: double.infinity,
                     height: 80,
                     iconSize: 160,

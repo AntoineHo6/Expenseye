@@ -19,13 +19,11 @@ class MonthlyTransacPage extends StatelessWidget {
 
     return Scaffold(
       body: FutureBuilder<List<Transac>>(
-        future: Provider.of<DbModel>(context)
-            .queryTransacsByMonth(_monthlyModel.yearMonth),
+        future: Provider.of<DbModel>(context).queryTransacsByMonth(_monthlyModel.yearMonth),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data != null && snapshot.data.length > 0) {
-              var transacsSplitByDay =
-                  _monthlyModel.splitTransacsByDay(snapshot.data);
+              var transacsSplitByDay = _monthlyModel.splitTransacsByDay(snapshot.data);
 
               _transacModel.calcTotals(_monthlyModel, snapshot.data);
 
@@ -65,10 +63,8 @@ class MonthlyTransacPage extends StatelessWidget {
         },
       ),
       floatingActionButton: AddTransacFab(
-        onExpensePressed: () =>
-            _transacModel.showAddExpense(context, _monthlyModel.currentDate),
-        onIncomePressed: () =>
-            _transacModel.showAddIncome(context, _monthlyModel.currentDate),
+        onExpensePressed: () => _transacModel.showAddExpense(context, _monthlyModel.currentDate),
+        onIncomePressed: () => _transacModel.showAddIncome(context, _monthlyModel.currentDate),
       ),
     );
   }
@@ -122,7 +118,10 @@ class _DayContainer extends StatelessWidget {
                     margin: const EdgeInsets.symmetric(vertical: 5),
                     child: TransacListTile(
                       transac,
-                      onPressed: () => transac.openEditTransacPage(context, transac),
+                      onPressed: () async => await _transacModel.openEditTransac(
+                        context,
+                        transac,
+                      ),
                     ),
                   ),
                 )

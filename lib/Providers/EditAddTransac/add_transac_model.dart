@@ -15,7 +15,7 @@ class AddTransacModel extends ChangeNotifier {
   DateTime date;
   TransacType type;
   String categoryId;
-  String accountId; //TODO: set it
+  String accountId = DbModel.defaultAccountId;
 
   AddTransacModel(this.date, this.type);
 
@@ -36,7 +36,7 @@ class AddTransacModel extends ChangeNotifier {
     updateDate(newDate);
   }
 
-  void addTransac(BuildContext context, String newName, String newAmount) {
+  Future<void> addTransac(BuildContext context, String newName, String newAmount) async {
     // make sure to remove time before adding to db
     final DateTime newDate = DateTimeUtil.timeToZeroInDate(date);
 
@@ -54,8 +54,8 @@ class AddTransacModel extends ChangeNotifier {
         accountId,
       );
 
-      Provider.of<DbModel>(context, listen: false).addTransac(newTransac);
-      Navigator.pop(context, true);
+      await Provider.of<DbModel>(context, listen: false).addTransac(newTransac);
+      Navigator.pop(context);
     }
   }
 

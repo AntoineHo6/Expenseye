@@ -54,6 +54,7 @@ class _DailyPageState extends State<DailyPage> with WidgetsBindingObserver {
         future: _dbModel.queryTransacsByDay(widget.day),
         builder: (context, snapshot) {
           if (snapshot.hasData && DbModel.catMap.length > 0) {
+            // TODO: checl accMap
             if (snapshot.data != null && snapshot.data.length > 0) {
               return mySliverView(snapshot.data, _transacModel, context);
             } else {
@@ -68,8 +69,7 @@ class _DailyPageState extends State<DailyPage> with WidgetsBindingObserver {
         },
       ),
       floatingActionButton: AddTransacFab(
-        onExpensePressed: () =>
-            _transacModel.showAddExpense(context, widget.day),
+        onExpensePressed: () => _transacModel.showAddExpense(context, widget.day),
         onIncomePressed: () => _transacModel.showAddIncome(context, widget.day),
       ),
     );
@@ -102,7 +102,9 @@ class _DailyPageState extends State<DailyPage> with WidgetsBindingObserver {
                   transacs[index],
                   contentPadding: const EdgeInsets.all(15),
                   onPressed: () async => await transacModel.openEditTransac(
-                      context, transacs[index]),
+                    context,
+                    transacs[index],
+                  ),
                 ),
               );
             },
@@ -116,8 +118,7 @@ class _DailyPageState extends State<DailyPage> with WidgetsBindingObserver {
   Future<void> loadDailyNotifications() async {
     final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
     TimeOfDay settingsTime =
-        Provider.of<SettingsNotifier>(context, listen: false)
-            .getLocalNotifTime();
+        Provider.of<SettingsNotifier>(context, listen: false).getLocalNotifTime();
 
     var time = Time(
       settingsTime.hour,
@@ -129,8 +130,8 @@ class _DailyPageState extends State<DailyPage> with WidgetsBindingObserver {
       'repeatDailyAtTime description',
     );
     var iOSPlatformChannelSpecifics = IOSNotificationDetails();
-    var platformChannelSpecifics = NotificationDetails(
-        androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
+    var platformChannelSpecifics =
+        NotificationDetails(androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
     await flutterLocalNotificationsPlugin.showDailyAtTime(
       0,
       AppLocalizations.of(context).translate('dontForgetToAddYourTransactions'),

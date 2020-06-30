@@ -265,8 +265,8 @@ class DatabaseHelper {
   Future<int> deleteTransac(int id) async {
     Database db = await database;
 
-    return await db.delete(Strings.tableTransacs,
-        where: '${Strings.transacColumnId} = ?', whereArgs: [id]);
+    return await db
+        .delete(Strings.tableTransacs, where: '${Strings.transacColumnId} = ?', whereArgs: [id]);
   }
 
   Future<void> updateTransacsAndRecTransacsCategory(
@@ -363,8 +363,7 @@ class DatabaseHelper {
     Database db = await database;
 
     return await db.delete(Strings.tableRecurringTransacs,
-        where: '${Strings.recurringTransacColumnCategory} = ?',
-        whereArgs: [categoryId]);
+        where: '${Strings.recurringTransacColumnCategory} = ?', whereArgs: [categoryId]);
   }
 
   // * ACCOUNTS
@@ -374,6 +373,11 @@ class DatabaseHelper {
     List<Map> maps = await db.query(Strings.tableAccounts);
 
     return _convertMapsToAccounts(maps);
+  }
+
+  Future<void> insertAccount(Account account) async {
+    Database db = await database;
+    await db.insert(Strings.tableAccounts, account.toMap());
   }
 
   List<Account> _convertMapsToAccounts(List<Map> maps) {
@@ -449,8 +453,8 @@ class DatabaseHelper {
   Future<void> deleteCategory(String id) async {
     Database db = await database;
 
-    return await db.delete(Strings.tableCategories,
-        where: '${Strings.categoryColumnId} = ?', whereArgs: [id]);
+    return await db
+        .delete(Strings.tableCategories, where: '${Strings.categoryColumnId} = ?', whereArgs: [id]);
   }
 
   Future<void> deleteAllCategories() async {

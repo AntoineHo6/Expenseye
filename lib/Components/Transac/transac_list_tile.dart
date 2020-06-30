@@ -20,6 +20,8 @@ class TransacListTile extends StatelessWidget {
     IconData iconData = DbModel.catMap[transac.categoryId].iconData;
     final settingsNotifier = Provider.of<SettingsNotifier>(context, listen: false);
 
+    print(DbModel.accMap[transac.id].name);
+
     return RaisedButton(
       color: color,
       elevation: 3,
@@ -37,7 +39,9 @@ class TransacListTile extends StatelessWidget {
           style: Theme.of(context).textTheme.subtitle1,
         ),
         trailing: Text(
-          transac.type == TransacType.expense ? '- ${transac.amount.toStringAsFixed(2)} \$' : '+ ${transac.amount.toStringAsFixed(2)} \$',
+          transac.type == TransacType.expense
+              ? '- ${transac.amount.toStringAsFixed(2)} \$'
+              : '+ ${transac.amount.toStringAsFixed(2)} \$',
           style: TextStyle(
             color: ColorChooserFromTheme.transacColorTypeChooser(
               transac.type,
@@ -45,6 +49,7 @@ class TransacListTile extends StatelessWidget {
             ),
           ),
         ),
+        // subtitle: Text(DbModel.accMap[transac.id].name), // TODO: change to the name
       ),
     );
   }

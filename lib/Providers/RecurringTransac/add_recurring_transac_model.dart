@@ -13,6 +13,7 @@ class AddRecurringTransacModel extends ChangeNotifier {
   DateTime startingDay;
   Periodicity periodicity;
   String categoryId;
+  String accountId; //TODO: set it
   TransacType type;
   bool isNameInvalid = false;
   bool isAmountInvalid = false;
@@ -75,8 +76,9 @@ class AddRecurringTransacModel extends ChangeNotifier {
       this.name,
       this.amount,
       this.startingDay,
-      this.categoryId,
       periodicity,
+      this.categoryId,
+      this.accountId,
     );
     Provider.of<DbModel>(context, listen: false)
         .insertRecurringTransac(newRecurringTransac);

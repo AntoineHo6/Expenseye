@@ -148,9 +148,9 @@ class _RecurringTransacPageState extends State<RecurringTransacPage> {
           margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
           child: RaisedButton(
             highlightColor: DbModel.catMap[recurringTransac.category].color
-                .withOpacity(0.1),
+                .withOpacity(0.2),
             splashColor: DbModel.catMap[recurringTransac.category].color
-                .withOpacity(0.1),
+                .withOpacity(0.2),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.0),
             ),

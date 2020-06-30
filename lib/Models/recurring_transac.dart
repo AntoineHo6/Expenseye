@@ -6,16 +6,19 @@ class RecurringTransac {
   int id;
   String name;
   double amount;
-  DateTime dueDate; // corresponds to the next dueDate the transaction is due for
+  DateTime
+      dueDate; // corresponds to the next dueDate the transaction is due for
   Periodicity periodicity; // daily, weekly, bi-weekly, monthly, yearly
-  String category;
+  String category; // TODO: categoryId
+  String accountId;
 
   RecurringTransac(
     this.name,
     this.amount,
     this.dueDate,
-    this.category,
     this.periodicity,
+    this.category,
+    this.accountId,
   );
 
   RecurringTransac.withId(
@@ -25,6 +28,7 @@ class RecurringTransac {
     this.dueDate,
     this.category,
     this.periodicity,
+    this.accountId,
   );
 
   void updateDueDate() {
@@ -36,7 +40,8 @@ class RecurringTransac {
         dueDate = DateTimeUtil.timeToZeroInDate(dueDate.add(Duration(days: 7)));
         break;
       case Periodicity.biweekly:
-        dueDate = DateTimeUtil.timeToZeroInDate(dueDate.add(Duration(days: 14)));
+        dueDate =
+            DateTimeUtil.timeToZeroInDate(dueDate.add(Duration(days: 14)));
         break;
       case Periodicity.monthly:
         int newMonth;
@@ -47,10 +52,12 @@ class RecurringTransac {
         } else {
           newMonth = dueDate.month + 1;
         }
-        dueDate = DateTimeUtil.timeToZeroInDate(DateTime(newYear, newMonth, dueDate.day));
+        dueDate = DateTimeUtil.timeToZeroInDate(
+            DateTime(newYear, newMonth, dueDate.day));
         break;
       case Periodicity.yearly:
-        dueDate = DateTimeUtil.timeToZeroInDate(DateTime(dueDate.year + 1, dueDate.month, dueDate.day));
+        dueDate = DateTimeUtil.timeToZeroInDate(
+            DateTime(dueDate.year + 1, dueDate.month, dueDate.day));
         break;
     }
   }
@@ -63,6 +70,7 @@ class RecurringTransac {
     periodicity =
         Periodicity.values[map[Strings.recurringTransacColumnPeriodicity]];
     category = map[Strings.recurringTransacColumnCategory];
+    accountId = map[Strings.recurringTransacColumnAccount];
   }
 
   Map<String, dynamic> toMap() {
@@ -71,7 +79,8 @@ class RecurringTransac {
       Strings.recurringTransacColumnAmount: amount,
       Strings.recurringTransacColumnDueDate: dueDate.toIso8601String(),
       Strings.recurringTransacColumnPeriodicity: periodicity.index,
-      Strings.recurringTransacColumnCategory: category
+      Strings.recurringTransacColumnCategory: category,
+      Strings.recurringTransacColumnAccount: accountId,
     };
     if (id != null) {
       map[Strings.recurringTransacColumnId] = id;

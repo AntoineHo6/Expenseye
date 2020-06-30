@@ -15,6 +15,7 @@ class AddTransacModel extends ChangeNotifier {
   DateTime date;
   TransacType type;
   String categoryId;
+  String accountId; //TODO: set it
 
   AddTransacModel(this.date, this.type);
 
@@ -50,6 +51,7 @@ class AddTransacModel extends ChangeNotifier {
         newDate,
         type,
         categoryId,
+        accountId,
       );
 
       Provider.of<DbModel>(context, listen: false).addTransac(newTransac);

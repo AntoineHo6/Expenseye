@@ -27,13 +27,13 @@ class CategoryPickerBtn extends StatelessWidget {
     IconData iconData;
     Color iconColor;
     if (categoryId == null) {
-      highlightColor = Theme.of(context).focusColor.withOpacity(0.15);
-      splashColor = Theme.of(context).focusColor.withOpacity(0.1);
+      highlightColor = Theme.of(context).focusColor.withOpacity(0.2);
+      splashColor = Theme.of(context).focusColor.withOpacity(0.2);
       iconData = Icons.category;
       iconColor = Theme.of(context).focusColor;
     } else {
-      highlightColor = DbModel.catMap[categoryId].color.withOpacity(0.1);
-      splashColor = DbModel.catMap[categoryId].color.withOpacity(0.1);
+      highlightColor = DbModel.catMap[categoryId].color.withOpacity(0.2);
+      splashColor = DbModel.catMap[categoryId].color.withOpacity(0.2);
       iconData = DbModel.catMap[categoryId].iconData;
       iconColor = DbModel.catMap[categoryId].color;
     }

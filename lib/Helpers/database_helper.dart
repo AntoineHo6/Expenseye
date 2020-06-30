@@ -215,8 +215,10 @@ class DatabaseHelper {
     Database db = await database;
     String dateStrToFind = date.toIso8601String().split('T')[0];
 
-    List<Map> maps = await db.query(Strings.tableTransacs,
-        where: '${Strings.transacColumnDate} LIKE \'$dateStrToFind%\'');
+    List<Map> maps = await db.query(
+      Strings.tableTransacs,
+      where: '${Strings.transacColumnDate} LIKE \'$dateStrToFind%\'',
+    );
 
     return convertMapsToTransacs(maps);
   }
@@ -366,6 +368,25 @@ class DatabaseHelper {
   }
 
   // * ACCOUNTS
+  Future<List<Account>> queryAccounts() async {
+    Database db = await database;
+
+    List<Map> maps = await db.query(Strings.tableAccounts);
+
+    return _convertMapsToAccounts(maps);
+  }
+
+  List<Account> _convertMapsToAccounts(List<Map> maps) {
+    List<Account> accounts = new List();
+    if (maps.length > 0) {
+      for (Map row in maps) {
+        accounts.add(new Account.fromMap(row));
+      }
+    }
+
+    return accounts;
+  }
+
   Future<void> _insertDefaultAccount(Database db) async {
     String cashAccountName;
     switch (languageCode) {

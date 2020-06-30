@@ -1,4 +1,5 @@
 import 'package:Expenseye/Components/Drawer/my_drawer_header.dart';
+import 'package:Expenseye/Pages/Accounts/accounts_page.dart';
 import 'package:Expenseye/Pages/Categories/cat_home_page.dart';
 import 'package:Expenseye/Pages/Monthly/monthly_home_page.dart';
 import 'package:Expenseye/Pages/Settings/settings_page.dart';
@@ -69,6 +70,7 @@ class MyDrawer extends StatelessWidget {
               title: Text(AppLocalizations.of(context).translate('accounts')),
               onTap: () {
                 Navigator.of(context).pop(context);
+                _openAccountsPage(context);
               },
             ),
             ListTile(
@@ -127,6 +129,13 @@ class MyDrawer extends StatelessWidget {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => RecurringTransacPage()),
+    );
+  }
+
+  void _openAccountsPage(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => AccountsPage()),
     );
   }
 

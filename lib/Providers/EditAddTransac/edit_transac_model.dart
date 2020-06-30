@@ -14,8 +14,9 @@ class EditTransacModel extends ChangeNotifier {
   bool isNameInvalid = false;
   bool isAmountInvalid = false;
   DateTime date;
-  String categoryId;
   TransacType type;
+  String categoryId;
+  String accountId; // TODO: set it
 
   EditTransacModel(Transac transac) {
     date = transac.date;
@@ -59,6 +60,7 @@ class EditTransacModel extends ChangeNotifier {
         date,
         type,
         categoryId,
+        accountId,
       );
 
       await Provider.of<DbModel>(context, listen: false)

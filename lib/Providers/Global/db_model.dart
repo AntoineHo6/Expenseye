@@ -2,6 +2,7 @@ import 'package:Expenseye/Helpers/database_helper.dart';
 import 'package:Expenseye/Helpers/google_firebase_helper.dart';
 import 'package:Expenseye/Models/Category.dart';
 import 'package:Expenseye/Models/Transac.dart';
+import 'package:Expenseye/Models/account.dart';
 import 'package:Expenseye/Models/recurring_transac.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +10,8 @@ import 'dart:async';
 
 class DbModel extends ChangeNotifier {
   final DatabaseHelper _dbHelper = DatabaseHelper.instance;
-  static Map<String, Category> catMap = new Map();  // used throughtout the app to access category colors, icon and type
+  static Map<String, Category> catMap = new Map(); // used to access category colors, icon and type
+  static Map<String, Account> accMap = new Map();
 
   DbModel() {
     initUser();
@@ -18,6 +20,7 @@ class DbModel extends ChangeNotifier {
   Future<void> initUser() async {
     await initConnectedUser();
     await initUserCategoriesMap();
+    await initUserAccountsMap();
     await initCheckRecurringTransacs();
   }
 
@@ -35,6 +38,7 @@ class DbModel extends ChangeNotifier {
     }
 
     await initUserCategoriesMap();
+    await initUserAccountsMap();
     await initCheckRecurringTransacs();
   }
 
@@ -82,6 +86,7 @@ class DbModel extends ChangeNotifier {
       recurringTransac.dueDate,
       catMap[recurringTransac.category].type,
       recurringTransac.category,
+      recurringTransac.accountId,
     );
     await _dbHelper.insertTransac(newTransac);
     // 2. update recurring transac's date
@@ -95,8 +100,7 @@ class DbModel extends ChangeNotifier {
     List<RecurringTransac> localRecTransacs,
     List<Category> accCategories,
   ) async {
-    List<String> accCategoriesId =
-        accCategories.map((category) => category.id).toList();
+    List<String> accCategoriesId = accCategories.map((category) => category.id).toList();
 
     for (var localCategory in localCategories) {
       if (!accCategoriesId.contains(localCategory.id)) {
@@ -125,6 +129,16 @@ class DbModel extends ChangeNotifier {
     List<Category> categories = await _dbHelper.queryCategories();
     for (var category in categories) {
       catMap[category.id] = category;
+    }
+
+    notifyListeners();
+  }
+
+  Future<void> initUserAccountsMap() async {
+    accMap.clear();
+    List<Account> accounts = await _dbHelper.queryAccounts();
+    for (var account in accounts) {
+      accMap[account.id] = account;
     }
 
     notifyListeners();

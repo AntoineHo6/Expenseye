@@ -68,14 +68,18 @@ class _DailyPageState extends State<DailyPage> with WidgetsBindingObserver {
         },
       ),
       floatingActionButton: AddTransacFab(
-        onExpensePressed: () => _transacModel.showAddExpense(context, widget.day),
+        onExpensePressed: () =>
+            _transacModel.showAddExpense(context, widget.day),
         onIncomePressed: () => _transacModel.showAddIncome(context, widget.day),
       ),
     );
   }
 
   CustomScrollView mySliverView(
-      List<Transac> transacs, TransacModel transacModel, BuildContext context) {
+    List<Transac> transacs,
+    TransacModel transacModel,
+    BuildContext context,
+  ) {
     return CustomScrollView(
       slivers: <Widget>[
         SliverAppBar(
@@ -97,8 +101,8 @@ class _DailyPageState extends State<DailyPage> with WidgetsBindingObserver {
                 child: TransacListTile(
                   transacs[index],
                   contentPadding: const EdgeInsets.all(15),
-                  onPressed: () async =>
-                      await transacModel.openEditTransac(context, transacs[index]),
+                  onPressed: () async => await transacModel.openEditTransac(
+                      context, transacs[index]),
                 ),
               );
             },

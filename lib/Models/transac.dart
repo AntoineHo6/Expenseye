@@ -11,6 +11,7 @@ class Transac {
   DateTime date;
   String categoryId;
   TransacType type;
+  String accountId;
 
   Transac(
     this.name,
@@ -18,6 +19,7 @@ class Transac {
     this.date,
     this.type,
     this.categoryId,
+    this.accountId,
   );
 
   Transac.withId(
@@ -27,6 +29,7 @@ class Transac {
     this.date,
     this.type,
     this.categoryId,
+    this.accountId,
   );
 
   Transac.fromMap(Map<String, dynamic> map) {
@@ -34,8 +37,9 @@ class Transac {
     name = map[Strings.transacColumnName];
     amount = map[Strings.transacColumnValue];
     date = DateTime.parse(map[Strings.transacColumnDate]);
-    categoryId = map[Strings.transacColumnCategory];
     type = TransacType.values[map[Strings.transacColumnType]];
+    categoryId = map[Strings.transacColumnCategory];
+    accountId = map[Strings.transacColumnAccount];
   }
 
   Map<String, dynamic> toMap() {
@@ -43,8 +47,9 @@ class Transac {
       Strings.transacColumnName: name,
       Strings.transacColumnValue: amount,
       Strings.transacColumnDate: date.toIso8601String(),
+      Strings.transacColumnType: type.index,
       Strings.transacColumnCategory: categoryId,
-      Strings.transacColumnType: type.index
+      Strings.transacColumnAccount: accountId,
     };
     if (id != null) {
       map[Strings.transacColumnId] = id;

@@ -23,7 +23,7 @@ class AccountsPage extends StatelessWidget {
               return Align(
                 alignment: Alignment.center,
                 child: Text(
-                  'TODO: replace',
+                  'TODO: replace with no accounts error',
                   style: Theme.of(context).textTheme.headline6,
                 ),
               );

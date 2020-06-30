@@ -53,8 +53,8 @@ class _DailyPageState extends State<DailyPage> with WidgetsBindingObserver {
       body: FutureBuilder<List<Transac>>(
         future: _dbModel.queryTransacsByDay(widget.day),
         builder: (context, snapshot) {
-          if (snapshot.hasData && DbModel.catMap.length > 0) {
-            // TODO: checl accMap
+          // TODO: check for init of DbModel in futurebuilder in main
+          if (snapshot.hasData && DbModel.catMap.length > 0 && DbModel.accMap.length > 0) {
             if (snapshot.data != null && snapshot.data.length > 0) {
               return mySliverView(snapshot.data, _transacModel, context);
             } else {

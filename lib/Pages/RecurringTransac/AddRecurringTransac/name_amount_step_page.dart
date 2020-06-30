@@ -7,14 +7,12 @@ import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class NameAmountAddRecTransacPage extends StatefulWidget {
+class NameAmountStepPage extends StatefulWidget {
   @override
-  _NameAmountAddRecTransacPageState createState() =>
-      _NameAmountAddRecTransacPageState();
+  _NameAmountStepPageState createState() => _NameAmountStepPageState();
 }
 
-class _NameAmountAddRecTransacPageState
-    extends State<NameAmountAddRecTransacPage> with TickerProviderStateMixin {
+class _NameAmountStepPageState extends State<NameAmountStepPage> with TickerProviderStateMixin {
   TextEditingController _nameController;
   TextEditingController _amountController;
   AnimationController _animationController;
@@ -22,8 +20,7 @@ class _NameAmountAddRecTransacPageState
 
   @override
   Widget build(BuildContext context) {
-    final _model =
-        Provider.of<AddRecurringTransacModel>(context, listen: false);
+    final _model = Provider.of<AddRecurringTransacModel>(context, listen: false);
     _animationController.forward();
 
     return FadeTransition(
@@ -44,8 +41,8 @@ class _NameAmountAddRecTransacPageState
             children: <Widget>[
               AddRecTransacStepsHeader(
                 title:
-                    '4. ${AppLocalizations.of(context).translate('chooseANameAndAnAmount')}',
-                percent: 0.8,
+                    '${_model.step}. ${AppLocalizations.of(context).translate('chooseANameAndAnAmount')}',
+                percent: 0.6664,
               ),
               Column(
                 children: <Widget>[

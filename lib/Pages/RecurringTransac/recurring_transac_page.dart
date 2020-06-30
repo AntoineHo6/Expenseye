@@ -207,19 +207,16 @@ class _RecurringTransacPageState extends State<RecurringTransacPage> {
 
     return RichText(
       text: TextSpan(
-        style: DefaultTextStyle.of(context).style,
         children: <TextSpan>[
           TextSpan(
-            text: '$periodicityTitle\n',
+            text: '${DbModel.accMap[recurringTransac.accountId].name}\n',
             style: TextStyle(
               color: Theme.of(context).textTheme.caption.color,
-              fontStyle: FontStyle.italic,
             ),
           ),
           TextSpan(
-            text: '${AppLocalizations.of(context).translate('nextDueDate')}: ',
+            text: '$periodicityTitle - ${AppLocalizations.of(context).translate('nextDueDate')}: ',
             style: TextStyle(
-              fontStyle: FontStyle.italic,
               fontSize: 12,
               color: Theme.of(context).textTheme.caption.color,
             ),
@@ -231,9 +228,6 @@ class _RecurringTransacPageState extends State<RecurringTransacPage> {
               fontSize: 13,
               color: Theme.of(context).textTheme.caption.color,
             ),
-          ),
-          TextSpan(
-            text: recurringTransac.accountId,
           ),
         ],
       ),

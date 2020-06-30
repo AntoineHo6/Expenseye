@@ -1,8 +1,9 @@
-import 'package:Expenseye/Pages/RecurringTransac/AddRecurringTransac/category_add_rec_transac_page.dart';
-import 'package:Expenseye/Pages/RecurringTransac/AddRecurringTransac/date_add_rec_transac_page.dart';
-import 'package:Expenseye/Pages/RecurringTransac/AddRecurringTransac/name_amount_add_rec_transac_page.dart';
-import 'package:Expenseye/Pages/RecurringTransac/AddRecurringTransac/periodicity_add_rec_transac_page.dart';
-import 'package:Expenseye/Pages/RecurringTransac/AddRecurringTransac/type_add_rec_transac_page.dart';
+import 'package:Expenseye/Pages/RecurringTransac/AddRecurringTransac/account_step_page.dart';
+import 'package:Expenseye/Pages/RecurringTransac/AddRecurringTransac/category_step_page.dart';
+import 'package:Expenseye/Pages/RecurringTransac/AddRecurringTransac/date_step_page.dart';
+import 'package:Expenseye/Pages/RecurringTransac/AddRecurringTransac/name_amount_step_page.dart';
+import 'package:Expenseye/Pages/RecurringTransac/AddRecurringTransac/periodicity_step_page.dart';
+import 'package:Expenseye/Pages/RecurringTransac/AddRecurringTransac/type_step_page.dart';
 import 'package:Expenseye/Providers/RecurringTransac/add_recurring_transac_model.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
@@ -12,12 +13,10 @@ class AddRecurringTransacHomePage extends StatefulWidget {
   AddRecurringTransacHomePage();
 
   @override
-  _AddRecurringTransacHomePageState createState() =>
-      _AddRecurringTransacHomePageState();
+  _AddRecurringTransacHomePageState createState() => _AddRecurringTransacHomePageState();
 }
 
-class _AddRecurringTransacHomePageState
-    extends State<AddRecurringTransacHomePage> {
+class _AddRecurringTransacHomePageState extends State<AddRecurringTransacHomePage> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -25,8 +24,7 @@ class _AddRecurringTransacHomePageState
       child: Consumer<AddRecurringTransacModel>(
         builder: (context, model, child) => Scaffold(
           appBar: AppBar(
-            title: Text(AppLocalizations.of(context)
-                .translate('addNewRecurringTransaction')),
+            title: Text(AppLocalizations.of(context).translate('addNewRecurringTransaction')),
           ),
           body: _currentStep(context),
         ),
@@ -38,15 +36,17 @@ class _AddRecurringTransacHomePageState
     final _addRecurringTransacModel = Provider.of<AddRecurringTransacModel>(context);
     switch (_addRecurringTransacModel.step) {
       case 1:
-        return TypeAddRecTransacPage();
+        return TypeStepPage();
       case 2:
-        return PeriodicityAddRecTransacPage();
+        return PeriodicityStepPage();
       case 3:
-        return DateAddRecTransacPage(_addRecurringTransacModel.periodicity);
+        return DateStepPage(_addRecurringTransacModel.periodicity);
       case 4:
-        return NameAmountAddRecTransacPage();
+        return NameAmountStepPage();
       case 5:
-        return CategoryAddRecTransacPage();
+        return AccountStepPage();
+      case 6:
+        return CategoryStepPage();
       default:
         return Align(
           alignment: Alignment.center,

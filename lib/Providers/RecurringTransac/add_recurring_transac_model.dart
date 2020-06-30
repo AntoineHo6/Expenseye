@@ -47,6 +47,12 @@ class AddRecurringTransacModel extends ChangeNotifier {
     }
   }
 
+  void goNextFromAccountStepPage(String accountId) {
+    this.accountId = accountId;
+    step++;
+    notifyListeners();
+  }
+
   // Will check and show error msg if a field is invalid.
   bool _checkFieldsInvalid(String name, String amount) {
     // check NAME field
@@ -80,8 +86,7 @@ class AddRecurringTransacModel extends ChangeNotifier {
       this.categoryId,
       this.accountId,
     );
-    Provider.of<DbModel>(context, listen: false)
-        .insertRecurringTransac(newRecurringTransac);
+    Provider.of<DbModel>(context, listen: false).insertRecurringTransac(newRecurringTransac);
 
     Provider.of<DbModel>(context, listen: false).initCheckRecurringTransacs();
     Navigator.pop(context);

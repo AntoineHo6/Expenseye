@@ -78,6 +78,7 @@
     "chooseANameAndAnAmount": "Choose a name and an amount",
     "selectACategory": "Select a category",
     "selectTheType": "Select the type",
+    "selectAnAccount": "Select an account",
     "addNewRecurringTransaction": "Add new recurring transaction",
     "addYourFirstRecurringTransaction": "Add your first recurring transaction!",
     "date": "Date",

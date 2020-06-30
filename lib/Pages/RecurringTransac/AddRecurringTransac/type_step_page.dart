@@ -17,6 +17,8 @@ class _TypeAddRecTransacPageState extends State<TypeAddRecTransacPage>
 
   @override
   Widget build(BuildContext context) {
+    final _model = Provider.of<AddRecurringTransacModel>(context, listen: false);
+
     _animationController.forward();
 
     return FadeTransition(
@@ -24,30 +26,26 @@ class _TypeAddRecTransacPageState extends State<TypeAddRecTransacPage>
       child: Column(
         children: <Widget>[
           AddRecTransacStepsHeader(
-            title:
-                '1. ${AppLocalizations.of(context).translate('selectTheType')}',
-            percent: 0.2,
+            title: '${_model.step}. ${AppLocalizations.of(context).translate('selectTheType')}',
+            percent: 0.1666,
           ),
           Expanded(
             child: ListView(
               children: <Widget>[
                 Container(
-                  margin:
-                      const EdgeInsets.symmetric(vertical: 2, horizontal: 10),
+                  margin: const EdgeInsets.symmetric(vertical: 2, horizontal: 10),
                   child: RaisedButton(
                     onPressed: () => Provider.of<AddRecurringTransacModel>(
                       context,
                       listen: false,
                     ).goNextFromTypePage(TransacType.expense),
                     child: ListTile(
-                      title: Text(
-                          AppLocalizations.of(context).translate('expense')),
+                      title: Text(AppLocalizations.of(context).translate('expense')),
                     ),
                   ),
                 ),
                 Container(
-                  margin:
-                      const EdgeInsets.symmetric(vertical: 2, horizontal: 10),
+                  margin: const EdgeInsets.symmetric(vertical: 2, horizontal: 10),
                   child: RaisedButton(
                     onPressed: () => Provider.of<AddRecurringTransacModel>(
                       context,

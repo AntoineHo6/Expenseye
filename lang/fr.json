@@ -78,6 +78,7 @@
     "chooseANameAndAnAmount": "Choisissez un nom et un montant",
     "selectACategory": "Choisissez une catégorie",
     "selectTheType": "Sélectionnez le type",
+    "selectAnAccount": "Sélectionnez un compte",
     "addNewRecurringTransaction": "Ajouter une nouvelle transaction récurrente",
     "addYourFirstRecurringTransaction": "Ajoutez votre première transaction récurrente!",
     "date": "Date",

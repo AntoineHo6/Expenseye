@@ -8,13 +8,12 @@ import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class CategoryAddRecTransacPage extends StatefulWidget {
+class CategoryStepPage extends StatefulWidget {
   @override
-  _CategoryAddRecTransacPageState createState() => _CategoryAddRecTransacPageState();
+  _CategoryStepPageState createState() => _CategoryStepPageState();
 }
 
-class _CategoryAddRecTransacPageState extends State<CategoryAddRecTransacPage>
-    with TickerProviderStateMixin {
+class _CategoryStepPageState extends State<CategoryStepPage> with TickerProviderStateMixin {
   int selectedIconIndex;
   AnimationController _animationController;
   Animation _animation;
@@ -38,10 +37,8 @@ class _CategoryAddRecTransacPageState extends State<CategoryAddRecTransacPage>
           color: Colors.transparent,
           child: BottomNavButton(
             text: _model.type == TransacType.expense
-                ? AppLocalizations.of(context)
-                    .translate('createRecurringExpense')
-                : AppLocalizations.of(context)
-                    .translate('createRecurringIncome'),
+                ? AppLocalizations.of(context).translate('createRecurringExpense')
+                : AppLocalizations.of(context).translate('createRecurringIncome'),
             onPressed: () {
               if (selectedIconIndex != null) {
                 _model.createRecurringTransac(context);
@@ -52,8 +49,7 @@ class _CategoryAddRecTransacPageState extends State<CategoryAddRecTransacPage>
         body: Column(
           children: <Widget>[
             AddRecTransacStepsHeader(
-              title:
-                  '5. ${AppLocalizations.of(context).translate('selectACategory')}',
+              title: '${_model.step}. ${AppLocalizations.of(context).translate('selectACategory')}',
               percent: 1,
             ),
             Expanded(
@@ -67,8 +63,7 @@ class _CategoryAddRecTransacPageState extends State<CategoryAddRecTransacPage>
                   categorieKeys.length,
                   (index) {
                     String key = categorieKeys[index];
-                    if (selectedIconIndex != null &&
-                        index == selectedIconIndex) {
+                    if (selectedIconIndex != null && index == selectedIconIndex) {
                       return Container(
                         decoration: BoxDecoration(
                           color: DbModel.catMap[key].color,

@@ -5,13 +5,12 @@ import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class TypeAddRecTransacPage extends StatefulWidget {
+class TypeStepPage extends StatefulWidget {
   @override
-  _TypeAddRecTransacPageState createState() => _TypeAddRecTransacPageState();
+  _TypeStepPageState createState() => _TypeStepPageState();
 }
 
-class _TypeAddRecTransacPageState extends State<TypeAddRecTransacPage>
-    with TickerProviderStateMixin {
+class _TypeStepPageState extends State<TypeStepPage> with TickerProviderStateMixin {
   AnimationController _animationController;
   Animation _animation;
 

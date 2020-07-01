@@ -94,8 +94,7 @@ class DatabaseHelper {
           CREATE TABLE ${Strings.tableAccounts} (
             ${Strings.accountColumnId} TEXT PRIMARY KEY,
             ${Strings.accountColumnName} TEXT NOT NULL,
-            ${Strings.accountColumnBalance} DOUBLE NOT NULL,
-            ${Strings.accountColumnIconCodePoint} TEXT NOT NULL
+            ${Strings.accountColumnBalance} DOUBLE NOT NULL
           )
           ''');
 
@@ -110,8 +109,7 @@ class DatabaseHelper {
           CREATE TABLE ${Strings.tableAccounts} (
             ${Strings.accountColumnId} TEXT PRIMARY KEY,
             ${Strings.accountColumnName} TEXT NOT NULL,
-            ${Strings.accountColumnBalance} DOUBLE NOT NULL,
-            ${Strings.accountColumnIconCodePoint} TEXT NOT NULL
+            ${Strings.accountColumnBalance} DOUBLE NOT NULL
           )
           ''');
 
@@ -198,7 +196,6 @@ class DatabaseHelper {
       cashAccountName.toLowerCase(),
       cashAccountName,
       total,
-      MdiIcons.wallet,
     );
 
     await db.insert(Strings.tableAccounts, cashAccount.toMap());
@@ -406,7 +403,6 @@ class DatabaseHelper {
       cashAccountName.toLowerCase(),
       cashAccountName,
       0,
-      MdiIcons.wallet,
     );
 
     await db.insert(Strings.tableAccounts, cashAccount.toMap());

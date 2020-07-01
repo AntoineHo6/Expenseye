@@ -35,7 +35,6 @@
     "nameIsInvalid": "Le nom est invalide",
     "amountIsInvalid": "Le montant est invalide",
     "value": "Valeur",
-    "icons": "Icônes",
     "noData": "Aucune donnée à utiliser!",
     "confirm": "Confirmer",
     "expense": "Dépense",
@@ -95,5 +94,6 @@
     "switchToExpenses": "Changer aux dépenses",
     "switchToIncomes": "Changer aux revenus",
     "sort": "Trier",
-    "accounts": "Comptes"
+    "accounts": "Comptes",
+    "account": "Compte"
 }

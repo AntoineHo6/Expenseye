@@ -1,3 +1,4 @@
+import 'package:Expenseye/Components/Global/app_bar_add_btn.dart';
 import 'package:Expenseye/Components/RecurringTransac/my_divider.dart';
 import 'package:Expenseye/Enums/transac_type.dart';
 import 'package:Expenseye/Enums/periodicity.dart';
@@ -25,7 +26,7 @@ class _RecurringTransacPageState extends State<RecurringTransacPage> {
       appBar: AppBar(
         title: Text(AppLocalizations.of(context).translate('recurringTransactions')),
         actions: <Widget>[
-          RaisedButton(
+          AppBarAddBtn(
             onPressed: () {
               Navigator.push(
                 context,
@@ -34,11 +35,6 @@ class _RecurringTransacPageState extends State<RecurringTransacPage> {
                 ),
               );
             },
-            child: const Icon(Icons.add),
-            shape: const CircleBorder(
-              side: const BorderSide(color: Colors.transparent),
-            ),
-            elevation: 2,
           ),
         ],
       ),

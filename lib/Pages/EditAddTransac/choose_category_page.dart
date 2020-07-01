@@ -21,7 +21,7 @@ class ChooseCategoryPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context).translate('icons')),
+        title: Text(AppLocalizations.of(context).translate('categories')),
       ),
       body: GridView.count(
         primary: false,

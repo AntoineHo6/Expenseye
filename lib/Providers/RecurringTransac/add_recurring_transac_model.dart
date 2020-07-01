@@ -13,7 +13,7 @@ class AddRecurringTransacModel extends ChangeNotifier {
   DateTime startingDay;
   Periodicity periodicity;
   String categoryId;
-  String accountId; //TODO: set it
+  String accountId;
   TransacType type;
   bool isNameInvalid = false;
   bool isAmountInvalid = false;

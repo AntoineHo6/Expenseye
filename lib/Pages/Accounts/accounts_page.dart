@@ -1,5 +1,8 @@
+import 'package:Expenseye/Components/Global/app_bar_add_btn.dart';
 import 'package:Expenseye/Helpers/database_helper.dart';
 import 'package:Expenseye/Models/account.dart';
+import 'package:Expenseye/Pages/Accounts/add_account_page.dart';
+import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class AccountsPage extends StatelessWidget {
@@ -7,7 +10,19 @@ class AccountsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('test'),
+        title: Text(AppLocalizations.of(context).translate('accounts')),
+        actions: <Widget>[
+          AppBarAddBtn(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => AddAccountPage(),
+                ),
+              );
+            },
+          ),
+        ],
       ),
       body: FutureBuilder<List<Account>>(
         future: DatabaseHelper.instance.queryAccounts(),
@@ -23,7 +38,7 @@ class AccountsPage extends StatelessWidget {
               return Align(
                 alignment: Alignment.center,
                 child: Text(
-                  'TODO: replace with no accounts error',
+                  'TODO: replace with no accounts error', // TODO
                   style: Theme.of(context).textTheme.headline6,
                 ),
               );

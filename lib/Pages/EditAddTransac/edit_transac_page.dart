@@ -1,3 +1,4 @@
+import 'package:Expenseye/Components/EditAdd/account_picker_btn.dart';
 import 'package:Expenseye/Components/EditAdd/category_picker_btn.dart';
 import 'package:Expenseye/Components/EditAdd/date_picker_btn.dart';
 import 'package:Expenseye/Components/EditAdd/delete_btn.dart';
@@ -57,31 +58,29 @@ class _EditTransacPageState extends State<EditTransacPage> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                _buildTextField(
-                  AppLocalizations.of(context).translate('name'),
-                  NameTextField(
+                const SizedBox(
+                  height: 10,
+                ),
+                _header(AppLocalizations.of(context).translate('name')),
+                Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 10),
+                  child: NameTextField(
                     controller: _nameController,
                     isNameInvalid: model.isNameInvalid,
                     onChanged: model.infoChanged,
                   ),
                 ),
-                _buildTextField(
-                  AppLocalizations.of(context).translate('amount'),
-                  AmountTextField(
+                _header(AppLocalizations.of(context).translate('amount')),
+                Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 10),
+                  child: AmountTextField(
                     controller: _amountController,
                     isAmountInvalid: model.isAmountInvalid,
                     onChanged: model.infoChanged,
                   ),
                 ),
-                Container(
-                  margin: const EdgeInsets.only(left: 10),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      '${AppLocalizations.of(context).translate('date')} :',
-                      style: Theme.of(context).textTheme.headline6,
-                    ),
-                  ),
+                _header(
+                  AppLocalizations.of(context).translate('date'),
                 ),
                 Container(
                   margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -95,15 +94,8 @@ class _EditTransacPageState extends State<EditTransacPage> {
                     onPressed: () async => await model.chooseDate(context, model.date),
                   ),
                 ),
-                Container(
-                  margin: const EdgeInsets.only(left: 10),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      '${AppLocalizations.of(context).translate('category')} :',
-                      style: Theme.of(context).textTheme.headline6,
-                    ),
-                  ),
+                _header(
+                  AppLocalizations.of(context).translate('category'),
                 ),
                 Container(
                   margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -116,6 +108,20 @@ class _EditTransacPageState extends State<EditTransacPage> {
                     iconBottomPosition: -75,
                   ),
                 ),
+                _header(
+                  AppLocalizations.of(context).translate('account'),
+                ),
+                Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  child: AccountPickerBtn(
+                    accountId: model.accountId,
+                    onPressed: () async => await model.openChooseAccountPage(context),
+                    width: double.infinity,
+                    height: 80,
+                    iconSize: 32,
+                    fontSize: 20,
+                  ),
+                ),
               ],
             ),
           ),
@@ -124,21 +130,15 @@ class _EditTransacPageState extends State<EditTransacPage> {
     );
   }
 
-  Widget _buildTextField(String title, Widget textField) {
+  Widget _header(String title) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      child: Column(
-        children: <Widget>[
-          SizedBox(
-            width: double.infinity,
-            child: Text(
-              '$title :',
-              textAlign: TextAlign.left,
-              style: Theme.of(context).textTheme.headline6,
-            ),
-          ),
-          textField,
-        ],
+      margin: const EdgeInsets.only(left: 10),
+      child: Align(
+        alignment: Alignment.centerLeft,
+        child: Text(
+          '$title :',
+          style: Theme.of(context).textTheme.headline6,
+        ),
       ),
     );
   }

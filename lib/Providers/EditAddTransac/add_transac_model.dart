@@ -3,6 +3,7 @@ import 'package:Expenseye/Models/Transac.dart';
 import 'package:Expenseye/Pages/EditAddTransac/choose_category_page.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:Expenseye/Providers/Global/settings_notifier.dart';
+import 'package:Expenseye/Utils/check_textfields_util.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -40,6 +41,7 @@ class AddTransacModel extends ChangeNotifier {
     // make sure to remove time before adding to db
     final DateTime newDate = DateTimeUtil.timeToZeroInDate(date);
 
+    // newName = newName.trim();
     bool areFieldsInvalid = _checkFieldsInvalid(newName, newAmount);
     _checkCategoryInvalid();
 
@@ -78,16 +80,9 @@ class AddTransacModel extends ChangeNotifier {
 
   /// Will check and show error msg if a field is invalid.
   bool _checkFieldsInvalid(String newName, String newAmount) {
-    // check NAME field
-    isNameInvalid = newName.trim().isEmpty ? true : false;
+    isNameInvalid = CheckTextFieldsUtil.isStringInvalid(newName);
 
-    // check AMOUNT field
-    try {
-      double.parse(newAmount);
-      isAmountInvalid = false;
-    } on FormatException {
-      isAmountInvalid = true;
-    }
+    isAmountInvalid = CheckTextFieldsUtil.isNumberStringInvalid(newAmount);
 
     notifyListeners();
 

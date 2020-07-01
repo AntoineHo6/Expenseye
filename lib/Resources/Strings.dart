@@ -81,7 +81,6 @@ class Strings {
   static const String accountColumnId = 'accounts_id';
   static const String accountColumnName = 'name';
   static const String accountColumnBalance = 'balance';
-  static const String accountColumnIconCodePoint = 'icon_code_point';
 
   static const String privacyLegalese = '''
 Privacy Policy

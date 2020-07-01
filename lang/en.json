@@ -35,7 +35,6 @@
     "nameIsInvalid": "Invalid name",
     "amountIsInvalid": "Invalid amount",
     "value": "Value",
-    "icons": "Icons",
     "noData": "No data to use!",
     "confirm": "Confirm",
     "expense": "Expense",
@@ -95,5 +94,6 @@
     "switchToExpenses": "Switch to expenses",
     "switchToIncomes": "Switch to incomes",
     "sort": "Sort",
-    "accounts": "Accounts"
+    "accounts": "Accounts",
+    "account": "Account"
 }

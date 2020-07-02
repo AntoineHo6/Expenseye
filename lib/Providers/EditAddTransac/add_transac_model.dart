@@ -17,9 +17,9 @@ class AddTransacModel extends ChangeNotifier {
   DateTime date;
   TransacType type;
   String categoryId;
-  String accountId = DbModel.defaultAccountId;
+  String accountId;
 
-  AddTransacModel(this.date, this.type);
+  AddTransacModel(this.date, this.type, this.accountId);
 
   // Will make the save button clickable
   void updateDate(DateTime newDate) {
@@ -58,6 +58,14 @@ class AddTransacModel extends ChangeNotifier {
       );
 
       await Provider.of<DbModel>(context, listen: false).insertTransac(newTransac);
+      Provider.of<DbModel>(context, listen: false).notifyListeners();
+
+      String lastUsedAccountId =
+          Provider.of<SettingsNotifier>(context, listen: false).getLastUsedAccountId();
+      if (accountId != lastUsedAccountId) {
+        Provider.of<SettingsNotifier>(context, listen: false).setLastUsedAccountId(accountId);
+      }
+
       Navigator.pop(context);
     }
   }

@@ -52,7 +52,11 @@ class _AddTransacDialogState extends State<AddTransacDialog> {
     }
 
     return new ChangeNotifierProvider(
-      create: (_) => new AddTransacModel(widget.initialDate, widget.type),
+      create: (context) => new AddTransacModel(
+        widget.initialDate,
+        widget.type,
+        Provider.of<SettingsNotifier>(context, listen: false).getLastUsedAccountId(),
+      ),
       child: Consumer<AddTransacModel>(
         builder: (context, model, child) => AlertDialog(
           title: Row(

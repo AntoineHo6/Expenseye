@@ -334,6 +334,7 @@ class DatabaseHelper {
         where: '${Strings.transacColumnCategory} = ?', whereArgs: [categoryId]);
   }
 
+  // TODO: rename
   Future<void> deleteAllTransacs() async {
     Database db = await database;
     await db.rawQuery('DELETE FROM ${Strings.tableTransacs}');
@@ -409,6 +410,24 @@ class DatabaseHelper {
     List<Map> maps = await db.query(Strings.tableAccounts);
 
     return _convertMapsToAccounts(maps);
+  }
+
+  Future<Account> queryFirstAccount() async {
+    Database db = await database;
+
+    List<Map> maps = await db.query(Strings.tableAccounts, limit: 1);
+
+    return _convertMapsToAccounts(maps).first;
+  }
+
+  Future<void> deleteAccount(String id) async {
+    Database db = await database;
+
+    return await db.delete(
+      Strings.tableAccounts,
+      where: '${Strings.accountColumnId} = ?',
+      whereArgs: [id],
+    );
   }
 
   Future<void> insertAccount(Account account) async {

@@ -14,7 +14,6 @@ class DbModel extends ChangeNotifier {
   final DatabaseHelper _dbHelper = DatabaseHelper.instance;
   static Map<String, Category> catMap = new Map(); // used to access category colors, icon and type
   static Map<String, Account> accMap = new Map();
-  static String defaultAccountId; // tODO: should be most recently chosen account
 
   DbModel() {
     initUser();
@@ -135,13 +134,11 @@ class DbModel extends ChangeNotifier {
         transac.id = transacsSeq;
         await insertTransac(transac);
       }
-      // update sqlite_sequence for transactions
     }
 
-    // get the sqlite_sequence for recurring_transacs
     if (localRecTransacs.length > 0) {
+      // get the sqlite_sequence for recurring_transacs
       int recTransacsSeq = await _dbHelper.querySequence(Strings.tableRecurringTransacs);
-      print(recTransacsSeq);
       for (var recTransac in localRecTransacs) {
         recTransacsSeq++;
         recTransac.id = recTransacsSeq;
@@ -165,11 +162,9 @@ class DbModel extends ChangeNotifier {
   Future<void> initUserAccountsMapAndDefault() async {
     accMap.clear();
     List<Account> accounts = await _dbHelper.queryAccounts();
-    for (var i = 0; i < accounts.length; i++) {
-      if (i == 0) {
-        defaultAccountId = accounts[i].id;
-      }
-      accMap[accounts[i].id] = accounts[i];
+
+    for (var account in accounts) {
+      accMap[account.id] = account;
     }
 
     notifyListeners();
@@ -187,7 +182,6 @@ class DbModel extends ChangeNotifier {
     }
 
     await _dbHelper.insertTransac(newTransac);
-    notifyListeners(); // TODO: this slows down the recurring transactions calculations
   }
 
   Future<void> updateTransac(Transac newTransac) async {
@@ -284,6 +278,11 @@ class DbModel extends ChangeNotifier {
 
   Future<void> insertAccount(Account account) async {
     await _dbHelper.insertAccount(account);
+    notifyListeners();
+  }
+
+  Future<void> deleteAccount(String accountId) async {
+    await _dbHelper.deleteAccount(accountId);
     notifyListeners();
   }
 

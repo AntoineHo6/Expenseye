@@ -97,7 +97,7 @@ class _DailyPageState extends State<DailyPage> with WidgetsBindingObserver {
           delegate: SliverChildBuilderDelegate(
             (context, index) {
               return Container(
-                margin: EdgeInsets.fromLTRB(10, 20, 10, 0),
+                margin: EdgeInsets.fromLTRB(10, 10, 10, 0),
                 child: TransacListTile(
                   transacs[index],
                   contentPadding: const EdgeInsets.all(15),

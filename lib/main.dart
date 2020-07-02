@@ -18,10 +18,13 @@ Future<void> main() async {
   bool darkModeOn;
   int localNotifHour;
   int localNotifMinute;
-  await SharedPreferences.getInstance().then((prefs) {
+  String lastUsedAccountId;
+  await SharedPreferences.getInstance().then((prefs) async {
     darkModeOn = prefs.getBool('darkMode') ?? true;
     localNotifHour = prefs.getInt('localNotificationsHour') ?? 12;
     localNotifMinute = prefs.getInt('localNotificationsMinute') ?? 0;
+    lastUsedAccountId = prefs.getString('lastUsedAccountId') ??
+        await DatabaseHelper.instance.queryFirstAccount().then((account) => account.id);
     runApp(
       MultiProvider(
         providers: [
@@ -31,6 +34,7 @@ Future<void> main() async {
             create: (_) => SettingsNotifier(
               darkModeOn ? MyThemeData.darkTheme : MyThemeData.lightTheme,
               TimeOfDay(hour: localNotifHour, minute: localNotifMinute),
+              lastUsedAccountId,
             ),
           ),
         ],

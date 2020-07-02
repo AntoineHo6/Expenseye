@@ -45,7 +45,7 @@ class _AddAccountPageState extends State<AddAccountPage> {
                 title: AppLocalizations.of(context).translate('name'),
               ),
               Container(
-                margin: const EdgeInsets.symmetric(horizontal: 10),
+                margin: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
                 child: NameTextField(
                   controller: _nameController,
                   isNameInvalid: model.isNameInvalid,
@@ -55,7 +55,7 @@ class _AddAccountPageState extends State<AddAccountPage> {
                 title: AppLocalizations.of(context).translate('balance'),
               ),
               Container(
-                margin: const EdgeInsets.symmetric(horizontal: 10),
+                margin: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
                 child: AmountTextField(
                   controller: _balanceController,
                   isAmountInvalid: model.isAmountInvalid,

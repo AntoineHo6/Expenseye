@@ -121,8 +121,6 @@ class EditCategoryModel extends ChangeNotifier {
         },
       );
 
-      await Provider.of<DbModel>(context, listen: false).deleteTransacsByCategory(oldCategoryId);
-      await DatabaseHelper.instance.deleteRecurringTransacsByCategory(oldCategoryId);
       await Provider.of<DbModel>(context, listen: false).deleteCategory(oldCategoryId).then(
             (value) => Navigator.pop(context), // pop out of the loading dialog
           );

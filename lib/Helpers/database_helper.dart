@@ -243,6 +243,17 @@ class DatabaseHelper {
     return convertMapsToTransacs(maps);
   }
 
+  Future<List<Transac>> queryTransacsByAccount(String accountId) async {
+    Database db = await database;
+    List<Map> maps = await db.query(
+      Strings.tableTransacs,
+      where: '${Strings.transacColumnAccount} = ?',
+      whereArgs: [accountId],
+    );
+
+    return convertMapsToTransacs(maps);
+  }
+
   Future<List<Transac>> queryTransacsInDate(DateTime date) async {
     Database db = await database;
     String dateStrToFind = date.toIso8601String().split('T')[0];
@@ -330,12 +341,25 @@ class DatabaseHelper {
   Future<int> deleteTransacsByCategory(String categoryId) async {
     Database db = await database;
 
-    return await db.delete(Strings.tableTransacs,
-        where: '${Strings.transacColumnCategory} = ?', whereArgs: [categoryId]);
+    return await db.delete(
+      Strings.tableTransacs,
+      where: '${Strings.transacColumnCategory} = ?',
+      whereArgs: [categoryId],
+    );
+  }
+
+  Future<int> deleteTransacsByAccount(String accountId) async {
+    Database db = await database;
+
+    return await db.delete(
+      Strings.tableTransacs,
+      where: '${Strings.transacColumnAccount} = ?',
+      whereArgs: [accountId],
+    );
   }
 
   // TODO: rename
-  Future<void> deleteAllTransacs() async {
+  Future<void> deleteAllTransacsAndRecTransacs() async {
     Database db = await database;
     await db.rawQuery('DELETE FROM ${Strings.tableTransacs}');
     await db.rawQuery('DELETE FROM ${Strings.tableRecurringTransacs}');
@@ -503,6 +527,16 @@ class DatabaseHelper {
   Future<void> deleteAllAccounts() async {
     Database db = await database;
     await db.rawQuery('DELETE FROM ${Strings.tableAccounts}');
+  }
+
+  Future<void> deleteRecurringTransacsByAccount(String accountId) async {
+    Database db = await database;
+
+    return await db.delete(
+      Strings.tableRecurringTransacs,
+      where: '${Strings.recurringTransacColumnAccount} = ?',
+      whereArgs: [accountId],
+    );
   }
 
   Future<void> _insertDefaultAccount(Database db) async {

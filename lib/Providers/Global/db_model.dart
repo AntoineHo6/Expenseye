@@ -22,7 +22,7 @@ class DbModel extends ChangeNotifier {
   Future<void> initUser() async {
     await initConnectedUser();
     await initUserCategoriesMap();
-    await initUserAccountsMapAndDefault();
+    await initUserAccountsMap();
     await initCheckRecurringTransacs();
   }
 
@@ -43,7 +43,7 @@ class DbModel extends ChangeNotifier {
     }
 
     await initUserCategoriesMap();
-    await initUserAccountsMapAndDefault();
+    await initUserAccountsMap();
     await initCheckRecurringTransacs();
   }
 
@@ -58,7 +58,7 @@ class DbModel extends ChangeNotifier {
   Future<void> logOutFromGoogle() async {
     await GoogleFirebaseHelper.uploadDbFile();
     await GoogleFirebaseHelper.logOut();
-    await _deleteAllTransacs();
+    await _deleteAllTransacsAndRecTransacs();
     await _resetCategories();
     await _resetAccounts();
   }
@@ -159,7 +159,7 @@ class DbModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> initUserAccountsMapAndDefault() async {
+  Future<void> initUserAccountsMap() async {
     accMap.clear();
     List<Account> accounts = await _dbHelper.queryAccounts();
 
@@ -175,12 +175,7 @@ class DbModel extends ChangeNotifier {
   }
 
   Future<void> insertTransac(Transac newTransac) async {
-    if (newTransac.type == TransacType.expense) {
-      await _dbHelper.deductFromAccount(newTransac.accountId, newTransac.amount);
-    } else {
-      await _dbHelper.addToAccount(newTransac.accountId, newTransac.amount);
-    }
-
+    await applyTransacsAmountToBalance([newTransac]);
     await _dbHelper.insertTransac(newTransac);
   }
 
@@ -188,11 +183,7 @@ class DbModel extends ChangeNotifier {
     Transac oldTransac = await _dbHelper.queryTransacById(newTransac.id);
     await _dbHelper.removeTransacAmountFromAccBalance(oldTransac);
 
-    if (newTransac.type == TransacType.expense) {
-      await _dbHelper.deductFromAccount(newTransac.accountId, newTransac.amount);
-    } else {
-      await _dbHelper.addToAccount(newTransac.accountId, newTransac.amount);
-    }
+    await applyTransacsAmountToBalance([newTransac]);
 
     await _dbHelper.updateTransac(newTransac);
     notifyListeners();
@@ -205,8 +196,8 @@ class DbModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> _deleteAllTransacs() async {
-    await _dbHelper.deleteAllTransacs();
+  Future<void> _deleteAllTransacsAndRecTransacs() async {
+    await _dbHelper.deleteAllTransacsAndRecTransacs();
     notifyListeners();
   }
 
@@ -224,6 +215,8 @@ class DbModel extends ChangeNotifier {
   }
 
   Future<void> deleteCategory(String categoryId) async {
+    await deleteTransacsByCategory(categoryId);
+    await _dbHelper.deleteRecurringTransacsByCategory(categoryId);
     await _dbHelper.deleteCategory(categoryId);
     await initUserCategoriesMap();
   }
@@ -231,13 +224,7 @@ class DbModel extends ChangeNotifier {
   Future<void> deleteTransacsByCategory(String categoryId) async {
     List<Transac> transacs = await _dbHelper.queryTransacsByCategory(categoryId);
 
-    for (var transac in transacs) {
-      if (transac.type == TransacType.expense) {
-        await _dbHelper.addToAccount(transac.accountId, transac.amount);
-      } else {
-        await _dbHelper.deductFromAccount(transac.accountId, transac.amount);
-      }
-    }
+    await revertTransacsAmountFromBalance(transacs);
 
     await _dbHelper.deleteTransacsByCategory(categoryId);
     notifyListeners();
@@ -286,9 +273,42 @@ class DbModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> deleteTransacsByAccount(String accountId) async {
+    List<Transac> transacs = await _dbHelper.queryTransacsByAccount(accountId);
+
+    await revertTransacsAmountFromBalance(transacs);
+
+    await _dbHelper.deleteTransacsByAccount(accountId);
+  }
+
+  Future<void> applyTransacsAmountToBalance(List<Transac> transacs) async {
+    for (var transac in transacs) {
+      if (transac.type == TransacType.expense) {
+        await _dbHelper.deductFromAccount(transac.accountId, transac.amount);
+      } else {
+        await _dbHelper.addToAccount(transac.accountId, transac.amount);
+      }
+    }
+  }
+
+  Future<void> revertTransacsAmountFromBalance(List<Transac> transacs) async {
+    for (var transac in transacs) {
+      if (transac.type == TransacType.expense) {
+        await _dbHelper.addToAccount(transac.accountId, transac.amount);
+      } else {
+        await _dbHelper.deductFromAccount(transac.accountId, transac.amount);
+      }
+    }
+  }
+
+  Future<void> deleteRecurringTransacsByAccount(String accountId) async {
+    await _dbHelper.deleteRecurringTransacsByAccount(accountId);
+    notifyListeners();
+  }
+
   Future<void> _resetAccounts() async {
     await _dbHelper.deleteAllAccounts();
     await _dbHelper.insertDefaultAccount();
-    await initUserAccountsMapAndDefault();
+    await initUserAccountsMap();
   }
 }

@@ -20,7 +20,7 @@ class AddAccountNotifier extends ChangeNotifier {
       );
 
       await Provider.of<DbModel>(context, listen: false).insertAccount(account);
-      await Provider.of<DbModel>(context, listen: false).initUserAccountsMapAndDefault();
+      await Provider.of<DbModel>(context, listen: false).initUserAccountsMap();
       Navigator.pop(context, 1);
     }
   }

@@ -1,3 +1,4 @@
+import 'package:Expenseye/Components/Global/load_dialog.dart';
 import 'package:Expenseye/Enums/transac_type.dart';
 import 'package:Expenseye/Enums/periodicity.dart';
 import 'package:Expenseye/Models/recurring_transac.dart';
@@ -77,7 +78,7 @@ class AddRecurringTransacModel extends ChangeNotifier {
     return true;
   }
 
-  void createRecurringTransac(BuildContext context) {
+  Future<void> createRecurringTransac(BuildContext context) async {
     RecurringTransac newRecurringTransac = new RecurringTransac(
       this.name,
       this.amount,
@@ -86,9 +87,20 @@ class AddRecurringTransacModel extends ChangeNotifier {
       this.categoryId,
       this.accountId,
     );
-    Provider.of<DbModel>(context, listen: false).insertRecurringTransac(newRecurringTransac);
 
-    Provider.of<DbModel>(context, listen: false).initCheckRecurringTransacs();
-    Navigator.pop(context);
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return LoadDialog();
+      },
+    );
+
+    await Provider.of<DbModel>(context, listen: false).insertRecurringTransac(newRecurringTransac);
+    await Provider.of<DbModel>(context, listen: false).initCheckRecurringTransacs().then(
+          (value) => Navigator.pop(context), // pop out of the loading dialog
+        );
+
+    Navigator.pop(context); // pop out of the page
   }
 }

@@ -39,9 +39,9 @@ class _CategoryStepPageState extends State<CategoryStepPage> with TickerProvider
             text: _model.type == TransacType.expense
                 ? AppLocalizations.of(context).translate('createRecurringExpense')
                 : AppLocalizations.of(context).translate('createRecurringIncome'),
-            onPressed: () {
+            onPressed: () async {
               if (selectedIconIndex != null) {
-                _model.createRecurringTransac(context);
+                await _model.createRecurringTransac(context);
               }
             },
           ),

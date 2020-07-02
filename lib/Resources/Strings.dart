@@ -49,6 +49,11 @@ class Strings {
 
   static const String dbFileName = 'itemsDb.db';
 
+  // * SQLITE_SEQUENCE table name
+  static const String tableSqliteSequence = 'sqlite_sequence';
+  static const String sqliteSequenceColumnName = 'name';
+  static const String sqliteSequenceColumnSeq = 'seq';
+
   // * TRANSACTIONS DATABASE table and column names
   static const String tableTransacs = 'transactions';
   static const String transacColumnId = 'id';

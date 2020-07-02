@@ -201,6 +201,19 @@ class DatabaseHelper {
     await db.insert(Strings.tableAccounts, cashAccount.toMap());
   }
 
+  // * SQLITE_SEQUENCE
+  Future<int> querySequence(String name) async {
+    Database db = await database;
+    List<Map> map = await db.query(
+      Strings.tableSqliteSequence,
+      columns: [Strings.sqliteSequenceColumnSeq],
+      where: '${Strings.sqliteSequenceColumnName} = ?',
+      whereArgs: [name],
+    );
+
+    return map.first[Strings.sqliteSequenceColumnSeq];
+  }
+
   // * TRANSACTIONS
   Future<int> insertTransac(Transac expense) async {
     Database db = await database;

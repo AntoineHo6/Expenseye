@@ -5,6 +5,7 @@ import 'package:Expenseye/Models/Category.dart';
 import 'package:Expenseye/Models/Transac.dart';
 import 'package:Expenseye/Models/account.dart';
 import 'package:Expenseye/Models/recurring_transac.dart';
+import 'package:Expenseye/Resources/Strings.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
@@ -127,13 +128,23 @@ class DbModel extends ChangeNotifier {
     }
 
     if (localTransacs.length > 0) {
+      // get the sqlite_sequence for transactions
+      int transacsSeq = await _dbHelper.querySequence(Strings.tableTransacs);
       for (Transac transac in localTransacs) {
+        transacsSeq++;
+        transac.id = transacsSeq;
         await insertTransac(transac);
       }
+      // update sqlite_sequence for transactions
     }
 
+    // get the sqlite_sequence for recurring_transacs
     if (localRecTransacs.length > 0) {
+      int recTransacsSeq = await _dbHelper.querySequence(Strings.tableRecurringTransacs);
+      print(recTransacsSeq);
       for (var recTransac in localRecTransacs) {
+        recTransacsSeq++;
+        recTransac.id = recTransacsSeq;
         await insertRecurringTransac(recTransac);
       }
     }

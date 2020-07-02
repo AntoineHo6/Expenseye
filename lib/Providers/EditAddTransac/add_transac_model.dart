@@ -1,5 +1,6 @@
 import 'package:Expenseye/Enums/transac_type.dart';
 import 'package:Expenseye/Models/Transac.dart';
+import 'package:Expenseye/Pages/EditAddTransac/choose_account_page.dart';
 import 'package:Expenseye/Pages/EditAddTransac/choose_category_page.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:Expenseye/Providers/Global/settings_notifier.dart';
@@ -74,6 +75,20 @@ class AddTransacModel extends ChangeNotifier {
     if (result != null) {
       categoryId = result;
       _checkCategoryInvalid();
+      notifyListeners();
+    }
+  }
+
+  Future<void> openChooseAccountPage(BuildContext context) async {
+    final newAccountId = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ChooseAccountPage(),
+      ),
+    );
+
+    if (newAccountId != null) {
+      accountId = newAccountId;
       notifyListeners();
     }
   }

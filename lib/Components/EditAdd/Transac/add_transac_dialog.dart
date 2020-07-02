@@ -43,7 +43,7 @@ class _AddTransacDialogState extends State<AddTransacDialog> {
     } else {
       title = AppLocalizations.of(context).translate('newIncome');
       icon = Icon(
-        Icons.account_balance_wallet,
+        MdiIcons.currencyUsd,
         color: ColorChooserFromTheme.transacColorTypeChooser(
           widget.type,
           settingsNotifier.getTheme(),
@@ -123,7 +123,7 @@ class _AddTransacDialogState extends State<AddTransacDialog> {
                     height: 8,
                   ),
                   AccountPickerBtn(
-                    onPressed: () => print('aa'),
+                    onPressed: () => model.openChooseAccountPage(context),
                     width: double.infinity,
                     height: 40,
                     accountId: model.accountId,

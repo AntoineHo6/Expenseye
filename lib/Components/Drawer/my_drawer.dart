@@ -44,23 +44,12 @@ class MyDrawer extends StatelessWidget {
             ),
             ListTile(
               leading: const Icon(
-                MdiIcons.viewGrid,
+                Icons.category,
               ),
               title: Text(AppLocalizations.of(context).translate('categories')),
               onTap: () {
                 Navigator.of(context).pop(context);
                 _openCategoriesPage(context);
-              },
-            ),
-            ListTile(
-              leading: const Icon(
-                MdiIcons.calendarClock,
-              ),
-              title: Text(AppLocalizations.of(context)
-                  .translate('recurringTransactions')),
-              onTap: () {
-                Navigator.of(context).pop(context);
-                _openRecurringTransacPage(context);
               },
             ),
             ListTile(
@@ -71,6 +60,16 @@ class MyDrawer extends StatelessWidget {
               onTap: () {
                 Navigator.of(context).pop(context);
                 _openAccountsPage(context);
+              },
+            ),
+            ListTile(
+              leading: const Icon(
+                MdiIcons.calendarClock,
+              ),
+              title: Text(AppLocalizations.of(context).translate('recurringTransactions')),
+              onTap: () {
+                Navigator.of(context).pop(context);
+                _openRecurringTransacPage(context);
               },
             ),
             ListTile(

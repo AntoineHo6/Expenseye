@@ -468,36 +468,32 @@ class DatabaseHelper {
     }
   }
 
+  Future<void> deleteAllAccounts() async {
+    Database db = await database;
+    await db.rawQuery('DELETE FROM ${Strings.tableAccounts}');
+  }
+
   Future<void> _insertDefaultAccount(Database db) async {
-    String cashAccountName;
-    switch (languageCode) {
-      case 'en':
-        cashAccountName = Strings.cashEN;
-        break;
-      case 'fr':
-        cashAccountName = Strings.cashFR;
-        break;
-    }
+    Account defaultAccount = _getDefaultAccount();
+    await db.insert(Strings.tableAccounts, defaultAccount.toMap());
+  }
 
-    Account cashAccount = new Account(
-      cashAccountName.toLowerCase(),
-      cashAccountName,
-      0,
-    );
-
-    await db.insert(Strings.tableAccounts, cashAccount.toMap());
+  Future<void> insertDefaultAccount() async {
+    Database db = await database;
+    Account defaultAccount = _getDefaultAccount();
+    await db.insert(Strings.tableAccounts, defaultAccount.toMap());
   }
 
   // * CATEGORIES
   Future<void> _insertDefaultCategories(Database db) async {
-    for (var category in getDefaultCategories()) {
+    for (var category in _getDefaultCategories()) {
       await db.insert(Strings.tableCategories, category.toMap());
     }
   }
 
   Future<void> insertDefaultCategories() async {
     Database db = await database;
-    for (var category in getDefaultCategories()) {
+    for (var category in _getDefaultCategories()) {
       await db.insert(Strings.tableCategories, category.toMap());
     }
   }
@@ -538,7 +534,27 @@ class DatabaseHelper {
     await db.rawQuery('DELETE FROM ${Strings.tableCategories}');
   }
 
-  List<Category> getDefaultCategories() {
+  Account _getDefaultAccount() {
+    String cashAccountName;
+    switch (languageCode) {
+      case 'en':
+        cashAccountName = Strings.cashEN;
+        break;
+      case 'fr':
+        cashAccountName = Strings.cashFR;
+        break;
+    }
+
+    Account cashAccount = new Account(
+      cashAccountName.toLowerCase(),
+      cashAccountName,
+      0,
+    );
+
+    return cashAccount;
+  }
+
+  List<Category> _getDefaultCategories() {
     // Expenses
     String foodName,
         transportationName,

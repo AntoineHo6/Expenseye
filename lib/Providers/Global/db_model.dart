@@ -60,6 +60,7 @@ class DbModel extends ChangeNotifier {
     await GoogleFirebaseHelper.logOut();
     await _deleteAllTransacs();
     await _resetCategories();
+    await _resetAccounts();
   }
 
   // change word check to update
@@ -273,5 +274,11 @@ class DbModel extends ChangeNotifier {
   Future<void> insertAccount(Account account) async {
     await _dbHelper.insertAccount(account);
     notifyListeners();
+  }
+
+  Future<void> _resetAccounts() async {
+    await _dbHelper.deleteAllAccounts();
+    await _dbHelper.insertDefaultAccount();
+    await initUserAccountsMapAndDefault();
   }
 }

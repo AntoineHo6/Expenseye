@@ -27,7 +27,7 @@ class AddTransacFab extends StatelessWidget {
         ),
         SpeedDialChild(
           backgroundColor: Colors.green[400],
-          child: const Icon(Icons.account_balance_wallet),
+          child: const Icon(MdiIcons.currencyUsd),
           label: AppLocalizations.of(context).translate('income'),
           labelBackgroundColor: Theme.of(context).hintColor,
           labelStyle: TextStyle(fontSize: 14.0, color: Colors.white),

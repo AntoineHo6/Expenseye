@@ -5,6 +5,7 @@ import 'package:Expenseye/Components/EditAdd/delete_btn.dart';
 import 'package:Expenseye/Components/Global/bottom_nav_button.dart';
 import 'package:Expenseye/Components/EditAdd/name_text_field.dart';
 import 'package:Expenseye/Components/EditAdd/amount_text_field.dart';
+import 'package:Expenseye/Components/Global/subheader.dart';
 import 'package:Expenseye/Models/Transac.dart';
 import 'package:Expenseye/Providers/EditAddTransac/edit_transac_model.dart';
 import 'package:Expenseye/app_localizations.dart';
@@ -61,7 +62,9 @@ class _EditTransacPageState extends State<EditTransacPage> {
                 const SizedBox(
                   height: 10,
                 ),
-                _header(AppLocalizations.of(context).translate('name')),
+                SubHeader(
+                  title: AppLocalizations.of(context).translate('name'),
+                ),
                 Container(
                   margin: const EdgeInsets.symmetric(horizontal: 10),
                   child: NameTextField(
@@ -70,7 +73,9 @@ class _EditTransacPageState extends State<EditTransacPage> {
                     onChanged: model.infoChanged,
                   ),
                 ),
-                _header(AppLocalizations.of(context).translate('amount')),
+                SubHeader(
+                  title: AppLocalizations.of(context).translate('amount'),
+                ),
                 Container(
                   margin: const EdgeInsets.symmetric(horizontal: 10),
                   child: AmountTextField(
@@ -79,8 +84,8 @@ class _EditTransacPageState extends State<EditTransacPage> {
                     onChanged: model.infoChanged,
                   ),
                 ),
-                _header(
-                  AppLocalizations.of(context).translate('date'),
+                SubHeader(
+                  title: AppLocalizations.of(context).translate('date'),
                 ),
                 Container(
                   margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -94,8 +99,8 @@ class _EditTransacPageState extends State<EditTransacPage> {
                     onPressed: () async => await model.chooseDate(context, model.date),
                   ),
                 ),
-                _header(
-                  AppLocalizations.of(context).translate('category'),
+                SubHeader(
+                  title: AppLocalizations.of(context).translate('category'),
                 ),
                 Container(
                   margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -108,8 +113,8 @@ class _EditTransacPageState extends State<EditTransacPage> {
                     iconBottomPosition: -75,
                   ),
                 ),
-                _header(
-                  AppLocalizations.of(context).translate('account'),
+                SubHeader(
+                  title: AppLocalizations.of(context).translate('account'),
                 ),
                 Container(
                   margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -125,19 +130,6 @@ class _EditTransacPageState extends State<EditTransacPage> {
               ],
             ),
           ),
-        ),
-      ),
-    );
-  }
-
-  Widget _header(String title) {
-    return Container(
-      margin: const EdgeInsets.only(left: 10),
-      child: Align(
-        alignment: Alignment.centerLeft,
-        child: Text(
-          '$title :',
-          style: Theme.of(context).textTheme.headline6,
         ),
       ),
     );

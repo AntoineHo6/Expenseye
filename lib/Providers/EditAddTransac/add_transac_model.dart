@@ -56,7 +56,7 @@ class AddTransacModel extends ChangeNotifier {
         accountId,
       );
 
-      await Provider.of<DbModel>(context, listen: false).addTransac(newTransac);
+      await Provider.of<DbModel>(context, listen: false).insertTransac(newTransac);
       Navigator.pop(context);
     }
   }

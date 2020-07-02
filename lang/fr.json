@@ -95,5 +95,6 @@
     "switchToIncomes": "Changer aux revenus",
     "sort": "Trier",
     "accounts": "Comptes",
-    "account": "Compte"
+    "account": "Compte",
+    "addAccount": "Ajouter un compte"
 }

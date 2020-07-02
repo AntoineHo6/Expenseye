@@ -192,7 +192,7 @@ class DatabaseHelper {
         break;
     }
 
-    Account cashAccount = new Account.withId(
+    Account cashAccount = new Account(
       cashAccountName.toLowerCase(),
       cashAccountName,
       total,
@@ -206,6 +206,28 @@ class DatabaseHelper {
     Database db = await database;
     int id = await db.insert(Strings.tableTransacs, expense.toMap());
     return id;
+  }
+
+  Future<Transac> queryTransacById(int id) async {
+    Database db = await database;
+    List<Map> map = await db.query(
+      Strings.tableTransacs,
+      where: '${Strings.transacColumnId} = ?',
+      whereArgs: [id],
+    );
+
+    return convertMapsToTransacs(map).first;
+  }
+
+  Future<List<Transac>> queryTransacsByCategory(String categoryId) async {
+    Database db = await database;
+    List<Map> maps = await db.query(
+      Strings.tableTransacs,
+      where: '${Strings.transacColumnCategory} = ?',
+      whereArgs: [categoryId],
+    );
+
+    return convertMapsToTransacs(maps);
   }
 
   Future<List<Transac>> queryTransacsInDate(DateTime date) async {
@@ -255,8 +277,12 @@ class DatabaseHelper {
   Future<int> updateTransac(Transac transac) async {
     Database db = await database;
 
-    return await db.update(Strings.tableTransacs, transac.toMap(),
-        where: '${Strings.transacColumnId} = ?', whereArgs: [transac.id]);
+    return await db.update(
+      Strings.tableTransacs,
+      transac.toMap(),
+      where: '${Strings.transacColumnId} = ?',
+      whereArgs: [transac.id],
+    );
   }
 
   Future<int> deleteTransac(int id) async {
@@ -388,6 +414,60 @@ class DatabaseHelper {
     return accounts;
   }
 
+  Future<void> addToAccount(String accountId, double amount) async {
+    Database db = await database;
+    // 1. Query the balance from the account
+    List<Map> map = await db.query(
+      Strings.tableAccounts,
+      columns: [Strings.accountColumnBalance],
+      where: '${Strings.accountColumnId} = ?',
+      whereArgs: [accountId],
+    );
+
+    // 2. use variable to add amount to the balance
+    double balance = map.first['balance'];
+    balance += amount;
+
+    // 3. update account balance with the new balance
+    await db.update(
+      Strings.tableAccounts,
+      {Strings.accountColumnBalance: balance},
+      where: '${Strings.accountColumnId} = ?',
+      whereArgs: [accountId],
+    );
+  }
+
+  Future<void> deductFromAccount(String accountId, double amount) async {
+    Database db = await database;
+    // 1. Query the balance from the account
+    List<Map> map = await db.query(
+      Strings.tableAccounts,
+      columns: [Strings.accountColumnBalance],
+      where: '${Strings.accountColumnId} = ?',
+      whereArgs: [accountId],
+    );
+
+    // 2. use variable to deduct amount from the balance
+    double balance = map.first[Strings.accountColumnBalance];
+    balance -= amount;
+
+    // 3. update account balance with the new balance
+    await db.update(
+      Strings.tableAccounts,
+      {Strings.accountColumnBalance: balance},
+      where: '${Strings.accountColumnId} = ?',
+      whereArgs: [accountId],
+    );
+  }
+
+  Future<void> removeTransacAmountFromAccBalance(Transac transac) async {
+    if (transac.type == TransacType.expense) {
+      await addToAccount(transac.accountId, transac.amount);
+    } else {
+      await deductFromAccount(transac.accountId, transac.amount);
+    }
+  }
+
   Future<void> _insertDefaultAccount(Database db) async {
     String cashAccountName;
     switch (languageCode) {
@@ -399,7 +479,7 @@ class DatabaseHelper {
         break;
     }
 
-    Account cashAccount = new Account.withId(
+    Account cashAccount = new Account(
       cashAccountName.toLowerCase(),
       cashAccountName,
       0,

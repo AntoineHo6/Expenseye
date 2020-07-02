@@ -1,3 +1,4 @@
+import 'package:Expenseye/Enums/transac_type.dart';
 import 'package:Expenseye/Helpers/database_helper.dart';
 import 'package:Expenseye/Helpers/google_firebase_helper.dart';
 import 'package:Expenseye/Models/Category.dart';
@@ -92,7 +93,7 @@ class DbModel extends ChangeNotifier {
       recurringTransac.category,
       recurringTransac.accountId,
     );
-    await _dbHelper.insertTransac(newTransac);
+    await insertTransac(newTransac);
     // 2. update recurring transac's date
     recurringTransac.updateDueDate();
     await _dbHelper.updateRecurringTransac(recurringTransac);
@@ -119,20 +120,20 @@ class DbModel extends ChangeNotifier {
     List<String> accAccountsId = accAccounts.map((account) => account.id).toList();
     for (var localAccount in localAccounts) {
       if (!accAccountsId.contains(localAccount.id)) {
-        await _dbHelper.insertAccount(localAccount);
+        await insertAccount(localAccount);
         accMap[localAccount.id] = localAccount;
       }
     }
 
     if (localTransacs.length > 0) {
       for (Transac transac in localTransacs) {
-        await _dbHelper.insertTransac(transac);
+        await insertTransac(transac);
       }
     }
 
     if (localRecTransacs.length > 0) {
       for (var recTransac in localRecTransacs) {
-        await _dbHelper.insertRecurringTransac(recTransac);
+        await insertRecurringTransac(recTransac);
       }
     }
 
@@ -166,18 +167,35 @@ class DbModel extends ChangeNotifier {
     return await _dbHelper.queryAllTransacs();
   }
 
-  Future<void> addTransac(Transac newTransac) async {
+  Future<void> insertTransac(Transac newTransac) async {
+    if (newTransac.type == TransacType.expense) {
+      await _dbHelper.deductFromAccount(newTransac.accountId, newTransac.amount);
+    } else {
+      await _dbHelper.addToAccount(newTransac.accountId, newTransac.amount);
+    }
+
     await _dbHelper.insertTransac(newTransac);
-    notifyListeners();
+    notifyListeners(); // TODO: this slows down the recurring transactions calculations
   }
 
   Future<void> updateTransac(Transac newTransac) async {
+    Transac oldTransac = await _dbHelper.queryTransacById(newTransac.id);
+    await _dbHelper.removeTransacAmountFromAccBalance(oldTransac);
+
+    if (newTransac.type == TransacType.expense) {
+      await _dbHelper.deductFromAccount(newTransac.accountId, newTransac.amount);
+    } else {
+      await _dbHelper.addToAccount(newTransac.accountId, newTransac.amount);
+    }
+
     await _dbHelper.updateTransac(newTransac);
     notifyListeners();
   }
 
-  Future<void> deleteTransac(int id) async {
-    await _dbHelper.deleteTransac(id);
+  Future<void> deleteTransac(int transacId) async {
+    Transac transac = await _dbHelper.queryTransacById(transacId);
+    await _dbHelper.removeTransacAmountFromAccBalance(transac);
+    await _dbHelper.deleteTransac(transacId);
     notifyListeners();
   }
 
@@ -205,6 +223,16 @@ class DbModel extends ChangeNotifier {
   }
 
   Future<void> deleteTransacsByCategory(String categoryId) async {
+    List<Transac> transacs = await _dbHelper.queryTransacsByCategory(categoryId);
+
+    for (var transac in transacs) {
+      if (transac.type == TransacType.expense) {
+        await _dbHelper.addToAccount(transac.accountId, transac.amount);
+      } else {
+        await _dbHelper.deductFromAccount(transac.accountId, transac.amount);
+      }
+    }
+
     await _dbHelper.deleteTransacsByCategory(categoryId);
     notifyListeners();
   }
@@ -235,6 +263,15 @@ class DbModel extends ChangeNotifier {
 
   Future<void> deleteRecurringTransac(int id) async {
     await _dbHelper.deleteRecurringTransac(id);
+    notifyListeners();
+  }
+
+  Future<List<Account>> queryAccounts() async {
+    return await _dbHelper.queryAccounts();
+  }
+
+  Future<void> insertAccount(Account account) async {
+    await _dbHelper.insertAccount(account);
     notifyListeners();
   }
 }

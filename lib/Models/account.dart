@@ -6,11 +6,6 @@ class Account {
   double balance;
 
   Account(
-    this.name,
-    this.balance,
-  );
-
-  Account.withId(
     this.id,
     this.name,
     this.balance,

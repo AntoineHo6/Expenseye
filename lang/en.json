@@ -30,6 +30,7 @@
     "confirmCaps": "CONFIRM",
     "selectMonthCaps": "SELECT MONTH",
     "nextCaps": "NEXT",
+    "closeCaps": "CLOSE",
     "signOut": "Sign Out",
     "name": "Name",
     "nameIsInvalid": "Invalid name",
@@ -96,5 +97,7 @@
     "sort": "Sort",
     "accounts": "Accounts",
     "account": "Account",
-    "addAccount": "Add Account"
+    "addAccount": "Add Account",
+    "mustHaveAtLeastOneAccount": "You must have at least one account available",
+    "error": "Error"
 }

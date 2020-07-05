@@ -50,7 +50,7 @@ class AddTransacModel extends ChangeNotifier {
     if (!areFieldsInvalid && !isCategoryMissingError) {
       Transac newTransac = new Transac(
         newName,
-        double.parse(newAmount),
+        (double.parse(newAmount)).abs(),
         newDate,
         type,
         categoryId,

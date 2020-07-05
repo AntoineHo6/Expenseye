@@ -132,7 +132,22 @@ class AccountsPage extends StatelessWidget {
           );
     } else if (confirmed != null && confirmed && DbModel.accMap.length == 1) {
       print('NEED AT LEAST 1 ACCOUNT');
-      // TODO: replace with dialog
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text(AppLocalizations.of(context).translate('error')),
+            content: Text(AppLocalizations.of(context).translate('mustHaveAtLeastOneAccount')),
+            actions: <Widget>[
+              FlatButton(
+                child: Text(AppLocalizations.of(context).translate('closeCaps')),
+                onPressed: () => Navigator.pop(context),
+              ),
+            ],
+          );
+        },
+      );
     }
   }
 }

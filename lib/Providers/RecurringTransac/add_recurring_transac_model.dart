@@ -3,6 +3,7 @@ import 'package:Expenseye/Enums/transac_type.dart';
 import 'package:Expenseye/Enums/periodicity.dart';
 import 'package:Expenseye/Models/recurring_transac.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
+import 'package:Expenseye/Utils/check_textfields_util.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -56,23 +57,15 @@ class AddRecurringTransacModel extends ChangeNotifier {
 
   // Will check and show error msg if a field is invalid.
   bool _checkFieldsInvalid(String name, String amount) {
-    // check NAME field
-    this.isNameInvalid = name.isEmpty ? true : false;
-
-    // check AMOUNT field
-    try {
-      double.parse(amount);
-      this.isAmountInvalid = false;
-    } on FormatException {
-      this.isAmountInvalid = true;
-    }
+    isNameInvalid = CheckTextFieldsUtil.isStringInvalid(name);
+    isAmountInvalid = CheckTextFieldsUtil.isNumberStringInvalid(amount);
 
     notifyListeners();
 
     // update areFieldsInvalid
     if (!isNameInvalid && !isAmountInvalid) {
       this.name = name;
-      this.amount = double.parse(amount);
+      this.amount = (double.parse(amount)).abs();
       return false;
     }
     return true;

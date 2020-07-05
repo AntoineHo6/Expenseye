@@ -99,5 +99,6 @@
     "account": "Compte",
     "addAccount": "Ajouter un compte",
     "mustHaveAtLeastOneAccount": "Vous devez avoir au moins un compte disponible",
-    "error": "Erreur"
+    "error": "Erreur",
+    "createCustomCategoryMsg": "La catégorie que vous recherchez n'est pas là? Créez une catégorie personnalisée dans la page 'Catégories'."
 }

@@ -14,18 +14,18 @@ class CategoryStepPage extends StatefulWidget {
 }
 
 class _CategoryStepPageState extends State<CategoryStepPage> with TickerProviderStateMixin {
-  int selectedIconIndex;
+  int selectedCategoryIndex;
   AnimationController _animationController;
   Animation _animation;
 
   @override
   Widget build(BuildContext context) {
-    final _model = Provider.of<AddRecurringTransacModel>(context, listen: false);
-    List<String> categorieKeys = new List();
+    final model = Provider.of<AddRecurringTransacModel>(context, listen: false);
+    List<String> categoryKeys = new List();
 
     for (var key in DbModel.catMap.keys) {
-      if (DbModel.catMap[key].type == _model.type) {
-        categorieKeys.add(key);
+      if (DbModel.catMap[key].type == model.type) {
+        categoryKeys.add(key);
       }
     }
     _animationController.forward();
@@ -36,12 +36,16 @@ class _CategoryStepPageState extends State<CategoryStepPage> with TickerProvider
         bottomNavigationBar: BottomAppBar(
           color: Colors.transparent,
           child: BottomNavButton(
-            text: _model.type == TransacType.expense
+            text: model.type == TransacType.expense
                 ? AppLocalizations.of(context).translate('createRecurringExpense')
                 : AppLocalizations.of(context).translate('createRecurringIncome'),
             onPressed: () async {
-              if (selectedIconIndex != null) {
-                await _model.createRecurringTransac(context);
+              if (selectedCategoryIndex != null) {
+                await model.createRecurringTransac(context);
+              } else {
+                setState(() {
+                  model.isCategorySelected = false;
+                });
               }
             },
           ),
@@ -49,7 +53,7 @@ class _CategoryStepPageState extends State<CategoryStepPage> with TickerProvider
         body: Column(
           children: <Widget>[
             AddRecTransacStepsHeader(
-              title: '${_model.step}. ${AppLocalizations.of(context).translate('selectACategory')}',
+              title: '${model.step}. ${AppLocalizations.of(context).translate('selectACategory')}',
               percent: 1,
             ),
             Expanded(
@@ -59,43 +63,80 @@ class _CategoryStepPageState extends State<CategoryStepPage> with TickerProvider
                 crossAxisSpacing: 7,
                 mainAxisSpacing: 7,
                 crossAxisCount: 4,
-                children: List.generate(
-                  categorieKeys.length,
-                  (index) {
-                    String key = categorieKeys[index];
-                    if (selectedIconIndex != null && index == selectedIconIndex) {
-                      return Container(
-                        decoration: BoxDecoration(
-                          color: DbModel.catMap[key].color,
-                          borderRadius: const BorderRadius.all(
-                            const Radius.circular(13),
-                          ),
-                        ),
-                        padding: const EdgeInsets.all(4),
-                        child: CategoryBtn(
-                          category: DbModel.catMap[key],
-                          onPressed: () {
-                            _model.categoryId = DbModel.catMap[key].id;
-                            setState(() => selectedIconIndex = index);
-                          },
-                        ),
-                      );
-                    }
-                    // other unselected categories
-                    return CategoryBtn(
-                      category: DbModel.catMap[key],
-                      onPressed: () {
-                        _model.categoryId = DbModel.catMap[key].id;
-                        setState(() => selectedIconIndex = index);
-                      },
-                    );
-                  },
-                ),
+                children: model.isCategorySelected
+                    ? _categoriesList(categoryKeys, model)
+                    : _errorCategoriesList(categoryKeys, model),
               ),
             ),
           ],
         ),
       ),
+    );
+  }
+
+  List<Widget> _errorCategoriesList(List<String> categoryKeys, AddRecurringTransacModel model) {
+    return List.generate(
+      categoryKeys.length,
+      (index) {
+        String key = categoryKeys[index];
+        return Container(
+          decoration: BoxDecoration(
+            color: Theme.of(context).errorColor,
+            borderRadius: const BorderRadius.all(
+              const Radius.circular(10),
+            ),
+          ),
+          padding: const EdgeInsets.all(1.5),
+          child: CategoryBtn(
+            category: DbModel.catMap[key],
+            onPressed: () {
+              model.categoryId = DbModel.catMap[key].id;
+              setState(() {
+                model.isCategorySelected = true;
+                selectedCategoryIndex = index;
+              });
+            },
+          ),
+        );
+      },
+    );
+  }
+
+  List<Widget> _categoriesList(List<String> categoryKeys, AddRecurringTransacModel model) {
+    return List.generate(
+      categoryKeys.length,
+      (index) {
+        String key = categoryKeys[index];
+        if (selectedCategoryIndex != null && index == selectedCategoryIndex) {
+          return Container(
+            decoration: BoxDecoration(
+              color: DbModel.catMap[key].color,
+              borderRadius: const BorderRadius.all(
+                const Radius.circular(13),
+              ),
+            ),
+            padding: const EdgeInsets.all(4),
+            child: CategoryBtn(
+              category: DbModel.catMap[key],
+              onPressed: () {
+                model.categoryId = DbModel.catMap[key].id;
+                setState(() => selectedCategoryIndex = index);
+              },
+            ),
+          );
+        }
+        // other unselected categories
+        return CategoryBtn(
+          category: DbModel.catMap[key],
+          onPressed: () {
+            model.categoryId = DbModel.catMap[key].id;
+            setState(() {
+              model.isCategorySelected = true;
+              selectedCategoryIndex = index;
+            });
+          },
+        );
+      },
     );
   }
 

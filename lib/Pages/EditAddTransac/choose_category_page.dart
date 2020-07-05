@@ -23,22 +23,36 @@ class ChooseCategoryPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(AppLocalizations.of(context).translate('categories')),
       ),
-      body: GridView.count(
-        primary: false,
-        padding: const EdgeInsets.all(10),
-        crossAxisSpacing: 10,
-        mainAxisSpacing: 10,
-        crossAxisCount: 3,
-        children: List.generate(
-          categorieKeys.length,
-          (index) {
-            String key = categorieKeys[index];
-            return CategoryBtn(
-              category: DbModel.catMap[key],
-              onPressed: () => Navigator.pop(context, key),
-            );
-          },
-        ),
+      body: Column(
+        children: <Widget>[
+          Expanded(
+            child: GridView.count(
+              primary: false,
+              padding: const EdgeInsets.all(10),
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 10,
+              crossAxisCount: 3,
+              children: List.generate(
+                categorieKeys.length,
+                (index) {
+                  String key = categorieKeys[index];
+                  return CategoryBtn(
+                    category: DbModel.catMap[key],
+                    onPressed: () => Navigator.pop(context, key),
+                  );
+                },
+              ),
+            ),
+          ),
+          Container(
+            margin: const EdgeInsets.all(10),
+            child: Text(
+              AppLocalizations.of(context).translate('createCustomCategoryMsg'),
+              textAlign: TextAlign.left,
+              style: Theme.of(context).textTheme.caption,
+            ),
+          ),
+        ],
       ),
     );
   }

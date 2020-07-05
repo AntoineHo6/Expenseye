@@ -99,5 +99,6 @@
     "account": "Account",
     "addAccount": "Add Account",
     "mustHaveAtLeastOneAccount": "You must have at least one account available",
-    "error": "Error"
+    "error": "Error",
+    "createCustomCategoryMsg": "The category you're looking for isn't here? Create a custom category in the 'Categories' page."
 }

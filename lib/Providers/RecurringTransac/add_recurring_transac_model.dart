@@ -19,6 +19,7 @@ class AddRecurringTransacModel extends ChangeNotifier {
   TransacType type;
   bool isNameInvalid = false;
   bool isAmountInvalid = false;
+  bool isCategorySelected = true;
 
   AddRecurringTransacModel();
 

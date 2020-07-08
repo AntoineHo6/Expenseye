@@ -3,6 +3,7 @@ import 'package:Expenseye/Components/Global/confirmation_dialog.dart';
 import 'package:Expenseye/Components/Global/load_dialog.dart';
 import 'package:Expenseye/Helpers/database_helper.dart';
 import 'package:Expenseye/Models/account.dart';
+import 'package:Expenseye/Pages/Accounts/account_page.dart';
 import 'package:Expenseye/Pages/Accounts/add_account_page.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:Expenseye/Providers/Global/settings_notifier.dart';
@@ -37,41 +38,32 @@ class AccountsPage extends StatelessWidget {
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data != null && snapshot.data.length > 0) {
-              return Column(
-                children: [
-                  const SizedBox(
-                    height: 6,
-                  ),
-                  Expanded(
-                    child: ListView(
-                      children: snapshot.data.map((account) {
-                        return Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                          child: RaisedButton(
-                            onPressed: () => temporaryDeleteFunction(context, account.id),
-                            child: ListTile(
-                              title: Row(
-                                children: <Widget>[
-                                  const Icon(Icons.account_balance_wallet),
-                                  const SizedBox(width: 8),
-                                  Text(account.name),
-                                ],
-                              ),
-                              trailing: Text(
-                                account.balance.toString(),
-                                style: TextStyle(
-                                  color: ColorChooserFromTheme.balanceColorChooser(
-                                    Provider.of<SettingsNotifier>(context).getTheme(),
-                                  ),
-                                ),
-                              ),
+              return ListView(
+                children: snapshot.data.map((account) {
+                  return Container(
+                    margin: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+                    child: RaisedButton(
+                      onPressed: () => _openAccountPage(context, account.id),
+                      child: ListTile(
+                        title: Row(
+                          children: <Widget>[
+                            const Icon(Icons.account_balance_wallet),
+                            const SizedBox(width: 8),
+                            Text(account.name),
+                          ],
+                        ),
+                        trailing: Text(
+                          account.balance.toString(),
+                          style: TextStyle(
+                            color: ColorChooserFromTheme.balanceColorChooser(
+                              Provider.of<SettingsNotifier>(context).getTheme(),
                             ),
                           ),
-                        );
-                      }).toList(),
+                        ),
+                      ),
                     ),
-                  ),
-                ],
+                  );
+                }).toList(),
               );
             } else {
               return Align(
@@ -90,6 +82,13 @@ class AccountsPage extends StatelessWidget {
           }
         },
       ),
+    );
+  }
+
+  Future<void> _openAccountPage(BuildContext context, String accountId) async {
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => AccountPage(accountId)),
     );
   }
 
@@ -131,7 +130,6 @@ class AccountsPage extends StatelessWidget {
             (value) => Navigator.pop(context),
           );
     } else if (confirmed != null && confirmed && DbModel.accMap.length == 1) {
-      print('NEED AT LEAST 1 ACCOUNT');
       showDialog(
         context: context,
         barrierDismissible: false,

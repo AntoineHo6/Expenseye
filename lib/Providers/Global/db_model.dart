@@ -306,6 +306,13 @@ class DbModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> updateAccount(String oldAccountId, Account updatedAccount) async {
+    await _dbHelper.updateTransacsAndRecTransacsAccount(oldAccountId, updatedAccount.id);
+    await _dbHelper.deleteAccount(oldAccountId);
+    await _dbHelper.insertAccount(updatedAccount);
+    await initUserAccountsMap();
+  }
+
   Future<void> _resetAccounts() async {
     await _dbHelper.deleteAllAccounts();
     await _dbHelper.insertDefaultAccount();

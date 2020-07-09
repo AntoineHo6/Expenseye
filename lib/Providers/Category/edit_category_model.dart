@@ -91,6 +91,7 @@ class EditCategoryModel extends ChangeNotifier {
         },
       );
 
+      // TODO: put all this code in a fucntion on DbModel
       await DatabaseHelper.instance
           .updateTransacsAndRecTransacsCategory(oldCategoryId, updatedCategory.id);
       await DatabaseHelper.instance.deleteCategory(oldCategoryId);

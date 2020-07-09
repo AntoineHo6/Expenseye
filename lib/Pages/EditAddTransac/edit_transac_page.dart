@@ -1,7 +1,7 @@
 import 'package:Expenseye/Components/EditAdd/account_picker_btn.dart';
 import 'package:Expenseye/Components/EditAdd/category_picker_btn.dart';
 import 'package:Expenseye/Components/EditAdd/date_picker_btn.dart';
-import 'package:Expenseye/Components/EditAdd/delete_btn.dart';
+import 'package:Expenseye/Components/Global/app_bar_btn.dart';
 import 'package:Expenseye/Components/Global/bottom_nav_button.dart';
 import 'package:Expenseye/Components/EditAdd/name_text_field.dart';
 import 'package:Expenseye/Components/EditAdd/amount_text_field.dart';
@@ -34,8 +34,9 @@ class _EditTransacPageState extends State<EditTransacPage> {
           appBar: AppBar(
             title: Text(widget.transac.name),
             actions: <Widget>[
-              DeleteBtn(
+              AppBarBtn(
                 onPressed: () async => await model.delete(context, widget.transac.id),
+                icon: const Icon(Icons.delete_forever),
               ),
             ],
           ),

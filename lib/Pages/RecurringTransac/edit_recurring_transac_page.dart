@@ -2,8 +2,8 @@ import 'package:Expenseye/Components/EditAdd/RecurringTransac/periodicity_picker
 import 'package:Expenseye/Components/EditAdd/amount_text_field.dart';
 import 'package:Expenseye/Components/EditAdd/category_picker_btn.dart';
 import 'package:Expenseye/Components/EditAdd/date_picker_btn.dart';
-import 'package:Expenseye/Components/EditAdd/delete_btn.dart';
 import 'package:Expenseye/Components/EditAdd/name_text_field.dart';
+import 'package:Expenseye/Components/Global/app_bar_btn.dart';
 import 'package:Expenseye/Components/Global/bottom_nav_button.dart';
 import 'package:Expenseye/Components/Global/subheader.dart';
 import 'package:Expenseye/Models/recurring_transac.dart';
@@ -34,8 +34,9 @@ class _EditRecurringTransacPageState extends State<EditRecurringTransacPage> {
           appBar: AppBar(
             title: Text(widget.recurringTransac.name),
             actions: <Widget>[
-              DeleteBtn(
+              AppBarBtn(
                 onPressed: () => model.delete(context),
+                icon: const Icon(Icons.delete_forever),
               ),
             ],
           ),

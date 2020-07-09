@@ -40,7 +40,9 @@ class _AddAccountPageState extends State<AddAccountPage> {
           ),
           body: Column(
             children: <Widget>[
-              const SizedBox(height: 10),
+              const SizedBox(
+                height: 10,
+              ),
               SubHeader(
                 title: AppLocalizations.of(context).translate('name'),
               ),

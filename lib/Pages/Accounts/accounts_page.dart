@@ -1,4 +1,4 @@
-import 'package:Expenseye/Components/Global/app_bar_add_btn.dart';
+import 'package:Expenseye/Components/Global/app_bar_btn.dart';
 import 'package:Expenseye/Components/Global/confirmation_dialog.dart';
 import 'package:Expenseye/Components/Global/load_dialog.dart';
 import 'package:Expenseye/Helpers/database_helper.dart';
@@ -21,7 +21,7 @@ class AccountsPage extends StatelessWidget {
       appBar: AppBar(
         title: Text(AppLocalizations.of(context).translate('accounts')),
         actions: <Widget>[
-          AppBarAddBtn(
+          AppBarBtn(
             onPressed: () {
               Navigator.push(
                 context,
@@ -30,6 +30,7 @@ class AccountsPage extends StatelessWidget {
                 ),
               );
             },
+            icon: const Icon(Icons.add),
           ),
         ],
       ),

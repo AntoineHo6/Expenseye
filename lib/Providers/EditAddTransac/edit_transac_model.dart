@@ -60,7 +60,7 @@ class EditTransacModel extends ChangeNotifier {
       Transac newTransac = new Transac.withId(
         id,
         newName,
-        double.parse(newAmount),
+        (double.parse(newAmount)).abs(),
         date,
         type,
         categoryId,
@@ -125,7 +125,6 @@ class EditTransacModel extends ChangeNotifier {
 
     notifyListeners();
 
-    // update areFieldsInvalid
     if (!isNameInvalid && !isAmountInvalid) {
       return false;
     }

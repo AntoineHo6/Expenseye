@@ -550,6 +550,27 @@ class DatabaseHelper {
     await db.insert(Strings.tableAccounts, defaultAccount.toMap());
   }
 
+  Future<void> updateTransacsAndRecTransacsAccount(String oldAccountId, String newAccountId) async {
+    Database db = await database;
+
+    await db.rawUpdate(
+      ''' 
+        UPDATE ${Strings.tableTransacs} 
+        SET ${Strings.transacColumnAccount} = ? 
+        WHERE ${Strings.transacColumnAccount} = ?
+      ''',
+      [newAccountId, oldAccountId],
+    );
+    await db.rawUpdate(
+      '''
+        UPDATE ${Strings.tableRecurringTransacs}
+        SET ${Strings.recurringTransacColumnAccount} = ?
+        WHERE ${Strings.recurringTransacColumnAccount} = ?
+      ''',
+      [newAccountId, oldAccountId],
+    );
+  }
+
   // * CATEGORIES
   Future<void> _insertDefaultCategories(Database db) async {
     for (var category in _getDefaultCategories()) {

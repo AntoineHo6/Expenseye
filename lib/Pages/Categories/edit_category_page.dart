@@ -1,7 +1,7 @@
 import 'package:Expenseye/Components/Categories/icon_btn.dart';
 import 'package:Expenseye/Components/Categories/selected_icon_btn.dart';
-import 'package:Expenseye/Components/EditAdd/delete_btn.dart';
 import 'package:Expenseye/Components/EditAdd/name_text_field.dart';
+import 'package:Expenseye/Components/Global/app_bar_btn.dart';
 import 'package:Expenseye/Components/Global/bottom_nav_button.dart';
 import 'package:Expenseye/Enums/transac_type.dart';
 import 'package:Expenseye/Models/Category.dart';
@@ -32,8 +32,9 @@ class _EditCategoryPageState extends State<EditCategoryPage> {
           appBar: AppBar(
             title: Text(widget.category.name),
             actions: <Widget>[
-              DeleteBtn(
+              AppBarBtn(
                 onPressed: () async => await model.delete(context),
+                icon: const Icon(Icons.delete_forever),
               ),
             ],
           ),

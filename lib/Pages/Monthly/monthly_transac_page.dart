@@ -4,7 +4,6 @@ import 'package:Expenseye/Components/Transac/transac_list_tile.dart';
 import 'package:Expenseye/Models/Transac.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:Expenseye/Providers/Global/transac_model.dart';
-import 'package:Expenseye/Providers/Global/settings_notifier.dart';
 import 'package:Expenseye/Providers/monthly_model.dart';
 import 'package:Expenseye/Resources/Themes/app_colors.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
@@ -100,9 +99,7 @@ class _DayContainer extends StatelessWidget {
                 Text(
                   '${_transacModel.totalString(_transacModel.calcTransacsTotal(transacs))}',
                   style: TextStyle(
-                    color: ColorChooserFromTheme.balanceColorChooser(
-                      Provider.of<SettingsNotifier>(context).getTheme(),
-                    ),
+                    color: ColorChooserFromTheme.balanceColor,
                   ),
                 ),
               ],

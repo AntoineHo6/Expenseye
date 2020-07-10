@@ -3,6 +3,7 @@ import 'package:Expenseye/Pages/daily_page.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:Expenseye/Providers/Global/transac_model.dart';
 import 'package:Expenseye/Providers/Global/settings_notifier.dart';
+import 'package:Expenseye/Resources/Themes/app_colors.dart';
 import 'package:Expenseye/Resources/Themes/my_theme_data.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
@@ -58,6 +59,9 @@ class _MyAppState extends State<MyApp> {
     } else {
       SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
     }
+
+    // will set the static colors
+    ColorChooserFromTheme(settingsNotifier.getTheme());
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,

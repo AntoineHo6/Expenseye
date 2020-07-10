@@ -38,6 +38,7 @@ class TransacModel extends ChangeNotifier {
     }
   }
 
+  // TODO: change to sql SUM
   void calcTotals(dynamic model, List<Transac> transacs) {
     double total = 0;
     double expenseTotal = 0;

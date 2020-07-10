@@ -6,7 +6,6 @@ import 'package:Expenseye/Models/recurring_transac.dart';
 import 'package:Expenseye/Pages/RecurringTransac/AddRecurringTransac/add_recurring_transac_home_page.dart';
 import 'package:Expenseye/Pages/RecurringTransac/edit_recurring_transac_page.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
-import 'package:Expenseye/Providers/Global/settings_notifier.dart';
 import 'package:Expenseye/Resources/Themes/app_colors.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
 import 'package:Expenseye/app_localizations.dart';
@@ -132,8 +131,6 @@ class _RecurringTransacPageState extends State<RecurringTransacPage> {
     List<RecurringTransac> recurringTransacs,
     TransacType type,
   ) {
-    final settingsNotifier = Provider.of<SettingsNotifier>(context, listen: false);
-
     return recurringTransacs.map(
       (recurringTransac) {
         return Container(
@@ -160,10 +157,9 @@ class _RecurringTransacPageState extends State<RecurringTransacPage> {
                     ? '- ${recurringTransac.amount.toStringAsFixed(2)} \$'
                     : '+ ${recurringTransac.amount.toStringAsFixed(2)} \$',
                 style: TextStyle(
-                  color: ColorChooserFromTheme.transacColorTypeChooser(
-                    type,
-                    settingsNotifier.getTheme(),
-                  ),
+                  color: type == TransacType.expense
+                      ? ColorChooserFromTheme.expenseColor
+                      : ColorChooserFromTheme.incomeColor,
                 ),
               ),
               isThreeLine: true,

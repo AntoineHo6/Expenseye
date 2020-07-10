@@ -1,9 +1,7 @@
-import 'package:Expenseye/Enums/transac_type.dart';
-import 'package:Expenseye/Providers/Global/settings_notifier.dart';
 import 'package:Expenseye/Resources/Themes/app_colors.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:Expenseye/Components/Global/total_box.dart';
 
 class MonthlyYearlyHeader extends StatelessWidget {
   final pageModel; // MonthlyModel or YearlyModel
@@ -30,104 +28,26 @@ class MonthlyYearlyHeader extends StatelessWidget {
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              _headerTransacTypeTotalRect(
-                context,
-                AppLocalizations.of(context).translate('income'),
-                pageModel.currentIncomeTotal,
-                TransacType.income,
+              TotalBox(
+                title: AppLocalizations.of(context).translate('income'),
+                total: '+${pageModel.currentIncomeTotal.toStringAsFixed(2)} \$',
+                textColor: ColorChooserFromTheme.incomeColor,
               ),
               const SizedBox(width: 5),
-              _headerTransacTypeTotalRect(
-                context,
-                AppLocalizations.of(context).translate('expense'),
-                pageModel.currentExpenseTotal,
-                TransacType.expense,
+              TotalBox(
+                title: AppLocalizations.of(context).translate('expense'),
+                total: '-${pageModel.currentExpenseTotal.toStringAsFixed(2)} \$',
+                textColor: ColorChooserFromTheme.expenseColor,
               ),
               const SizedBox(width: 5),
-              _headerBalanceTotalRectangle(
-                context,
-                AppLocalizations.of(context).translate('balance'),
-                pageModel.currentTotal,
+              TotalBox(
+                title: AppLocalizations.of(context).translate('balance'),
+                total: '${pageModel.currentTotal.toStringAsFixed(2)} \$',
+                textColor: ColorChooserFromTheme.balanceColor,
               ),
             ],
           ),
         ],
-      ),
-    );
-  }
-
-  Widget _headerTransacTypeTotalRect(
-    BuildContext context,
-    String title,
-    double total,
-    TransacType type,
-  ) {
-    final settingsNotifier = Provider.of<SettingsNotifier>(context, listen: false);
-    return Expanded(
-      child: Card(
-        child: Padding(
-          padding: const EdgeInsets.all(10),
-          child: Column(
-            children: <Widget>[
-              FittedBox(
-                child: Text(
-                  title,
-                  style: Theme.of(context).textTheme.subtitle1,
-                ),
-              ),
-              const SizedBox(height: 5),
-              FittedBox(
-                child: Text(
-                  type == TransacType.expense
-                      ? '-${total.toStringAsFixed(2)} \$'
-                      : '+${total.toStringAsFixed(2)} \$',
-                  style: TextStyle(
-                    color: ColorChooserFromTheme.transacColorTypeChooser(
-                      type,
-                      settingsNotifier.getTheme(),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _headerBalanceTotalRectangle(
-    BuildContext context,
-    String title,
-    double total,
-  ) {
-    final settingsNotifier = Provider.of<SettingsNotifier>(context, listen: false);
-    return Expanded(
-      child: Card(
-        child: Padding(
-          padding: const EdgeInsets.all(10),
-          child: Column(
-            children: <Widget>[
-              FittedBox(
-                child: Text(
-                  title,
-                  style: Theme.of(context).textTheme.subtitle1,
-                ),
-              ),
-              const SizedBox(height: 5),
-              FittedBox(
-                child: Text(
-                  '${total.toStringAsFixed(2)} \$',
-                  style: TextStyle(
-                    color: ColorChooserFromTheme.balanceColorChooser(
-                      settingsNotifier.getTheme(),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
       ),
     );
   }

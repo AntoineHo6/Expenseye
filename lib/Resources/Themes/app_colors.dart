@@ -1,4 +1,3 @@
-import 'package:Expenseye/Enums/transac_type.dart';
 import 'package:Expenseye/Resources/Themes/my_theme_data.dart';
 import 'package:flutter/material.dart';
 
@@ -27,27 +26,19 @@ class AppLightThemeColors {
 }
 
 class ColorChooserFromTheme {
-  static transacColorTypeChooser(TransacType type, ThemeData theme) {
-    if (type == TransacType.expense) {
-      if (theme == MyThemeData.lightTheme) {
-        return AppLightThemeColors.expenseColor;
-      } else {
-        return AppDarkThemeColors.expenseColor;
-      }
-    } else {
-      if (theme == MyThemeData.lightTheme) {
-        return AppLightThemeColors.incomeColor;
-      } else {
-        return AppDarkThemeColors.incomeColor;
-      }
-    }
-  }
+  static Color expenseColor;
+  static Color incomeColor;
+  static Color balanceColor;
 
-  static Color balanceColorChooser(ThemeData theme) {
+  ColorChooserFromTheme(ThemeData theme) {
     if (theme == MyThemeData.lightTheme) {
-      return AppLightThemeColors.balanceColor;
+      expenseColor = AppLightThemeColors.expenseColor;
+      incomeColor = AppLightThemeColors.incomeColor;
+      balanceColor = AppLightThemeColors.balanceColor;
     } else {
-      return AppDarkThemeColors.balanceColor;
+      expenseColor = AppDarkThemeColors.expenseColor;
+      incomeColor = AppDarkThemeColors.incomeColor;
+      balanceColor = AppDarkThemeColors.balanceColor;
     }
   }
 }

@@ -3,11 +3,9 @@ import 'package:Expenseye/Models/Category.dart';
 import 'package:Expenseye/Models/Transac.dart';
 import 'package:Expenseye/Models/account.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
-import 'package:Expenseye/Providers/Global/settings_notifier.dart';
 import 'package:Expenseye/Resources/Themes/app_colors.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 class TransacListTile extends StatelessWidget {
   final Transac transac;
@@ -26,7 +24,6 @@ class TransacListTile extends StatelessWidget {
     IconData iconData = category != null ? category.iconData : Icons.warning;
     String accountName =
         account != null ? account.name : AppLocalizations.of(context).translate('error');
-    final settingsNotifier = Provider.of<SettingsNotifier>(context, listen: false);
 
     return RaisedButton(
       color: color,
@@ -49,10 +46,9 @@ class TransacListTile extends StatelessWidget {
               ? '-${transac.amount.toStringAsFixed(2)} \$'
               : '+${transac.amount.toStringAsFixed(2)} \$',
           style: TextStyle(
-            color: ColorChooserFromTheme.transacColorTypeChooser(
-              transac.type,
-              settingsNotifier.getTheme(),
-            ),
+            color: transac.type == TransacType.expense
+                ? ColorChooserFromTheme.expenseColor
+                : ColorChooserFromTheme.incomeColor,
           ),
         ),
         subtitle: Text(accountName),

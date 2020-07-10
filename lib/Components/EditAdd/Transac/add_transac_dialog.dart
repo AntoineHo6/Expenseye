@@ -28,26 +28,19 @@ class _AddTransacDialogState extends State<AddTransacDialog> {
 
   @override
   Widget build(BuildContext context) {
-    final settingsNotifier = Provider.of<SettingsNotifier>(context, listen: false);
     String title;
     Icon icon;
     if (widget.type == TransacType.expense) {
       title = AppLocalizations.of(context).translate('newExpense');
       icon = Icon(
         MdiIcons.currencyUsdCircle,
-        color: ColorChooserFromTheme.transacColorTypeChooser(
-          widget.type,
-          settingsNotifier.getTheme(),
-        ),
+        color: ColorChooserFromTheme.expenseColor,
       );
     } else {
       title = AppLocalizations.of(context).translate('newIncome');
       icon = Icon(
         MdiIcons.currencyUsd,
-        color: ColorChooserFromTheme.transacColorTypeChooser(
-          widget.type,
-          settingsNotifier.getTheme(),
-        ),
+        color: ColorChooserFromTheme.incomeColor,
       );
     }
 

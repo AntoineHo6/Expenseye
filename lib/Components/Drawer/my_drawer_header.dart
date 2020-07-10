@@ -1,3 +1,4 @@
+import 'package:Expenseye/Components/Global/load_dialog.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -57,8 +58,7 @@ class MyDrawerHeader extends StatelessWidget {
                 return Column(
                   children: <Widget>[
                     Text(
-                      AppLocalizations.of(context)
-                          .translate('signInToAvoidLosingData'),
+                      AppLocalizations.of(context).translate('signInToAvoidLosingData'),
                       style: TextStyle(
                         color: Theme.of(context).errorColor,
                         fontSize: 11,
@@ -120,24 +120,7 @@ class MyDrawerHeader extends StatelessWidget {
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
-        return Dialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const CircularProgressIndicator(),
-                const SizedBox(
-                  width: 35,
-                ),
-                Text(AppLocalizations.of(context).translate('loading')),
-              ],
-            ),
-          ),
-        );
+        return LoadDialog();
       },
     );
   }

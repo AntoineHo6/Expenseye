@@ -8,7 +8,7 @@ class CategoryPickerBtn extends StatelessWidget {
   final double height;
   final double iconSize;
   final double iconBottomPosition;
-  final Color borderSideColor;
+  final bool isInError;
 
   CategoryPickerBtn({
     @required this.onPressed,
@@ -17,7 +17,7 @@ class CategoryPickerBtn extends StatelessWidget {
     this.height = 50,
     this.iconSize = 70,
     this.iconBottomPosition = -25,
-    this.borderSideColor = Colors.transparent,
+    this.isInError = false,
   });
 
   @override
@@ -27,14 +27,13 @@ class CategoryPickerBtn extends StatelessWidget {
     IconData iconData;
     Color iconColor;
     if (categoryId == null) {
-      highlightColor = Theme.of(context).focusColor.withOpacity(0.15);
-      splashColor = Theme.of(context).focusColor.withOpacity(0.1);
-      iconData = Icons.add;
+      highlightColor = Theme.of(context).focusColor.withOpacity(0.2);
+      splashColor = Theme.of(context).focusColor.withOpacity(0.2);
+      iconData = Icons.category;
       iconColor = Theme.of(context).focusColor;
-    } 
-    else {
-      highlightColor = DbModel.catMap[categoryId].color.withOpacity(0.1);
-      splashColor = DbModel.catMap[categoryId].color.withOpacity(0.1);
+    } else {
+      highlightColor = DbModel.catMap[categoryId].color.withOpacity(0.2);
+      splashColor = DbModel.catMap[categoryId].color.withOpacity(0.2);
       iconData = DbModel.catMap[categoryId].iconData;
       iconColor = DbModel.catMap[categoryId].color;
     }
@@ -44,7 +43,7 @@ class CategoryPickerBtn extends StatelessWidget {
       splashColor: splashColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
-        side: BorderSide(color: borderSideColor),
+        side: BorderSide(color: isInError ? Theme.of(context).errorColor : Colors.transparent),
       ),
       onPressed: onPressed,
       child: SizedBox(

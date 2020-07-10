@@ -1,5 +1,6 @@
 import 'package:Expenseye/Components/EditAdd/Category/color_picker_dialog.dart';
 import 'package:Expenseye/Components/Global/confirmation_dialog.dart';
+import 'package:Expenseye/Components/Global/load_dialog.dart';
 import 'package:Expenseye/Enums/transac_type.dart';
 import 'package:Expenseye/Helpers/database_helper.dart';
 import 'package:Expenseye/Models/Category.dart';
@@ -32,12 +33,11 @@ class EditCategoryModel extends ChangeNotifier {
   }
 
   void initSelectedIconIndex(Category oldCategory) {
-    List<IconData> icons = (oldCategory.type == TransacType.expense)
-        ? MyIcons.expenseIcons
-        : MyIcons.incomeIcons;
+    List<IconData> icons =
+        (oldCategory.type == TransacType.expense) ? MyIcons.expenseIcons : MyIcons.incomeIcons;
 
-    selectedIconIndex = icons.indexWhere(
-        (iconData) => iconData.codePoint == oldCategory.iconData.codePoint);
+    selectedIconIndex =
+        icons.indexWhere((iconData) => iconData.codePoint == oldCategory.iconData.codePoint);
 
     notifyListeners();
   }
@@ -45,8 +45,7 @@ class EditCategoryModel extends ChangeNotifier {
   void checkNameInvalid(String newName) {
     newName = newName.trim();
 
-    if (categoryNamesLowerCase.contains(newName.toLowerCase()) ||
-        newName.isEmpty) {
+    if (categoryNamesLowerCase.contains(newName.toLowerCase()) || newName.isEmpty) {
       isNameInvalid = true;
     } else {
       isNameInvalid = false;
@@ -84,15 +83,25 @@ class EditCategoryModel extends ChangeNotifier {
         type: type,
       );
 
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return LoadDialog();
+        },
+      );
+
+      // TODO: put all this code in a fucntion on DbModel
       await DatabaseHelper.instance
           .updateTransacsAndRecTransacsCategory(oldCategoryId, updatedCategory.id);
       await DatabaseHelper.instance.deleteCategory(oldCategoryId);
       await DatabaseHelper.instance.insertCategory(updatedCategory);
 
-      await Provider.of<DbModel>(context, listen: false)
-          .initUserCategoriesMap();
+      await Provider.of<DbModel>(context, listen: false).initUserCategoriesMap().then(
+            (value) => Navigator.pop(context), // pop out of the loading dialog
+          );
 
-      Navigator.pop(context);
+      Navigator.pop(context); // pop out of the page
     }
   }
 
@@ -105,14 +114,19 @@ class EditCategoryModel extends ChangeNotifier {
     );
 
     if (confirmed != null && confirmed) {
-      await Provider.of<DbModel>(context, listen: false)
-          .deleteTransacsByCategory(oldCategoryId);
-      await DatabaseHelper.instance
-          .deleteRecurringTransacsByCategory(oldCategoryId);
-      await Provider.of<DbModel>(context, listen: false)
-          .deleteCategory(oldCategoryId);
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return LoadDialog();
+        },
+      );
 
-      Navigator.pop(context);
+      await Provider.of<DbModel>(context, listen: false).deleteCategory(oldCategoryId).then(
+            (value) => Navigator.pop(context), // pop out of the loading dialog
+          );
+
+      Navigator.pop(context); // pop out of the page
     }
   }
 }

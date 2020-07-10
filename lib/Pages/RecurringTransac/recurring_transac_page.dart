@@ -1,3 +1,4 @@
+import 'package:Expenseye/Components/Global/app_bar_btn.dart';
 import 'package:Expenseye/Components/RecurringTransac/my_divider.dart';
 import 'package:Expenseye/Enums/transac_type.dart';
 import 'package:Expenseye/Enums/periodicity.dart';
@@ -23,10 +24,9 @@ class _RecurringTransacPageState extends State<RecurringTransacPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-            AppLocalizations.of(context).translate('recurringTransactions')),
+        title: Text(AppLocalizations.of(context).translate('recurringTransactions')),
         actions: <Widget>[
-          RaisedButton(
+          AppBarBtn(
             onPressed: () {
               Navigator.push(
                 context,
@@ -35,11 +35,7 @@ class _RecurringTransacPageState extends State<RecurringTransacPage> {
                 ),
               );
             },
-            child: const Icon(Icons.add),
-            shape: const CircleBorder(
-              side: const BorderSide(color: Colors.transparent),
-            ),
-            elevation: 2,
+            icon: const Icon(Icons.add),
           ),
         ],
       ),
@@ -61,8 +57,7 @@ class _RecurringTransacPageState extends State<RecurringTransacPage> {
                           Container(
                             margin: const EdgeInsets.only(left: 10, top: 10),
                             child: Text(
-                              AppLocalizations.of(context)
-                                  .translate('expenses'),
+                              AppLocalizations.of(context).translate('expenses'),
                               style: Theme.of(context).textTheme.headline1,
                             ),
                           ),
@@ -99,8 +94,7 @@ class _RecurringTransacPageState extends State<RecurringTransacPage> {
               return Align(
                 alignment: Alignment.center,
                 child: Text(
-                  AppLocalizations.of(context)
-                      .translate('addYourFirstRecurringTransaction'),
+                  AppLocalizations.of(context).translate('addYourFirstRecurringTransaction'),
                   style: Theme.of(context).textTheme.headline6,
                 ),
               );
@@ -123,8 +117,7 @@ class _RecurringTransacPageState extends State<RecurringTransacPage> {
     recurringTransacsByCategoryType[1] = new List(); // incomes
 
     for (RecurringTransac recurringTransac in recurringTransacs) {
-      if (DbModel.catMap[recurringTransac.category].type ==
-          TransacType.expense) {
+      if (DbModel.catMap[recurringTransac.categoryId].type == TransacType.expense) {
         recurringTransacsByCategoryType[0].add(recurringTransac);
       } else {
         recurringTransacsByCategoryType[1].add(recurringTransac);
@@ -139,27 +132,23 @@ class _RecurringTransacPageState extends State<RecurringTransacPage> {
     List<RecurringTransac> recurringTransacs,
     TransacType type,
   ) {
-    final settingsNotifier =
-        Provider.of<SettingsNotifier>(context, listen: false);
+    final settingsNotifier = Provider.of<SettingsNotifier>(context, listen: false);
 
     return recurringTransacs.map(
       (recurringTransac) {
         return Container(
           margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
           child: RaisedButton(
-            highlightColor: DbModel.catMap[recurringTransac.category].color
-                .withOpacity(0.1),
-            splashColor: DbModel.catMap[recurringTransac.category].color
-                .withOpacity(0.1),
+            highlightColor: DbModel.catMap[recurringTransac.categoryId].color.withOpacity(0.2),
+            splashColor: DbModel.catMap[recurringTransac.categoryId].color.withOpacity(0.2),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.0),
             ),
-            onPressed: () =>
-                _openEditRecurringTransacPage(context, recurringTransac),
+            onPressed: () => _openEditRecurringTransacPage(context, recurringTransac),
             child: ListTile(
               leading: Icon(
-                DbModel.catMap[recurringTransac.category].iconData,
-                color: DbModel.catMap[recurringTransac.category].color,
+                DbModel.catMap[recurringTransac.categoryId].iconData,
+                color: DbModel.catMap[recurringTransac.categoryId].color,
               ),
               title: Text(
                 recurringTransac.name,
@@ -209,34 +198,28 @@ class _RecurringTransacPageState extends State<RecurringTransacPage> {
     }
   }
 
-  Widget _subtitleText(
-      BuildContext context, RecurringTransac recurringTransac) {
+  Widget _subtitleText(BuildContext context, RecurringTransac recurringTransac) {
     String periodicityTitle;
-    periodicityTitle =
-        PeriodicityHelper.getString(context, recurringTransac.periodicity);
+    periodicityTitle = PeriodicityHelper.getString(context, recurringTransac.periodicity);
 
     return RichText(
       text: TextSpan(
-        style: DefaultTextStyle.of(context).style,
         children: <TextSpan>[
           TextSpan(
-            text: '$periodicityTitle\n',
+            text: '${DbModel.accMap[recurringTransac.accountId].name}\n',
             style: TextStyle(
               color: Theme.of(context).textTheme.caption.color,
-              fontStyle: FontStyle.italic,
             ),
           ),
           TextSpan(
-            text: '${AppLocalizations.of(context).translate('nextDueDate')}: ',
+            text: '$periodicityTitle - ${AppLocalizations.of(context).translate('nextDueDate')}: ',
             style: TextStyle(
-              fontStyle: FontStyle.italic,
               fontSize: 12,
               color: Theme.of(context).textTheme.caption.color,
             ),
           ),
           TextSpan(
-            text:
-                '${DateTimeUtil.formattedDate(context, recurringTransac.dueDate)}',
+            text: '${DateTimeUtil.formattedDate(context, recurringTransac.dueDate)}\n',
             style: TextStyle(
               fontStyle: FontStyle.italic,
               fontSize: 13,

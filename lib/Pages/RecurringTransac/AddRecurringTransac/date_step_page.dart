@@ -10,17 +10,16 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-class DateAddRecTransacPage extends StatefulWidget {
+class DateStepPage extends StatefulWidget {
   final Periodicity periodicity;
 
-  DateAddRecTransacPage(this.periodicity);
+  DateStepPage(this.periodicity);
 
   @override
-  _DateAddRecTransacPageState createState() => _DateAddRecTransacPageState();
+  _DateStepPageState createState() => _DateStepPageState();
 }
 
-class _DateAddRecTransacPageState extends State<DateAddRecTransacPage>
-    with TickerProviderStateMixin {
+class _DateStepPageState extends State<DateStepPage> with TickerProviderStateMixin {
   CalendarController _calendarController;
   bool monthlyPeriodicityError = false;
   AnimationController _animationController;
@@ -30,8 +29,7 @@ class _DateAddRecTransacPageState extends State<DateAddRecTransacPage>
 
   @override
   Widget build(BuildContext context) {
-    final _model =
-        Provider.of<AddRecurringTransacModel>(context, listen: false);
+    final _model = Provider.of<AddRecurringTransacModel>(context, listen: false);
     _animationController.forward();
 
     return FadeTransition(
@@ -67,8 +65,8 @@ class _DateAddRecTransacPageState extends State<DateAddRecTransacPage>
             children: <Widget>[
               AddRecTransacStepsHeader(
                 title:
-                    '3. ${AppLocalizations.of(context).translate('selectAStartingDate')}',
-                percent: 0.6,
+                    '${_model.step}. ${AppLocalizations.of(context).translate('selectAStartingDate')}',
+                percent: 0.4998,
               ),
               _tableCalendar(context),
             ],

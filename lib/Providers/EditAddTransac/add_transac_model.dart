@@ -1,8 +1,10 @@
 import 'package:Expenseye/Enums/transac_type.dart';
 import 'package:Expenseye/Models/Transac.dart';
+import 'package:Expenseye/Pages/EditAddTransac/choose_account_page.dart';
 import 'package:Expenseye/Pages/EditAddTransac/choose_category_page.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:Expenseye/Providers/Global/settings_notifier.dart';
+import 'package:Expenseye/Utils/check_textfields_util.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -15,8 +17,9 @@ class AddTransacModel extends ChangeNotifier {
   DateTime date;
   TransacType type;
   String categoryId;
+  String accountId;
 
-  AddTransacModel(this.date, this.type);
+  AddTransacModel(this.date, this.type, this.accountId);
 
   // Will make the save button clickable
   void updateDate(DateTime newDate) {
@@ -35,10 +38,11 @@ class AddTransacModel extends ChangeNotifier {
     updateDate(newDate);
   }
 
-  void addTransac(BuildContext context, String newName, String newAmount) {
+  Future<void> addTransac(BuildContext context, String newName, String newAmount) async {
     // make sure to remove time before adding to db
     final DateTime newDate = DateTimeUtil.timeToZeroInDate(date);
 
+    // newName = newName.trim();
     bool areFieldsInvalid = _checkFieldsInvalid(newName, newAmount);
     _checkCategoryInvalid();
 
@@ -46,14 +50,23 @@ class AddTransacModel extends ChangeNotifier {
     if (!areFieldsInvalid && !isCategoryMissingError) {
       Transac newTransac = new Transac(
         newName,
-        double.parse(newAmount),
+        (double.parse(newAmount)).abs(),
         newDate,
         type,
         categoryId,
+        accountId,
       );
 
-      Provider.of<DbModel>(context, listen: false).addTransac(newTransac);
-      Navigator.pop(context, true);
+      await Provider.of<DbModel>(context, listen: false).insertTransac(newTransac);
+      Provider.of<DbModel>(context, listen: false).notifyListeners();
+
+      String lastUsedAccountId =
+          Provider.of<SettingsNotifier>(context, listen: false).getLastUsedAccountId();
+      if (accountId != lastUsedAccountId) {
+        Provider.of<SettingsNotifier>(context, listen: false).setLastUsedAccountId(accountId);
+      }
+
+      Navigator.pop(context);
     }
   }
 
@@ -74,18 +87,25 @@ class AddTransacModel extends ChangeNotifier {
     }
   }
 
+  Future<void> openChooseAccountPage(BuildContext context) async {
+    final newAccountId = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ChooseAccountPage(),
+      ),
+    );
+
+    if (newAccountId != null) {
+      accountId = newAccountId;
+      notifyListeners();
+    }
+  }
+
   /// Will check and show error msg if a field is invalid.
   bool _checkFieldsInvalid(String newName, String newAmount) {
-    // check NAME field
-    isNameInvalid = newName.trim().isEmpty ? true : false;
+    isNameInvalid = CheckTextFieldsUtil.isStringInvalid(newName);
 
-    // check AMOUNT field
-    try {
-      double.parse(newAmount);
-      isAmountInvalid = false;
-    } on FormatException {
-      isAmountInvalid = true;
-    }
+    isAmountInvalid = CheckTextFieldsUtil.isNumberStringInvalid(newAmount);
 
     notifyListeners();
 

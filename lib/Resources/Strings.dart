@@ -1,7 +1,7 @@
 class Strings {
   static const String versionNumber = '1.4.11';
 
-  // * EXPENSE categories EN
+  // * DEFAULT EXPENSE categories EN
   static const String foodEN = 'Food';
   static const String transportationEN = 'Transportation';
   static const String shoppingEN = 'Shopping';
@@ -13,7 +13,7 @@ class Strings {
   static const String peopleEN = 'People';
   static const String educationEN = 'Education';
 
-  // * EXPENSE categories FR
+  // * DEFAULT EXPENSE categories FR
   static const String foodFR = 'Nourriture';
   static const String transportationFR = 'Transport';
   static const String shoppingFR = 'Magazinage';
@@ -25,7 +25,7 @@ class Strings {
   static const String peopleFR = 'Gens';
   static const String educationFR = 'Éducation';
 
-  // * INCOME categories EN
+  // * DEFAULT INCOME categories EN
   static const String salaryEN = 'Salary';
   static const String giftEN = 'Gift';
   static const String businessEN = 'Business';
@@ -33,7 +33,7 @@ class Strings {
   static const String realEstateEN = 'Real Estate';
   static const String investmentEN = 'Investment';
   static const String refundEN = 'Refund';
-  // * INCOME categories FR
+  // * DEFAULT INCOME categories FR
   static const String salaryFR = 'Salaire';
   static const String giftFR = 'Cadeau';
   static const String businessFR = 'Affaire';
@@ -42,15 +42,27 @@ class Strings {
   static const String investmentFR = 'Investissement';
   static const String refundFR = 'Remboursement';
 
-  // * TRANSACTIONS DATABASE table and column names
+  // * DEFAULT CASH ACCOUNT EN
+  static const String cashEN = 'Cash';
+  // * DEFAULT CASH ACCOUNT FR
+  static const String cashFR = 'Espèces';
+
   static const String dbFileName = 'itemsDb.db';
-  static const String tableTransac = 'items';
-  static const String transacColumnId = 'expense_id';
+
+  // * SQLITE_SEQUENCE table name
+  static const String tableSqliteSequence = 'sqlite_sequence';
+  static const String sqliteSequenceColumnName = 'name';
+  static const String sqliteSequenceColumnSeq = 'seq';
+
+  // * TRANSACTIONS DATABASE table and column names
+  static const String tableTransacs = 'transactions';
+  static const String transacColumnId = 'id';
   static const String transacColumnName = 'name';
-  static const String transacColumnValue = 'value';
+  static const String transacColumnValue = 'amount';
   static const String transacColumnDate = 'date';
   static const String transacColumnCategory = 'category';
   static const String transacColumnType = 'type';
+  static const String transacColumnAccount = 'account';
 
   // * CATEGORIES DATABASE table and column names
   static const String tableCategories = 'categories';
@@ -60,14 +72,20 @@ class Strings {
   static const String categoryColumnColor = 'color';
   static const String categoryColumnType = 'type';
 
-  // * RECCURENT TRANSACTIONS DATABASE table and extra column names
-  static const String tableRecurringTransac = 'recurring_items';
-  static const String recurringTransacColumnId = 'recurring_item_id';
+  // * RECCURING TRANSACTIONS DATABASE table and extra column names
+  static const String tableRecurringTransacs = 'recurring_transacs';
+  static const String recurringTransacColumnId = 'id';
   static const String recurringTransacColumnName = 'name';
   static const String recurringTransacColumnAmount = 'amount';
   static const String recurringTransacColumnDueDate = 'due_date';
   static const String recurringTransacColumnPeriodicity = 'periodicity';
   static const String recurringTransacColumnCategory = 'category';
+  static const String recurringTransacColumnAccount = 'account';
+
+  static const String tableAccounts = 'accounts';
+  static const String accountColumnId = 'accounts_id';
+  static const String accountColumnName = 'name';
+  static const String accountColumnBalance = 'balance';
 
   static const String privacyLegalese = '''
 Privacy Policy

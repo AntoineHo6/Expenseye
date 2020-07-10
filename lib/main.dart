@@ -18,10 +18,13 @@ Future<void> main() async {
   bool darkModeOn;
   int localNotifHour;
   int localNotifMinute;
-  await SharedPreferences.getInstance().then((prefs) {
+  String lastUsedAccountId;
+  await SharedPreferences.getInstance().then((prefs) async {
     darkModeOn = prefs.getBool('darkMode') ?? true;
     localNotifHour = prefs.getInt('localNotificationsHour') ?? 12;
     localNotifMinute = prefs.getInt('localNotificationsMinute') ?? 0;
+    lastUsedAccountId = prefs.getString('lastUsedAccountId') ??
+        await DatabaseHelper.instance.queryFirstAccount().then((account) => account.id);
     runApp(
       MultiProvider(
         providers: [
@@ -31,6 +34,7 @@ Future<void> main() async {
             create: (_) => SettingsNotifier(
               darkModeOn ? MyThemeData.darkTheme : MyThemeData.lightTheme,
               TimeOfDay(hour: localNotifHour, minute: localNotifMinute),
+              lastUsedAccountId,
             ),
           ),
         ],
@@ -71,8 +75,7 @@ class _MyAppState extends State<MyApp> {
             return supportedLocale;
           }
         }
-        DatabaseHelper.instance.languageCode =
-            supportedLocales.first.languageCode;
+        DatabaseHelper.instance.languageCode = supportedLocales.first.languageCode;
         return supportedLocales.first;
       },
       home: DailyPage(),
@@ -125,12 +128,11 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
     final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-    var initializationSettingsAndroid =
-        AndroidInitializationSettings('app_icon');
-    var initializationSettingsIOS = IOSInitializationSettings(
-        onDidReceiveLocalNotification: onDidReceiveLocalNotification);
-    var initializationSettings = InitializationSettings(
-        initializationSettingsAndroid, initializationSettingsIOS);
+    var initializationSettingsAndroid = AndroidInitializationSettings('app_icon');
+    var initializationSettingsIOS =
+        IOSInitializationSettings(onDidReceiveLocalNotification: onDidReceiveLocalNotification);
+    var initializationSettings =
+        InitializationSettings(initializationSettingsAndroid, initializationSettingsIOS);
     flutterLocalNotificationsPlugin.initialize(initializationSettings,
         onSelectNotification: selectNotification);
   }

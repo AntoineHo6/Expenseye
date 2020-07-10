@@ -1,7 +1,9 @@
+import 'package:Expenseye/Components/Global/load_dialog.dart';
 import 'package:Expenseye/Enums/transac_type.dart';
 import 'package:Expenseye/Enums/periodicity.dart';
 import 'package:Expenseye/Models/recurring_transac.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
+import 'package:Expenseye/Utils/check_textfields_util.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -13,9 +15,11 @@ class AddRecurringTransacModel extends ChangeNotifier {
   DateTime startingDay;
   Periodicity periodicity;
   String categoryId;
+  String accountId;
   TransacType type;
   bool isNameInvalid = false;
   bool isAmountInvalid = false;
+  bool isCategorySelected = true;
 
   AddRecurringTransacModel();
 
@@ -46,42 +50,51 @@ class AddRecurringTransacModel extends ChangeNotifier {
     }
   }
 
+  void goNextFromAccountStepPage(String accountId) {
+    this.accountId = accountId;
+    step++;
+    notifyListeners();
+  }
+
   // Will check and show error msg if a field is invalid.
   bool _checkFieldsInvalid(String name, String amount) {
-    // check NAME field
-    this.isNameInvalid = name.isEmpty ? true : false;
-
-    // check AMOUNT field
-    try {
-      double.parse(amount);
-      this.isAmountInvalid = false;
-    } on FormatException {
-      this.isAmountInvalid = true;
-    }
+    isNameInvalid = CheckTextFieldsUtil.isStringInvalid(name);
+    isAmountInvalid = CheckTextFieldsUtil.isNumberStringInvalid(amount);
 
     notifyListeners();
 
     // update areFieldsInvalid
     if (!isNameInvalid && !isAmountInvalid) {
       this.name = name;
-      this.amount = double.parse(amount);
+      this.amount = (double.parse(amount)).abs();
       return false;
     }
     return true;
   }
 
-  void createRecurringTransac(BuildContext context) {
+  Future<void> createRecurringTransac(BuildContext context) async {
     RecurringTransac newRecurringTransac = new RecurringTransac(
       this.name,
       this.amount,
       this.startingDay,
-      this.categoryId,
       periodicity,
+      this.categoryId,
+      this.accountId,
     );
-    Provider.of<DbModel>(context, listen: false)
-        .insertRecurringTransac(newRecurringTransac);
 
-    Provider.of<DbModel>(context, listen: false).initCheckRecurringTransacs();
-    Navigator.pop(context);
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return LoadDialog();
+      },
+    );
+
+    await Provider.of<DbModel>(context, listen: false).insertRecurringTransac(newRecurringTransac);
+    await Provider.of<DbModel>(context, listen: false).initCheckRecurringTransacs().then(
+          (value) => Navigator.pop(context), // pop out of the loading dialog
+        );
+
+    Navigator.pop(context); // pop out of the page
   }
 }

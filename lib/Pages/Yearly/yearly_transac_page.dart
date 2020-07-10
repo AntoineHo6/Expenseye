@@ -20,13 +20,11 @@ class YearlyTransacPage extends StatelessWidget {
 
     return Scaffold(
       body: FutureBuilder<List<Transac>>(
-        future:
-            Provider.of<DbModel>(context).queryTransacsInYear(_yearlyModel.year),
+        future: Provider.of<DbModel>(context).queryTransacsInYear(_yearlyModel.year),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data != null && snapshot.data.length > 0) {
-              var transacsSplitByMonth =
-                  _yearlyModel.splitTransacsByMonth(snapshot.data);
+              var transacsSplitByMonth = _yearlyModel.splitTransacsByMonth(snapshot.data);
               _transacModel.calcTotals(_yearlyModel, snapshot.data);
               return Column(
                 children: <Widget>[
@@ -76,7 +74,7 @@ class _MonthContainer extends StatelessWidget {
     final _transacModel = Provider.of<TransacModel>(context, listen: false);
 
     return Container(
-      margin: const EdgeInsets.all(10),
+      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       child: RaisedButton(
         elevation: 3,
         padding: const EdgeInsets.all(10),

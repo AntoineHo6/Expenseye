@@ -1,8 +1,5 @@
 import 'package:Expenseye/Enums/transac_type.dart';
-import 'package:Expenseye/Pages/EditAddTransac/edit_transac_page.dart';
 import 'package:Expenseye/Resources/Strings.dart';
-import 'package:Expenseye/app_localizations.dart';
-import 'package:flutter/material.dart';
 
 class Transac {
   int id;
@@ -11,6 +8,7 @@ class Transac {
   DateTime date;
   String categoryId;
   TransacType type;
+  String accountId;
 
   Transac(
     this.name,
@@ -18,6 +16,7 @@ class Transac {
     this.date,
     this.type,
     this.categoryId,
+    this.accountId,
   );
 
   Transac.withId(
@@ -27,6 +26,7 @@ class Transac {
     this.date,
     this.type,
     this.categoryId,
+    this.accountId,
   );
 
   Transac.fromMap(Map<String, dynamic> map) {
@@ -34,8 +34,9 @@ class Transac {
     name = map[Strings.transacColumnName];
     amount = map[Strings.transacColumnValue];
     date = DateTime.parse(map[Strings.transacColumnDate]);
-    categoryId = map[Strings.transacColumnCategory];
     type = TransacType.values[map[Strings.transacColumnType]];
+    categoryId = map[Strings.transacColumnCategory];
+    accountId = map[Strings.transacColumnAccount];
   }
 
   Map<String, dynamic> toMap() {
@@ -43,31 +44,13 @@ class Transac {
       Strings.transacColumnName: name,
       Strings.transacColumnValue: amount,
       Strings.transacColumnDate: date.toIso8601String(),
+      Strings.transacColumnType: type.index,
       Strings.transacColumnCategory: categoryId,
-      Strings.transacColumnType: type.index
+      Strings.transacColumnAccount: accountId,
     };
     if (id != null) {
       map[Strings.transacColumnId] = id;
     }
     return map;
-  }
-
-  // todo: MOVE THIS THE FRICK OUTTTTT
-  void openEditTransacPage(BuildContext context, Transac transac) async {
-    int action = await Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => EditTransacPage(transac)),
-    );
-
-    if (action != null) {
-      final snackBar = SnackBar(
-        content: action == 1
-            ? Text(AppLocalizations.of(context).translate('succEdited'))
-            : Text(AppLocalizations.of(context).translate('succDeleted')),
-        backgroundColor: Colors.grey.withOpacity(0.5),
-      );
-
-      Scaffold.of(context).showSnackBar(snackBar);
-    }
   }
 }

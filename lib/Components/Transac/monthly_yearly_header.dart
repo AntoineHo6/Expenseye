@@ -62,8 +62,7 @@ class MonthlyYearlyHeader extends StatelessWidget {
     double total,
     TransacType type,
   ) {
-    final settingsNotifier =
-        Provider.of<SettingsNotifier>(context, listen: false);
+    final settingsNotifier = Provider.of<SettingsNotifier>(context, listen: false);
     return Expanded(
       child: Card(
         child: Padding(
@@ -80,8 +79,8 @@ class MonthlyYearlyHeader extends StatelessWidget {
               FittedBox(
                 child: Text(
                   type == TransacType.expense
-                      ? '- ${total.toStringAsFixed(2)} \$'
-                      : '+ ${total.toStringAsFixed(2)} \$',
+                      ? '-${total.toStringAsFixed(2)} \$'
+                      : '+${total.toStringAsFixed(2)} \$',
                   style: TextStyle(
                     color: ColorChooserFromTheme.transacColorTypeChooser(
                       type,
@@ -102,8 +101,7 @@ class MonthlyYearlyHeader extends StatelessWidget {
     String title,
     double total,
   ) {
-    final settingsNotifier =
-        Provider.of<SettingsNotifier>(context, listen: false);
+    final settingsNotifier = Provider.of<SettingsNotifier>(context, listen: false);
     return Expanded(
       child: Card(
         child: Padding(

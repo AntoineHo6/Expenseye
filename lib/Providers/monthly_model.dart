@@ -71,9 +71,9 @@ class MonthlyModel extends ChangeNotifier {
     return '${AppLocalizations.of(context).translate(DateTimeUtil.monthNames[currentDate.month])} ${currentDate.year}';
   }
 
-  /// Returns nested lists of expenses seperated by day.
-  /// E.g. : [ [01, 01], [03, 03, 03], [04] ] where each number represents an
-  /// expense.
+  /// Returns nested lists of transactions seperated by day.
+  /// E.g. : [ [01, 01], [03, 03, 03], [04] ] where each number represents a
+  /// transaction.
   List<List<Transac>> splitTransacsByDay(List<Transac> expenses) {
     List<List<Transac>> expensesSplitByDay = new List();
 

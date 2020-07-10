@@ -3,7 +3,6 @@ import 'package:Expenseye/Resources/Themes/my_theme_data.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsPage extends StatelessWidget {
   @override
@@ -33,9 +32,7 @@ class SettingsPage extends StatelessWidget {
                     ],
                   ),
                   Switch(
-                    value: settingsNotifier.getTheme() == MyThemeData.darkTheme
-                        ? true
-                        : false,
+                    value: settingsNotifier.getTheme() == MyThemeData.darkTheme ? true : false,
                     onChanged: (newValue) async =>
                         await _onThemeChanged(newValue, settingsNotifier),
                   ),
@@ -64,8 +61,7 @@ class SettingsPage extends StatelessWidget {
                   ),
                   RaisedButton(
                     child: Icon(Icons.edit),
-                    onPressed: () async =>
-                        await _showTimePicker(context, settingsNotifier),
+                    onPressed: () async => await _showTimePicker(context, settingsNotifier),
                   ),
                 ],
               ),
@@ -76,27 +72,20 @@ class SettingsPage extends StatelessWidget {
     );
   }
 
-  Future<void> _onThemeChanged(bool value, SettingsNotifier settingsNotifier) async {
-    (value)
-        ? settingsNotifier.setTheme(MyThemeData.darkTheme)
-        : settingsNotifier.setTheme(MyThemeData.lightTheme);
-    // tODO: put setBool in notifier
-    var prefs = await SharedPreferences.getInstance();
-    prefs.setBool('darkMode', value);
+  Future<void> _onThemeChanged(bool isDarkModeOn, SettingsNotifier settingsNotifier) async {
+    (isDarkModeOn)
+        ? await settingsNotifier.setTheme(MyThemeData.darkTheme, isDarkModeOn)
+        : await settingsNotifier.setTheme(MyThemeData.lightTheme, isDarkModeOn);
   }
 
-  Future<void> _showTimePicker(
-      BuildContext context, SettingsNotifier settingsNotifier) async {
+  Future<void> _showTimePicker(BuildContext context, SettingsNotifier settingsNotifier) async {
     await showTimePicker(
       context: context,
       initialTime: settingsNotifier.getLocalNotifTime(),
     ).then(
       (selectedTime) async {
         if (selectedTime != null) {
-          settingsNotifier.setLocalNotifTime(selectedTime);
-          var prefs = await SharedPreferences.getInstance();
-          prefs.setInt('localNotificationsHour', selectedTime.hour);
-          prefs.setInt('localNotificationsMinute', selectedTime.minute);
+          await settingsNotifier.setLocalNotifTime(selectedTime);
         }
       },
     );

@@ -1,4 +1,5 @@
 import 'package:Expenseye/Enums/transac_type.dart';
+import 'package:Expenseye/Models/mdi_icon_data.dart';
 import 'package:Expenseye/Resources/Strings.dart';
 import 'package:flutter/material.dart';
 
@@ -20,8 +21,9 @@ class Category {
   Category.fromMap(Map<String, dynamic> map) {
     id = map[Strings.categoryColumnId];
     name = map[Strings.categoryColumnName];
-    iconData = _MdiIconData(
-        int.parse(map[Strings.categoryColumnIconCodePoint], radix: 16));
+    iconData = MdiIconData(
+      int.parse(map[Strings.categoryColumnIconCodePoint], radix: 16),
+    );
     color = Color(int.parse(map[Strings.categoryColumnColor], radix: 16));
     type = TransacType.values[map[Strings.categoryColumnType]];
   }
@@ -36,13 +38,4 @@ class Category {
     };
     return map;
   }
-}
-
-class _MdiIconData extends IconData {
-  const _MdiIconData(int codePoint)
-      : super(
-          codePoint,
-          fontFamily: 'Material Design Icons',
-          fontPackage: 'material_design_icons_flutter',
-        );
 }

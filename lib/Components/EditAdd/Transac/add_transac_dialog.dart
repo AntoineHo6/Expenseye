@@ -1,5 +1,6 @@
 import 'package:Expenseye/Components/EditAdd/category_picker_btn.dart';
 import 'package:Expenseye/Components/EditAdd/date_picker_btn.dart';
+import 'package:Expenseye/Components/EditAdd/account_picker_btn.dart';
 import 'package:Expenseye/Components/EditAdd/name_text_field.dart';
 import 'package:Expenseye/Components/EditAdd/amount_text_field.dart';
 import 'package:Expenseye/Enums/transac_type.dart';
@@ -42,7 +43,7 @@ class _AddTransacDialogState extends State<AddTransacDialog> {
     } else {
       title = AppLocalizations.of(context).translate('newIncome');
       icon = Icon(
-        Icons.account_balance_wallet,
+        MdiIcons.currencyUsd,
         color: ColorChooserFromTheme.transacColorTypeChooser(
           widget.type,
           settingsNotifier.getTheme(),
@@ -51,7 +52,11 @@ class _AddTransacDialogState extends State<AddTransacDialog> {
     }
 
     return new ChangeNotifierProvider(
-      create: (_) => new AddTransacModel(widget.initialDate, widget.type),
+      create: (context) => new AddTransacModel(
+        widget.initialDate,
+        widget.type,
+        Provider.of<SettingsNotifier>(context, listen: false).getLastUsedAccountId(),
+      ),
       child: Consumer<AddTransacModel>(
         builder: (context, model, child) => AlertDialog(
           title: Row(
@@ -74,7 +79,40 @@ class _AddTransacDialogState extends State<AddTransacDialog> {
                     isAmountInvalid: model.isAmountInvalid,
                   ),
                   const SizedBox(
-                    height: 20,
+                    height: 15,
+                  ),
+                  CategoryPickerBtn(
+                    width: double.infinity,
+                    height: 40,
+                    iconSize: 30,
+                    iconBottomPosition: null,
+                    categoryId: model.categoryId,
+                    onPressed: () => model.openChooseCategoryPage(context),
+                    isInError: model.isCategoryMissingError,
+                  ),
+                  model.isCategoryMissingError
+                      ? Column(
+                          children: <Widget>[
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: FittedBox(
+                                child: Text(
+                                  AppLocalizations.of(context).translate('noCategorySelected'),
+                                  style: TextStyle(
+                                    color: Theme.of(context).errorColor,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                          ],
+                        )
+                      : Container(),
+                  const SizedBox(
+                    height: 4,
                   ),
                   DatePickerBtn(
                     width: double.infinity,
@@ -86,37 +124,14 @@ class _AddTransacDialogState extends State<AddTransacDialog> {
                     ),
                   ),
                   const SizedBox(
-                    height: 3,
+                    height: 8,
                   ),
-                  CategoryPickerBtn(
+                  AccountPickerBtn(
+                    onPressed: () => model.openChooseAccountPage(context),
                     width: double.infinity,
                     height: 40,
-                    iconSize: 30,
-                    iconBottomPosition: null,
-                    categoryId: model.categoryId,
-                    onPressed: () => model.openChooseCategoryPage(context),
-                    borderSideColor: model.isCategoryMissingError
-                        ? Theme.of(context).errorColor
-                        : Colors.transparent,
+                    accountId: model.accountId,
                   ),
-                  const SizedBox(
-                    height: 4,
-                  ),
-                  model.isCategoryMissingError
-                      ? Align(
-                          alignment: Alignment.centerLeft,
-                          child: FittedBox(
-                            child: Text(
-                              AppLocalizations.of(context)
-                                  .translate('noCategorySelected'),
-                              style: TextStyle(
-                                color: Theme.of(context).errorColor,
-                                fontSize: 12,
-                              ),
-                            ),
-                          ),
-                        )
-                      : Container(),
                 ],
               ),
             ),
@@ -124,11 +139,11 @@ class _AddTransacDialogState extends State<AddTransacDialog> {
           actions: <Widget>[
             FlatButton(
               child: Text(AppLocalizations.of(context).translate('cancelCaps')),
-              onPressed: () => Navigator.pop(context, false),
+              onPressed: () => Navigator.pop(context),
             ),
             FlatButton(
               child: Text(AppLocalizations.of(context).translate('submitCaps')),
-              onPressed: () => model.addTransac(
+              onPressed: () async => await model.addTransac(
                 context,
                 _nameController.text.trim(),
                 _amountController.text.trim(),

@@ -23,37 +23,17 @@ class DailyPage extends StatefulWidget {
 
 class _DailyPageState extends State<DailyPage> with WidgetsBindingObserver {
   @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addObserver(this);
-  }
-
-  @override
-  void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
-    super.dispose();
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    super.didChangeAppLifecycleState(state);
-    if (state == AppLifecycleState.paused) {
-      GoogleFirebaseHelper.uploadDbFile();
-    }
-  }
-
-  @override
   Widget build(BuildContext context) {
     loadDailyNotifications();
     final _transacModel = Provider.of<TransacModel>(context);
-    final _dbModel = Provider.of<DbModel>(context);
 
     return Scaffold(
       drawer: MyDrawer(),
       body: FutureBuilder<List<Transac>>(
-        future: _dbModel.queryTransacsByDay(widget.day),
+        future: Provider.of<DbModel>(context).queryTransacsByDay(widget.day),
         builder: (context, snapshot) {
-          if (snapshot.hasData && DbModel.catMap.length > 0) {
+          // TODO: check for init of DbModel in futurebuilder in main
+          if (snapshot.hasData && DbModel.catMap.length > 0 && DbModel.accMap.length > 0) {
             if (snapshot.data != null && snapshot.data.length > 0) {
               return mySliverView(snapshot.data, _transacModel, context);
             } else {
@@ -75,7 +55,10 @@ class _DailyPageState extends State<DailyPage> with WidgetsBindingObserver {
   }
 
   CustomScrollView mySliverView(
-      List<Transac> transacs, TransacModel transacModel, BuildContext context) {
+    List<Transac> transacs,
+    TransacModel transacModel,
+    BuildContext context,
+  ) {
     return CustomScrollView(
       slivers: <Widget>[
         SliverAppBar(
@@ -93,12 +76,14 @@ class _DailyPageState extends State<DailyPage> with WidgetsBindingObserver {
           delegate: SliverChildBuilderDelegate(
             (context, index) {
               return Container(
-                margin: EdgeInsets.fromLTRB(10, 20, 10, 0),
+                margin: const EdgeInsets.fromLTRB(10, 10, 10, 0),
                 child: TransacListTile(
                   transacs[index],
                   contentPadding: const EdgeInsets.all(15),
-                  onPressed: () async =>
-                      await transacModel.openEditTransac(context, transacs[index]),
+                  onPressed: () async => await transacModel.openEditTransac(
+                    context,
+                    transacs[index],
+                  ),
                 ),
               );
             },
@@ -112,8 +97,7 @@ class _DailyPageState extends State<DailyPage> with WidgetsBindingObserver {
   Future<void> loadDailyNotifications() async {
     final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
     TimeOfDay settingsTime =
-        Provider.of<SettingsNotifier>(context, listen: false)
-            .getLocalNotifTime();
+        Provider.of<SettingsNotifier>(context, listen: false).getLocalNotifTime();
 
     var time = Time(
       settingsTime.hour,
@@ -125,8 +109,8 @@ class _DailyPageState extends State<DailyPage> with WidgetsBindingObserver {
       'repeatDailyAtTime description',
     );
     var iOSPlatformChannelSpecifics = IOSNotificationDetails();
-    var platformChannelSpecifics = NotificationDetails(
-        androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
+    var platformChannelSpecifics =
+        NotificationDetails(androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
     await flutterLocalNotificationsPlugin.showDailyAtTime(
       0,
       AppLocalizations.of(context).translate('dontForgetToAddYourTransactions'),
@@ -134,5 +118,25 @@ class _DailyPageState extends State<DailyPage> with WidgetsBindingObserver {
       time,
       platformChannelSpecifics,
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    if (state == AppLifecycleState.paused) {
+      GoogleFirebaseHelper.uploadDbFile();
+    }
   }
 }

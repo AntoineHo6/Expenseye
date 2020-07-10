@@ -1,9 +1,11 @@
 import 'package:Expenseye/Components/Global/confirmation_dialog.dart';
 import 'package:Expenseye/Enums/transac_type.dart';
 import 'package:Expenseye/Models/Transac.dart';
+import 'package:Expenseye/Pages/EditAddTransac/choose_account_page.dart';
 import 'package:Expenseye/Pages/EditAddTransac/choose_category_page.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:Expenseye/Providers/Global/settings_notifier.dart';
+import 'package:Expenseye/Utils/check_textfields_util.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
@@ -14,13 +16,15 @@ class EditTransacModel extends ChangeNotifier {
   bool isNameInvalid = false;
   bool isAmountInvalid = false;
   DateTime date;
-  String categoryId;
   TransacType type;
+  String categoryId;
+  String accountId;
 
   EditTransacModel(Transac transac) {
     date = transac.date;
     categoryId = transac.categoryId;
     type = transac.type;
+    accountId = transac.accountId;
   }
 
   // Will make the save button clickable
@@ -55,14 +59,14 @@ class EditTransacModel extends ChangeNotifier {
       Transac newTransac = new Transac.withId(
         id,
         newName,
-        double.parse(newAmount),
+        (double.parse(newAmount)).abs(),
         date,
         type,
         categoryId,
+        accountId,
       );
 
-      await Provider.of<DbModel>(context, listen: false)
-          .updateTransac(newTransac);
+      await Provider.of<DbModel>(context, listen: false).updateTransac(newTransac);
       Navigator.pop(context, 1);
     }
   }
@@ -84,15 +88,29 @@ class EditTransacModel extends ChangeNotifier {
   /// On selected category in the ChooseCategoryPage, update the current category
   /// in the model
   Future<void> openChooseCategoryPage(BuildContext context) async {
-    final result = await Navigator.push(
+    final newCategoryId = await Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => ChooseCategoryPage(type: type),
       ),
     );
 
-    if (result != null) {
-      categoryId = result;
+    if (newCategoryId != null) {
+      categoryId = newCategoryId;
+      infoChanged(null);
+    }
+  }
+
+  Future<void> openChooseAccountPage(BuildContext context) async {
+    final newAccountId = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ChooseAccountPage(),
+      ),
+    );
+
+    if (newAccountId != null) {
+      accountId = newAccountId;
       infoChanged(null);
     }
   }
@@ -100,19 +118,12 @@ class EditTransacModel extends ChangeNotifier {
   // Will check and show error msg if a field is invalid.
   bool _checkFieldsInvalid(String newName, String newAmount) {
     // check NAME field
-    isNameInvalid = newName.isEmpty ? true : false;
+    isNameInvalid = CheckTextFieldsUtil.isStringInvalid(newName);
 
-    // check AMOUNT field
-    try {
-      double.parse(newAmount);
-      isAmountInvalid = false;
-    } on FormatException {
-      isAmountInvalid = true;
-    }
+    isAmountInvalid = CheckTextFieldsUtil.isNumberStringInvalid(newAmount);
 
     notifyListeners();
 
-    // update areFieldsInvalid
     if (!isNameInvalid && !isAmountInvalid) {
       return false;
     }

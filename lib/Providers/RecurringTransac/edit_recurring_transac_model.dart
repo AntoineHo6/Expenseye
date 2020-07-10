@@ -59,13 +59,13 @@ class EditRecurringTransacModel extends ChangeNotifier {
       context,
       MaterialPageRoute(
         builder: (context) => ChooseCategoryPage(
-          type: DbModel.catMap[recurringTransac.category].type,
+          type: DbModel.catMap[recurringTransac.categoryId].type,
         ),
       ),
     );
 
     if (result != null) {
-      recurringTransac.category = result;
+      recurringTransac.categoryId = result;
       infoChanged(null);
     }
   }
@@ -84,8 +84,7 @@ class EditRecurringTransacModel extends ChangeNotifier {
     }
   }
 
-  Future<void> editRecurringTransac(
-      BuildContext context, String newName, String newAmount) async {
+  Future<void> editRecurringTransac(BuildContext context, String newName, String newAmount) async {
     newName = newName.trim();
     PeriodicityError periodicityError = EditAddRecTransacUtil.checkDueDateForError(
       recurringTransac.periodicity,
@@ -99,8 +98,7 @@ class EditRecurringTransacModel extends ChangeNotifier {
     if (!areFieldsInvalid && isDueDateValid) {
       recurringTransac.name = newName;
       recurringTransac.amount = double.parse(newAmount);
-      await Provider.of<DbModel>(context, listen: false)
-          .editRecurringTransac(recurringTransac);
+      await Provider.of<DbModel>(context, listen: false).editRecurringTransac(recurringTransac);
       Navigator.pop(context, 1);
     } else if (!isDueDateValid) {
       showDialog(

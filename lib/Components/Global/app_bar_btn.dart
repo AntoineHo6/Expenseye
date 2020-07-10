@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
 
-class DeleteBtn extends StatelessWidget {
+class AppBarBtn extends StatelessWidget {
   final Function onPressed;
+  final Icon icon;
 
-  DeleteBtn({this.onPressed});
+  AppBarBtn({
+    @required this.onPressed,
+    @required this.icon,
+  });
 
   @override
   Widget build(BuildContext context) {
     return RaisedButton(
-      elevation: 3,
-      textColor: Theme.of(context).textTheme.bodyText1.color,
       onPressed: onPressed,
-      child: const Icon(Icons.delete_forever),
+      child: this.icon,
       shape: const CircleBorder(
         side: const BorderSide(color: Colors.transparent),
       ),
+      elevation: 2,
     );
   }
 }

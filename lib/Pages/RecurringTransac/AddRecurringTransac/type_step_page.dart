@@ -5,18 +5,19 @@ import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class TypeAddRecTransacPage extends StatefulWidget {
+class TypeStepPage extends StatefulWidget {
   @override
-  _TypeAddRecTransacPageState createState() => _TypeAddRecTransacPageState();
+  _TypeStepPageState createState() => _TypeStepPageState();
 }
 
-class _TypeAddRecTransacPageState extends State<TypeAddRecTransacPage>
-    with TickerProviderStateMixin {
+class _TypeStepPageState extends State<TypeStepPage> with TickerProviderStateMixin {
   AnimationController _animationController;
   Animation _animation;
 
   @override
   Widget build(BuildContext context) {
+    final _model = Provider.of<AddRecurringTransacModel>(context, listen: false);
+
     _animationController.forward();
 
     return FadeTransition(
@@ -24,30 +25,26 @@ class _TypeAddRecTransacPageState extends State<TypeAddRecTransacPage>
       child: Column(
         children: <Widget>[
           AddRecTransacStepsHeader(
-            title:
-                '1. ${AppLocalizations.of(context).translate('selectTheType')}',
-            percent: 0.2,
+            title: '${_model.step}. ${AppLocalizations.of(context).translate('selectTheType')}',
+            percent: 0.1666,
           ),
           Expanded(
             child: ListView(
               children: <Widget>[
                 Container(
-                  margin:
-                      const EdgeInsets.symmetric(vertical: 2, horizontal: 10),
+                  margin: const EdgeInsets.symmetric(vertical: 2, horizontal: 10),
                   child: RaisedButton(
                     onPressed: () => Provider.of<AddRecurringTransacModel>(
                       context,
                       listen: false,
                     ).goNextFromTypePage(TransacType.expense),
                     child: ListTile(
-                      title: Text(
-                          AppLocalizations.of(context).translate('expense')),
+                      title: Text(AppLocalizations.of(context).translate('expense')),
                     ),
                   ),
                 ),
                 Container(
-                  margin:
-                      const EdgeInsets.symmetric(vertical: 2, horizontal: 10),
+                  margin: const EdgeInsets.symmetric(vertical: 2, horizontal: 10),
                   child: RaisedButton(
                     onPressed: () => Provider.of<AddRecurringTransacModel>(
                       context,

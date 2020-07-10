@@ -6,35 +6,18 @@ import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class TransacModel extends ChangeNotifier {
-  void showAddExpense(BuildContext context, DateTime initialDate) async {
-    bool confirmed = await showDialog(
+  Future<void> showAddExpense(BuildContext context, DateTime initialDate) async {
+    await showDialog(
       context: context,
       builder: (_) => AddTransacDialog(initialDate, TransacType.expense),
     );
-
-    if (confirmed != null && confirmed) {
-      showSuccAddedSnackBar(context);
-    }
   }
 
-  void showAddIncome(BuildContext context, DateTime initialDate) async {
-    bool confirmed = await showDialog(
+  Future<void> showAddIncome(BuildContext context, DateTime initialDate) async {
+    await showDialog(
       context: context,
       builder: (_) => AddTransacDialog(initialDate, TransacType.income),
     );
-
-    if (confirmed != null && confirmed) {
-      showSuccAddedSnackBar(context);
-    }
-  }
-
-  void showSuccAddedSnackBar(BuildContext context) {
-    final snackBar = SnackBar(
-      content: Text(AppLocalizations.of(context).translate('succAdded')),
-      backgroundColor: Colors.grey.withOpacity(0.5),
-    );
-
-    Scaffold.of(context).showSnackBar(snackBar);
   }
 
   Future<void> openEditTransac(BuildContext context, Transac transac) async {

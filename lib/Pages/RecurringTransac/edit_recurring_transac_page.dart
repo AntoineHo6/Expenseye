@@ -2,9 +2,10 @@ import 'package:Expenseye/Components/EditAdd/RecurringTransac/periodicity_picker
 import 'package:Expenseye/Components/EditAdd/amount_text_field.dart';
 import 'package:Expenseye/Components/EditAdd/category_picker_btn.dart';
 import 'package:Expenseye/Components/EditAdd/date_picker_btn.dart';
-import 'package:Expenseye/Components/EditAdd/delete_btn.dart';
 import 'package:Expenseye/Components/EditAdd/name_text_field.dart';
+import 'package:Expenseye/Components/Global/app_bar_btn.dart';
 import 'package:Expenseye/Components/Global/bottom_nav_button.dart';
+import 'package:Expenseye/Components/Global/subheader.dart';
 import 'package:Expenseye/Models/recurring_transac.dart';
 import 'package:Expenseye/Providers/RecurringTransac/edit_recurring_transac_model.dart';
 import 'package:Expenseye/app_localizations.dart';
@@ -33,8 +34,9 @@ class _EditRecurringTransacPageState extends State<EditRecurringTransacPage> {
           appBar: AppBar(
             title: Text(widget.recurringTransac.name),
             actions: <Widget>[
-              DeleteBtn(
+              AppBarBtn(
                 onPressed: () => model.delete(context),
+                icon: const Icon(Icons.delete_forever),
               ),
             ],
           ),
@@ -57,31 +59,36 @@ class _EditRecurringTransacPageState extends State<EditRecurringTransacPage> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                _buildTextField(
-                  model,
-                  AppLocalizations.of(context).translate('name'),
-                  NameTextField(
+                const SizedBox(
+                  height: 10,
+                ),
+                SubHeader(
+                  title: AppLocalizations.of(context).translate('name'),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
+                  child: NameTextField(
                     controller: _nameController,
                     isNameInvalid: model.isNameInvalid,
                     onChanged: model.infoChanged,
                   ),
                 ),
-                _buildTextField(
-                  model,
-                  AppLocalizations.of(context).translate('amount'),
-                  AmountTextField(
+                SubHeader(
+                  title: AppLocalizations.of(context).translate('amount'),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
+                  child: AmountTextField(
                     controller: _amountController,
                     isAmountInvalid: model.isAmountInvalid,
                     onChanged: model.infoChanged,
                   ),
                 ),
-                _btnTitle(
-                  context,
-                  AppLocalizations.of(context).translate('nextDueDate'),
+                SubHeader(
+                  title: AppLocalizations.of(context).translate('nextDueDate'),
                 ),
                 Container(
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                   child: DatePickerBtn(
                     width: double.infinity,
                     height: 80,
@@ -92,15 +99,13 @@ class _EditRecurringTransacPageState extends State<EditRecurringTransacPage> {
                     onPressed: () => model.chooseDate(context),
                   ),
                 ),
-                _btnTitle(
-                  context,
-                  AppLocalizations.of(context).translate('category'),
+                SubHeader(
+                  title: AppLocalizations.of(context).translate('category'),
                 ),
                 Container(
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                   child: CategoryPickerBtn(
-                    categoryId: model.recurringTransac.category,
+                    categoryId: model.recurringTransac.categoryId,
                     onPressed: () => model.openChooseCategoryPage(context),
                     width: double.infinity,
                     height: 80,
@@ -108,13 +113,11 @@ class _EditRecurringTransacPageState extends State<EditRecurringTransacPage> {
                     iconBottomPosition: -75,
                   ),
                 ),
-                _btnTitle(
-                  context,
-                  AppLocalizations.of(context).translate('periodicity'),
+                SubHeader(
+                  title: AppLocalizations.of(context).translate('periodicity'),
                 ),
                 Container(
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                  margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                   child: PeriodicityPickerBtn(
                     onPressed: () => model.openPeriodicityPickerPage(context),
                     width: double.infinity,
@@ -129,36 +132,6 @@ class _EditRecurringTransacPageState extends State<EditRecurringTransacPage> {
             ),
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _buildTextField(
-      EditRecurringTransacModel model, String title, Widget textField) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      child: Column(
-        children: <Widget>[
-          SizedBox(
-            width: double.infinity,
-            child: Text(
-              '$title :',
-              textAlign: TextAlign.left,
-              style: Theme.of(context).textTheme.headline6,
-            ),
-          ),
-          textField,
-        ],
-      ),
-    );
-  }
-
-  Widget _btnTitle(BuildContext context, String title) {
-    return Container(
-      margin: EdgeInsets.only(left: 10),
-      child: Align(
-        alignment: Alignment.centerLeft,
-        child: Text('$title :', style: Theme.of(context).textTheme.headline6),
       ),
     );
   }

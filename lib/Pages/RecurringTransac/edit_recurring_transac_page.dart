@@ -105,7 +105,7 @@ class _EditRecurringTransacPageState extends State<EditRecurringTransacPage> {
                 Container(
                   margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                   child: CategoryPickerBtn(
-                    categoryId: model.recurringTransac.category,
+                    categoryId: model.recurringTransac.categoryId,
                     onPressed: () => model.openChooseCategoryPage(context),
                     width: double.infinity,
                     height: 80,

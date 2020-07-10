@@ -100,5 +100,6 @@
     "addAccount": "Ajouter un compte",
     "mustHaveAtLeastOneAccount": "Vous devez avoir au moins un compte disponible",
     "error": "Erreur",
-    "createCustomCategoryMsg": "La catégorie que vous recherchez n'est pas là? Créez une catégorie personnalisée dans la page 'Catégories'."
+    "createCustomCategoryMsg": "La catégorie que vous recherchez n'est pas là? Créez une catégorie personnalisée dans la page 'Catégories'.",
+    "confirmDeleteAccountMsg": "Voulez-vous vraiment supprimer ce compte? La suppression du compte supprimera par la suite toutes les transactions et les transactions récurrentes qui y sont liées."
 }

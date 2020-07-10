@@ -9,7 +9,6 @@ import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-// TODO: rename to btn
 class TransacListTile extends StatelessWidget {
   final Transac transac;
   final EdgeInsets contentPadding;

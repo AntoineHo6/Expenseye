@@ -117,7 +117,7 @@ class _RecurringTransacPageState extends State<RecurringTransacPage> {
     recurringTransacsByCategoryType[1] = new List(); // incomes
 
     for (RecurringTransac recurringTransac in recurringTransacs) {
-      if (DbModel.catMap[recurringTransac.category].type == TransacType.expense) {
+      if (DbModel.catMap[recurringTransac.categoryId].type == TransacType.expense) {
         recurringTransacsByCategoryType[0].add(recurringTransac);
       } else {
         recurringTransacsByCategoryType[1].add(recurringTransac);
@@ -139,16 +139,16 @@ class _RecurringTransacPageState extends State<RecurringTransacPage> {
         return Container(
           margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
           child: RaisedButton(
-            highlightColor: DbModel.catMap[recurringTransac.category].color.withOpacity(0.2),
-            splashColor: DbModel.catMap[recurringTransac.category].color.withOpacity(0.2),
+            highlightColor: DbModel.catMap[recurringTransac.categoryId].color.withOpacity(0.2),
+            splashColor: DbModel.catMap[recurringTransac.categoryId].color.withOpacity(0.2),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.0),
             ),
             onPressed: () => _openEditRecurringTransacPage(context, recurringTransac),
             child: ListTile(
               leading: Icon(
-                DbModel.catMap[recurringTransac.category].iconData,
-                color: DbModel.catMap[recurringTransac.category].color,
+                DbModel.catMap[recurringTransac.categoryId].iconData,
+                color: DbModel.catMap[recurringTransac.categoryId].color,
               ),
               title: Text(
                 recurringTransac.name,

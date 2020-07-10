@@ -15,7 +15,6 @@ class EditTransacModel extends ChangeNotifier {
   bool didInfoChange = false;
   bool isNameInvalid = false;
   bool isAmountInvalid = false;
-  // TODO: use Transac variable instead of multiple variables
   DateTime date;
   TransacType type;
   String categoryId;

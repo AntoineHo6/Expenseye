@@ -358,7 +358,6 @@ class DatabaseHelper {
     );
   }
 
-  // TODO: rename
   Future<void> deleteAllTransacsAndRecTransacs() async {
     Database db = await database;
     await db.rawQuery('DELETE FROM ${Strings.tableTransacs}');

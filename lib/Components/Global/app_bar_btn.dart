@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-// TODO: change to simplky AppBarBtn
 class AppBarBtn extends StatelessWidget {
   final Function onPressed;
   final Icon icon;

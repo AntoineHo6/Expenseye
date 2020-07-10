@@ -100,5 +100,6 @@
     "addAccount": "Add Account",
     "mustHaveAtLeastOneAccount": "You must have at least one account available",
     "error": "Error",
-    "createCustomCategoryMsg": "The category you're looking for isn't here? Create a custom category in the 'Categories' page."
+    "createCustomCategoryMsg": "The category you're looking for isn't here? Create a custom category in the 'Categories' page.",
+    "confirmDeleteAccountMsg": "Are you sure you want to delete this account? Deleting an account will subsequently delete all transactions and recurring transactions related to it."
 }

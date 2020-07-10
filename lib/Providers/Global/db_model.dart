@@ -90,8 +90,8 @@ class DbModel extends ChangeNotifier {
       recurringTransac.name,
       recurringTransac.amount,
       recurringTransac.dueDate,
-      catMap[recurringTransac.category].type,
-      recurringTransac.category,
+      catMap[recurringTransac.categoryId].type,
+      recurringTransac.categoryId,
       recurringTransac.accountId,
     );
     await insertTransac(newTransac);

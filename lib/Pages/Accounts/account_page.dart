@@ -17,63 +17,53 @@ class AccountPage extends StatefulWidget {
 }
 
 class _AccountPageState extends State<AccountPage> {
-  String myAccountId; // TODO: rename
-  bool forceShowEmpty = false;
+  String myAccountId;
 
   @override
   Widget build(BuildContext context) {
-    return forceShowEmpty
-        ? Scaffold(
-            body: Container(),
-          )
-        : Scaffold(
-            appBar: AppBar(
-              title: Text(DbModel.accMap[myAccountId].name),
-              actions: <Widget>[
-                AppBarBtn(
-                  onPressed: () async => await _openEditAccountPage(context, myAccountId),
-                  icon: const Icon(Icons.edit),
-                ),
-              ],
-            ),
-            body: FutureBuilder<List<Transac>>(
-              future: DatabaseHelper.instance.queryTransacsByAccount(myAccountId),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  if (snapshot.data != null) {
-                    return ListView.builder(
-                      itemCount: snapshot.data.length,
-                      itemBuilder: (context, i) {
-                        return Container(
-                          margin: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-                          child: TransacListTile(
-                            snapshot.data[i],
-                            onPressed: () async =>
-                                await _openEditTransacPage(context, snapshot.data[i]),
-                          ),
-                        );
-                      },
-                    );
-                  } else {
-                    // code will never reach this point
-                    return Container();
-                  }
-                } else {
-                  return const Align(
-                    alignment: Alignment.center,
-                    child: const CircularProgressIndicator(),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(DbModel.accMap[myAccountId].name),
+        actions: <Widget>[
+          AppBarBtn(
+            onPressed: () async => await _openEditAccountPage(context, myAccountId),
+            icon: const Icon(Icons.edit),
+          ),
+        ],
+      ),
+      body: FutureBuilder<List<Transac>>(
+        future: DatabaseHelper.instance.queryTransacsByAccount(myAccountId),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            if (snapshot.data != null) {
+              return ListView.builder(
+                itemCount: snapshot.data.length,
+                itemBuilder: (context, i) {
+                  return Container(
+                    margin: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+                    child: TransacListTile(
+                      snapshot.data[i],
+                      onPressed: () async => await _openEditTransacPage(context, snapshot.data[i]),
+                    ),
                   );
-                }
-              },
-            ),
-          );
+                },
+              );
+            } else {
+              // code will never reach this point
+              return Container();
+            }
+          } else {
+            return const Align(
+              alignment: Alignment.center,
+              child: const CircularProgressIndicator(),
+            );
+          }
+        },
+      ),
+    );
   }
 
   Future<void> _openEditAccountPage(BuildContext context, String accountId) async {
-    setState(() {
-      forceShowEmpty = true;
-    });
-
     await Navigator.push(
       context,
       MaterialPageRoute(
@@ -83,7 +73,6 @@ class _AccountPageState extends State<AccountPage> {
       if (newAccountId != null) {
         setState(() {
           myAccountId = newAccountId;
-          forceShowEmpty = false;
         });
       }
     });

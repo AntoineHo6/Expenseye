@@ -72,7 +72,7 @@ class EditAccountNotifier extends ChangeNotifier {
     bool confirmed = await showDialog(
       context: context,
       builder: (_) => ConfirmationDialog(
-        AppLocalizations.of(context).translate('confirmDeleteMsg'), //TODO: change msg
+        AppLocalizations.of(context).translate('confirmDeleteAccountMsg'),
       ),
     );
 
@@ -102,8 +102,11 @@ class EditAccountNotifier extends ChangeNotifier {
       }
 
       await dbNotifier.initUserAccountsMap().then(
-            (value) => Navigator.pop(context),
+            (value) => Navigator.pop(context), // pop out of the loading dialog
           );
+
+      Navigator.pop(context); // pop out of the edit page
+      Navigator.pop(context); // pop out of the account page
     } else if (confirmed != null && confirmed && DbModel.accMap.length == 1) {
       await showDialog(
         context: context,
@@ -122,9 +125,5 @@ class EditAccountNotifier extends ChangeNotifier {
         },
       );
     }
-
-    // TODO: fix error bug
-    Navigator.pop(context);
-    Navigator.pop(context);
   }
 }

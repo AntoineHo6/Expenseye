@@ -184,11 +184,11 @@ class DatabaseHelper {
 
     String cashAccountName;
     switch (languageCode) {
-      case 'en':
-        cashAccountName = Strings.cashEN;
-        break;
       case 'fr':
         cashAccountName = Strings.cashFR;
+        break;
+      default:
+        cashAccountName = Strings.cashEN;
         break;
     }
 

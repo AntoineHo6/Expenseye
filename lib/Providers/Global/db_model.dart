@@ -162,7 +162,6 @@ class DbModel extends ChangeNotifier {
   Future<void> initUserAccountsMap() async {
     accMap.clear();
     List<Account> accounts = await _dbHelper.queryAccounts();
-
     for (var account in accounts) {
       accMap[account.id] = account;
     }

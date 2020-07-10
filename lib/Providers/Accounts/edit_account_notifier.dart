@@ -2,7 +2,6 @@ import 'package:Expenseye/Components/Global/confirmation_dialog.dart';
 import 'package:Expenseye/Components/Global/load_dialog.dart';
 import 'package:Expenseye/Helpers/database_helper.dart';
 import 'package:Expenseye/Models/account.dart';
-import 'package:Expenseye/Pages/Accounts/account_page.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:Expenseye/Providers/Global/settings_notifier.dart';
 import 'package:Expenseye/Utils/check_textfields_util.dart';
@@ -25,11 +24,7 @@ class EditAccountNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> editAccount(
-    BuildContext context,
-    String newName,
-    String newBalance,
-  ) async {
+  Future<void> editAccount(BuildContext context, String newName, String newBalance) async {
     newName = newName.trim();
     bool areFieldsInvalid = _checkFieldsInvalid(newName, newBalance);
 

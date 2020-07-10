@@ -23,35 +23,14 @@ class DailyPage extends StatefulWidget {
 
 class _DailyPageState extends State<DailyPage> with WidgetsBindingObserver {
   @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addObserver(this);
-  }
-
-  @override
-  void dispose() {
-    WidgetsBinding.instance.removeObserver(this);
-    super.dispose();
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    super.didChangeAppLifecycleState(state);
-    if (state == AppLifecycleState.paused) {
-      GoogleFirebaseHelper.uploadDbFile();
-    }
-  }
-
-  @override
   Widget build(BuildContext context) {
     loadDailyNotifications();
     final _transacModel = Provider.of<TransacModel>(context);
-    final _dbModel = Provider.of<DbModel>(context);
 
     return Scaffold(
       drawer: MyDrawer(),
       body: FutureBuilder<List<Transac>>(
-        future: _dbModel.queryTransacsByDay(widget.day),
+        future: Provider.of<DbModel>(context).queryTransacsByDay(widget.day),
         builder: (context, snapshot) {
           // TODO: check for init of DbModel in futurebuilder in main
           if (snapshot.hasData && DbModel.catMap.length > 0 && DbModel.accMap.length > 0) {
@@ -139,5 +118,25 @@ class _DailyPageState extends State<DailyPage> with WidgetsBindingObserver {
       time,
       platformChannelSpecifics,
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    if (state == AppLifecycleState.paused) {
+      GoogleFirebaseHelper.uploadDbFile();
+    }
   }
 }

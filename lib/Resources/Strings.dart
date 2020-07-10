@@ -1,5 +1,5 @@
 class Strings {
-  static const String versionNumber = '1.4.11';
+  static const String versionNumber = '1.5.0';
 
   // * DEFAULT EXPENSE categories EN
   static const String foodEN = 'Food';

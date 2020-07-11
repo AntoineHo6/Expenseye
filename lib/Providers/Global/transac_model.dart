@@ -64,24 +64,7 @@ class TransacModel extends ChangeNotifier {
     //notifyListeners();
   }
 
-  double calcTransacsTotal(List<Transac> transacs) {
-    double total = 0;
-
-    for (var transac in transacs) {
-      switch (transac.type) {
-        case TransacType.expense:
-          total -= transac.amount;
-          break;
-        case TransacType.income:
-          total += transac.amount;
-          break;
-      }
-    }
-
-    return total;
-  }
-
-  // * may move out of this provider
+  // TODO: REMOVE
   String totalString(double total) {
     return '${total.toStringAsFixed(2)} \$';
   }

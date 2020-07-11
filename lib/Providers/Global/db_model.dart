@@ -209,6 +209,10 @@ class DbModel extends ChangeNotifier {
     return await _dbHelper.queryTransacsByMonth(yearMonth);
   }
 
+  Future<List<Transac>> queryTransacsByAccount(String accountId) async {
+    return await _dbHelper.queryTransacsByAccount(accountId);
+  }
+
   Future<List<Category>> queryCategories() async {
     return await _dbHelper.queryCategories();
   }

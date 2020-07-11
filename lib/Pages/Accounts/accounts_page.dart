@@ -1,5 +1,6 @@
 import 'package:Expenseye/Components/Global/app_bar_btn.dart';
 import 'package:Expenseye/Components/Global/total_box.dart';
+import 'package:Expenseye/Helpers/database_helper.dart';
 import 'package:Expenseye/Models/account.dart';
 import 'package:Expenseye/Pages/Accounts/account_page.dart';
 import 'package:Expenseye/Pages/Accounts/add_account_page.dart';
@@ -31,6 +32,7 @@ class AccountsPage extends StatelessWidget {
       ),
       body: FutureBuilder<List<Account>>(
         future: Provider.of<DbModel>(context).queryAccounts(),
+        initialData: [],
         builder: (context, snapshot) {
           if (snapshot.hasData && snapshot.data != null) {
             return Column(
@@ -39,11 +41,17 @@ class AccountsPage extends StatelessWidget {
                   margin: const EdgeInsets.fromLTRB(10, 10, 10, 0),
                   child: Row(
                     children: <Widget>[
-                      TotalBox(
-                        title: AppLocalizations.of(context).translate('assets'),
-                        total: '23',
-                        textColor: ColorChooserFromTheme.incomeColor,
+                      FutureBuilder<double>(
+                        future: DatabaseHelper.instance.queryIncomesTotal(),
+                        builder: (context, snapshot) {
+                          return TotalBox(
+                            title: AppLocalizations.of(context).translate('assets'),
+                            total: '${snapshot.data}',
+                            textColor: ColorChooserFromTheme.incomeColor,
+                          );
+                        },
                       ),
+                      // TODO: do the rest
                       TotalBox(
                         title: AppLocalizations.of(context).translate('liabilities'),
                         total: '23',

@@ -7,6 +7,7 @@ import 'package:Expenseye/Providers/Global/transac_model.dart';
 import 'package:Expenseye/Providers/yearly_model.dart';
 import 'package:Expenseye/Resources/Themes/app_colors.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
+import 'package:Expenseye/Utils/transac_util.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -92,7 +93,7 @@ class _MonthContainer extends StatelessWidget {
                   margin: EdgeInsets.only(right: 11),
                   child: Text(
                     _transacModel.totalString(
-                      _transacModel.calcTransacsTotal(transacs),
+                      TransacUtil.calcTransacsTotal(transacs),
                     ),
                     style: TextStyle(
                       color: ColorChooserFromTheme.balanceColor,

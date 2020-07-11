@@ -253,6 +253,19 @@ class DatabaseHelper {
     return convertMapsToTransacs(maps);
   }
 
+  Future<double> queryIncomesTotal() async {
+    Database db = await database;
+
+    var total = await db.rawQuery(
+      ''' SELECT SUM(${Strings.transacColumnValue}) as Total 
+          FROM ${Strings.tableTransacs} 
+          WHERE ${Strings.transacColumnType}=1;
+      ''',
+    );
+
+    return total[0]['Total'];
+  }
+
   Future<List<Transac>> queryTransacsInDate(DateTime date) async {
     Database db = await database;
     String dateStrToFind = date.toIso8601String().split('T')[0];

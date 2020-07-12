@@ -266,6 +266,41 @@ class DatabaseHelper {
     return total[0]['Total'];
   }
 
+  Future<double> queryExpensesTotal() async {
+    Database db = await database;
+
+    var total = await db.rawQuery(
+      ''' SELECT SUM(${Strings.transacColumnValue}) as Total 
+          FROM ${Strings.tableTransacs} 
+          WHERE ${Strings.transacColumnType}=0;
+      ''',
+    );
+
+    return total[0]['Total'];
+  }
+
+  Future<double> queryTransacsTotal() async {
+    Database db = await database;
+
+    var expensesTotalMap = await db.rawQuery(
+      ''' SELECT SUM(${Strings.transacColumnValue}) as expensesTotal 
+          FROM ${Strings.tableTransacs} 
+          WHERE ${Strings.transacColumnType}=0;
+      ''',
+    );
+    var incomesTotalMap = await db.rawQuery(
+      ''' SELECT SUM(${Strings.transacColumnValue}) as incomeTotal 
+          FROM ${Strings.tableTransacs} 
+          WHERE ${Strings.transacColumnType}=1;
+      ''',
+    );
+
+    double expensesTotal = expensesTotalMap[0]['expensesTotal'];
+    double incomesTotal = incomesTotalMap[0]['incomeTotal'];
+
+    return incomesTotal - expensesTotal;
+  }
+
   Future<List<Transac>> queryTransacsInDate(DateTime date) async {
     Database db = await database;
     String dateStrToFind = date.toIso8601String().split('T')[0];

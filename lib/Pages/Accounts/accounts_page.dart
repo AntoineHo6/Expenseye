@@ -46,21 +46,30 @@ class AccountsPage extends StatelessWidget {
                         builder: (context, snapshot) {
                           return TotalBox(
                             title: AppLocalizations.of(context).translate('assets'),
-                            total: '${snapshot.data}',
+                            total: '+${snapshot.data.toStringAsFixed(2)}',
                             textColor: ColorChooserFromTheme.incomeColor,
                           );
                         },
                       ),
-                      // TODO: do the rest
-                      TotalBox(
-                        title: AppLocalizations.of(context).translate('liabilities'),
-                        total: '23',
-                        textColor: ColorChooserFromTheme.expenseColor,
+                      FutureBuilder<double>(
+                        future: DatabaseHelper.instance.queryExpensesTotal(),
+                        builder: (context, snapshot) {
+                          return TotalBox(
+                            title: AppLocalizations.of(context).translate('liabilities'),
+                            total: '-${snapshot.data.toStringAsFixed(2)}',
+                            textColor: ColorChooserFromTheme.expenseColor,
+                          );
+                        },
                       ),
-                      TotalBox(
-                        title: AppLocalizations.of(context).translate('total'),
-                        total: '23',
-                        textColor: ColorChooserFromTheme.balanceColor,
+                      FutureBuilder<double>(
+                        future: DatabaseHelper.instance.queryTransacsTotal(),
+                        builder: (context, snapshot) {
+                          return TotalBox(
+                            title: AppLocalizations.of(context).translate('total'),
+                            total: snapshot.data.toStringAsFixed(2),
+                            textColor: ColorChooserFromTheme.balanceColor,
+                          );
+                        },
                       ),
                     ],
                   ),

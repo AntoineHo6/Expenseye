@@ -1,4 +1,4 @@
-import 'package:Expenseye/Providers/Global/db_model.dart';
+import 'package:Expenseye/Providers/Global/db_notifier.dart';
 import 'package:Expenseye/Utils/chart_util.dart';
 import 'package:flutter/material.dart';
 
@@ -15,11 +15,11 @@ class CategoryGroupListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       leading: Icon(
-        DbModel.catMap[categoryGroup.category].iconData,
-        color: DbModel.catMap[categoryGroup.category].color,
+        DbNotifier.catMap[categoryGroup.category].iconData,
+        color: DbNotifier.catMap[categoryGroup.category].color,
       ),
       title: Text(
-        DbModel.catMap[categoryGroup.category].name,
+        DbNotifier.catMap[categoryGroup.category].name,
       ),
       subtitle: Text('${_calcPercentage()}\%'),
       trailing: Text(

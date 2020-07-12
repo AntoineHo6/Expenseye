@@ -7,7 +7,7 @@ import 'package:Expenseye/Components/EditAdd/name_text_field.dart';
 import 'package:Expenseye/Components/EditAdd/amount_text_field.dart';
 import 'package:Expenseye/Components/Global/subheader.dart';
 import 'package:Expenseye/Models/Transac.dart';
-import 'package:Expenseye/Providers/EditAddTransac/edit_transac_model.dart';
+import 'package:Expenseye/Providers/EditAddTransac/edit_transac_notifier.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -28,8 +28,8 @@ class _EditTransacPageState extends State<EditTransacPage> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => EditTransacModel(widget.transac),
-      child: Consumer<EditTransacModel>(
+      create: (_) => EditTransacNotifier(widget.transac),
+      child: Consumer<EditTransacNotifier>(
         builder: (context, model, child) => Scaffold(
           appBar: AppBar(
             title: Text(widget.transac.name),

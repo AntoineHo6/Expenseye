@@ -3,8 +3,7 @@ import 'package:Expenseye/Components/Global/add_transac_fab.dart';
 import 'package:Expenseye/Components/Transac/transacs_day_box.dart';
 import 'package:Expenseye/Helpers/database_helper.dart';
 import 'package:Expenseye/Models/Transac.dart';
-import 'package:Expenseye/Providers/Global/db_model.dart';
-import 'package:Expenseye/Providers/Global/transac_model.dart';
+import 'package:Expenseye/Providers/Global/db_notifier.dart';
 import 'package:Expenseye/Providers/monthly_model.dart';
 import 'package:Expenseye/Resources/Strings.dart';
 import 'package:Expenseye/Utils/transac_util.dart';
@@ -14,13 +13,12 @@ import 'package:provider/provider.dart';
 class MonthlyTransacPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final _transacModel = Provider.of<TransacModel>(context, listen: false);
     final _monthlyModel = Provider.of<MonthlyModel>(context, listen: false);
 
     return Scaffold(
       body: FutureBuilder<List<Transac>>(
         initialData: [],
-        future: Provider.of<DbModel>(context).queryTransacsByMonth(_monthlyModel.yearMonth),
+        future: Provider.of<DbNotifier>(context).queryTransacsByMonth(_monthlyModel.yearMonth),
         builder: (context, snapshot) {
           if (snapshot.hasData && snapshot.data != null) {
             var transacsSplitByDay = TransacUtil.splitTransacsByDay(snapshot.data);
@@ -67,8 +65,9 @@ class MonthlyTransacPage extends StatelessWidget {
         },
       ),
       floatingActionButton: AddTransacFab(
-        onExpensePressed: () => _transacModel.showAddExpense(context, _monthlyModel.currentDate),
-        onIncomePressed: () => _transacModel.showAddIncome(context, _monthlyModel.currentDate),
+        onExpensePressed: () =>
+            TransacUtil.showAddExpenseDialog(context, _monthlyModel.currentDate),
+        onIncomePressed: () => TransacUtil.showAddIncomeDialog(context, _monthlyModel.currentDate),
       ),
     );
   }

@@ -10,12 +10,12 @@ import 'package:Expenseye/Utils/date_time_util.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
-class DbModel extends ChangeNotifier {
+class DbNotifier extends ChangeNotifier {
   final DatabaseHelper _dbHelper = DatabaseHelper.instance;
   static Map<String, Category> catMap = new Map(); // used to access category colors, icon and type
   static Map<String, Account> accMap = new Map();
 
-  DbModel() {
+  DbNotifier() {
     initUser();
   }
 
@@ -236,6 +236,13 @@ class DbModel extends ChangeNotifier {
   Future<void> _resetCategories() async {
     await _dbHelper.deleteAllCategories();
     await _dbHelper.insertDefaultCategories();
+    await initUserCategoriesMap();
+  }
+
+  Future<void> updateCategory(String oldCategoryId, Category updatedCategory) async {
+    await _dbHelper.updateTransacsAndRecTransacsCategory(oldCategoryId, updatedCategory.id);
+    await _dbHelper.deleteCategory(oldCategoryId);
+    await _dbHelper.insertCategory(updatedCategory);
     await initUserCategoriesMap();
   }
 

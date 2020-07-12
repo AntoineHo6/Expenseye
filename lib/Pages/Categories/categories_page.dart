@@ -3,7 +3,7 @@ import 'package:Expenseye/Enums/transac_type.dart';
 import 'package:Expenseye/Models/Category.dart';
 import 'package:Expenseye/Pages/Categories/add_category_page.dart';
 import 'package:Expenseye/Pages/Categories/edit_category_page.dart';
-import 'package:Expenseye/Providers/Global/db_model.dart';
+import 'package:Expenseye/Providers/Global/db_notifier.dart';
 import 'package:flutter/material.dart';
 
 class CategoriesPage extends StatefulWidget {
@@ -21,8 +21,8 @@ class _CategoriesPageState extends State<CategoriesPage> {
   Widget build(BuildContext context) {
     // user FutureBuilder to update when capMap does
     widget.categoryKeys.clear();
-    for (var key in DbModel.catMap.keys) {
-      if (DbModel.catMap[key].type == widget.type) {
+    for (var key in DbNotifier.catMap.keys) {
+      if (DbNotifier.catMap[key].type == widget.type) {
         widget.categoryKeys.add(key);
       }
     }
@@ -50,9 +50,8 @@ class _CategoriesPageState extends State<CategoriesPage> {
         }
 
         return CategoryBtn(
-          category: DbModel.catMap[widget.categoryKeys[index]],
-          onPressed: () =>
-              _selectedCategory(DbModel.catMap[widget.categoryKeys[index]]),
+          category: DbNotifier.catMap[widget.categoryKeys[index]],
+          onPressed: () => _selectedCategory(DbNotifier.catMap[widget.categoryKeys[index]]),
         );
       }),
     );

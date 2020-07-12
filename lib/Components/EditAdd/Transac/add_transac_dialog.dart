@@ -4,7 +4,7 @@ import 'package:Expenseye/Components/EditAdd/account_picker_btn.dart';
 import 'package:Expenseye/Components/EditAdd/name_text_field.dart';
 import 'package:Expenseye/Components/EditAdd/amount_text_field.dart';
 import 'package:Expenseye/Enums/transac_type.dart';
-import 'package:Expenseye/Providers/EditAddTransac/add_transac_model.dart';
+import 'package:Expenseye/Providers/EditAddTransac/add_transac_notifier.dart';
 import 'package:Expenseye/Providers/Global/settings_notifier.dart';
 import 'package:Expenseye/Resources/Themes/app_colors.dart';
 import 'package:Expenseye/app_localizations.dart';
@@ -45,12 +45,12 @@ class _AddTransacDialogState extends State<AddTransacDialog> {
     }
 
     return new ChangeNotifierProvider(
-      create: (context) => new AddTransacModel(
+      create: (context) => new AddTransacNotifier(
         widget.initialDate,
         widget.type,
         Provider.of<SettingsNotifier>(context, listen: false).getLastUsedAccountId(),
       ),
-      child: Consumer<AddTransacModel>(
+      child: Consumer<AddTransacNotifier>(
         builder: (context, model, child) => AlertDialog(
           title: Row(
             children: <Widget>[

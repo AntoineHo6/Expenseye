@@ -3,7 +3,7 @@ import 'package:Expenseye/Enums/transac_type.dart';
 import 'package:Expenseye/Models/Transac.dart';
 import 'package:Expenseye/Pages/EditAddTransac/choose_account_page.dart';
 import 'package:Expenseye/Pages/EditAddTransac/choose_category_page.dart';
-import 'package:Expenseye/Providers/Global/db_model.dart';
+import 'package:Expenseye/Providers/Global/db_notifier.dart';
 import 'package:Expenseye/Providers/Global/settings_notifier.dart';
 import 'package:Expenseye/Utils/check_textfields_util.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
@@ -11,7 +11,7 @@ import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class EditTransacModel extends ChangeNotifier {
+class EditTransacNotifier extends ChangeNotifier {
   bool didInfoChange = false;
   bool isNameInvalid = false;
   bool isAmountInvalid = false;
@@ -20,7 +20,7 @@ class EditTransacModel extends ChangeNotifier {
   String categoryId;
   String accountId;
 
-  EditTransacModel(Transac transac) {
+  EditTransacNotifier(Transac transac) {
     date = transac.date;
     categoryId = transac.categoryId;
     type = transac.type;
@@ -66,7 +66,7 @@ class EditTransacModel extends ChangeNotifier {
         accountId,
       );
 
-      await Provider.of<DbModel>(context, listen: false).updateTransac(newTransac);
+      await Provider.of<DbNotifier>(context, listen: false).updateTransac(newTransac);
       Navigator.pop(context, 1);
     }
   }
@@ -80,7 +80,7 @@ class EditTransacModel extends ChangeNotifier {
     );
 
     if (confirmed != null && confirmed) {
-      Provider.of<DbModel>(context, listen: false).deleteTransac(transacId);
+      Provider.of<DbNotifier>(context, listen: false).deleteTransac(transacId);
       Navigator.pop(context, 2);
     }
   }

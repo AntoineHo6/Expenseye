@@ -3,7 +3,7 @@ import 'package:Expenseye/Components/Categories/selected_icon_btn.dart';
 import 'package:Expenseye/Components/EditAdd/name_text_field.dart';
 import 'package:Expenseye/Components/Global/bottom_nav_button.dart';
 import 'package:Expenseye/Enums/transac_type.dart';
-import 'package:Expenseye/Providers/Category/add_category_model.dart';
+import 'package:Expenseye/Providers/Category/add_category_notifier.dart';
 import 'package:Expenseye/Resources/my_icons.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
@@ -28,8 +28,8 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
         : AppLocalizations.of(context).translate('income');
 
     return ChangeNotifierProvider(
-      create: (_) => AddCategoryModel(),
-      child: Consumer<AddCategoryModel>(
+      create: (_) => AddCategoryNotifier(),
+      child: Consumer<AddCategoryNotifier>(
         builder: (context, model, child) => Scaffold(
           appBar: AppBar(
             title: Text(title),
@@ -71,8 +71,7 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
                           child: RaisedButton(
                             hoverElevation: 50,
                             color: model.color,
-                            onPressed: () async =>
-                                await model.openColorPickerDialog(context),
+                            onPressed: () async => await model.openColorPickerDialog(context),
                           ),
                         ),
                       ],
@@ -86,9 +85,7 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
                   crossAxisSpacing: 5,
                   mainAxisSpacing: 5,
                   crossAxisCount: 5,
-                  children: model.isIconSelected
-                      ? _iconList(model)
-                      : _errorIconList(model),
+                  children: model.isIconSelected ? _iconList(model) : _errorIconList(model),
                 ),
               ),
             ],
@@ -98,10 +95,9 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
     );
   }
 
-  List<Widget> _errorIconList(AddCategoryModel model) {
-    final List<IconData> icons = (widget.type == TransacType.expense)
-        ? MyIcons.expenseIcons
-        : MyIcons.incomeIcons;
+  List<Widget> _errorIconList(AddCategoryNotifier model) {
+    final List<IconData> icons =
+        (widget.type == TransacType.expense) ? MyIcons.expenseIcons : MyIcons.incomeIcons;
 
     List<Widget> pageIcons = List.generate(
       icons.length,
@@ -129,17 +125,15 @@ class _AddCategoryPageState extends State<AddCategoryPage> {
     return pageIcons;
   }
 
-  List<Widget> _iconList(AddCategoryModel model) {
-    final List<IconData> icons = (widget.type == TransacType.expense)
-        ? MyIcons.expenseIcons
-        : MyIcons.incomeIcons;
+  List<Widget> _iconList(AddCategoryNotifier model) {
+    final List<IconData> icons =
+        (widget.type == TransacType.expense) ? MyIcons.expenseIcons : MyIcons.incomeIcons;
 
     List<Widget> pageIcons = List.generate(
       icons.length,
       (index) {
         // if is the selected icon
-        if (model.selectedIconIndex != null &&
-            index == model.selectedIconIndex) {
+        if (model.selectedIconIndex != null && index == model.selectedIconIndex) {
           return SelectedIconBtn(
             onPressed: () => model.changeSelectedIcon(index),
             iconData: icons[index],

@@ -2,7 +2,7 @@ import 'package:Expenseye/Components/Global/app_bar_btn.dart';
 import 'package:Expenseye/Components/Transac/transacs_day_box.dart';
 import 'package:Expenseye/Models/Transac.dart';
 import 'package:Expenseye/Pages/Accounts/edit_account_page.dart';
-import 'package:Expenseye/Providers/Global/db_model.dart';
+import 'package:Expenseye/Providers/Global/db_notifier.dart';
 import 'package:Expenseye/Utils/transac_util.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -23,7 +23,7 @@ class _AccountPageState extends State<AccountPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(DbModel.accMap[myAccountId].name),
+        title: Text(DbNotifier.accMap[myAccountId].name),
         actions: <Widget>[
           AppBarBtn(
             onPressed: () async => await _openEditAccountPage(context, myAccountId),
@@ -32,7 +32,7 @@ class _AccountPageState extends State<AccountPage> {
         ],
       ),
       body: FutureBuilder<List<Transac>>(
-        future: Provider.of<DbModel>(context).queryTransacsByAccount(myAccountId),
+        future: Provider.of<DbNotifier>(context).queryTransacsByAccount(myAccountId),
         builder: (context, snapshot) {
           if (snapshot.hasData && snapshot.data != null) {
             var transacsSplitByDay = TransacUtil.splitTransacsByDay(snapshot.data);

@@ -3,7 +3,7 @@ import 'package:Expenseye/Components/Global/colored_dot.dart';
 import 'package:Expenseye/Helpers/database_helper.dart';
 import 'package:Expenseye/Models/Transac.dart';
 import 'package:Expenseye/Pages/Monthly/monthly_home_page.dart';
-import 'package:Expenseye/Providers/Global/db_model.dart';
+import 'package:Expenseye/Providers/Global/db_notifier.dart';
 import 'package:Expenseye/Providers/yearly_model.dart';
 import 'package:Expenseye/Resources/Strings.dart';
 import 'package:Expenseye/Resources/Themes/app_colors.dart';
@@ -20,7 +20,7 @@ class YearlyTransacPage extends StatelessWidget {
 
     return Scaffold(
       body: FutureBuilder<List<Transac>>(
-        future: Provider.of<DbModel>(context).queryTransacsInYear(_yearlyModel.year),
+        future: Provider.of<DbNotifier>(context).queryTransacsInYear(_yearlyModel.year),
         builder: (context, snapshot) {
           if (snapshot.hasData && snapshot.data != null) {
             var transacsSplitByMonth = _yearlyModel.splitTransacsByMonth(snapshot.data);
@@ -110,7 +110,7 @@ class _MonthContainer extends StatelessWidget {
                   transacs.length,
                   (index) {
                     return ColoredDot(
-                      color: DbModel.catMap[transacs[index].categoryId].color,
+                      color: DbNotifier.catMap[transacs[index].categoryId].color,
                     );
                   },
                 ),

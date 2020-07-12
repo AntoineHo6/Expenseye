@@ -4,7 +4,7 @@ import 'package:Expenseye/Helpers/database_helper.dart';
 import 'package:Expenseye/Models/account.dart';
 import 'package:Expenseye/Pages/Accounts/account_page.dart';
 import 'package:Expenseye/Pages/Accounts/add_account_page.dart';
-import 'package:Expenseye/Providers/Global/db_model.dart';
+import 'package:Expenseye/Providers/Global/db_notifier.dart';
 import 'package:Expenseye/Resources/Themes/app_colors.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +31,7 @@ class AccountsPage extends StatelessWidget {
         ],
       ),
       body: FutureBuilder<List<Account>>(
-        future: Provider.of<DbModel>(context).queryAccounts(),
+        future: Provider.of<DbNotifier>(context).queryAccounts(),
         initialData: [],
         builder: (context, snapshot) {
           if (snapshot.hasData && snapshot.data != null) {

@@ -4,7 +4,7 @@ import 'package:Expenseye/Components/Global/app_bar_btn.dart';
 import 'package:Expenseye/Components/Global/bottom_nav_button.dart';
 import 'package:Expenseye/Components/Global/subheader.dart';
 import 'package:Expenseye/Providers/Accounts/edit_account_notifier.dart';
-import 'package:Expenseye/Providers/Global/db_model.dart';
+import 'package:Expenseye/Providers/Global/db_notifier.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -29,7 +29,7 @@ class _EditAccountPageState extends State<EditAccountPage> {
       child: Consumer<EditAccountNotifier>(
         builder: (context, notifier, child) => Scaffold(
           appBar: AppBar(
-            title: Text(DbModel.accMap[widget.accountId].name),
+            title: Text(DbNotifier.accMap[widget.accountId].name),
             actions: <Widget>[
               AppBarBtn(
                 onPressed: () => notifier.delete(context),
@@ -97,8 +97,8 @@ class _EditAccountPageState extends State<EditAccountPage> {
 
   @override
   void initState() {
-    _nameController.text = DbModel.accMap[widget.accountId].name;
-    _amountController.text = DbModel.accMap[widget.accountId].balance.toString();
+    _nameController.text = DbNotifier.accMap[widget.accountId].name;
+    _amountController.text = DbNotifier.accMap[widget.accountId].balance.toString();
     super.initState();
   }
 }

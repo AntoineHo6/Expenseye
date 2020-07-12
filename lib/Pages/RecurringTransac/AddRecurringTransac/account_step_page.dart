@@ -1,5 +1,5 @@
 import 'package:Expenseye/Components/RecurringTransac/add_rec_transac_steps_header.dart';
-import 'package:Expenseye/Providers/Global/db_model.dart';
+import 'package:Expenseye/Providers/Global/db_notifier.dart';
 import 'package:Expenseye/Providers/RecurringTransac/add_recurring_transac_model.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +19,7 @@ class _AccountStepPageState extends State<AccountStepPage> with TickerProviderSt
     final _model = Provider.of<AddRecurringTransacModel>(context, listen: false);
     List<String> accountKeys = new List();
 
-    for (var key in DbModel.accMap.keys) {
+    for (var key in DbNotifier.accMap.keys) {
       accountKeys.add(key);
     }
 
@@ -45,7 +45,7 @@ class _AccountStepPageState extends State<AccountStepPage> with TickerProviderSt
                               Provider.of<AddRecurringTransacModel>(context, listen: false)
                                   .goNextFromAccountStepPage(accountKey),
                           child: ListTile(
-                            title: Text(DbModel.accMap[accountKey].name),
+                            title: Text(DbNotifier.accMap[accountKey].name),
                           ),
                         ),
                       ),

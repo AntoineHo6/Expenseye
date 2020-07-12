@@ -2,7 +2,7 @@ import 'package:Expenseye/Enums/transac_type.dart';
 import 'package:Expenseye/Models/Category.dart';
 import 'package:Expenseye/Models/Transac.dart';
 import 'package:Expenseye/Models/account.dart';
-import 'package:Expenseye/Providers/Global/db_model.dart';
+import 'package:Expenseye/Providers/Global/db_notifier.dart';
 import 'package:Expenseye/Resources/Themes/app_colors.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
@@ -17,8 +17,8 @@ class TransacListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Category category = DbModel.catMap[transac.categoryId] ?? null;
-    Account account = DbModel.accMap[transac.accountId] ?? null;
+    Category category = DbNotifier.catMap[transac.categoryId] ?? null;
+    Account account = DbNotifier.accMap[transac.accountId] ?? null;
 
     Color categoryColor = category != null ? category.color : Colors.yellow;
     IconData iconData = category != null ? category.iconData : Icons.warning;

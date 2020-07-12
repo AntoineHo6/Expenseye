@@ -2,15 +2,14 @@ import 'package:Expenseye/Components/EditAdd/Category/color_picker_dialog.dart';
 import 'package:Expenseye/Components/Global/confirmation_dialog.dart';
 import 'package:Expenseye/Components/Global/load_dialog.dart';
 import 'package:Expenseye/Enums/transac_type.dart';
-import 'package:Expenseye/Helpers/database_helper.dart';
 import 'package:Expenseye/Models/Category.dart';
-import 'package:Expenseye/Providers/Global/db_model.dart';
+import 'package:Expenseye/Providers/Global/db_notifier.dart';
 import 'package:Expenseye/Resources/my_icons.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class EditCategoryModel extends ChangeNotifier {
+class EditCategoryNotifier extends ChangeNotifier {
   String oldCategoryId;
   bool didInfoChange = false;
   bool isNameInvalid = false;
@@ -19,13 +18,13 @@ class EditCategoryModel extends ChangeNotifier {
   int selectedIconIndex;
   List<String> categoryNamesLowerCase = new List();
 
-  EditCategoryModel(Category oldCategory) {
+  EditCategoryNotifier(Category oldCategory) {
     initSelectedIconIndex(oldCategory);
     color = oldCategory.color;
     type = oldCategory.type;
     oldCategoryId = oldCategory.id;
 
-    DbModel.catMap.values.forEach(
+    DbNotifier.catMap.values.forEach(
       (category) {
         categoryNamesLowerCase.add(category.name.toLowerCase());
       },
@@ -91,13 +90,9 @@ class EditCategoryModel extends ChangeNotifier {
         },
       );
 
-      // TODO: put all this code in a fucntion on DbModel
-      await DatabaseHelper.instance
-          .updateTransacsAndRecTransacsCategory(oldCategoryId, updatedCategory.id);
-      await DatabaseHelper.instance.deleteCategory(oldCategoryId);
-      await DatabaseHelper.instance.insertCategory(updatedCategory);
-
-      await Provider.of<DbModel>(context, listen: false).initUserCategoriesMap().then(
+      await Provider.of<DbNotifier>(context, listen: false)
+          .updateCategory(oldCategoryId, updatedCategory)
+          .then(
             (value) => Navigator.pop(context), // pop out of the loading dialog
           );
 
@@ -122,7 +117,7 @@ class EditCategoryModel extends ChangeNotifier {
         },
       );
 
-      await Provider.of<DbModel>(context, listen: false).deleteCategory(oldCategoryId).then(
+      await Provider.of<DbNotifier>(context, listen: false).deleteCategory(oldCategoryId).then(
             (value) => Navigator.pop(context), // pop out of the loading dialog
           );
 

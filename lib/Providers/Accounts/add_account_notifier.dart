@@ -1,5 +1,5 @@
 import 'package:Expenseye/Models/account.dart';
-import 'package:Expenseye/Providers/Global/db_model.dart';
+import 'package:Expenseye/Providers/Global/db_notifier.dart';
 import 'package:Expenseye/Utils/check_textfields_util.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -19,8 +19,8 @@ class AddAccountNotifier extends ChangeNotifier {
         double.parse(balance),
       );
 
-      await Provider.of<DbModel>(context, listen: false).insertAccount(account);
-      await Provider.of<DbModel>(context, listen: false).initUserAccountsMap();
+      await Provider.of<DbNotifier>(context, listen: false).insertAccount(account);
+      await Provider.of<DbNotifier>(context, listen: false).initUserAccountsMap();
       Navigator.pop(context, 1);
     }
   }

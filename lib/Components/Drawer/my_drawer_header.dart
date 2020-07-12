@@ -1,5 +1,5 @@
 import 'package:Expenseye/Components/Global/load_dialog.dart';
-import 'package:Expenseye/Providers/Global/db_model.dart';
+import 'package:Expenseye/Providers/Global/db_notifier.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -103,14 +103,14 @@ class MyDrawerHeader extends StatelessWidget {
 
   Future<void> _loadLogoutReset(BuildContext context) async {
     _showLoadDialog(context);
-    await Provider.of<DbModel>(context, listen: false).logOutFromGoogle().then(
+    await Provider.of<DbNotifier>(context, listen: false).logOutFromGoogle().then(
           (value) => Navigator.pop(context),
         );
   }
 
   Future<void> _loadLoginInit(BuildContext context) async {
     _showLoadDialog(context);
-    await Provider.of<DbModel>(context, listen: false).loginInit().then(
+    await Provider.of<DbNotifier>(context, listen: false).loginInit().then(
           (value) => Navigator.pop(context),
         );
   }

@@ -3,7 +3,7 @@ import 'package:Expenseye/Enums/periodicity_error.dart';
 import 'package:Expenseye/Models/recurring_transac.dart';
 import 'package:Expenseye/Pages/EditAddTransac/choose_category_page.dart';
 import 'package:Expenseye/Pages/RecurringTransac/periodicity_picker_page.dart';
-import 'package:Expenseye/Providers/Global/db_model.dart';
+import 'package:Expenseye/Providers/Global/db_notifier.dart';
 import 'package:Expenseye/Providers/Global/settings_notifier.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
 import 'package:Expenseye/Utils/edit_add_rec_transac_util.dart';
@@ -28,7 +28,7 @@ class EditRecurringTransacModel extends ChangeNotifier {
     );
 
     if (confirmed != null && confirmed) {
-      await Provider.of<DbModel>(context, listen: false)
+      await Provider.of<DbNotifier>(context, listen: false)
           .deleteRecurringTransac(recurringTransac.id);
       Navigator.pop(context, 2);
     }
@@ -59,7 +59,7 @@ class EditRecurringTransacModel extends ChangeNotifier {
       context,
       MaterialPageRoute(
         builder: (context) => ChooseCategoryPage(
-          type: DbModel.catMap[recurringTransac.categoryId].type,
+          type: DbNotifier.catMap[recurringTransac.categoryId].type,
         ),
       ),
     );
@@ -98,7 +98,7 @@ class EditRecurringTransacModel extends ChangeNotifier {
     if (!areFieldsInvalid && isDueDateValid) {
       recurringTransac.name = newName;
       recurringTransac.amount = double.parse(newAmount);
-      await Provider.of<DbModel>(context, listen: false).editRecurringTransac(recurringTransac);
+      await Provider.of<DbNotifier>(context, listen: false).editRecurringTransac(recurringTransac);
       Navigator.pop(context, 1);
     } else if (!isDueDateValid) {
       showDialog(

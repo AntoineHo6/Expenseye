@@ -2,7 +2,7 @@ import 'package:Expenseye/Components/Global/my_bottom_nav_bar.dart';
 import 'package:Expenseye/Components/Global/period_chooser.dart';
 import 'package:Expenseye/Pages/Monthly/monthly_transac_page.dart';
 import 'package:Expenseye/Pages/stats_page.dart';
-import 'package:Expenseye/Providers/Global/db_model.dart';
+import 'package:Expenseye/Providers/Global/db_notifier.dart';
 import 'package:Expenseye/Providers/monthly_model.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +21,7 @@ class MonthlyHomePage extends StatefulWidget {
 class _MonthlyHomePageState extends State<MonthlyHomePage> {
   @override
   Widget build(BuildContext context) {
-    final _dbModel = Provider.of<DbModel>(context, listen: false);
+    final _dbModel = Provider.of<DbNotifier>(context, listen: false);
 
     return ChangeNotifierProvider(
       create: (_) => MonthlyModel(context, widget.date),
@@ -34,8 +34,7 @@ class _MonthlyHomePageState extends State<MonthlyHomePage> {
                   ? PeriodChooser(
                       text: monthlyModel.yearMonthAbbr,
                       onPressedLeft: () => monthlyModel.decrementMonth(context),
-                      onPressedRight: () =>
-                          monthlyModel.incrementMonth(context),
+                      onPressedRight: () => monthlyModel.incrementMonth(context),
                     )
                   : Container(),
             ],
@@ -47,8 +46,7 @@ class _MonthlyHomePageState extends State<MonthlyHomePage> {
               children: <Widget>[
                 MonthlyTransacPage(),
                 StatsPage(
-                  future: () =>
-                      _dbModel.queryTransacsByMonth(monthlyModel.yearMonth),
+                  future: () => _dbModel.queryTransacsByMonth(monthlyModel.yearMonth),
                 ),
               ],
             ),

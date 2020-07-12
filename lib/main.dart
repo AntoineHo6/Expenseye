@@ -1,7 +1,6 @@
 import 'package:Expenseye/Helpers/database_helper.dart';
 import 'package:Expenseye/Pages/daily_page.dart';
-import 'package:Expenseye/Providers/Global/db_model.dart';
-import 'package:Expenseye/Providers/Global/transac_model.dart';
+import 'package:Expenseye/Providers/Global/db_notifier.dart';
 import 'package:Expenseye/Providers/Global/settings_notifier.dart';
 import 'package:Expenseye/Resources/Themes/app_colors.dart';
 import 'package:Expenseye/Resources/Themes/my_theme_data.dart';
@@ -29,8 +28,7 @@ Future<void> main() async {
     runApp(
       MultiProvider(
         providers: [
-          ChangeNotifierProvider<DbModel>(create: (_) => DbModel()),
-          ChangeNotifierProvider<TransacModel>(create: (_) => TransacModel()),
+          ChangeNotifierProvider<DbNotifier>(create: (_) => DbNotifier()),
           ChangeNotifierProvider<SettingsNotifier>(
             create: (_) => SettingsNotifier(
               darkModeOn ? MyThemeData.darkTheme : MyThemeData.lightTheme,

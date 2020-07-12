@@ -1,4 +1,4 @@
-import 'package:Expenseye/Providers/Global/db_model.dart';
+import 'package:Expenseye/Providers/Global/db_notifier.dart';
 import 'package:flutter/material.dart';
 
 class CategoryPickerBtn extends StatelessWidget {
@@ -32,10 +32,10 @@ class CategoryPickerBtn extends StatelessWidget {
       iconData = Icons.category;
       iconColor = Theme.of(context).focusColor;
     } else {
-      highlightColor = DbModel.catMap[categoryId].color.withOpacity(0.2);
-      splashColor = DbModel.catMap[categoryId].color.withOpacity(0.2);
-      iconData = DbModel.catMap[categoryId].iconData;
-      iconColor = DbModel.catMap[categoryId].color;
+      highlightColor = DbNotifier.catMap[categoryId].color.withOpacity(0.2);
+      splashColor = DbNotifier.catMap[categoryId].color.withOpacity(0.2);
+      iconData = DbNotifier.catMap[categoryId].iconData;
+      iconColor = DbNotifier.catMap[categoryId].color;
     }
 
     return RaisedButton(

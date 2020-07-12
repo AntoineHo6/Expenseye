@@ -2,7 +2,7 @@ import 'package:Expenseye/Components/Global/confirmation_dialog.dart';
 import 'package:Expenseye/Components/Global/load_dialog.dart';
 import 'package:Expenseye/Helpers/database_helper.dart';
 import 'package:Expenseye/Models/account.dart';
-import 'package:Expenseye/Providers/Global/db_model.dart';
+import 'package:Expenseye/Providers/Global/db_notifier.dart';
 import 'package:Expenseye/Providers/Global/settings_notifier.dart';
 import 'package:Expenseye/Utils/check_textfields_util.dart';
 import 'package:Expenseye/app_localizations.dart';
@@ -43,7 +43,7 @@ class EditAccountNotifier extends ChangeNotifier {
         },
       );
 
-      await Provider.of<DbModel>(context, listen: false)
+      await Provider.of<DbNotifier>(context, listen: false)
           .updateAccount(accountId, updatedAccount)
           .then(
             (value) => Navigator.pop(context), // pop out of the loading dialog
@@ -76,8 +76,8 @@ class EditAccountNotifier extends ChangeNotifier {
       ),
     );
 
-    if (confirmed != null && confirmed && DbModel.accMap.length > 1) {
-      final dbNotifier = Provider.of<DbModel>(context, listen: false);
+    if (confirmed != null && confirmed && DbNotifier.accMap.length > 1) {
+      final dbNotifier = Provider.of<DbNotifier>(context, listen: false);
       final settingsNotifier = Provider.of<SettingsNotifier>(context, listen: false);
 
       showDialog(
@@ -107,7 +107,7 @@ class EditAccountNotifier extends ChangeNotifier {
 
       Navigator.pop(context); // pop out of the edit page
       Navigator.pop(context); // pop out of the account page
-    } else if (confirmed != null && confirmed && DbModel.accMap.length == 1) {
+    } else if (confirmed != null && confirmed && DbNotifier.accMap.length == 1) {
       await showDialog(
         context: context,
         barrierDismissible: false,

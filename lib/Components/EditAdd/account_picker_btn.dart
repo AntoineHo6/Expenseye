@@ -1,4 +1,4 @@
-import 'package:Expenseye/Providers/Global/db_model.dart';
+import 'package:Expenseye/Providers/Global/db_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
@@ -40,7 +40,7 @@ class AccountPickerBtn extends StatelessWidget {
               width: spaceBetweenSize,
             ),
             Text(
-              DbModel.accMap[accountId].name,
+              DbNotifier.accMap[accountId].name,
               style: TextStyle(fontSize: fontSize),
             ),
           ],

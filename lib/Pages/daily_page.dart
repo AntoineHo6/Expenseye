@@ -3,10 +3,10 @@ import 'package:Expenseye/Components/Drawer/my_drawer.dart';
 import 'package:Expenseye/Components/Transac/transac_list_tile.dart';
 import 'package:Expenseye/Helpers/google_firebase_helper.dart';
 import 'package:Expenseye/Models/Transac.dart';
-import 'package:Expenseye/Providers/Global/db_model.dart';
-import 'package:Expenseye/Providers/Global/transac_model.dart';
+import 'package:Expenseye/Providers/Global/db_notifier.dart';
 import 'package:Expenseye/Providers/Global/settings_notifier.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
+import 'package:Expenseye/Utils/transac_util.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -25,19 +25,18 @@ class _DailyPageState extends State<DailyPage> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     loadDailyNotifications();
-    final _transacModel = Provider.of<TransacModel>(context);
 
     return Scaffold(
       drawer: MyDrawer(),
       body: FutureBuilder<List<Transac>>(
-        future: Provider.of<DbModel>(context).queryTransacsByDay(widget.day),
+        future: Provider.of<DbNotifier>(context).queryTransacsByDay(widget.day),
         builder: (context, snapshot) {
           // TODO: check for init of DbModel in futurebuilder in main
-          if (snapshot.hasData && DbModel.catMap.length > 0 && DbModel.accMap.length > 0) {
+          if (snapshot.hasData && DbNotifier.catMap.length > 0 && DbNotifier.accMap.length > 0) {
             if (snapshot.data != null && snapshot.data.length > 0) {
-              return mySliverView(snapshot.data, _transacModel, context);
+              return mySliverView(snapshot.data, context);
             } else {
-              return mySliverView([], _transacModel, context);
+              return mySliverView([], context);
             }
           } else {
             return const Align(
@@ -48,15 +47,14 @@ class _DailyPageState extends State<DailyPage> with WidgetsBindingObserver {
         },
       ),
       floatingActionButton: AddTransacFab(
-        onExpensePressed: () => _transacModel.showAddExpense(context, widget.day),
-        onIncomePressed: () => _transacModel.showAddIncome(context, widget.day),
+        onExpensePressed: () => TransacUtil.showAddExpenseDialog(context, widget.day),
+        onIncomePressed: () => TransacUtil.showAddIncomeDialog(context, widget.day),
       ),
     );
   }
 
   CustomScrollView mySliverView(
     List<Transac> transacs,
-    TransacModel transacModel,
     BuildContext context,
   ) {
     return CustomScrollView(
@@ -80,7 +78,7 @@ class _DailyPageState extends State<DailyPage> with WidgetsBindingObserver {
                 child: TransacListTile(
                   transacs[index],
                   contentPadding: const EdgeInsets.all(15),
-                  onPressed: () async => await transacModel.openEditTransac(
+                  onPressed: () async => await TransacUtil.openEditTransacPage(
                     context,
                     transacs[index],
                   ),

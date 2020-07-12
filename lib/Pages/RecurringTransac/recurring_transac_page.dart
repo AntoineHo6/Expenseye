@@ -5,7 +5,7 @@ import 'package:Expenseye/Enums/periodicity.dart';
 import 'package:Expenseye/Models/recurring_transac.dart';
 import 'package:Expenseye/Pages/RecurringTransac/AddRecurringTransac/add_recurring_transac_home_page.dart';
 import 'package:Expenseye/Pages/RecurringTransac/edit_recurring_transac_page.dart';
-import 'package:Expenseye/Providers/Global/db_model.dart';
+import 'package:Expenseye/Providers/Global/db_notifier.dart';
 import 'package:Expenseye/Resources/Themes/app_colors.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
 import 'package:Expenseye/app_localizations.dart';
@@ -39,7 +39,7 @@ class _RecurringTransacPageState extends State<RecurringTransacPage> {
         ],
       ),
       body: FutureBuilder<List<RecurringTransac>>(
-        future: Provider.of<DbModel>(context).queryRecurringTransacs(),
+        future: Provider.of<DbNotifier>(context).queryRecurringTransacs(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             if (snapshot.data != null && snapshot.data.length > 0) {
@@ -116,7 +116,7 @@ class _RecurringTransacPageState extends State<RecurringTransacPage> {
     recurringTransacsByCategoryType[1] = new List(); // incomes
 
     for (RecurringTransac recurringTransac in recurringTransacs) {
-      if (DbModel.catMap[recurringTransac.categoryId].type == TransacType.expense) {
+      if (DbNotifier.catMap[recurringTransac.categoryId].type == TransacType.expense) {
         recurringTransacsByCategoryType[0].add(recurringTransac);
       } else {
         recurringTransacsByCategoryType[1].add(recurringTransac);
@@ -136,16 +136,16 @@ class _RecurringTransacPageState extends State<RecurringTransacPage> {
         return Container(
           margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
           child: RaisedButton(
-            highlightColor: DbModel.catMap[recurringTransac.categoryId].color.withOpacity(0.2),
-            splashColor: DbModel.catMap[recurringTransac.categoryId].color.withOpacity(0.2),
+            highlightColor: DbNotifier.catMap[recurringTransac.categoryId].color.withOpacity(0.2),
+            splashColor: DbNotifier.catMap[recurringTransac.categoryId].color.withOpacity(0.2),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10.0),
             ),
             onPressed: () => _openEditRecurringTransacPage(context, recurringTransac),
             child: ListTile(
               leading: Icon(
-                DbModel.catMap[recurringTransac.categoryId].iconData,
-                color: DbModel.catMap[recurringTransac.categoryId].color,
+                DbNotifier.catMap[recurringTransac.categoryId].iconData,
+                color: DbNotifier.catMap[recurringTransac.categoryId].color,
               ),
               title: Text(
                 recurringTransac.name,
@@ -202,7 +202,7 @@ class _RecurringTransacPageState extends State<RecurringTransacPage> {
       text: TextSpan(
         children: <TextSpan>[
           TextSpan(
-            text: '${DbModel.accMap[recurringTransac.accountId].name}\n',
+            text: '${DbNotifier.accMap[recurringTransac.accountId].name}\n',
             style: TextStyle(
               color: Theme.of(context).textTheme.caption.color,
             ),

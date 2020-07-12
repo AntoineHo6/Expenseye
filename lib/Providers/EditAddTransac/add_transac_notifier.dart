@@ -2,14 +2,14 @@ import 'package:Expenseye/Enums/transac_type.dart';
 import 'package:Expenseye/Models/Transac.dart';
 import 'package:Expenseye/Pages/EditAddTransac/choose_account_page.dart';
 import 'package:Expenseye/Pages/EditAddTransac/choose_category_page.dart';
-import 'package:Expenseye/Providers/Global/db_model.dart';
+import 'package:Expenseye/Providers/Global/db_notifier.dart';
 import 'package:Expenseye/Providers/Global/settings_notifier.dart';
 import 'package:Expenseye/Utils/check_textfields_util.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class AddTransacModel extends ChangeNotifier {
+class AddTransacNotifier extends ChangeNotifier {
   bool isNameInvalid = false;
   bool isAmountInvalid = false;
   bool isCategoryMissingError = false;
@@ -19,7 +19,7 @@ class AddTransacModel extends ChangeNotifier {
   String categoryId;
   String accountId;
 
-  AddTransacModel(this.date, this.type, this.accountId);
+  AddTransacNotifier(this.date, this.type, this.accountId);
 
   // Will make the save button clickable
   void updateDate(DateTime newDate) {
@@ -57,8 +57,8 @@ class AddTransacModel extends ChangeNotifier {
         accountId,
       );
 
-      await Provider.of<DbModel>(context, listen: false).insertTransac(newTransac);
-      Provider.of<DbModel>(context, listen: false).notifyListeners();
+      await Provider.of<DbNotifier>(context, listen: false).insertTransac(newTransac);
+      Provider.of<DbNotifier>(context, listen: false).notifyListeners();
 
       String lastUsedAccountId =
           Provider.of<SettingsNotifier>(context, listen: false).getLastUsedAccountId();

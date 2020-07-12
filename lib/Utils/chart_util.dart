@@ -1,6 +1,6 @@
 import 'package:Expenseye/Enums/transac_type.dart';
 import 'package:Expenseye/Models/Transac.dart';
-import 'package:Expenseye/Providers/Global/db_model.dart';
+import 'package:Expenseye/Providers/Global/db_notifier.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 
 class ChartUtil {
@@ -23,7 +23,7 @@ class ChartUtil {
         domainFn: (CategoryGroup group, _) => group.category.toString(),
         measureFn: (CategoryGroup group, _) => group.total,
         colorFn: (CategoryGroup group, _) => charts.ColorUtil.fromDartColor(
-          DbModel.catMap[group.category].color,
+          DbNotifier.catMap[group.category].color,
         ),
         data: aggregatedExpenses.values.toList(),
         labelAccessorFn: (CategoryGroup row, _) => '${row.category}',

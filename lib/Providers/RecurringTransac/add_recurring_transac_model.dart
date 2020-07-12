@@ -2,7 +2,7 @@ import 'package:Expenseye/Components/Global/load_dialog.dart';
 import 'package:Expenseye/Enums/transac_type.dart';
 import 'package:Expenseye/Enums/periodicity.dart';
 import 'package:Expenseye/Models/recurring_transac.dart';
-import 'package:Expenseye/Providers/Global/db_model.dart';
+import 'package:Expenseye/Providers/Global/db_notifier.dart';
 import 'package:Expenseye/Utils/check_textfields_util.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
 import 'package:flutter/material.dart';
@@ -90,8 +90,9 @@ class AddRecurringTransacModel extends ChangeNotifier {
       },
     );
 
-    await Provider.of<DbModel>(context, listen: false).insertRecurringTransac(newRecurringTransac);
-    await Provider.of<DbModel>(context, listen: false).initCheckRecurringTransacs().then(
+    await Provider.of<DbNotifier>(context, listen: false)
+        .insertRecurringTransac(newRecurringTransac);
+    await Provider.of<DbNotifier>(context, listen: false).initCheckRecurringTransacs().then(
           (value) => Navigator.pop(context), // pop out of the loading dialog
         );
 

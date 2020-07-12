@@ -5,7 +5,7 @@ import 'package:Expenseye/Components/Global/app_bar_btn.dart';
 import 'package:Expenseye/Components/Global/bottom_nav_button.dart';
 import 'package:Expenseye/Enums/transac_type.dart';
 import 'package:Expenseye/Models/Category.dart';
-import 'package:Expenseye/Providers/Category/edit_category_model.dart';
+import 'package:Expenseye/Providers/Category/edit_category_notifier.dart';
 import 'package:Expenseye/Resources/my_icons.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
@@ -26,8 +26,8 @@ class _EditCategoryPageState extends State<EditCategoryPage> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (_) => EditCategoryModel(widget.category),
-      child: Consumer<EditCategoryModel>(
+      create: (_) => EditCategoryNotifier(widget.category),
+      child: Consumer<EditCategoryNotifier>(
         builder: (context, model, child) => Scaffold(
           appBar: AppBar(
             title: Text(widget.category.name),
@@ -95,7 +95,7 @@ class _EditCategoryPageState extends State<EditCategoryPage> {
     );
   }
 
-  List<Widget> _iconList(EditCategoryModel model) {
+  List<Widget> _iconList(EditCategoryNotifier model) {
     final List<IconData> icons =
         (model.type == TransacType.expense) ? MyIcons.expenseIcons : MyIcons.incomeIcons;
 

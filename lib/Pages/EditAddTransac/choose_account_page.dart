@@ -1,4 +1,4 @@
-import 'package:Expenseye/Providers/Global/db_model.dart';
+import 'package:Expenseye/Providers/Global/db_notifier.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
 
@@ -7,7 +7,7 @@ class ChooseAccountPage extends StatelessWidget {
   Widget build(BuildContext context) {
     List<String> accountKeys = new List();
 
-    for (var key in DbModel.accMap.keys) {
+    for (var key in DbNotifier.accMap.keys) {
       accountKeys.add(key);
     }
 
@@ -25,7 +25,7 @@ class ChooseAccountPage extends StatelessWidget {
                   child: RaisedButton(
                     onPressed: () => Navigator.pop(context, accountKey),
                     child: ListTile(
-                      title: Text(DbModel.accMap[accountKey].name),
+                      title: Text(DbNotifier.accMap[accountKey].name),
                     ),
                   ),
                 ),

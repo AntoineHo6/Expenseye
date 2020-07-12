@@ -2,7 +2,7 @@ import 'package:Expenseye/Components/Categories/category_btn.dart';
 import 'package:Expenseye/Components/RecurringTransac/add_rec_transac_steps_header.dart';
 import 'package:Expenseye/Components/Global/bottom_nav_button.dart';
 import 'package:Expenseye/Enums/transac_type.dart';
-import 'package:Expenseye/Providers/Global/db_model.dart';
+import 'package:Expenseye/Providers/Global/db_notifier.dart';
 import 'package:Expenseye/Providers/RecurringTransac/add_recurring_transac_model.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
@@ -23,8 +23,8 @@ class _CategoryStepPageState extends State<CategoryStepPage> with TickerProvider
     final model = Provider.of<AddRecurringTransacModel>(context, listen: false);
     List<String> categoryKeys = new List();
 
-    for (var key in DbModel.catMap.keys) {
-      if (DbModel.catMap[key].type == model.type) {
+    for (var key in DbNotifier.catMap.keys) {
+      if (DbNotifier.catMap[key].type == model.type) {
         categoryKeys.add(key);
       }
     }
@@ -88,9 +88,9 @@ class _CategoryStepPageState extends State<CategoryStepPage> with TickerProvider
           ),
           padding: const EdgeInsets.all(1.5),
           child: CategoryBtn(
-            category: DbModel.catMap[key],
+            category: DbNotifier.catMap[key],
             onPressed: () {
-              model.categoryId = DbModel.catMap[key].id;
+              model.categoryId = DbNotifier.catMap[key].id;
               setState(() {
                 model.isCategorySelected = true;
                 selectedCategoryIndex = index;
@@ -110,16 +110,16 @@ class _CategoryStepPageState extends State<CategoryStepPage> with TickerProvider
         if (selectedCategoryIndex != null && index == selectedCategoryIndex) {
           return Container(
             decoration: BoxDecoration(
-              color: DbModel.catMap[key].color,
+              color: DbNotifier.catMap[key].color,
               borderRadius: const BorderRadius.all(
                 const Radius.circular(13),
               ),
             ),
             padding: const EdgeInsets.all(4),
             child: CategoryBtn(
-              category: DbModel.catMap[key],
+              category: DbNotifier.catMap[key],
               onPressed: () {
-                model.categoryId = DbModel.catMap[key].id;
+                model.categoryId = DbNotifier.catMap[key].id;
                 setState(() => selectedCategoryIndex = index);
               },
             ),
@@ -127,9 +127,9 @@ class _CategoryStepPageState extends State<CategoryStepPage> with TickerProvider
         }
         // other unselected categories
         return CategoryBtn(
-          category: DbModel.catMap[key],
+          category: DbNotifier.catMap[key],
           onPressed: () {
-            model.categoryId = DbModel.catMap[key].id;
+            model.categoryId = DbNotifier.catMap[key].id;
             setState(() {
               model.isCategorySelected = true;
               selectedCategoryIndex = index;

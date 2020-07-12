@@ -6,22 +6,24 @@ class TransacUtil {
   /// E.g. : [ [01, 01], [03, 03, 03], [04] ] where each number represents a
   /// transaction.
   static List<List<Transac>> splitTransacsByDay(List<Transac> transactions) {
-    transactions.sort((b, a) => a.date.compareTo(b.date));
-
     List<List<Transac>> transacsSplitByDay = new List();
 
-    DateTime currentDate = transactions[0].date;
-    int index = 0;
-    transacsSplitByDay.add(new List());
+    if (transactions.length > 0) {
+      transactions.sort((b, a) => a.date.compareTo(b.date));
 
-    for (Transac transac in transactions) {
-      if (transac.date == currentDate) {
-        transacsSplitByDay[index].add(transac);
-      } else {
-        index++;
-        currentDate = transac.date;
-        transacsSplitByDay.add(new List());
-        transacsSplitByDay[index].add(transac);
+      DateTime currentDate = transactions[0].date;
+      int index = 0;
+      transacsSplitByDay.add(new List());
+
+      for (Transac transac in transactions) {
+        if (transac.date == currentDate) {
+          transacsSplitByDay[index].add(transac);
+        } else {
+          index++;
+          currentDate = transac.date;
+          transacsSplitByDay.add(new List());
+          transacsSplitByDay[index].add(transac);
+        }
       }
     }
 

@@ -1,12 +1,20 @@
 import 'package:Expenseye/Resources/Themes/app_colors.dart';
 import 'package:Expenseye/app_localizations.dart';
 import 'package:flutter/material.dart';
-import 'package:Expenseye/Components/Global/total_box.dart';
+import 'package:Expenseye/Components/Global/future_total_box.dart';
 
 class MonthlyYearlyHeader extends StatelessWidget {
-  final pageModel; // MonthlyModel or YearlyModel
+  final String title;
+  final Future<double> incomesTotalFuture;
+  final Future<double> expensesTotalFuture;
+  final Future<double> balanceTotalFuture;
 
-  MonthlyYearlyHeader({this.pageModel});
+  MonthlyYearlyHeader({
+    this.title,
+    this.incomesTotalFuture,
+    this.expensesTotalFuture,
+    this.balanceTotalFuture,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +27,7 @@ class MonthlyYearlyHeader extends StatelessWidget {
             child: Container(
               margin: const EdgeInsets.only(bottom: 15),
               child: Text(
-                pageModel.getTitle(context),
+                title,
                 style: TextStyle(fontSize: 55, fontWeight: FontWeight.w100),
               ),
             ),
@@ -28,22 +36,20 @@ class MonthlyYearlyHeader extends StatelessWidget {
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              TotalBox(
+              FutureTotalBox(
                 title: AppLocalizations.of(context).translate('income'),
-                total: '+${pageModel.currentIncomeTotal.toStringAsFixed(2)} \$',
-                textColor: ColorChooserFromTheme.incomeColor,
-              ),
-              const SizedBox(width: 5),
-              TotalBox(
-                title: AppLocalizations.of(context).translate('expense'),
-                total: '-${pageModel.currentExpenseTotal.toStringAsFixed(2)} \$',
                 textColor: ColorChooserFromTheme.expenseColor,
+                future: incomesTotalFuture,
               ),
-              const SizedBox(width: 5),
-              TotalBox(
+              FutureTotalBox(
+                title: AppLocalizations.of(context).translate('expense'),
+                textColor: ColorChooserFromTheme.incomeColor,
+                future: expensesTotalFuture,
+              ),
+              FutureTotalBox(
                 title: AppLocalizations.of(context).translate('balance'),
-                total: '${pageModel.currentTotal.toStringAsFixed(2)} \$',
                 textColor: ColorChooserFromTheme.balanceColor,
+                future: balanceTotalFuture,
               ),
             ],
           ),

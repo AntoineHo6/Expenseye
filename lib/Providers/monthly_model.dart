@@ -6,18 +6,12 @@ class MonthlyModel extends ChangeNotifier {
   DateTime currentDate;
   String yearMonthAbbr;
   String yearMonth;
-  double currentTotal;
-  double currentExpenseTotal;
-  double currentIncomeTotal;
   int pageIndex;
 
   MonthlyModel(BuildContext context, DateTime date) {
     currentDate = date;
     updateYearMonthAbbr(context, currentDate);
     updateYearMonthString(currentDate);
-    currentTotal = 0;
-    currentExpenseTotal = 0;
-    currentIncomeTotal = 0;
     pageIndex = 0;
   }
 
@@ -51,8 +45,6 @@ class MonthlyModel extends ChangeNotifier {
   void updateYearMonthAbbr(BuildContext context, DateTime newMonth) {
     yearMonthAbbr =
         '${AppLocalizations.of(context).translate(DateTimeUtil.monthAbb[newMonth.month])} ${newMonth.year}';
-    // yearMonthAbbr =
-    //     '${AppLocalizations.of(context).translate(DateTimeUtil.monthAbb[newMonth.month])}';
   }
 
   /// Returns String format of DateTime containing strictly it's month & year,
@@ -77,13 +69,5 @@ class MonthlyModel extends ChangeNotifier {
       updateYearMonthAbbr(context, currentDate);
       notifyListeners();
     }
-  }
-
-  void resetTotals() {
-    currentTotal = 0;
-    currentIncomeTotal = 0;
-    currentExpenseTotal = 0;
-
-    notifyListeners();
   }
 }

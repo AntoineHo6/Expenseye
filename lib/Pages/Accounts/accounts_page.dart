@@ -1,5 +1,5 @@
 import 'package:Expenseye/Components/Global/app_bar_btn.dart';
-import 'package:Expenseye/Components/Global/total_box.dart';
+import 'package:Expenseye/Components/Global/future_total_box.dart';
 import 'package:Expenseye/Helpers/database_helper.dart';
 import 'package:Expenseye/Models/account.dart';
 import 'package:Expenseye/Pages/Accounts/account_page.dart';
@@ -41,35 +41,20 @@ class AccountsPage extends StatelessWidget {
                   margin: const EdgeInsets.fromLTRB(10, 10, 10, 0),
                   child: Row(
                     children: <Widget>[
-                      FutureBuilder<double>(
+                      FutureTotalBox(
+                        title: AppLocalizations.of(context).translate('assets'),
                         future: DatabaseHelper.instance.queryIncomesTotal(),
-                        builder: (context, snapshot) {
-                          return TotalBox(
-                            title: AppLocalizations.of(context).translate('assets'),
-                            total: '+${snapshot.data.toStringAsFixed(2)}',
-                            textColor: ColorChooserFromTheme.incomeColor,
-                          );
-                        },
+                        textColor: ColorChooserFromTheme.incomeColor,
                       ),
-                      FutureBuilder<double>(
+                      FutureTotalBox(
+                        title: AppLocalizations.of(context).translate('liabilities'),
                         future: DatabaseHelper.instance.queryExpensesTotal(),
-                        builder: (context, snapshot) {
-                          return TotalBox(
-                            title: AppLocalizations.of(context).translate('liabilities'),
-                            total: '-${snapshot.data.toStringAsFixed(2)}',
-                            textColor: ColorChooserFromTheme.expenseColor,
-                          );
-                        },
+                        textColor: ColorChooserFromTheme.expenseColor,
                       ),
-                      FutureBuilder<double>(
+                      FutureTotalBox(
+                        title: AppLocalizations.of(context).translate('total'),
                         future: DatabaseHelper.instance.queryTransacsTotal(),
-                        builder: (context, snapshot) {
-                          return TotalBox(
-                            title: AppLocalizations.of(context).translate('total'),
-                            total: snapshot.data.toStringAsFixed(2),
-                            textColor: ColorChooserFromTheme.balanceColor,
-                          );
-                        },
+                        textColor: ColorChooserFromTheme.balanceColor,
                       ),
                     ],
                   ),

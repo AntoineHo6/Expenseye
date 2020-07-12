@@ -253,52 +253,86 @@ class DatabaseHelper {
     return convertMapsToTransacs(maps);
   }
 
-  Future<double> queryIncomesTotal() async {
+  Future<double> queryIncomesTotal({String where}) async {
     Database db = await database;
+    String query = '''  SELECT SUM(${Strings.transacColumnValue}) as Total 
+                        FROM ${Strings.tableTransacs} 
+                        WHERE ${Strings.transacColumnType}=1
+                   ''';
 
-    var total = await db.rawQuery(
-      ''' SELECT SUM(${Strings.transacColumnValue}) as Total 
-          FROM ${Strings.tableTransacs} 
-          WHERE ${Strings.transacColumnType}=1;
-      ''',
-    );
+    if (where != null) {
+      query = query + 'AND $where';
+    }
+    var total = await db.rawQuery(query);
 
-    return total[0]['Total'];
+    return total[0]['Total'] ?? 0;
   }
 
-  Future<double> queryExpensesTotal() async {
+  Future<double> queryExpensesTotal({String where}) async {
     Database db = await database;
+    String query = '''  SELECT SUM(${Strings.transacColumnValue}) as Total 
+                        FROM ${Strings.tableTransacs} 
+                        WHERE ${Strings.transacColumnType}=0
+                   ''';
 
-    var total = await db.rawQuery(
-      ''' SELECT SUM(${Strings.transacColumnValue}) as Total 
-          FROM ${Strings.tableTransacs} 
-          WHERE ${Strings.transacColumnType}=0;
-      ''',
-    );
+    if (where != null) {
+      query = query + 'AND $where';
+    }
+    var total = await db.rawQuery(query);
 
-    return total[0]['Total'];
+    return total[0]['Total'] ?? 0;
   }
 
-  Future<double> queryTransacsTotal() async {
+  Future<double> queryTransacsTotal({String where}) async {
     Database db = await database;
+    String expensesQuery = '''  SELECT SUM(${Strings.transacColumnValue}) as expensesTotal 
+                                FROM ${Strings.tableTransacs} 
+                                WHERE ${Strings.transacColumnType}=0
+                           ''';
+    String incomesQuery = ''' SELECT SUM(${Strings.transacColumnValue}) as incomesTotal 
+                              FROM ${Strings.tableTransacs} 
+                              WHERE ${Strings.transacColumnType}=1
+                          ''';
+    if (where != null) {
+      expensesQuery = expensesQuery + 'AND $where';
+      incomesQuery = incomesQuery + 'AND $where';
+    }
 
-    var expensesTotalMap = await db.rawQuery(
-      ''' SELECT SUM(${Strings.transacColumnValue}) as expensesTotal 
-          FROM ${Strings.tableTransacs} 
-          WHERE ${Strings.transacColumnType}=0;
-      ''',
-    );
-    var incomesTotalMap = await db.rawQuery(
-      ''' SELECT SUM(${Strings.transacColumnValue}) as incomeTotal 
-          FROM ${Strings.tableTransacs} 
-          WHERE ${Strings.transacColumnType}=1;
-      ''',
-    );
+    var expensesTotalMap = await db.rawQuery(expensesQuery);
+    var incomesTotalMap = await db.rawQuery(incomesQuery);
 
-    double expensesTotal = expensesTotalMap[0]['expensesTotal'];
-    double incomesTotal = incomesTotalMap[0]['incomeTotal'];
+    double expensesTotal = expensesTotalMap[0]['expensesTotal'] ?? 0;
+    double incomesTotal = incomesTotalMap[0]['incomesTotal'] ?? 0;
 
     return incomesTotal - expensesTotal;
+  }
+
+  Future<double> queryIncomesTotalInMonth(String yearMonth) async {
+    Database db = await database;
+
+    var total = await db.rawQuery(
+      ''' SELECT SUM(${Strings.transacColumnValue}) as Total 
+          FROM ${Strings.tableTransacs} 
+          WHERE ${Strings.transacColumnType}=1 
+          AND ${Strings.transacColumnDate} LIKE \'$yearMonth%\';
+      ''',
+    );
+
+    return total[0]['Total'];
+  }
+
+  Future<double> queryExpensesTotalInMonth(String yearMonth) async {
+    Database db = await database;
+
+    var total = await db.rawQuery(
+      ''' SELECT SUM(${Strings.transacColumnValue}) as Total 
+          FROM ${Strings.tableTransacs} 
+          WHERE ${Strings.transacColumnType}=0
+          AND ${Strings.transacColumnDate} LIKE \'$yearMonth%\';
+      ''',
+    );
+
+    return total[0]['Total'];
   }
 
   Future<List<Transac>> queryTransacsInDate(DateTime date) async {

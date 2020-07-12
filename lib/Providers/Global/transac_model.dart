@@ -37,35 +37,4 @@ class TransacModel extends ChangeNotifier {
       Scaffold.of(context).showSnackBar(snackBar);
     }
   }
-
-  // TODO: change to sql SUM
-  void calcTotals(dynamic model, List<Transac> transacs) {
-    double total = 0;
-    double expenseTotal = 0;
-    double incomeTotal = 0;
-
-    for (var transac in transacs) {
-      switch (transac.type) {
-        case TransacType.expense:
-          expenseTotal += transac.amount;
-          total -= transac.amount;
-          break;
-        case TransacType.income:
-          incomeTotal += transac.amount;
-          total += transac.amount;
-          break;
-      }
-    }
-
-    model.currentTotal = total;
-    model.currentExpenseTotal = expenseTotal;
-    model.currentIncomeTotal = incomeTotal;
-
-    //notifyListeners();
-  }
-
-  // TODO: REMOVE
-  String totalString(double total) {
-    return '${total.toStringAsFixed(2)} \$';
-  }
 }

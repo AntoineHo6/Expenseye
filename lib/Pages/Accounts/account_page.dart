@@ -1,10 +1,7 @@
 import 'package:Expenseye/Components/Global/app_bar_btn.dart';
-import 'package:Expenseye/Components/Transac/transac_list_tile.dart';
 import 'package:Expenseye/Components/Transac/transacs_day_box.dart';
-import 'package:Expenseye/Helpers/database_helper.dart';
 import 'package:Expenseye/Models/Transac.dart';
 import 'package:Expenseye/Pages/Accounts/edit_account_page.dart';
-import 'package:Expenseye/Pages/EditAddTransac/edit_transac_page.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
 import 'package:Expenseye/Utils/transac_util.dart';
 import 'package:flutter/material.dart';

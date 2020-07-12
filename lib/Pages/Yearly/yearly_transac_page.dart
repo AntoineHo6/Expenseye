@@ -1,10 +1,11 @@
 import 'package:Expenseye/Components/Transac/monthly_yearly_header.dart';
 import 'package:Expenseye/Components/Global/colored_dot.dart';
+import 'package:Expenseye/Helpers/database_helper.dart';
 import 'package:Expenseye/Models/Transac.dart';
 import 'package:Expenseye/Pages/Monthly/monthly_home_page.dart';
 import 'package:Expenseye/Providers/Global/db_model.dart';
-import 'package:Expenseye/Providers/Global/transac_model.dart';
 import 'package:Expenseye/Providers/yearly_model.dart';
+import 'package:Expenseye/Resources/Strings.dart';
 import 'package:Expenseye/Resources/Themes/app_colors.dart';
 import 'package:Expenseye/Utils/date_time_util.dart';
 import 'package:Expenseye/Utils/transac_util.dart';
@@ -15,43 +16,42 @@ import 'package:provider/provider.dart';
 class YearlyTransacPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final _transacModel = Provider.of<TransacModel>(context);
     final _yearlyModel = Provider.of<YearlyModel>(context);
 
     return Scaffold(
       body: FutureBuilder<List<Transac>>(
         future: Provider.of<DbModel>(context).queryTransacsInYear(_yearlyModel.year),
         builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            if (snapshot.data != null && snapshot.data.length > 0) {
-              var transacsSplitByMonth = _yearlyModel.splitTransacsByMonth(snapshot.data);
-              _transacModel.calcTotals(_yearlyModel, snapshot.data);
-              return Column(
-                children: <Widget>[
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: transacsSplitByMonth.length + 1,
-                      itemBuilder: (context, i) {
-                        if (i == 0) {
-                          return MonthlyYearlyHeader(
-                            pageModel: _yearlyModel,
-                          );
-                        }
-                        return _MonthContainer(transacsSplitByMonth[i - 1]);
-                      },
-                    ),
+          if (snapshot.hasData && snapshot.data != null) {
+            var transacsSplitByMonth = _yearlyModel.splitTransacsByMonth(snapshot.data);
+            return Column(
+              children: <Widget>[
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: transacsSplitByMonth.length + 1,
+                    itemBuilder: (context, i) {
+                      if (i == 0) {
+                        String sqlYearCondition =
+                            '${Strings.transacColumnDate} LIKE \'${_yearlyModel.year}%\'';
+                        return MonthlyYearlyHeader(
+                          title: _yearlyModel.getTitle(context),
+                          incomesTotalFuture: DatabaseHelper.instance.queryIncomesTotal(
+                            where: sqlYearCondition,
+                          ),
+                          expensesTotalFuture: DatabaseHelper.instance.queryExpensesTotal(
+                            where: sqlYearCondition,
+                          ),
+                          balanceTotalFuture: DatabaseHelper.instance.queryTransacsTotal(
+                            where: sqlYearCondition,
+                          ),
+                        );
+                      }
+                      return _MonthContainer(transacsSplitByMonth[i - 1]);
+                    },
                   ),
-                ],
-              );
-            } else {
-              _transacModel.calcTotals(_yearlyModel, snapshot.data);
-              return Align(
-                alignment: Alignment.topCenter,
-                child: MonthlyYearlyHeader(
-                  pageModel: _yearlyModel,
                 ),
-              );
-            }
+              ],
+            );
           } else {
             return const Align(
               alignment: Alignment.center,
@@ -71,14 +71,12 @@ class _MonthContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _transacModel = Provider.of<TransacModel>(context, listen: false);
-
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       child: RaisedButton(
         elevation: 3,
         padding: const EdgeInsets.all(10),
-        onPressed: () => openMonthsPage(context, transacs[0].date),
+        onPressed: () => _openMonthsPage(context, transacs[0].date),
         child: Column(
           children: <Widget>[
             Row(
@@ -92,9 +90,7 @@ class _MonthContainer extends StatelessWidget {
                 Container(
                   margin: EdgeInsets.only(right: 11),
                   child: Text(
-                    _transacModel.totalString(
-                      TransacUtil.calcTransacsTotal(transacs),
-                    ),
+                    '${TransacUtil.calcTransacsTotal(transacs).toStringAsFixed(2)} \$',
                     style: TextStyle(
                       color: ColorChooserFromTheme.balanceColor,
                     ),
@@ -126,7 +122,7 @@ class _MonthContainer extends StatelessWidget {
     );
   }
 
-  void openMonthsPage(BuildContext context, DateTime date) {
+  void _openMonthsPage(BuildContext context, DateTime date) {
     Navigator.push(
       context,
       MaterialPageRoute(

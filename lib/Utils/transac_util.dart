@@ -51,17 +51,11 @@ class TransacUtil {
     return total;
   }
 
-  static Future<void> showAddExpenseDialog(BuildContext context, DateTime initialDate) async {
+  static Future<void> showAddTransacDialog(
+      BuildContext context, DateTime initialDate, TransacType type) async {
     await showDialog(
       context: context,
-      builder: (_) => AddTransacDialog(initialDate, TransacType.expense),
-    );
-  }
-
-  static Future<void> showAddIncomeDialog(BuildContext context, DateTime initialDate) async {
-    await showDialog(
-      context: context,
-      builder: (_) => AddTransacDialog(initialDate, TransacType.income),
+      builder: (_) => AddTransacDialog(initialDate, type),
     );
   }
 

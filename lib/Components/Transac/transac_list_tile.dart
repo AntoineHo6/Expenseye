@@ -12,8 +12,15 @@ class TransacListTile extends StatelessWidget {
   final EdgeInsets contentPadding;
   final Function onPressed;
   final Color color;
+  final bool dense;
 
-  TransacListTile(this.transac, {this.contentPadding, this.onPressed, this.color});
+  TransacListTile(
+    this.transac, {
+    this.contentPadding,
+    this.onPressed,
+    this.color,
+    this.dense = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +39,7 @@ class TransacListTile extends StatelessWidget {
       highlightColor: categoryColor.withOpacity(0.2),
       splashColor: categoryColor.withOpacity(0.2),
       child: ListTile(
+        dense: dense,
         contentPadding: contentPadding,
         leading: Icon(
           iconData,

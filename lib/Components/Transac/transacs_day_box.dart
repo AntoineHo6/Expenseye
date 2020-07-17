@@ -7,8 +7,9 @@ import 'package:flutter/material.dart';
 
 class TransacsDayBox extends StatelessWidget {
   final List<Transac> transacs;
+  final bool dense;
 
-  TransacsDayBox(this.transacs);
+  TransacsDayBox(this.transacs, {this.dense = false});
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +50,7 @@ class TransacsDayBox extends StatelessWidget {
                     margin: const EdgeInsets.symmetric(vertical: 5),
                     child: TransacListTile(
                       transac,
+                      dense: dense,
                       onPressed: () async => await TransacUtil.openEditTransacPage(
                         context,
                         transac,

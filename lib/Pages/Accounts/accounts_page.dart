@@ -76,7 +76,7 @@ class AccountsPage extends StatelessWidget {
                                 ],
                               ),
                               trailing: Text(
-                                account.balance.toString(),
+                                account.balance.toStringAsFixed(2),
                                 style: TextStyle(
                                   color: ColorChooserFromTheme.balanceColor,
                                 ),

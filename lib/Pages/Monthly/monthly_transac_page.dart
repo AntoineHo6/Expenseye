@@ -1,6 +1,7 @@
 import 'package:Expenseye/Components/Transac/monthly_yearly_header.dart';
 import 'package:Expenseye/Components/Global/add_transac_fab.dart';
 import 'package:Expenseye/Components/Transac/transacs_day_box.dart';
+import 'package:Expenseye/Enums/transac_type.dart';
 import 'package:Expenseye/Helpers/database_helper.dart';
 import 'package:Expenseye/Models/Transac.dart';
 import 'package:Expenseye/Providers/Global/db_notifier.dart';
@@ -65,9 +66,10 @@ class MonthlyTransacPage extends StatelessWidget {
         },
       ),
       floatingActionButton: AddTransacFab(
-        onExpensePressed: () =>
-            TransacUtil.showAddExpenseDialog(context, _monthlyModel.currentDate),
-        onIncomePressed: () => TransacUtil.showAddIncomeDialog(context, _monthlyModel.currentDate),
+        onExpensePressed: () => TransacUtil.showAddTransacDialog(
+            context, _monthlyModel.currentDate, TransacType.expense),
+        onIncomePressed: () => TransacUtil.showAddTransacDialog(
+            context, _monthlyModel.currentDate, TransacType.income),
       ),
     );
   }

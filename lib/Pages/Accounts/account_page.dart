@@ -40,7 +40,10 @@ class _AccountPageState extends State<AccountPage> {
             return ListView.builder(
               itemCount: transacsSplitByDay.length,
               itemBuilder: (context, i) {
-                return TransacsDayBox(transacsSplitByDay[i]);
+                return TransacsDayBox(
+                  transacsSplitByDay[i],
+                  dense: true,
+                );
               },
             );
           } else {

@@ -1,6 +1,7 @@
 import 'package:Expenseye/Components/Global/add_transac_fab.dart';
 import 'package:Expenseye/Components/Drawer/my_drawer.dart';
 import 'package:Expenseye/Components/Transac/transac_list_tile.dart';
+import 'package:Expenseye/Enums/transac_type.dart';
 import 'package:Expenseye/Helpers/google_firebase_helper.dart';
 import 'package:Expenseye/Models/Transac.dart';
 import 'package:Expenseye/Providers/Global/db_notifier.dart';
@@ -47,8 +48,10 @@ class _DailyPageState extends State<DailyPage> with WidgetsBindingObserver {
         },
       ),
       floatingActionButton: AddTransacFab(
-        onExpensePressed: () => TransacUtil.showAddExpenseDialog(context, widget.day),
-        onIncomePressed: () => TransacUtil.showAddIncomeDialog(context, widget.day),
+        onExpensePressed: () =>
+            TransacUtil.showAddTransacDialog(context, widget.day, TransacType.expense),
+        onIncomePressed: () =>
+            TransacUtil.showAddTransacDialog(context, widget.day, TransacType.income),
       ),
     );
   }

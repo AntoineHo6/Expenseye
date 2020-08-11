@@ -5,6 +5,7 @@ import 'package:Expenseye/Providers/Global/settings_notifier.dart';
 import 'package:Expenseye/Resources/Themes/app_colors.dart';
 import 'package:Expenseye/Resources/Themes/my_theme_data.dart';
 import 'package:Expenseye/app_localizations.dart';
+import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -15,6 +16,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  FirebaseAdMob.instance.initialize(appId: 'ca-app-pub-1444794986567384~9428228539');
   bool darkModeOn;
   int localNotifHour;
   int localNotifMinute;
@@ -49,8 +51,30 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  BannerAd _bannerAd;
+
+  BannerAd createBannerAd() {
+    return BannerAd(
+      // adUnitId: 'ca-app-pub-1444794986567384/6667275772',
+      adUnitId: BannerAd.testAdUnitId,
+      size: AdSize.banner,
+      listener: (MobileAdEvent event) {
+        print("BannerAd event $event");
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    _bannerAd ??= createBannerAd();
+    _bannerAd
+      ..load()
+      ..show(
+        anchorType: AnchorType.bottom,
+        anchorOffset: 0.0,
+        horizontalCenterOffset: 0.0,
+      );
+
     final settingsNotifier = Provider.of<SettingsNotifier>(context);
     if (settingsNotifier.getTheme() == MyThemeData.lightTheme) {
       SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
@@ -81,6 +105,12 @@ class _MyAppState extends State<MyApp> {
         return supportedLocales.first;
       },
       home: DailyPage(),
+      builder: (context, child) {
+        return Padding(
+          padding: const EdgeInsets.only(bottom: 60),
+          child: child,
+        );
+      },
       theme: settingsNotifier.getTheme(),
     );
   }
@@ -129,13 +159,21 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
+    _bannerAd = createBannerAd()..load();
+
     final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-    var initializationSettingsAndroid = AndroidInitializationSettings('app_icon');
+    var initializationSettingsAndroid = AndroidInitializationSettings('notification_icon');
     var initializationSettingsIOS =
         IOSInitializationSettings(onDidReceiveLocalNotification: onDidReceiveLocalNotification);
     var initializationSettings =
         InitializationSettings(initializationSettingsAndroid, initializationSettingsIOS);
     flutterLocalNotificationsPlugin.initialize(initializationSettings,
         onSelectNotification: selectNotification);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _bannerAd?.dispose();
   }
 }

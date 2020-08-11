@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:Expenseye/Resources/Strings.dart';
+import 'package:flutter/services.dart';
 import 'package:path/path.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -32,24 +33,24 @@ class GoogleFirebaseHelper {
         user = res.user;
         String _storageFilePath = 'dbFiles/${user.uid}/${Strings.dbFileName}';
 
-        // copy db file
+        // download db file
         try {
           final ref = _storage.ref().child(_storageFilePath);
           var url = await ref.getDownloadURL();
 
-          Directory documentsDirectory =
-              await getApplicationDocumentsDirectory();
+          Directory documentsDirectory = await getApplicationDocumentsDirectory();
           String path = join(documentsDirectory.path, Strings.dbFileName);
 
           await HttpClient()
               .getUrl(Uri.parse(url))
               .then((HttpClientRequest request) => request.close())
-              .then((HttpClientResponse response) =>
-                  response.pipe(new File(path).openWrite()));
+              .then((HttpClientResponse response) => response.pipe(new File(path).openWrite()));
 
           return true;
         } catch (e) {
           print('Error copying the db file from firebase storage');
+          print('REEEEEEEEEEEEEEEEEEEEEEEEEEE');
+          await logOut();
         }
       }
     } catch (e) {
@@ -74,10 +75,8 @@ class GoogleFirebaseHelper {
       String path = join(documentsDirectory.path, Strings.dbFileName);
       File dbFile = File(path);
 
-      StorageUploadTask uploadTask = _storage
-          .ref()
-          .child('dbFiles/${user.uid}/${Strings.dbFileName}')
-          .putFile(dbFile);
+      StorageUploadTask uploadTask =
+          _storage.ref().child('dbFiles/${user.uid}/${Strings.dbFileName}').putFile(dbFile);
 
       StorageTaskSnapshot storageTaskSnapshot = await uploadTask.onComplete;
       await storageTaskSnapshot.ref.getDownloadURL();

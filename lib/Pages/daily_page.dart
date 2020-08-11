@@ -26,19 +26,17 @@ class _DailyPageState extends State<DailyPage> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     loadDailyNotifications();
-
     return Scaffold(
       drawer: MyDrawer(),
       body: FutureBuilder<List<Transac>>(
         future: Provider.of<DbNotifier>(context).queryTransacsByDay(widget.day),
         builder: (context, snapshot) {
           // TODO: check for init of DbModel in futurebuilder in main
-          if (snapshot.hasData && DbNotifier.catMap.length > 0 && DbNotifier.accMap.length > 0) {
-            if (snapshot.data != null && snapshot.data.length > 0) {
-              return mySliverView(snapshot.data, context);
-            } else {
-              return mySliverView([], context);
-            }
+          if (snapshot.hasData &&
+              DbNotifier.catMap.length > 0 &&
+              DbNotifier.accMap.length > 0 &&
+              snapshot.data != null) {
+            return mySliverView(snapshot.data, context);
           } else {
             return const Align(
               alignment: Alignment.center,
@@ -56,7 +54,7 @@ class _DailyPageState extends State<DailyPage> with WidgetsBindingObserver {
     );
   }
 
-  CustomScrollView mySliverView(
+  Widget mySliverView(
     List<Transac> transacs,
     BuildContext context,
   ) {

@@ -16,7 +16,7 @@ class SettingsPage extends StatelessWidget {
       body: Column(
         children: <Widget>[
           Card(
-            margin: const EdgeInsets.all(10),
+            margin: const EdgeInsets.only(left: 10, top: 10, right: 10),
             child: Padding(
               padding: const EdgeInsets.all(15),
               child: Row(
@@ -41,7 +41,7 @@ class SettingsPage extends StatelessWidget {
             ),
           ),
           Card(
-            margin: const EdgeInsets.all(10),
+            margin: const EdgeInsets.only(left: 10, top: 10, right: 10),
             child: Padding(
               padding: const EdgeInsets.all(15),
               child: Row(
